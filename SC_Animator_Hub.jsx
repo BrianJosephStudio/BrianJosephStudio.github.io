@@ -1,9 +1,8 @@
 //The Animator Hub v1.0.0
 //Author: Brian Joseph Studio
 
-var currentVersion = "1.0.0";
-
 //Global Variables
+var currentVersion = "0.5.0";
 var targetComp = 0;
 
 
@@ -137,28 +136,28 @@ function generateGTR()
 
 
 //Update Animator Hub
-var image1 = "https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/79952966_10221317538751414_2379918413247021056_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=XvWfinnQbP8AX-36kh4&_nc_ht=scontent-mad1-1.xx&oh=00_AT_YnrjrW8XYRRvTlcO17c9Uk9Lhs4p8nXTcxdsA7niV_w&oe=62C416BE";
-var cl1 = "D:"; 
-var cl2 = 'cd D:\\"Dropbox (personal)"\\"Brian Joseph"\\STUDIO\\Test_Folder';
-var versionCheckFile = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
-var versionCheck = JSON.parse(versionCheckFile);
-var latestVerion = versionCheck.latestVersion;
-var latestAnimatorHub = versionCheck.downloadURL;
+
 
 
 
 function updateScript() {
+    var cl1 = "D:"; 
+    var cl2 = 'cd D:\\"Dropbox (personal)"\\"Brian Joseph"\\STUDIO\\Test_Folder';
+    var versionCheckFile = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
+    var versionCheck = JSON.parse(versionCheckFile);
+    var latestVersion = versionCheck.latestVersion;
+    var latestAnimatorHub = versionCheck.downloadURL;
    try
    {
-        if (versionCheck == currentVersion)
+        if (latestVersion == currentVersion)
         {
             alert("Animator Hub: Seems like you're up to date mate!");
         }
         else
         {
-            system.callSystem('cmd.exe /c '+cl1+" && "+cl2+" && "+'curl -L -o "Animator Hub.jsx"'+latestAnimatorHub);
+            system.callSystem('cmd.exe /c '+cl1+" && "+cl2+" && "+'curl -L -o "Animator Hub.jsx "'+latestAnimatorHub);
             alert('Animator Hub: You have succesfully updated to the latest verion! Please re-tart After Effects to reflect changes.');
-        }
+        };
    }
    catch(e)
    {
@@ -240,7 +239,3 @@ function updateScript() {
     }
     myScript(this);
 }
-
-
-//SkillCapped Animator Hub v0.2.0
-//Author: Brian Joseph Ure ('The Battleship')
