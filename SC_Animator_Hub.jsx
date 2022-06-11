@@ -1,8 +1,9 @@
-//The Animator Hub v1.0.0
+//The Animator Hub v0.6.0
 //Author: Brian Joseph Studio
 
 //Global Variables
-var currentVersion = "0.5.0";
+var currentVersion = "0.6.0";
+var patchNotesBodyText = "Welcome to the beta release of the Animator Hub! \n\n-The Animator Hub can now do updates from within itself by clicking on the 'Search For Updates' button! (This function requires an active internet connection).";
 var targetComp = 0;
 
 
@@ -140,31 +141,32 @@ function generateGTR()
 
 
 
-function updateScript() {
+function updateScript() 
+{
     var cl1 = "D:"; 
     var cl2 = 'cd D:\\"Dropbox (personal)"\\"Brian Joseph"\\STUDIO\\Test_Folder';
     var versionCheckFile = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
     var versionCheck = JSON.parse(versionCheckFile);
     var latestVersion = versionCheck.latestVersion;
     var latestAnimatorHub = versionCheck.downloadURL;
-   try
-   {
-        if (latestVersion == currentVersion)
-        {
-            alert("Animator Hub: Seems like you're up to date mate!");
-        }
-        else
-        {
-            system.callSystem('cmd.exe /c '+cl1+" && "+cl2+" && "+'curl -L -o "Animator Hub.jsx "'+latestAnimatorHub);
-            alert('Animator Hub: You have succesfully updated to the latest verion! Please re-tart After Effects to reflect changes.');
-        };
-   }
-   catch(e)
-   {
-    alert("There's an error in function 'updateScript'. Go talk to Brian!")
-   };
-};
+    if (latestVersion == currentVersion)
+    {
 
+        alert("Animator Hub: Seems like you're up to date mate!");
+    }
+    else
+    {
+        try
+        {
+            system.callSystem('cmd.exe /c '+cl1+" && "+cl2+" && "+'curl -L -o "Animator Hub.jsx" '+latestAnimatorHub);
+        }
+        catch(e)
+        {
+            alert("There's an error in function 'updateScript'. Go talk to Brian!")
+        };
+        alert('Animator Hub: You have succesfully updated to the latest verion! Please re-tart After Effects to reflect changes.');
+    };
+};
 //UI Panel Structure
 {
     function myScript(thisObj){
@@ -172,7 +174,7 @@ function updateScript() {
             var hub = (thisObj instanceof Panel) ? thisObj : new Window("palette", "SC Animator Hub", undefined, {resizeable:true, closeButton: true});                          
                 hub.main = hub.add ('group {preferredSize: [600, 500], alignChildren: ["left","top"]}');
                 hub.main.orientation = "column";
-                    hub.main.add('statictext{text:"Workspace"}')
+                    hub.main.add('statictext{text:"Select a Workspace"}')
                     hub.stubs = hub.main.add ('dropdownlist', undefined, ['Topic Titles','Updates & Patch Notes']);
                     hub.stubs.alignment = "fill";
                     hub.tabGroup = hub.main.add ('group {alignment: ["fill","fill"], orientation: "stack"}');
@@ -196,11 +198,17 @@ function updateScript() {
                                 hub.tabs[1] = hub.tabGroup.add ("group");
                                 hub.tabs[1].add ('panel {preferredSize: [-1, -10]}');
                                 hub.tabs[1].orientation = "column";
-                                    updateTabGroup = hub.tabs[1].add("group",undefined,"");
-                                    updateTabGroup.orientation = "row";
-                                    updateTabGroup.alignment = "right";
-                                    currentVersion = updateTabGroup.add ("statictext",undefined,"Current Version: 0.1.2");
-                                    updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
+                                updateTabGroup = hub.tabs[1].add("group",undefined,"");
+                                updateTabGroup.orientation = "row";
+                                updateTabGroup.alignment = "right";
+                                currentVersion = updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
+                                updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
+                                patchNotes = hub.tabs[1].add("panel",undefined,"Patch Notes 0.6.0");
+                                patchNotes.orientation = "column";
+                                patchNotes.alignment = "fill";
+                                    patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
+                                    patchNotesBody.alignment = "left";
+                                    patchNotesBody.bounds = [0,0,300,100];
                             //
                 for (var i = 0; i < hub.tabs.length; i++) {
                     hub.tabs[i].orientation = 'column';
