@@ -1,11 +1,10 @@
-//The Animator Hub v0.6.0
+//The Animator Hub v0.6.1
 //Author: Brian Joseph Studio
 
 //Global Variables
-var currentVersion = "0.6.0";
+var currentVersion = '0.6.1';
 var patchNotesBodyText = "Welcome to the beta release of the Animator Hub! \n\n-The Animator Hub can now do updates from within itself by clicking on the 'Search For Updates' button! (This function requires an active internet connection).";
 var targetComp = 0;
-
 
 //FUNCTIONS
 
@@ -135,11 +134,7 @@ function generateGTR()
     };
 };
 
-
 //Update Animator Hub
-
-
-
 
 function updateScript() 
 {
@@ -201,9 +196,9 @@ function updateScript()
                                 updateTabGroup = hub.tabs[1].add("group",undefined,"");
                                 updateTabGroup.orientation = "row";
                                 updateTabGroup.alignment = "right";
-                                currentVersion = updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
+                                updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                patchNotes = hub.tabs[1].add("panel",undefined,"Patch Notes 0.6.0");
+                                patchNotes = hub.tabs[1].add("panel",undefined,"Patch Notes 0.6.1");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
