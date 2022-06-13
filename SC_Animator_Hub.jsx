@@ -1,8 +1,8 @@
-//The Animator Hub v0.6.1
+//The Animator Hub v1.0.0
 //Author: Brian Joseph Studio
 
 //Global Variables
-var currentVersion = '0.6.1';
+var currentVersion = '1.0.0';
 var patchNotesBodyText = "Welcome to the beta release of the Animator Hub! \n\n-The Animator Hub can now do updates from within itself by clicking on the 'Search For Updates' button! (This function requires an active internet connection).";
 var targetComp = 0;
 
@@ -138,14 +138,14 @@ function generateGTR()
 
 function updateScript() 
 {
-    var cl1 = "D:"; 
-    var cl2 = 'cd D:\\"Dropbox (personal)"\\"Brian Joseph"\\STUDIO\\Test_Folder';
-    var versionCheckFile = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
-    var versionCheck = JSON.parse(versionCheckFile);
+    var AnimatorHubPath = $.fileName;
+    var versionCheckJson = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
+    var versionCheck = JSON.parse(versionCheckJson);
     var latestVersion = versionCheck.latestVersion;
-    var latestAnimatorHub = versionCheck.downloadURL;
+    var latestAnimatorHubLink = versionCheck.downloadURL;
+    var latestAnimatorHub = system.callSystem('curl -s '+latestAnimatorHubLink)
     if (latestVersion == currentVersion)
-    {
+    { 
 
         alert("Animator Hub: Seems like you're up to date mate!");
     }
@@ -153,13 +153,17 @@ function updateScript()
     {
         try
         {
-            system.callSystem('cmd.exe /c '+cl1+" && "+cl2+" && "+'curl -L -o "Animator Hub.jsx" '+latestAnimatorHub);
+            var newAnimatorHub = new File(AnimatorHubPath);
+            newAnimatorHub.open("w");
+            newAnimatorHub.write(latestAnimatorHub);
+            newAnimatorHub.close();
+            alert('Animator Hub: You have succesfully updated to the latest verion! Please restart After Effects to reflect changes.');
         }
         catch(e)
         {
             alert("There's an error in function 'updateScript'. Go talk to Brian!")
+
         };
-        alert('Animator Hub: You have succesfully updated to the latest verion! Please re-tart After Effects to reflect changes.');
     };
 };
 //UI Panel Structure
