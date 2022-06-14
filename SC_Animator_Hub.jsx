@@ -1,9 +1,9 @@
-//The Animator Hub v1.0.1
+//The Animator Hub v1.0.2
 //Author: Brian Joseph Studio
 
 //Global Variables
-var currentVersion = '1.0.1';
-var patchNotesBodyText = "Welcome to the beta release of the Animator Hub! \n\n-The Animator Hub can now do updates from within itself by clicking on the 'Search For Updates' button! (This function requires an active internet connection).";
+var currentVersion = '1.0.2';
+var patchNotesBodyText = "Welcome to the beta release of the Animator Hub! \n\n-The Animator Hub can now update itself whenever connected to the internet.\n-Updating requires running after effects as an administrator.\n-In order to see the changes, restarting after effects is necessary after updating.";
 var targetComp = 0;
 
 //FUNCTIONS
@@ -140,31 +140,50 @@ function updateScript()
 {
     var AnimatorHubPath = $.fileName;
     var versionCheckJson = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
-    var versionCheck = JSON.parse(versionCheckJson);
-    var latestVersion = versionCheck.latestVersion;
-    var latestAnimatorHubLink = versionCheck.downloadURL;
-    var latestAnimatorHub = system.callSystem('curl -s '+latestAnimatorHubLink)
-    if (latestVersion == currentVersion)
-    { 
+    if (versionCheckJson !='')
+    {
+        var versionCheck = JSON.parse(versionCheckJson);
+        var latestVersion = versionCheck.latestVersion;
+        var latestAnimatorHubLink = versionCheck.downloadURL;
+        var latestAnimatorHub = system.callSystem('curl -s '+latestAnimatorHubLink);
+        if (latestVersion == currentVersion)
+        { 
 
-        alert("Animator Hub: Seems like you're up to date mate!");
+            alert("Animator Hub: Seems like you're up to date, mate!");
+        }
+        else
+        {
+            try
+            {
+                var newAnimatorHub = new File(AnimatorHubPath);
+                var openNewAnimatorHub = newAnimatorHub.open("w");
+                if (openNewAnimatorHub==true)
+                {            
+                        newAnimatorHub.write(latestAnimatorHub);
+                        newAnimatorHub.close();
+                        alert('Animator Hub: You have succesfully updated to the latest verion! Please restart After Effects to reflect changes.');
+                }
+                else if (openNewAnimatorHub==false)
+                {
+                        alert('Animator Hub: Update has failed.\n\nHere are a few suggested solutions for you to try:\n\n    -Make sure you are allowing Scripts to write files on your system in: Edit-Preferences-Scripting & Expressions.\n\n    -Make sure you did run After Effects as Administrator before trying to update.');
+                }
+                else
+                {
+                    alert('Animator Hub: Update has failed. Unspecified error')
+                };
+            }
+            catch(e)
+            {
+                alert("Animator Hub: There's an error in function 'updateScript'. Go talk to Brian!")
+
+            };
+        };
     }
     else
     {
-        try
-        {
-            var newAnimatorHub = new File(AnimatorHubPath);
-            newAnimatorHub.open("w");
-            newAnimatorHub.write(latestAnimatorHub);
-            newAnimatorHub.close();
-            alert('Animator Hub: You have succesfully updated to the latest verion! Please restart After Effects to reflect changes.');
-        }
-        catch(e)
-        {
-            alert("There's an error in function 'updateScript'. Go talk to Brian!")
-
-        };
+        alert('Animator Hub: Update has failed.\n\nHere are a few suggested solutions for you to try:\n\n    -Make sure you have an active internet connection.');
     };
+    
 };
 //UI Panel Structure
 {
@@ -202,12 +221,12 @@ function updateScript()
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                patchNotes = hub.tabs[1].add("panel",undefined,"Patch Notes 1.0.1");
+                                patchNotes = hub.tabs[1].add("panel",undefined,"Patch Notes 1.0.2");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
                                     patchNotesBody.alignment = "left";
-                                    patchNotesBody.bounds = [0,0,300,100];
+                                    patchNotesBody.bounds = [0,0,300,150];
                             //
                 for (var i = 0; i < hub.tabs.length; i++) {
                     hub.tabs[i].orientation = 'column';
