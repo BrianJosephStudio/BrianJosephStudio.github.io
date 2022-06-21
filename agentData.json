@@ -1,0 +1,20 @@
+{ "AgentBasicData": [
+    {"Name":"Sova","Owl Drone":400,"Shock Dart":200,"Recon Dart": 200,"Hunter's Fury":7},
+    {"Name":"Viper","Snake Bite":200,"Posin Cloud":200,"Toxic Screen": "Free","Viper's Pit":7},
+    {"Name":"Sage","Barrier Orb":400,"Slow Orb":200,"Healing Orb": "Free","Resurrection":8},
+    {"Name":"Raze","Boom Bot":300,"Blast Pack":200,"Paint Shells": "Free","Showstopper":8},
+    {"Name":"Phoenix","Blaze":200,"Curveball":250,"Hot Hands": "Free","Run It Back":6},
+    {"Name":"Jett","Cloud Burst":200,"Updraft":150,"TailWind": "Free","BladeStorm":7},
+    {"Name":"Cypher","Trapwire":200,"Cyber Cage":100,"Spycam": "Free","Neural Theft":6},
+    {"Name":"Breach","Aftershock":200,"Flashpoint":250,"Fault Line": "Free","Rolling Thunder":7},
+    {"Name":"Brimstone","Stim Beacon":200,"Incendiary":250,"Sky Smoke": 100,"Orbital Strike":7},
+    {"Name":"Reyna","Leer":250,"Devour":200,"Dismiss": 200,"Empress":6},
+    {"Name":"Killjoy","Nanoswarm":200,"Alarmbot":200,"Turret": "Free","Lockdown":7},
+    {"Name":"Omen","Shrouded Step":150,"Paranoia":300,"Dark Cover": 100,"From The Shadows":7},
+    {"Name":"Skye","Regrowth":200,"Trailblazer":250,"Guiding Light": 250,"Seekers":7},
+    {"Name":"Yoru","Fakeout":100,"BlindSide":250,"GateCrash": "Free","Dimensional Drift":6},
+    {"Name":"Astra","Gravity Well":1,"Nova Pulse":1,"Nebula/Disipate": 1,"Cosmic Divide":7,"Astral Form":150},
+    {"Name":"KAY/O","FRAG/MENT":200,"FLASH/DRIVE":250,"ZERO/POINT": "Free","NULL/CMD":7},
+    {"Name":"Chamber","Trademark":150,"headhunter":100,"Rendezvous": "Free","Tour De Force":7}
+]
+}

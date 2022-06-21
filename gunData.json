@@ -1,0 +1,24 @@
+{ 
+    "gunData":
+    [
+    {"Name":"Ares","Price":1600},
+    {"Name":"Bucky","Price":900},
+    {"Name":"Bulldog","Price":2100},
+    {"Name":"Classic","Price":"Free"},
+    {"Name":"Frenzy","Price":500},
+    {"Name":"Ghost","Price":500},
+    {"Name":"Guardian","Price":2400},
+    {"Name":"Judge","Price":1600},
+    {"Name":"Marshal","Price":1000},
+    {"Name":"Odin","Price":3200},
+    {"Name":"Operator","Price":4700},
+    {"Name":"Phantom","Price":2900},
+    {"Name":"Sheriff","Price":800},
+    {"Name":"Shorty","Price":150},
+    {"Name":"Spectre","Price":1600},
+    {"Name":"Stinger","Price":1100},
+    {"Name":"Vandal","Price":2900},
+    {"Name":"Heavy Shield","Price":1000},
+    {"Name":"Light Shield","Price":400}
+    ]
+}

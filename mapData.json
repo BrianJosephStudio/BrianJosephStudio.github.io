@@ -1,0 +1,13 @@
+{ 
+    "mapData":
+    [
+    {"Name":"Ascent"},
+    {"Name":"Bind"},
+    {"Name":"Breeze"},
+    {"Name":"Fracture"},
+    {"Name":"Haven"},
+    {"Name":"Icebox"},
+    {"Name":"Pearl"},
+    {"Name":"Split"}
+    ]
+}
