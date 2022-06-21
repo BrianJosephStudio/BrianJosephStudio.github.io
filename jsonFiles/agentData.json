@@ -12,7 +12,7 @@
     {"Name":"Omen","Shrouded_Step":150,"Paranoia":300,"Dark_Cover": 100,"From_The_Shadows":7},
     {"Name":"Phoenix","Blaze":200,"Curveball":250,"Hot_Hands": "Free","Run_It_Back":6},
     {"Name":"Raze","Boom_Bot":300,"Blast_Pack":200,"Paint_Shells": "Free","Showstopper":8},
-    {"Name":"Reyna","Leer":250,"Devour":200,"Dismiss": 200,"Empress":6}
+    {"Name":"Reyna","Leer":250,"Devour":200,"Dismiss": 200,"Empress":6},
     {"Name":"Sage","Barrier_Orb":400,"Slow_Orb":200,"Healing_Orb": "Free","Resurrection":8},
     {"Name":"Skye","Regrowth":200,"Trailblazer":250,"Guiding_Light": 250,"Seekers":7},
     {"Name":"Sova","Owl_Drone":400,"Shock_Dart":200,"Recon_Dart": 200,"Hunter's_Fury":7},
