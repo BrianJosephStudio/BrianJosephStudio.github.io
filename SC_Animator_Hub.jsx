@@ -355,11 +355,11 @@ function replaceLayers(compName,indexArray)
 //Replace Missing layers in comp from project items with matching names
 function replaceMissing(compArray)
 {
+    var completion = true;
     for (var c = 0;c<compArray.length;c++)
     {
         var myComp = app.project.item(findItem(compArray[c]));
         var layerName;
-        var completion = true;
         for (var i=1;i<=myComp.numLayers;i++)
         {
             layerName = myComp.layer(i).name;
@@ -373,8 +373,8 @@ function replaceMissing(compArray)
                 else if (targetItem==false) {completion = false};
             };
         };
-        return completion
     };
+    return completion
 };
 
 //Delete File in System
@@ -782,7 +782,7 @@ function updateScript()
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
                 var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]'];
-                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
+                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
             };
             //end of functionality                    
             hub.layout.layout(true);
