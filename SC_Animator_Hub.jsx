@@ -1,9 +1,9 @@
-//The Animator Hub v1.1.0 beta
+//The Animator Hub v1.1.0
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.1.0 beta';
+var currentVersion = '1.1.0';
 var patchNotesBodyText = "-Added 'Agent Stats' Workspace.\n-Added 'Agent stats Table' panel.\n-New 'Agent Stats Table' Template available.\n-'Agent Stats Table' can be generated with custom Essential Properties from the Animator Hub by preselecting your parameters and clicking on 'Generate'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
