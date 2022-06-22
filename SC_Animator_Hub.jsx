@@ -73,10 +73,6 @@ function findItem(targetName,skipMissing,folderIndex)
                     {
                         compId = i;
                         break;
-                    }
-                    else
-                    {
-                        compId = 0
                     };
                 }
                 else
@@ -85,12 +81,8 @@ function findItem(targetName,skipMissing,folderIndex)
                     {
                         compId = i;
                         break;
-                    }
-                    else
-                    {
-                        compId = 0
                     };
-                }
+                };
             };
         }
         else if(folderIndex=='Root')
@@ -144,14 +136,8 @@ function findItem(targetName,skipMissing,folderIndex)
                 }
             };
         };
-        if (compId!==0)
-        {
-        return compId
-        }
-        else
-        {
-            return false
-        }
+        if (compId!==0){return compId}
+        else {return false};
     }
     catch(e)
     {
@@ -251,7 +237,7 @@ function folderRelativeLength(folderIndex)
     {
         try
         {
-            var myFolderRelIndex = findItem(myFolderName,undefined,'Root');
+            var myFolderRelIndex = findItem(myFolderName,false,'Root');
             var relItemName = app.project.rootFolder.item(myFolderRelIndex+1).name;
             var relItemIndex = findItem(relItemName,false);
             return [relItemIndex-1-folderIndex,relItemIndex-1]
@@ -284,7 +270,6 @@ function folderRelativeLength(folderIndex)
             return [app.project.item(parentFolderIndex).item(myFolderRelativeIndex).numItems,app.project.item(parentFolderIndex).item(myFolderRelativeIndex).numItems+folderIndex]
         };
     };
-    
 };
 
 //Stores missing Files in a specified folder and outputs them in an array
@@ -388,8 +373,8 @@ function replaceMissing(compArray)
                 else if (targetItem==false) {completion = false};
             };
         };
+        return completion
     };
-    return completion
 };
 
 //Delete File in System
@@ -592,7 +577,7 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
     try
     {
         //app.beginUndoGroup();
-        var compId = findItem(templateName,true);
+        var compId = findItem(saveName,true);
         if (compId==false)
         {
             var myDownload = fetchEgCompOnline(saveName,URL);
@@ -615,11 +600,11 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
                 var missingFiles = replaceMissing(compArray);
                 if (missingFiles==true)
                 {
-                    delMissingFiles(missingFilesToIdArray(findItem(saveName),false));
+                    delMissingFiles(missingFilesToIdArray(findItem(saveName,false),false));
                 }
-                else
+                else if (missingFiles==false)
                 {
-                    delMissingFiles(missingFilesToIdArray(findItem(saveName),true));
+                    delMissingFiles(missingFilesToIdArray(findItem(saveName,false),true));
                     alert("Animator Hub: Your template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!");
                 };
             };
@@ -796,7 +781,7 @@ function updateScript()
                 if (agentStatDropdown.selection!==null) {customEGpars = true};
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
-                var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]']
+                var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]'];
                 generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
             };
             //end of functionality                    
