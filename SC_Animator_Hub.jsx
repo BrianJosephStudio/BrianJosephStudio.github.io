@@ -651,7 +651,7 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
 function updateScript() 
 {
     var AnimatorHubPath = $.fileName;
-    var versionCheckJson = system.callSystem('curl -s "https://brianjosephstudio.github.io/versionCheck.json"');
+    var versionCheckJson = system.callSystem('curl -s "https://brianjosephstudio.github.io/jsonFiles/versionCheck.json"');
     if (versionCheckJson !='')
     {
         var versionCheck = JSON.parse(versionCheckJson);
