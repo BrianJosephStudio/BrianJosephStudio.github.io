@@ -1,9 +1,9 @@
-//The Animator Hub v1.1.0
+//The Animator Hub v1.1.1
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.1.0';
+var currentVersion = '1.1.1';
 var patchNotesBodyText = "-Added 'Agent Stats' Workspace.\n-Added 'Agent stats Table' panel.\n-New 'Agent Stats Table' Template available.\n-'Agent Stats Table' can be generated with custom Essential Properties from the Animator Hub by preselecting your parameters and clicking on 'Generate'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
@@ -62,24 +62,29 @@ function findItem(targetName,skipMissing,folderIndex)
     try
     {   if(folderIndex==undefined)
         {
-            var itemCount = app.project.items.length;
-            var compId = 0;
+            var itemCount = app.project.numItems;
+            var itemId = 0;
             for (var i = itemCount; i>0; i--)
             {
-                var compName = app.project.item(i).name;
+                var itemName = app.project.item(i).name;
                 if (skipMissing==true)
                 {
-                    if (compName == targetName && app.project.item(i).footageMissing==false)
+                    if (itemName == targetName && app.project.item(i).footageMissing==false)
                     {
-                        compId = i;
+                        itemId = i;
+                        break;
+                    }
+                    else if (itemName == targetName && app.project.item(i).footageMissing==undefined)
+                    {
+                        itemId = i;
                         break;
                     };
                 }
                 else
                 {
-                    if (compName == targetName)
+                    if (itemName == targetName)
                     {
-                        compId = i;
+                        itemId = i;
                         break;
                     };
                 };
@@ -88,55 +93,55 @@ function findItem(targetName,skipMissing,folderIndex)
         else if(folderIndex=='Root')
         {
             var itemCount = app.project.rootFolder.numItems;
-            var compId = 0;
+            var itemId = 0;
             for (var i = itemCount; i>0; i--)
             {
-                var compName = app.project.rootFolder.item(i).name;
-                if (compName == targetName)
+                var itemName = app.project.rootFolder.item(i).name;
+                if (itemName == targetName)
                 {
-                    compId = i;
+                    itemId = i;
                     break;
                 }
                 else
                 {
-                    compId = 0
+                    itemId = 0
                 };
             };   
         }
         else
         {
             var itemCount = app.project.item(folderIndex).numItems;
-            var compId = 0;
+            var itemId = 0;
             for (var i = itemCount; i>0; i--)
             {
-                var compName = app.project.item(folderIndex).item(i).name;
+                var itemName = app.project.item(folderIndex).item(i).name;
                 if (skipMissing==true)
                 {
-                    if (compName == targetName && app.project.item(i).footageMissing==false)
+                    if (itemName == targetName && app.project.item(i).footageMissing==false)
                     {
-                        compId = i;
+                        itemId = i;
                         break;
                     }
                     else
                     {
-                        compId = 0
+                        itemId = 0
                     };
                 }
                 else
                 {
-                    if (compName == targetName)
+                    if (itemName == targetName)
                     {
-                        compId = i;
+                        itemId = i;
                         break;
                     }
                     else
                     {
-                        compId = 0
+                        itemId = 0
                     };
                 }
             };
         };
-        if (compId!==0){return compId}
+        if (itemId!==0){return itemId}
         else {return false};
     }
     catch(e)
@@ -743,7 +748,7 @@ function updateScript()
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[2].add("panel",undefined,"Patch Notes 1.1.0");
+                                    patchNotes = hub.tabs[2].add("panel",undefined,"Patch Notes 1.1.1");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -782,7 +787,7 @@ function updateScript()
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
                 var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]'];
-                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
+                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
             };
             //end of functionality                    
             hub.layout.layout(true);
