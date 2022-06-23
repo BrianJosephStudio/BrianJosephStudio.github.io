@@ -1,10 +1,10 @@
-//The Animator Hub v1.1.1
+//The Animator Hub v1.1.2
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.1.1';
-var patchNotesBodyText = "-Added 'Agent Stats' Workspace.\n-Added 'Agent stats Table' panel.\n-New 'Agent Stats Table' Template available.\n-'Agent Stats Table' can be generated with custom Essential Properties from the Animator Hub by preselecting your parameters and clicking on 'Generate'.";
+var currentVersion = '1.1.2';
+var patchNotesBodyText = "-Added 'Agent Stats' Workspace.\n-Added 'Agent Stats Table' panel.\n-New 'Agent Stats Table' Template available.\n-'Agent Stats Table' can be generated with custom Essential Properties from the Animator Hub by preselecting your parameters and clicking on 'Generate'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
 
@@ -748,7 +748,7 @@ function updateScript()
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[2].add("panel",undefined,"Patch Notes 1.1.1");
+                                    patchNotes = hub.tabs[2].add("panel",undefined,"Patch Notes 1.1.2");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
