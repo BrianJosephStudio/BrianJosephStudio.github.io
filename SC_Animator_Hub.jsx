@@ -1,12 +1,13 @@
-//The Animator Hub v1.1.2
+//The Animator Hub v1.2.0
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.1.2';
-var patchNotesBodyText = "-Added 'Agent Stats' Workspace.\n-Added 'Agent Stats Table' panel.\n-New 'Agent Stats Table' Template available.\n-'Agent Stats Table' can be generated with custom Essential Properties from the Animator Hub by preselecting your parameters and clicking on 'Generate'.";
+var currentVersion = '1.2.0';
+var patchNotesBodyText = "-Fixed several bugs for 'Agent stats Table' workspace.\n-Added 'Map Overviews' Workspace.\n-Added 'Map Overviews' panel.\n-Map Overviews can be generated with custom parameters from the Animator Hub by preselecting your parameters and clicking on 'Generate Map'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
+var mapsArray = ['Ascent','Bind','Breeze','Fracture','Haven','Icebox','Pearl','Split'];
 
 ////ELEMENTAL FUNCTIONS
 
@@ -67,18 +68,10 @@ function findItem(targetName,skipMissing,folderIndex)
             for (var i = itemCount; i>0; i--)
             {
                 var itemName = app.project.item(i).name;
-                if (skipMissing==true)
+                if (skipMissing==true && (itemName == targetName && (app.project.item(i).footageMissing==false || app.project.item(i).footageMissing==undefined)))
                 {
-                    if (itemName == targetName && app.project.item(i).footageMissing==false)
-                    {
-                        itemId = i;
-                        break;
-                    }
-                    else if (itemName == targetName && app.project.item(i).footageMissing==undefined)
-                    {
-                        itemId = i;
-                        break;
-                    };
+                    itemId = i;
+                    break;
                 }
                 else
                 {
@@ -89,6 +82,8 @@ function findItem(targetName,skipMissing,folderIndex)
                     };
                 };
             };
+            if (itemId!==0){return [itemId,app.project.item(itemId),app.project.item(itemId).id,targetName]}
+            else {return [false]};
         }
         else if(folderIndex=='Root')
         {
@@ -97,16 +92,22 @@ function findItem(targetName,skipMissing,folderIndex)
             for (var i = itemCount; i>0; i--)
             {
                 var itemName = app.project.rootFolder.item(i).name;
-                if (itemName == targetName)
+                if (skipMissing==true && (itemName == targetName && (app.project.item(i).footageMissing==false || app.project.item(i).footageMissing==undefined)))
                 {
-                    itemId = i;
-                    break;
+                        itemId = i;
+                        break;
                 }
                 else
                 {
-                    itemId = 0
-                };
+                    if (itemName == targetName)
+                    {
+                        itemId = i;
+                        break;
+                    };
+                }
             };   
+            if (itemId!==0){return [itemId,app.project.rootFolder.item(itemId),app.project.rootFolder.item(itemId).id,targetName]}
+            else {return [false]};
         }
         else
         {
@@ -115,17 +116,10 @@ function findItem(targetName,skipMissing,folderIndex)
             for (var i = itemCount; i>0; i--)
             {
                 var itemName = app.project.item(folderIndex).item(i).name;
-                if (skipMissing==true)
+                if (skipMissing==true && (itemName == targetName && (app.project.item(i).footageMissing==false || app.project.item(i).footageMissing==undefined)))
                 {
-                    if (itemName == targetName && app.project.item(i).footageMissing==false)
-                    {
                         itemId = i;
                         break;
-                    }
-                    else
-                    {
-                        itemId = 0
-                    };
                 }
                 else
                 {
@@ -134,19 +128,15 @@ function findItem(targetName,skipMissing,folderIndex)
                         itemId = i;
                         break;
                     }
-                    else
-                    {
-                        itemId = 0
-                    };
-                }
+                };
             };
+            if (itemId!==0){return [itemId,app.project.item(folderIndex).item(itemId),app.project.item(folderIndex).item(itemId).id,targetName]}
+            else {return [false]};
         };
-        if (itemId!==0){return itemId}
-        else {return false};
     }
     catch(e)
     {
-        alert("Animator Hub: There's an error in function 'findCompItem'");
+        alert("Animator Hub: There's an error in function 'findItem'");
     }
 };
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer
@@ -193,7 +183,7 @@ function nameArrToIndexArr(nameArray)
         var projectItemLength = app.project.items.length;
         for (i = 1;i<=projectItemLength;i++)
         {
-            var compId =  findItem(nameArray[i],true);
+            var compId =  findItem(nameArray[i],true)[0];
             if (compId!==false)
             {
                 indexArray[i] = compId; 
@@ -205,7 +195,7 @@ function nameArrToIndexArr(nameArray)
             switch (compId)
             {
                 case false:
-                    alert("Aniamtor Hub: Seems like you've got some missing files!");
+                    alert("Animator Hub: Seems like you've got some missing files!");
                     return false;
                 default:
             };
@@ -224,83 +214,46 @@ function activateCollapse(templateName)
     var myLayer = app.project.activeItem.layer(templateName);
     myLayer.collapseTransformation = true;
 };
-
-//Use index array to create a 'item.name' Array
-//function indexArrToNameArr()
-
 /* Finds the range of items within a folder. Returns a 2 value array:
 [0]:Total Amount of items within specified folder.
 [1]Absolute index of the last item within that folder.*/
-function folderRelativeLength(folderIndex)
+function folderRelativeLength(folderObject)
 {
-    var myFolder = app.project.item(folderIndex);
-    var myFolderName = app.project.item(folderIndex).name;
-    if (myFolder.typeName.search('Folder')==-1) {return [false,false]};
-    var parentFolder = myFolder.parentFolder.name;
-    var myFolderRelativeIndex = -1;
-    if (parentFolder=='Root')
+    var folderLength = folderObject[1].numItems;
+    var lastItemName = folderObject[1].item(folderLength).name;
+    var lastItem = findItem(lastItemName);
+    while(lastItem[1].typeName=='Folder')
     {
-        try
-        {
-            var myFolderRelIndex = findItem(myFolderName,false,'Root');
-            var relItemName = app.project.rootFolder.item(myFolderRelIndex+1).name;
-            var relItemIndex = findItem(relItemName,false);
-            return [relItemIndex-1-folderIndex,relItemIndex-1]
-        }
-        catch(e)
-        {
-            return [app.project.numItems-folderIndex,app.project.numItems]
-        };
-    }
-    else
-    {
-        var parentFolderIndex = findItem(parentFolder,false);
-        for (i=1;i<=app.project.item(parentFolderIndex).numItems;i++)
-        {
-            if (app.project.item(parentFolderIndex).item(i).name==myFolder.name)
-            {
-                myFolderRelativeIndex = i;
-                break;
-            };
-        };
-        if(myFolderRelativeIndex==-1) {return [false,false]};
-        try
-        {
-            var relItemName = app.project.item(parentFolderIndex).item(myFolderRelativeIndex+1).name;
-            var relItemGlobIndex = findItem(relItemName,false);
-            return [relItemGlobIndex-1-folderIndex,relItemGlobIndex-1]
-        }
-        catch(e)
-        {
-            return [app.project.item(parentFolderIndex).item(myFolderRelativeIndex).numItems,app.project.item(parentFolderIndex).item(myFolderRelativeIndex).numItems+folderIndex]
-        };
+        folderLength = lastItem[1].numItems
+        lastItemName = lastItem[1].item(folderLength).name;
+        lastItem = findItem(lastItemName);
     };
+    return [lastItem[0]-folderObject[0],lastItem[0]];
 };
-
 //Stores missing Files in a specified folder and outputs them in an array
 function missingFilesToIdArray(folderIndex,onlyUseless)
 {
     try
     {
         var myArray = [];
-        var myFolder = app.project.item(folderIndex); //folderItem
+        var myFolder = app.project.item(folderIndex[0]); //folderItem
         if (myFolder.typeName!=='Folder'){return false};
         var arrayIndex = 0;
         for (var i=1;i<=folderRelativeLength(folderIndex)[0];i++)
         {
             if(onlyUseless!==true)
             {
-                if (app.project.item(folderIndex+i).footageMissing==true)
+                if (app.project.item(folderIndex[0]+i).footageMissing==true)
                 {
-                    myArray[arrayIndex] = app.project.item(folderIndex+i).id;
+                    myArray[arrayIndex] = app.project.item(folderIndex[0]+i).id;
                     arrayIndex += 1;
                 };
             }
             else if (onlyUseless==true)
             {
-                if (app.project.item(folderIndex+i).footageMissing==true && app.project.item(folderIndex+i).usedIn[0]==undefined)
+                if (app.project.item(folderIndex[0]+i).footageMissing==true && app.project.item(folderIndex+i).usedIn[0]==undefined)
                 {
-                    myArray[arrayIndex] = app.project.item(folderIndex+i).id;
+                    myArray[arrayIndex] = app.project.item(folderIndex[0]+i).id;
                     arrayIndex += 1;
                 };
             };
@@ -313,11 +266,10 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
         return false
     }
 };
-
 //Erase Missing files targeted in an array
 function delMissingFiles(idArray)
 {
-    if (idArray==false) {return false};
+    if (idArray==undefined) {return false};
     for (i=0;i<idArray.length;i++)
     {
         var myItem = app.project.itemByID(idArray[i]);
@@ -326,7 +278,6 @@ function delMissingFiles(idArray)
     };
     return true
 };
-
 //returns a filtered string without its extension, if any.
 function removeExtFromName(nameString)
 {
@@ -338,11 +289,10 @@ function removeExtFromName(nameString)
     return output
     
 };
-
 //Replace files in target Comp from an array of project items
 function replaceLayers(compName,indexArray)
 {
-    var compId = findItem(compName,true);
+    var compId = findItem(compName,true)[0];
     if (compId!==false && indexArray!==false)
     {
         var myComp =  app.project.item(compId);
@@ -361,27 +311,33 @@ function replaceLayers(compName,indexArray)
 function replaceMissing(compArray)
 {
     var completion = true;
+    var report = [];
+    var arrayIndex = 0;
     for (var c = 0;c<compArray.length;c++)
     {
-        var myComp = app.project.item(findItem(compArray[c]));
+        var myComp = app.project.itemByID(findItem(compArray[c])[2]);
         var layerName;
         for (var i=1;i<=myComp.numLayers;i++)
         {
-            layerName = myComp.layer(i).name;
-            if (myComp.layer(i).source.footageMissing==true)
+            if(myComp.layer(i).source!==null)
             {
-                var targetItem = findItem(layerName,true);
-                if(targetItem!==false)
+                layerName = myComp.layer(i).source.name;
+                if (myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
                 {
-                    myComp.layer(i).replaceSource(app.project.item(targetItem),true);
+                    var targetItem = findItem(layerName,true)[0];
+                    if(targetItem!==false)
+                    {
+                        report[arrayIndex]=myComp.layer(i).source.id;
+                        arrayIndex +=1;
+                        myComp.layer(i).replaceSource(app.project.item(targetItem),true);
+                    }
+                    else if (targetItem==false) {completion = false};
                 }
-                else if (targetItem==false) {completion = false};
             };
         };
     };
-    return completion
+    return [completion,report];
 };
-
 //Delete File in System
 function eraseFileFromSystem(saveName)
 {
@@ -395,7 +351,6 @@ function eraseFileFromSystem(saveName)
     }
     catch(e) {return false}
 };
-
 //Find Downloaded Comp in System |Returns ExtendScript File Object(URI)
 function findFileInSystem(fileName)
 {
@@ -406,7 +361,6 @@ function findFileInSystem(fileName)
     if (openMyFile==true) {return myFile}
     else {return false};
 };
-
 //Imports a File Object into the current project.
 function importFileToProject(fileObject)
 {
@@ -430,14 +384,100 @@ function importFileToProject(fileObject)
         };
     };
 };
-
-//Item Group to Array based on input Array
-
-
+//Takes a string and returns a string with a raised number at the end or a 2 if there is no number at the end.
+function serialNamer(string,enumerateNaN,reverseDirection)
+{
+    var mySplit = string.split(' ');
+    var myCheck = isNaN(mySplit[mySplit.length-1]);
+    var myOutput;
+    if (myCheck==false && reverseDirection!==true)
+    {
+        var myNumber = mySplit.pop();
+        myOutput = string.replace(myNumber,eval(myNumber)+1)
+    }
+    else if (myCheck==false && reverseDirection==true)
+    {
+        var myNumber = mySplit.pop();
+        myOutput = string.replace(myNumber,eval(myNumber)-1)
+    }
+    else if (myCheck==true && enumerateNaN==true)
+    {
+        myOutput = string+' 2'; 
+    }
+    else
+    {
+        myOutput = string
+    }
+    return myOutput
+};
+//Renames all layers inside project or specified folder based on search and replace input variables
+function renamer(searchTerm,replaceTerm,folderIndex)
+{
+    var startIndex;
+    var endIndex;
+    if(folderIndex==undefined) {startIndex=1,endIndex==app.project.numItems}
+    else {startIndex=folderIndex; endIndex=folderRelativeLength(folderIndex[0])[1]};
+    var returnVal = 0;
+    for (var i=startIndex;i<=endIndex;i++)
+    {
+        if (app.project.item(i).name.search(searchTerm)!==-1)
+        {
+            app.project.item(i).name = app.project.item(i).name.replace(searchTerm,replaceTerm);
+            returnVal += 1;
+        };
+    };
+    return returnVal
+};
+//A loop designed to work within duplicator function
+function myDupLoop(targetItem,arr)
+{
+    var getName = serialNamer(targetItem.name,true);
+    var dupItem;
+    var newFolder;
+    if(arr[0]!==undefined)
+    {
+        newFolder = app.project.itemByID(arr[arr.length-1]).items.addFolder(getName);
+    }
+    else {newFolder = app.project.items.addFolder(getName)};
+    arr[arr.length] = newFolder.id;
+    for (var i = 1; i<= targetItem.numItems; i++)
+    {
+        if(targetItem.item(i).typeName=='Composition')
+        {
+            dupItem = targetItem.item(i).duplicate();
+            dupItem.parentFolder=app.project.itemByID(arr[arr.length-1]);
+        }
+        else if (targetItem.item(i).typeName=='Folder')
+        {
+            myDupLoop(targetItem.item(i),arr);
+        };
+    }
+    return [arr.pop(),newFolder]
+};
+//Takes an item(comp or folder) and duplicates all of its contents with the correct naming. Skips footageItems.
+function duplicator(itemObject)
+{
+    if (itemObject==undefined){return false};
+    var itemType = itemObject.typeName;
+    var itemId = itemObject.id;
+    var parentFolder = itemObject.parentFolder;
+    var targetItem = app.project.itemByID(itemId);
+    if (itemType == 'Composition')
+    {
+        targetItem.duplicate();
+        return true
+    }
+    else if (itemType == 'Folder')
+    {
+        var idArr = [];
+        if(parentFolder.name!=='Root') {idArr[0] = parentFolder.id};
+        return myDupLoop(itemObject,idArr)[1];
+    };
+};
 //Import Project Item Into Active Comp
 function importItemToActiveComp(templateName)
 {
-    var compId = findItem(templateName,true);
+    var compId = findItem(templateName,true)[0];
     if (compId!==false)
     {
         try
@@ -453,7 +493,6 @@ function importItemToActiveComp(templateName)
     }
     else {return false};
 };
-
 /*Sets custom Essential Graphics Parameters to the newly imported Template.
 ParameterArray is an array of property path strings*/
 function customEGParameters(templateName,parameterArray,valueArray)
@@ -474,6 +513,157 @@ function customEGParameters(templateName,parameterArray,valueArray)
         return false
     }
 };
+//Deselects everything in the project panel
+function deselectAll()
+{
+    var sel = app.project.selection;
+    if(sel!==undefined)
+    {
+        for(var i = 0;i<sel.length;i++)
+        {
+            sel[i].selected = false;
+        };
+        return true
+    }
+    else {return undefined};
+};
+//Downloads a comp form database and imports it in project
+function downloadAndImport(saveName,URL)
+{
+    var myDownload = fetchEgCompOnline(saveName,URL);
+    if (myDownload==true)
+    {
+        var myFile = findFileInSystem(saveName);
+        if (myFile!==false)
+        {
+            var myImport = importFileToProject(myFile);
+            if (myImport!==false)
+            {
+                eraseFileFromSystem(saveName);
+            }
+            else {return false};
+        }
+        else {return false};
+    }
+    else {return false};
+};
+//copies and pastes a keyframe at custom input time
+function cloneKeyAtTime(propPath,keyIndex,newKeyTime,deleteOld,timeIsFrames)
+{
+    ////Retrive key properties
+    var myKey = keyProp(propPath,keyIndex);
+    ///Delete Reference keyframe
+    if (deleteOld==true)
+    {
+        propPath.removeKey(keyIndex);
+    };
+    ////Create New keyframe
+    if (timeIsFrames==true)
+    {
+        var myTime = newKeyTime*(1/app.project.activeItem.frameRate);
+        var newKey = propPath.addKey(myTime);
+    }
+    else
+    {
+        var newKey = propPath.addKey(newKeyTime);
+    };
+    //Set Key Properties
+    propPath.setValueAtKey(newKey,myKey[0]);
+    propPath.setTemporalEaseAtKey(newKey,myKey[5],myKey[6]);
+    propPath.setInterpolationTypeAtKey(newKey,myKey[3],myKey[4]);
+    if (propPath.isSpatial==true)
+    {
+        propPath.setSpatialTangentsAtKey(newKey,myKey[8],myKey[9]);
+        if(myKey[10]==true){propPath.setRovingAtKey(newKey,true)};
+        propPath.setTemporalAutoBezierAtKey(newKey,myKey[12]);
+        propPath.setSpatialAutoBezierAtKey(newKey,myKey[11]);
+        propPath.setTemporalContinuousAtKey(newKey,myKey[14]);
+        propPath.setSpatialContinuousAtKey(newKey,myKey[13]);
+    }
+    return true
+};
+//Returns all key properties from input keyframe
+function keyProp(propPath,keyIndex)
+{
+    ////Retrive key properties
+    //Key Value
+    var kVal = propPath.keyValue(keyIndex);
+    //Key Time
+    var kTime = propPath.keyTime(keyIndex);
+    //Property Value Type
+    var propValType = propPath.propertyValueType;
+    //interpolation Types
+    var inIntType = propPath.keyInInterpolationType(keyIndex);
+    var outIntType = propPath.keyOutInterpolationType(keyIndex);
+    //Temporal Ease
+    var inTempEase = propPath.keyInTemporalEase(keyIndex);
+    var outTempEase = propPath.keyOutTemporalEase(keyIndex);
+
+    //Spatial Attributes
+    if (propPath.isSpatial==true)
+    {
+        //Spatial Tangents
+        var inSpatialTangent = propPath.keyInSpatialTangent(keyIndex);
+        var outSpatialTangent = propPath.keyOutSpatialTangent(keyIndex);
+        //Key Roving
+        var isRoving = propPath.keyRoving(keyIndex);
+        //AutoBezier
+        var spatialAutoBezier = propPath.keySpatialAutoBezier(keyIndex);
+        var temporalAutoBezier = propPath.keyTemporalAutoBezier(keyIndex);
+        //Continuous
+        var spatialContinuous = propPath.keySpatialContinuous(keyIndex);
+        var temporalContinuous = propPath.keyTemporalContinuous(keyIndex);
+    };
+    return [kVal,kTime,propValType,inIntType,outIntType,inTempEase,outTempEase,propPath.isSpatial,inSpatialTangent,outSpatialTangent,isRoving,spatialAutoBezier,temporalAutoBezier,spatialContinuous,temporalContinuous]
+};
+//Shifts in and out animation times for a 4-keyframe based I/O animation
+function IOanimKeySetter(propPath,newInTime,newOutTime)
+{
+    //Obtain some Key info
+    var keyOne = keyProp(propPath,1);
+    var keyTwo = keyProp(propPath,2);
+    var keyThree = keyProp(propPath,3);
+    var keyFour = keyProp(propPath,4);
+    var inAnim = keyTwo[1] - keyOne[1];
+    if(newInTime!==undefined)
+    {
+        cloneKeyAtTime(propPath,2,newInTime+inAnim,true,false);
+        cloneKeyAtTime(propPath,1,newInTime,true,false);
+    };
+    if (newOutTime!==undefined)
+    {
+        var outAnim = keyFour[1] - keyThree[1];
+        if(newInTime+inAnim<keyThree[1] || newInTime==undefined)
+        {
+            cloneKeyAtTime(propPath,3,newOutTime-outAnim,true,false);
+            if (newOutTime-outAnim>keyFour[1]) {var k4Index = 3}
+            else {var k4Index = 4};
+            cloneKeyAtTime(propPath,k4Index,newOutTime,true,false);
+        }
+        else if(newInTime+inAnim>keyThree[1] && newInTime+inAnim<keyFour[1])
+        {
+            cloneKeyAtTime(propPath,2,newOutTime-outAnim,true,false);
+            if (newOutTime-outAnim>keyFour[1]) {var k4Index = 3}
+            else {var k4Index = 4};
+            cloneKeyAtTime(propPath,k4Index,newOutTime,true,false);
+        }
+        else if (newInTime<keyThree[1] && newInTime+inAnim>keyFour[1])
+        {
+            cloneKeyAtTime(propPath,2,newOutTime-outAnim,true,false);
+            cloneKeyAtTime(propPath,2,newOutTime,true,false);
+        }
+        else if(newInTime>keyThree[1] && newInTime<keyFour[1])
+        {
+            cloneKeyAtTime(propPath,1,newOutTime-outAnim,true,false);
+            cloneKeyAtTime(propPath,2,newOutTime,true,false);
+        }
+        else if (newInTime>keyFour[1])
+        {
+            cloneKeyAtTime(propPath,1,newOutTime-outAnim,true,false);
+            cloneKeyAtTime(propPath,1,newOutTime,true,false);
+        }
+    };
+};
 
 
 ////MACRO FUNCTIONS
@@ -484,7 +674,7 @@ function resetTopicTitles()
     app.beginUndoGroup("Reset Topic Titles");
     try
     {
-        var compId = findItem("Global Topic Reference",true);
+        var compId = findItem("Global Topic Reference",true)[0];
         var defaultText = "Insert Title";           
         if (compId != 0)
         {
@@ -509,15 +699,13 @@ function resetTopicTitles()
     };
     app.endUndoGroup();
 };
-
-
 //Open GTR
 function goToGTR()
 {
     app.beginUndoGroup("Open GTR");
     try
     {
-        var id = findItem("Global Topic Reference",true);
+        var id = findItem("Global Topic Reference",true)[0];
         if (id > 0)
         {
             app.project.item(id).openInViewer();
@@ -533,7 +721,6 @@ function goToGTR()
     }
     app.endUndoGroup();
 };
-
 //Create compItem
 function generateGTR()
 {
@@ -542,7 +729,7 @@ function generateGTR()
         //Create Comp
         app.project.items.addComp("Global Topic Reference",1920,1080,1,20*60,29.97);
         //find Global Topic Reference ID   
-        var id2 = findItem("Global Topic Reference",true);
+        var id2 = findItem("Global Topic Reference",true)[0];
         //Create Text Layers
         for (e = 30; e >=1;e--){
             app.project.item(id2).layers.addText("");
@@ -575,14 +762,147 @@ function generateGTR()
         alert("Animator Hub: There's an error in function 'generateGTR'");
     };
 };
+//Generates map Overviews
+function generateMap(saveName,url)
+{
+    try
+    { 
+        app.beginUndoGroup('Generate Map');
+        var mapRootFolder = findItem(saveName);
+        if(mapRootFolder[0]==false)
+        {
+            var myTemplate = downloadAndImport(saveName,url);
+            if (myTemplate!==false)
+            {
+                var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
+                var missingFiles = replaceMissing(compArray);
+                if(missingFiles[1][0]!==undefined)
+                {
+                    delMissingFiles(missingFiles[1]);
+                    if (missingFiles[0]==false)
+                    {
+                        alert("Animator Hub: Your Map was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!");
+                    };
+                };
+                return generateMap(saveName,url)
+            }
+            else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
+        };
+        var mapMainFolderName = 'Map Overviews [MO]';
+        var mapMainFolder = findItem(mapMainFolderName);
+        if (mapMainFolder[0]==false)
+        {
+            for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+            {
+                if (app.project.item(i).typeName!=='Footage')
+                {
+                    app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
+                };
 
+            };;
+            return generateMap(saveName,url);
+        };
+        if (findItem('Maps [ND]')[0]==false || findItem('Map Comp 1')[0]==false || findItem('Map Edit 1')[0]==false || findItem('Comp Background 1')[0]==false)
+        {   for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+            {
+                if (app.project.item(i).typeName!=='Footage')
+                {
+                    app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
+                };
+            };
+            return generateMap(saveName,url)
+        };
+        var mapMainFolderNumItems =  mapMainFolder[1].numItems;
+        var usedCheck = undefined;
+        if (mapMainFolderNumItems==0)
+        {
+            for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+            {
+                if (app.project.item(i).typeName!=='Footage')
+                {
+                    app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
+                };
+
+            };
+            return generateMap(saveName,url);
+        }
+        else if (mapMainFolderNumItems==1)
+        {
+            usedCheck = mapMainFolder[1].item(1).item(2).usedIn[0];
+        };
+        if(usedCheck!==undefined || mapMainFolderNumItems>1)
+        {
+            var targetItem = mapMainFolder[1].item(mapMainFolderNumItems);
+            //Duplicate Last Folder
+            var newMOFolder = duplicator(targetItem);
+            if (newMOFolder==false) {return alert('Animator Hub: NewMOFolder is false')}
+            //Replace Layers
+            var mapComp = findItem(newMOFolder.item(2).name);
+            var mapEdit = findItem(newMOFolder.item(1).item(2).name);
+            var compBG = findItem(newMOFolder.item(1).item(1).name);
+            mapComp[1].layer(serialNamer(mapEdit[3],undefined,true)).replaceSource(mapEdit[1],true);
+            mapComp[1].layer(serialNamer(compBG[3],undefined,true)).replaceSource(compBG[1],true);
+            mapEdit[1].layer('Reference Background.').replaceSource(compBG[1],true);
+        }
+        else if (usedCheck==undefined)
+        {
+            var newMOFolder = mapMainFolder[1].item(1);
+            var mapComp = findItem(newMOFolder.item(2).name);
+            var mapEdit = findItem(newMOFolder.item(1).item(2).name);
+            var compBG = findItem(newMOFolder.item(1).item(1).name);
+        };
+        //Find last map comp
+        var lastMapComp = newMOFolder.item(2);
+        //Bring active viewer to front
+        app.activeViewer.setActive();
+        //Import Map Comp into active Comp
+        var myActive = app.project.activeItem;
+        var compImport = myActive.layers.add(lastMapComp);
+        //Set Keyframes
+        var myPath = compImport.property('Essential Properties').property('Animation');
+        IOanimKeySetter(myPath,undefined,myActive.duration);
+        //Set key values
+        try {var screenSpan = eval(mapOvTextbox1.text)} catch(e){var screenSpan = 100};
+        myPath.setValueAtKey(2,screenSpan); myPath.setValueAtKey(3,screenSpan);
+        while(compBG[1].numLayers>2) {compBG[1].layer(3).remove()};
+        while(mapEdit[1].layer(mapEdit[1].numLayers).hasVideo==false && mapEdit[1].layer(mapEdit[1].numLayers).hasAudio==true) {mapEdit[1].layer(mapEdit[1].numLayers).remove()};
+        if(mapOvCb1.value==1)
+        {
+            for (var i = 1; i <= myActive.numLayers; i++)
+            {
+                if (myActive.layer(i).hasVideo==true && myActive.layer(i).source.comment.split("_")[0]!=='animHub')
+                {
+                    myActive.layer(i).copyToComp(compBG[1]);
+                    compBG[1].layer(1).moveToEnd();
+                    myActive.layer(i).enabled = false;
+                    if(myActive.layer(i).hasAudio==true){myActive.layer(i).audioEnabled=false};
+                    myActive.layer(i).shy = true;
+                }
+                else if (myActive.layer(i).hasVideo==false && myActive.layer(i).hasAudio==true)
+                {
+                    myActive.layer(i).copyToComp(mapEdit[1]);
+                    mapEdit[1].layer(1).moveToEnd();
+                    myActive.layer(i).audioEnabled=false;
+                    myActive.layer(i).shy = true;
+                };
+            };
+            myActive.hideShyLayers = true;
+
+        };
+        //Open Map Edit
+        mapEdit[1].openInViewer();
+        //Set Map
+        mapEdit[1].layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(mapOvMenu1.selection.index+1);
+        app.endUndoGroup();
+    }
+    catch(e){alert("Animator Hub: There's an error in function 'generateMap'.\n\nSuggested Actions:\n    -Go talk to Brian!")}
+};
 //Generate Template Function
 function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,compArray,parArr,valArr)
 {
     try
     {
-        //app.beginUndoGroup();
-        var compId = findItem(saveName,true);
+        var compId = findItem(saveName)[0];
         if (compId==false)
         {
             var myDownload = fetchEgCompOnline(saveName,URL);
@@ -603,18 +923,15 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
             if (hasMissingFiles==true)
             {
                 var missingFiles = replaceMissing(compArray);
-                if (missingFiles==true)
+                delMissingFiles(missingFiles[1]);
+                if (missingFiles[0]==false)
                 {
-                    delMissingFiles(missingFilesToIdArray(findItem(saveName,false),false));
-                }
-                else if (missingFiles==false)
-                {
-                    delMissingFiles(missingFilesToIdArray(findItem(saveName,false),true));
                     alert("Animator Hub: Your template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!");
                 };
             };
 
         };
+        app.activeViewer.setActive();
         var activeI = app.project.activeItem;
         if(activeI!==null && activeI.typeName=='Composition')
         {
@@ -627,7 +944,6 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
             };
         }
         else {alert("Animator Hub: Please select a composition to import this template into!")};
-        //app.endUndoGroup();
     }
     catch(e)
     {
@@ -635,9 +951,7 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
         return false
     };
 };
-
 //Update Animator Hub
-
 function updateScript() 
 {
     var AnimatorHubPath = $.fileName;
@@ -695,7 +1009,7 @@ function updateScript()
                 hub.main = hub.add ('group {preferredSize: [600, 500], alignChildren: ["left","top"]}');
                 hub.main.orientation = "column";
                     hub.main.add('statictext{text:"Select a Workspace"}')
-                    hub.stubs = hub.main.add ('dropdownlist', undefined, ['Topic Titles','Agent Stats','Updates & Patch Notes']);
+                    hub.stubs = hub.main.add ('dropdownlist', undefined, ['Topic Titles','Map Overviews','Agent Stats','Updates & Patch Notes']);
                     hub.stubs.alignment = "fill";
                     hub.tabGroup = hub.main.add ('group {alignment: ["fill","fill"], orientation: "stack"}');
                             //Mode Tabs
@@ -716,11 +1030,36 @@ function updateScript()
                                             titleResetGroup.add ('statictext',undefined,"Reset All Topic Titles To Default");
                                             resetTitles = titleResetGroup.add ('button',undefined,"Reset");
 
-
                                 hub.tabs[1] = hub.tabGroup.add ("group");
                                     hub.tabs[1].add ('panel {preferredSize: [-1, -10]}');
                                     hub.tabs[1].orientation = "column";
-                                    agentStatspanel = hub.tabs[1].add("Panel",undefined,"Agent Stats Table");
+                                        mapOvPanel1 = hub.tabs[1].add('panel',undefined,'Map Overviews');
+                                        mapOvPanel1.orientation = 'row';
+                                            mapOvMenu1 = mapOvPanel1.add('dropdownlist',undefined,mapsArray);
+                                            mapOvMenu1.selection = 0;
+                                            mapOvGroup1 = mapOvPanel1.add('group');
+                                            mapOvGroup1.orientation = 'column';
+                                            mapOvGroup1.alignChildren = 'left';
+                                            mapOvTextbox1 = mapOvGroup1.add('edittext',[0,0,75,23.5],'Screen Span');
+                                            mapOvCb1 = mapOvGroup1.add('checkbox',undefined,'Manage Footage');
+                                            mapOvCb1.value = 1;
+                                            generateMapB = mapOvPanel1.add('button',undefined,'Generate Map');
+                                        /*agentIconPanel1 = hub.tabs[1].add('panel',undefined,'Agent Icon');
+                                        agentIconPanel1.orientation = 'row';
+                                            AgentIconPanel1Group1 = agentIconPanel1.add('group');
+                                            AgentIconPanel1Group1.orientation = 'column';
+                                            agentIconMenu1 = AgentIconPanel1Group1.add('dropdownlist',undefined,agentsArray);
+                                            agentIconMenu1.selection = 0;
+                                            agentIconMenu2 = AgentIconPanel1Group1.add('dropdownlist',undefined,['Defender','Attacker']);
+                                            agentIconMenu2.selection = 0;
+                                            agentIconcheckbox1 = agentIconPanel1.add('checkbox',undefined,'Death');
+                                            placeAgent = agentIconPanel1.add('button',undefined,'Place Agent');*/
+                                    
+
+                                hub.tabs[2] = hub.tabGroup.add ("group");
+                                    hub.tabs[2].add ('panel {preferredSize: [-1, -10]}');
+                                    hub.tabs[2].orientation = "column";
+                                    agentStatspanel = hub.tabs[2].add("Panel",undefined,"Agent Stats Table");
                                     agentStatspanel.orientation = "row";
                                     agentStatspanel.alignment = "fill";
                                     agentStatDropdown = agentStatspanel.add ("dropdownlist",undefined,(agentsArray));
@@ -740,15 +1079,15 @@ function updateScript()
                                     generateTable = agentStatspanel.add("button",undefined,"Generate");
 
 
-                                hub.tabs[2] = hub.tabGroup.add ("group");
-                                    hub.tabs[2].add ('panel {preferredSize: [-1, -10]}');
-                                    hub.tabs[2].orientation = "column";
-                                    updateTabGroup = hub.tabs[2].add("group",undefined,"");
+                                hub.tabs[3] = hub.tabGroup.add ("group");
+                                    hub.tabs[3].add ('panel {preferredSize: [-1, -10]}');
+                                    hub.tabs[3].orientation = "column";
+                                    updateTabGroup = hub.tabs[3].add("group",undefined,"");
                                     updateTabGroup.orientation = "row";
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[2].add("panel",undefined,"Patch Notes 1.1.2");
+                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.0");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -782,13 +1121,16 @@ function updateScript()
             updateButton.onClick = function() {updateScript()};
             generateTable.onClick = function()
             {
+                app.beginUndoGroup('Generate Template');
                 var customEGpars = false;
                 if (agentStatDropdown.selection!==null) {customEGpars = true};
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
-                var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]'];
+                var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
                 generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
+                app.endUndoGroup();
             };
+            generateMapB.onClick = function() {generateMap('Map Overviews p5.0.aep','https://brianjosephstudio.github.io/templates/Map%20Overviews%20p5.0.aep')};
             //end of functionality                    
             hub.layout.layout(true);
             return hub;
