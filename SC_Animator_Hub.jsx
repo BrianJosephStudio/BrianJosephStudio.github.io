@@ -1,9 +1,9 @@
-//The Animator Hub v1.2.1
+//The Animator Hub v1.2.2
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.2.1';
+var currentVersion = '1.2.2';
 var patchNotesBodyText = "-Fixed several bugs for 'Agent Stats Table' workspace.\n-Added 'Map Overviews' Workspace.\n-Added 'Map Overviews' panel.\n-Map Overviews can be generated with custom parameters from the Animator Hub by preselecting your parameters and clicking on 'Generate Map'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
@@ -1105,7 +1105,7 @@ function updateScript()
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.1");
+                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.2");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -1145,10 +1145,10 @@ function updateScript()
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
                 var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
-                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
+                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
                 app.endUndoGroup();
             };
-            generateMapB.onClick = function() {generateMap('Map Overviews p5.0.aep','https://brianjosephstudio.github.io/Map%20Overviews%20p5.0.aep')};
+            generateMapB.onClick = function() {generateMap('Map Overviews p5.0.aep','https://brianjosephstudio.github.io/templates/Map%20Overviews%20p5.0.aep')};
             //end of functionality                    
             hub.layout.layout(true);
             return hub;
