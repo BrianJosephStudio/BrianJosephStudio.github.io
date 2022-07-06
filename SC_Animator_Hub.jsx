@@ -1,9 +1,9 @@
-//The Animator Hub v1.2.2
+//The Animator Hub v1.2.3
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.2.2';
+var currentVersion = '1.2.3';
 var patchNotesBodyText = "-Fixed several bugs for 'Agent Stats Table' workspace.\n-Added 'Map Overviews' Workspace.\n-Added 'Map Overviews' panel.\n-Map Overviews can be generated with custom parameters from the Animator Hub by preselecting your parameters and clicking on 'Generate Map'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
@@ -150,10 +150,11 @@ function errorCode(errorCodeId)
 function reportCode(reportCodeId)
 {
     var reportList = [
-        "Animator Hub: Your Map was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!",
-        "Animator Hub: Your Template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!"
+        "Your Map was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!",
+        "Your Template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!",
+        "There's no active composition to import your template into"
     ];
-    myAppTag = 'MF Wizard:\n\n    -';
+    myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+reportList[reportCodeId]);
 };
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer
@@ -798,7 +799,8 @@ function generateMap(saveName,url)
                 {
                     delMissingFiles(missingFiles[1]);
                 };
-                if (missingFiles[0]==false || missingFiles[1][0]==undefined) {reportCode(0)};
+                if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
+                else if (missingFiles[0]==false || missingFiles[1][0]==undefined){reportCode(0)};
                 return generateMap(saveName,url)
             }
             else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
@@ -870,6 +872,7 @@ function generateMap(saveName,url)
         var lastMapComp = newMOFolder.item(2);
         //Bring active viewer to front
         app.activeViewer.setActive();
+        if(app.project.activeItem == null){return reportCode(2)};
         //Import Map Comp into active Comp
         var myActive = app.project.activeItem;
         var compImport = myActive.layers.add(lastMapComp);
@@ -942,7 +945,8 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
                 {
                     delMissingFiles(missingFiles[1]);
                 };
-                if (missingFiles[0]==false || missingFiles[1][0]==undefined)
+                if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
+                else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
                 {
                     reportCode(1);
                 };
@@ -950,6 +954,7 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
 
         };
         app.activeViewer.setActive();
+        if(app.project.activeItem == null){return reportCode(2)};
         var activeI = app.project.activeItem;
         if(activeI!==null && activeI.typeName=='Composition')
         {
@@ -1105,7 +1110,7 @@ function updateScript()
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.2");
+                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.3");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
