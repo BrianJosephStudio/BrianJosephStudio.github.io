@@ -1,10 +1,10 @@
-//The Animator Hub v1.2.0
+//The Animator Hub v1.2.1
 //Author: Brian Joseph Studio
 
 ////Global Variables
 
-var currentVersion = '1.2.0';
-var patchNotesBodyText = "-Fixed several bugs for 'Agent stats Table' workspace.\n-Added 'Map Overviews' Workspace.\n-Added 'Map Overviews' panel.\n-Map Overviews can be generated with custom parameters from the Animator Hub by preselecting your parameters and clicking on 'Generate Map'.";
+var currentVersion = '1.2.1';
+var patchNotesBodyText = "-Fixed several bugs for 'Agent Stats Table' workspace.\n-Added 'Map Overviews' Workspace.\n-Added 'Map Overviews' panel.\n-Map Overviews can be generated with custom parameters from the Animator Hub by preselecting your parameters and clicking on 'Generate Map'.";
 var targetComp = 0;
 var agentsArray = ['Astra','Breach','Brimstone','Chamber','Cypher','Fade','Jett','KAY/O','Killjoy','Neon','Omen','Phoenix','Raze','Reyna','Sage','Skye','Sova','Viper','Yoru'];
 var mapsArray = ['Ascent','Bind','Breeze','Fracture','Haven','Icebox','Pearl','Split'];
@@ -73,7 +73,7 @@ function findItem(targetName,skipMissing,folderIndex)
                     itemId = i;
                     break;
                 }
-                else
+                else if (skipMissing!==true)
                 {
                     if (itemName == targetName)
                     {
@@ -138,6 +138,23 @@ function findItem(targetName,skipMissing,folderIndex)
     {
         alert("Animator Hub: There's an error in function 'findItem'");
     }
+};
+function errorCode(errorCodeId)
+{
+    var errorList = [
+        'empty'
+    ];
+    myAppTag = 'MF Wizard:\n\n    -';
+    return alert(myAppTag+errorList[errorCodeId]);
+};
+function reportCode(reportCodeId)
+{
+    var reportList = [
+        "Animator Hub: Your Map was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!",
+        "Animator Hub: Your Template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!"
+    ];
+    myAppTag = 'MF Wizard:\n\n    -';
+    return alert(myAppTag+reportList[reportCodeId]);
 };
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer
 function fetchEgCompOnline(saveName,URL)
@@ -274,7 +291,7 @@ function delMissingFiles(idArray)
     {
         var myItem = app.project.itemByID(idArray[i]);
         if(myItem.typeName!=='Footage') {return false}
-        else {myItem.remove()}
+        else if(myItem.footageMissing==true && myItem.usedIn[0]==undefined) {myItem.remove()}
     };
     return true
 };
@@ -319,20 +336,21 @@ function replaceMissing(compArray)
         var layerName;
         for (var i=1;i<=myComp.numLayers;i++)
         {
-            if(myComp.layer(i).source!==null)
+            if(myComp.layer(i).source!==null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
             {
                 layerName = myComp.layer(i).source.name;
-                if (myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
+                var missingCheck = myComp.layer(i).source.id;
+                var targetItem = findItem(layerName,true);
+                if(targetItem[0]!==false && targetItem[1].typeName=='Footage')
                 {
-                    var targetItem = findItem(layerName,true)[0];
-                    if(targetItem!==false)
+                    myComp.layer(i).replaceSource(targetItem[1],true);
+                    if (myComp.layer(i).source!==app.project.itemByID(missingCheck))
                     {
-                        report[arrayIndex]=myComp.layer(i).source.id;
+                        report[arrayIndex] = missingCheck;
                         arrayIndex +=1;
-                        myComp.layer(i).replaceSource(app.project.item(targetItem),true);
                     }
-                    else if (targetItem==false) {completion = false};
                 }
+                else if (targetItem[0]==false) {completion = false};
             };
         };
     };
@@ -779,11 +797,8 @@ function generateMap(saveName,url)
                 if(missingFiles[1][0]!==undefined)
                 {
                     delMissingFiles(missingFiles[1]);
-                    if (missingFiles[0]==false)
-                    {
-                        alert("Animator Hub: Your Map was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!");
-                    };
                 };
+                if (missingFiles[0]==false || missingFiles[1][0]==undefined) {reportCode(0)};
                 return generateMap(saveName,url)
             }
             else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
@@ -922,11 +937,14 @@ function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,com
             else {return false};
             if (hasMissingFiles==true)
             {
-                var missingFiles = replaceMissing(compArray);
-                delMissingFiles(missingFiles[1]);
-                if (missingFiles[0]==false)
+                var missingFiles = replaceMissing(compArray); 
+                if (missingFiles[1][0]!==undefined)
                 {
-                    alert("Animator Hub: Your template was summoned succesfully but we could not find all the missing files inside this project.\nSeems like you're gonna have to manage missing files yourself for this one!");
+                    delMissingFiles(missingFiles[1]);
+                };
+                if (missingFiles[0]==false || missingFiles[1][0]==undefined)
+                {
+                    reportCode(1);
                 };
             };
 
@@ -1087,7 +1105,7 @@ function updateScript()
                                     updateTabGroup.alignment = "right";
                                     updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                     updateButton = updateTabGroup.add("button",undefined,"Search for Updates");
-                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.0");
+                                    patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 1.2.1");
                                     patchNotes.orientation = "column";
                                     patchNotes.alignment = "fill";
                                         patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -1127,10 +1145,10 @@ function updateScript()
                 var parArr = ['.property("Settings").property("Sort Rank")','.property("Settings").property("Win Rate")','.property("Settings").property("Pick Rate")','.property("Settings").property("Map Sort")','.property("Data Input").property("Agent")','.property("Data Input").property("Rank Sort")','.property("Data Input").property("WR")','.property("Data Input").property("PR")','.property("Data Input").property("Map")']
                 var valArr = [rsCB.value,wrCB.value,prCB.value,msCB.value,agentStatDropdown.selection.index+1,agentStats()[agentStatDropdown.selection.index].SortRank,agentStats()[agentStatDropdown.selection.index].WinRate,agentStats()[agentStatDropdown.selection.index].PickRate,agentStats()[agentStatDropdown.selection.index].SortMap];
                 var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
-                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
+                generateTemplate("Agent Stats Table","Agent Stats Table p5.0.aep","https://brianjosephstudio.github.io/Agent%20Stats%20Table%20p5.0.aep",true,true,compArray,parArr,valArr);
                 app.endUndoGroup();
             };
-            generateMapB.onClick = function() {generateMap('Map Overviews p5.0.aep','https://brianjosephstudio.github.io/templates/Map%20Overviews%20p5.0.aep')};
+            generateMapB.onClick = function() {generateMap('Map Overviews p5.0.aep','https://brianjosephstudio.github.io/Map%20Overviews%20p5.0.aep')};
             //end of functionality                    
             hub.layout.layout(true);
             return hub;
