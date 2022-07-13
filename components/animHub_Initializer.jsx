@@ -106,7 +106,7 @@ function resolveComponents()
 {
     if(
     hubComponents.initializer.resolveIt() == false ||
-    hubComponents.initializer.resolveIt() == false ||
+    hubComponents.urlManager.resolveIt() == false ||
     hubComponents.ui.resolveIt() == false ||
     hubComponents.globalVariables.resolveIt() == false ||
     hubComponents.templateConstructors.resolveIt() == false ||
