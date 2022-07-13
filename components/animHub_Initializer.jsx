@@ -9,6 +9,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/animHub_UI.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_UI.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.globalVariables =
@@ -18,6 +19,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/globalVariables.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/globalVariables.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.elementalFunctions =
@@ -27,6 +29,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/elementalFunctions.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/elementalFunctions.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.templateConstructors =
@@ -36,6 +39,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/templateConstructors.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/templateConstructors.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.generatorFunctions =
@@ -45,6 +49,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/generatorFunctions.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/generatorFunctions.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.ads =
@@ -54,6 +59,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/animHub_ADS.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_ADS.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.errorReportCodes =
@@ -63,6 +69,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/errorReportCodes.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/errorReportCodes.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.patchNotes =
@@ -72,6 +79,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/patchNotes.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/patchNotes.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
     hubComponents.urlManager =
@@ -81,6 +89,7 @@ function expandComponents()
         url:"https://brianjosephstudio.github.io/components/urlManager.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/urlManager.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
 }
@@ -107,17 +116,18 @@ function initializeHub(UIBody)
 function resolveComponents()
 {
     if(
-    hubComponents.initializer.resolveIt() == false ||
-    hubComponents.urlManager.resolveIt() == false ||
-    hubComponents.ui.resolveIt() == false ||
-    hubComponents.globalVariables.resolveIt() == false ||
-    hubComponents.templateConstructors.resolveIt() == false ||
-    hubComponents.ads.resolveIt() == false ||
-    hubComponents.elementalFunctions.resolveIt() == false ||
-    hubComponents.generatorFunctions.resolveIt() == false ||
-    hubComponents.errorReportCodes.resolveIt() == false ||
-    hubComponents.patchNotes.resolveIt() == false)
+    hubComponents.initializer.updateIt() == false ||
+    hubComponents.urlManager.updateIt() == false ||
+    hubComponents.ui.updateIt() == false ||
+    hubComponents.globalVariables.updateIt() == false ||
+    hubComponents.templateConstructors.updateIt() == false ||
+    hubComponents.ads.updateIt() == false ||
+    hubComponents.elementalFunctions.updateIt() == false ||
+    hubComponents.generatorFunctions.updateIt() == false ||
+    hubComponents.errorReportCodes.updateIt() == false ||
+    hubComponents.patchNotes.updateIt() == false)
     {primitiveAlert(5)};
+
 }
 /*********************************************************************************************/
 /*//Update Main Script

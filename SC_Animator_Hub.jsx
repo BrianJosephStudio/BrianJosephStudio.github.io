@@ -8,6 +8,7 @@ Component = function()
         url:"https://brianjosephstudio.github.io/components/animHub_Initializer.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_Initializer.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri);}
     }
 };
@@ -80,10 +81,21 @@ function downloadComponent(url,uri)
 function searchComponent(url,uri)
 {
     var newFile = new File(uri);
-    if(newFile.exists == false || isUpdated() == false)
+    if(newFile.exists == false)
     {
         var myDownload = downloadComponent(url,uri);
         if(myDownload==true) {return searchComponent(url,uri)}
+        else{primitiveAlert(1)};return false; 
+    }
+    else {return newFile};
+};
+function searchUpdateComponent(url,uri)
+{
+    var newFile = new File(uri);
+    if(newFile.exists == false || updateStatus == false)
+    {
+        var myDownload = downloadComponent(url,uri);
+        if(myDownload==true) {return searchUpdateComponent(url,uri)}
         else{primitiveAlert(1)};return false; 
     }
     else {return newFile};
@@ -92,6 +104,7 @@ function searchComponent(url,uri)
 var hubComponents = new Component();
 resolveLocalDir();
 var myInit = hubComponents.initializer.resolveIt();
+var updateStatus = isUpdated();
 if(myInit==false){primitiveAlert(4)}
 else
 {
