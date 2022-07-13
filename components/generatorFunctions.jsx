@@ -37,19 +37,21 @@ function goToGTR()
     app.beginUndoGroup("Open GTR");
     try
     {
-        var id = findItem("Global Topic Reference",true)[0];
-        if (id > 0)
+        var GTR = findTemplate("animHub_template_[GTR]");
+        if (GTR !== false)
         {
-            app.project.item(id).openInViewer();
+            GTR.object.openInViewer();
         }
         else
         {
             generateGTR();
+            var GTR = findTemplate("animHub_template_[GTR]");
+            GTR.object.openInViewer();
         };
     }
     catch(e)
     {
-        alert("Animator Hub: There's an error in function 'openGTR'");
+        errorCode(12);
     }
     app.endUndoGroup();
 };
@@ -58,44 +60,46 @@ function generateGTR()
 {
     try
     {
-        //Create Comp
-        app.project.items.addComp("Global Topic Reference",1920,1080,1,20*60,29.97);
-        //find Global Topic Reference ID   
-        var id2 = findItem("Global Topic Reference",true)[0];
-        //Create Text Layers
-        for (e = 30; e >=1;e--){
-            app.project.item(id2).layers.addText("");
-        };
-        //Set Layer Formatting
-        for (lp = 1; lp<=30;lp++)
-        {
-            textDoc = new TextDocument("Text Document lp");
-            var textProp = app.project.item(id2).layer(lp).property("sourceText");
-            textProp.setValue(textDoc);
-            textDoc = textProp.value;
-            textDoc.justification = ParagraphJustification.LEFT_JUSTIFY;
-            textDoc.font = "Mont-BookItalic";
-            textDoc.fontSize = 40;
-            textDoc.fillColor = [1,1,1];
-            textDoc.text = "Insert Title "+ lp;
-            textDoc.tracking = -19;
-            textProp.setValue(textDoc);
-            // Layer Transform SEttings
-            var src = app.project.item(id2).layer(lp).sourceRectAtTime(0,true);
-            var anchorPX = src.left;
-            var anchorPY = src.top+(src.height/2);
-            app.project.item(id2).layer(lp).anchorPoint.setValue([anchorPX,anchorPY,0]);
-            app.project.item(id2).layer(lp).position.setValue([0,(1080/31)*lp,100]);
-        }
-        app.project.item(id2).openInViewer();
+        var templateName = "Global Topic Reference";
+        var commentTag = 'animHub_template_[GTR]';
+        var saveName = "Global Topic Reference.aep";
+       generateTemplate(templateName,commentTag,saveName,UrlManager.template.globalTopicReference,false,false,false,undefined)
     }
     catch(e)
     {
-        alert("Animator Hub: There's an error in function 'generateGTR'");
+        errorCode(11);
     };
 };
+function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
+{try{
+    app.beginUndoGroup('Generate Agent Stats Table');
+    var templateName = "Agent Stats Table";
+    var commentTag = 'animHub_template_[AST]';
+    var saveName = "Agent Stats Table.aep";
+    var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
+    generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentStatsTable,true,true,true,compArray);
+    var sortRankcb = new EgParameter('Sort Rank',rsCB.value,'checkbox',templateName,'Settings',undefined);
+    var winRatecb = new EgParameter('Win Rate',wrCB.value,'checkbox',templateName,'Settings',undefined);
+    var pickRatecb = new EgParameter('Pick Rate',prCB.value,'checkbox',templateName,'Settings',undefined);
+    var mapSortcb = new EgParameter('Map Sort',msCB.value,'checkbox',templateName,'Settings',undefined);
+    var agent = new EgParameter('Agent',agentStatDropdown.selection.index,'menuControl',templateName,'Data Input',undefined);
+    var sortRank = new EgParameter('Rank Sort',agentStats()[agentStatDropdown.selection.index].SortRank-1,'menuControl',templateName,'Data Input',undefined);
+    var winRate = new EgParameter('WR',agentStats()[agentStatDropdown.selection.index].WinRate,'slider',templateName,'Data Input',undefined);
+    var pickRate = new EgParameter('PR',agentStats()[agentStatDropdown.selection.index].PickRate,'slider',templateName,'Data Input',undefined);
+    var map = new EgParameter('Map',agentStats()[agentStatDropdown.selection.index].SortMap-1,'menuControl',templateName,'Data Input',undefined);
+    sortRankcb.setEgValue();
+    winRatecb.setEgValue();
+    pickRatecb.setEgValue();
+    mapSortcb.setEgValue();
+    agent.setEgValue();
+    sortRank.setEgValue();
+    winRate.setEgValue();
+    pickRate.setEgValue();
+    map.setEgValue();
+    app.endUndoGroup();}catch(e){errorCode(4)}
+};
 //Generates map Overviews
-function generateMap(saveName,url)
+function generateMap(saveName,url,Map,screenSpan,manageFootage)
 {
     try
     { 
@@ -114,7 +118,7 @@ function generateMap(saveName,url)
                 };
                 if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
                 else if (missingFiles[0]==false || missingFiles[1][0]==undefined){reportCode(0)};
-                return generateMap(saveName,url)
+                return generateMap(saveName,url,Map,screenSpan,manageFootage)
             }
             else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
         };
@@ -130,7 +134,7 @@ function generateMap(saveName,url)
                 };
 
             };;
-            return generateMap(saveName,url);
+            return generateMap(saveName,url,Map,screenSpan,manageFootage);
         };
         if (findItem('Maps [ND]')[0]==false || findItem('Map Comp 1')[0]==false || findItem('Map Edit 1')[0]==false || findItem('Comp Background 1')[0]==false)
         {   for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
@@ -140,7 +144,7 @@ function generateMap(saveName,url)
                     app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
                 };
             };
-            return generateMap(saveName,url)
+            return generateMap(saveName,url,Map,screenSpan,manageFootage)
         };
         var mapMainFolderNumItems =  mapMainFolder[1].numItems;
         var usedCheck = undefined;
@@ -193,11 +197,12 @@ function generateMap(saveName,url)
         var myPath = compImport.property('Essential Properties').property('Animation');
         IOanimKeySetter(myPath,undefined,myActive.duration);
         //Set key values
-        try {var screenSpan = eval(mapOvTextbox1.text)} catch(e){var screenSpan = 100};
-        myPath.setValueAtKey(2,screenSpan); myPath.setValueAtKey(3,screenSpan);
+        if(isNaN(screenSpan.text)==false){var screenSpanValue = eval(screenSpan.text)}
+        else{var screenSpanValue = 100;}
+        myPath.setValueAtKey(2,screenSpanValue); myPath.setValueAtKey(3,screenSpanValue);
         while(compBG[1].numLayers>2) {compBG[1].layer(3).remove()};
         while(mapEdit[1].layer(mapEdit[1].numLayers).hasVideo==false && mapEdit[1].layer(mapEdit[1].numLayers).hasAudio==true) {mapEdit[1].layer(mapEdit[1].numLayers).remove()};
-        if(mapOvCb1.value==1)
+        if(manageFootage.value==true)
         {
             for (var i = 1; i <= myActive.numLayers; i++)
             {
@@ -223,67 +228,32 @@ function generateMap(saveName,url)
         //Open Map Edit
         mapEdit[1].openInViewer();
         //Set Map
-        mapEdit[1].layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(mapOvMenu1.selection.index+1);
+        mapEdit[1].layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map.selection.index+1);
         app.endUndoGroup();
     }
     catch(e){alert("Animator Hub: There's an error in function 'generateMap'.\n\nSuggested Actions:\n    -Go talk to Brian!")}
 };
-//Generate Template Function
-function generateTemplate(templateName,saveName,URL,hasMissingFiles,customEG,compArray,parArr,valArr)
+function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
 {
     try
     {
-        var compId = findItem(saveName)[0];
-        if (compId==false)
-        {
-            var myDownload = fetchEgCompOnline(saveName,URL);
-            if (myDownload==true)
-            {
-                var myFile = findFileInSystem(saveName);
-                if (myFile!==false)
-                {
-                    var myImport = importFileToProject(myFile);
-                    if (myImport!==false)
-                    {
-                        eraseFileFromSystem(saveName);
-                    };
-                }
-                else {return false};
-            }
-            else {return false};
-            if (hasMissingFiles==true)
-            {
-                var missingFiles = replaceMissing(compArray); 
-                if (missingFiles[1][0]!==undefined)
-                {
-                    delMissingFiles(missingFiles[1]);
-                };
-                if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
-                else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
-                {
-                    reportCode(1);
-                };
-            };
-
-        };
-        app.activeViewer.setActive();
-        if(app.project.activeItem == null){return reportCode(2)};
-        var activeI = app.project.activeItem;
-        if(activeI!==null && activeI.typeName=='Composition')
-        {
-            myImport = importItemToActiveComp(templateName);
-            if (myImport!==true) {alert("Animator Hub: Please Select a composition to import this template into!"); return false};
-            activateCollapse(templateName);
-            if(customEG==true)
-            {
-                customEGParameters(templateName,parArr,valArr)
-            };
-        }
-        else {alert("Animator Hub: Please select a composition to import this template into!")};
-    }
-    catch(e)
-    {
-        alert("Animator Hub: There's an error in function 'Generate Template'");
-        return false
-    };
+        app.beginUndoGroup('Generate Agent Icon');
+        var templateName = 'Agent Icon';
+        var commentTag = "animHub_template_[AI]";
+        var saveName = "Agent Icon.aep";
+        var compArray = ['M.A.I. Agents'];
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentIcon,true,true,false,compArray);
+        var attackDefense = new EgParameter('Attack/Defense',agentIconMenu2.selection.index,'menuControl',templateName,undefined,undefined);
+        var agent = new EgParameter('Agent',agentIconMenu1.selection.index,'menuControl',templateName,undefined,undefined);
+        var death = new EgParameter('Death',agentIconCheckbox1.value,'checkbox',templateName,undefined,undefined);
+        attackDefense.setEgValue();
+        agent.setEgValue();
+        death.setEgValue();
+        var myLayer = app.project.activeItem.layer('Map [ND]');
+        if(myLayer!== null){app.project.activeItem.selectedLayers[0].parent = myLayer}
+        app.project.activeItem.selectedLayers[0].property('Transform').property('Scale').setValue([30,30]);
+        app.project.activeItem.selectedLayers[0].property('Essential Properties').property('Rotation').expression = "transform.rotation";
+        //make it parent of Map ND layer
+        app.endUndoGroup();
+    } catch(e) {errorCode(9)}
 };

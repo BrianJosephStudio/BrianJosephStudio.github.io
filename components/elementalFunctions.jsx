@@ -1,6 +1,6 @@
-////ELEMENTAL FUNCTIONS
+//// ELEMENTAL FUNCTIONS ////
 
-//Agent Stats JSON
+//Agent Stats JSON ______________________________________________________________________________________________________________
 function agentData()
 {
     try
@@ -11,7 +11,7 @@ function agentData()
     }
     catch(e) {return false};
 };
-//Agent Stats JSON
+//Agent Stats JSON_______________________________________________________________________________________________________________
 function agentArray()
 {
     try
@@ -22,7 +22,7 @@ function agentArray()
     }
     catch(e) {return false};
 };
-//Map Array
+//Map Array______________________________________________________________________________________________________________________
 function agentStats()
 {
     try
@@ -33,7 +33,7 @@ function agentStats()
     }
     catch(e) {return false};
 };
-//Agents Array
+//Agents Array___________________________________________________________________________________________________________________
 function mapArray()
 {
     try
@@ -46,7 +46,7 @@ function mapArray()
     }
     catch(e) {return false};
 };
-//Finding compItem | returns compItem index
+//Finding compItem | returns compItem index______________________________________________________________________________________
 function findItem(targetName,skipMissing,folderIndex)
 {
     try
@@ -125,10 +125,29 @@ function findItem(targetName,skipMissing,folderIndex)
     }
     catch(e)
     {
-        alert("Animator Hub: There's an error in function 'findItem'");
+        errorCode(5);
     }
 };
-//Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer
+//returns template item Id
+function findTemplate(commentTag)
+{
+    var templateIndex = 0;
+    for(var i = 1; i<= app.project.numItems; i++)
+    {
+        if (app.project.item(i).comment == commentTag)
+        {
+            var ParentFolder = app.project.item(i).parentFolder;
+            var tempName = app.project.item(i).name;
+            var templateID = app.project.item(i).id;
+            templateIndex = i;
+            var obj = app.project.itemByID(templateID);
+            break;
+        };
+    };
+    if(templateIndex==0){return false};
+    return {object : obj, ID : templateID, index: templateIndex, templateName : tempName, parent : ParentFolder.name,parentID : ParentFolder.id}
+};
+//Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer________________________________
 function fetchEgCompOnline(saveName,URL)
 {
     system.callSystem('cmd.exe /c cd %HOMEPATH% && cd downloads && curl -s -f -o "'+saveName+'" "'+URL+'"');
@@ -136,14 +155,14 @@ function fetchEgCompOnline(saveName,URL)
     if (dataCheck.search('true')!==-1) {return true}
     else {return false};
 };
-//Fetch Online Json | Returns Json ready to be parsed
+//Fetch Online Json | Returns Json ready to be parsed____________________________________________________________________________
 function fetchOnlineJson(URL)
 {
     var myJson = system.callSystem('curl -s '+ URL);
     if (myJson!=='') {return myJson}
     else {return false};
 };
-//Json Object Array
+//Json Object Array______________________________________________________________________________________________________________
 function jsonObjectArray(targetJson,targetProperty)
 {
     if (targetJson!==false)
@@ -158,11 +177,11 @@ function jsonObjectArray(targetJson,targetProperty)
     }
     else
     {
-        alert("Animator Hub: There's an error in function 'Target Json'");
+        errorCode(7);
         return false
     };
 };
-//Use array to find a group of items with matching names | Returns an array of indexes.
+//Use array to find a group of items with matching names | Returns an array of indexes.__________________________________________
 function nameArrToIndexArr(nameArray)
 {
     if (nameArray!==false)
@@ -197,7 +216,7 @@ function nameArrToIndexArr(nameArray)
         return false
     };
 };
-//Activates Collapse Transformations for the active comp and targeted layer name.
+//Activates Collapse Transformations for the active comp and targeted layer name.________________________________________________
 function activateCollapse(templateName)
 {
     var myLayer = app.project.activeItem.layer(templateName);
@@ -205,7 +224,7 @@ function activateCollapse(templateName)
 };
 /* Finds the range of items within a folder. Returns a 2 value array:
 [0]:Total Amount of items within specified folder.
-[1]Absolute index of the last item within that folder.*/
+[1]Absolute index of the last item within that folder.*///_______________________________________________________________________
 function folderRelativeLength(folderObject)
 {
     var folderLength = folderObject[1].numItems;
@@ -219,7 +238,7 @@ function folderRelativeLength(folderObject)
     };
     return [lastItem[0]-folderObject[0],lastItem[0]];
 };
-//Stores missing Files in a specified folder and outputs them in an array
+//Stores missing Files in a specified folder and outputs them in an array________________________________________________________
 function missingFilesToIdArray(folderIndex,onlyUseless)
 {
     try
@@ -255,7 +274,21 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
         return false
     }
 };
-//Erase Missing files targeted in an array
+
+function fixMissing(compArray)
+    {
+        var missingFiles = replaceMissing(compArray); 
+        if (missingFiles[1][0]!==undefined)
+        {
+            delMissingFiles(missingFiles[1]);
+        };
+        if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
+        else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
+        {
+            reportCode(1);
+        };
+    };
+//Erase Missing files targeted in an array_______________________________________________________________________________________
 function delMissingFiles(idArray)
 {
     if (idArray==undefined) {return false};
@@ -267,7 +300,7 @@ function delMissingFiles(idArray)
     };
     return true
 };
-//returns a filtered string without its extension, if any.
+//returns a filtered string without its extension, if any._______________________________________________________________________
 function removeExtFromName(nameString)
 {
     var output;
@@ -278,7 +311,7 @@ function removeExtFromName(nameString)
     return output
     
 };
-//Replace files in target Comp from an array of project items
+//Replace files in target Comp from an array of project items____________________________________________________________________
 function replaceLayers(compName,indexArray)
 {
     var compId = findItem(compName,true)[0];
@@ -296,7 +329,7 @@ function replaceLayers(compName,indexArray)
         return false
     };
 };
-//Replace Missing layers in comp from project items with matching names
+//Replace Missing layers in comp from project items with matching names__________________________________________________________
 function replaceMissing(compArray)
 {
     var completion = true;
@@ -328,7 +361,7 @@ function replaceMissing(compArray)
     };
     return [completion,report];
 };
-//Delete File in System
+//Delete File in System__________________________________________________________________________________________________________
 function eraseFileFromSystem(saveName)
 {
     try
@@ -341,7 +374,7 @@ function eraseFileFromSystem(saveName)
     }
     catch(e) {return false}
 };
-//Find Downloaded Comp in System |Returns ExtendScript File Object(URI)
+//Find Downloaded Comp in System |Returns ExtendScript File Object(URI)__________________________________________________________
 function findFileInSystem(fileName)
 {
     var URIname = encodeURI(fileName)
@@ -351,7 +384,7 @@ function findFileInSystem(fileName)
     if (openMyFile==true) {return myFile}
     else {return false};
 };
-//Imports a File Object into the current project.
+//Imports a File Object into the current project.________________________________________________________________________________
 function importFileToProject(fileObject)
 {
     if(fileObject==false)
@@ -369,12 +402,12 @@ function importFileToProject(fileObject)
         }
         catch(e)
         {
-            alert("Animator Hubber: There's an error in function 'Import File To Project'");
+            errorCode(6);
             return false
         };
     };
 };
-//Takes a string and returns a string with a raised number at the end or a 2 if there is no number at the end.
+//Takes a string and returns a string with a raised number at the end or a 2 if there is no number at the end.___________________
 function serialNamer(string,enumerateNaN,reverseDirection)
 {
     var mySplit = string.split(' ');
@@ -400,7 +433,7 @@ function serialNamer(string,enumerateNaN,reverseDirection)
     }
     return myOutput
 };
-//Renames all layers inside project or specified folder based on search and replace input variables
+//Renames all layers inside project or specified folder based on search and replace input variables______________________________
 function renamer(searchTerm,replaceTerm,folderIndex)
 {
     var startIndex;
@@ -418,7 +451,7 @@ function renamer(searchTerm,replaceTerm,folderIndex)
     };
     return returnVal
 };
-//A loop designed to work within duplicator function
+//A loop designed to work within duplicator function_____________________________________________________________________________
 function myDupLoop(targetItem,arr)
 {
     var getName = serialNamer(targetItem.name,true);
@@ -444,7 +477,7 @@ function myDupLoop(targetItem,arr)
     }
     return [arr.pop(),newFolder]
 };
-//Takes an item(comp or folder) and duplicates all of its contents with the correct naming. Skips footageItems.
+//Takes an item(comp or folder) and duplicates all of its contents with the correct naming. Skips footageItems.__________________
 function duplicator(itemObject)
 {
     if (itemObject==undefined){return false};
@@ -464,16 +497,15 @@ function duplicator(itemObject)
         return myDupLoop(itemObject,idArr)[1];
     };
 };
-//Import Project Item Into Active Comp
-function importItemToActiveComp(templateName)
+//Import Project Item Into Active Comp___________________________________________________________________________________________
+function importItemToActiveComp(template)
 {
-    var compId = findItem(templateName,true)[0];
-    if (compId!==false)
+    if (template!==false)
     {
         try
         {
             var activeComp = app.project.activeItem;
-            activeComp.layers.add(app.project.item(compId));
+            activeComp.layers.add(template.object);
             return true
         }
         catch(e)
@@ -484,7 +516,7 @@ function importItemToActiveComp(templateName)
     else {return false};
 };
 /*Sets custom Essential Graphics Parameters to the newly imported Template.
-ParameterArray is an array of property path strings*/
+ParameterArray is an array of property path strings*///__________________________________________________________________________
 function customEGParameters(templateName,parameterArray,valueArray)
 {
     try
@@ -503,7 +535,7 @@ function customEGParameters(templateName,parameterArray,valueArray)
         return false
     }
 };
-//Deselects everything in the project panel
+//Deselects everything in the project panel______________________________________________________________________________________
 function deselectAll()
 {
     var sel = app.project.selection;
@@ -517,7 +549,7 @@ function deselectAll()
     }
     else {return undefined};
 };
-//Downloads a comp form database and imports it in project
+//Downloads a comp form database and imports it in project_______________________________________________________________________
 function downloadAndImport(saveName,URL)
 {
     var myDownload = fetchEgCompOnline(saveName,URL);
@@ -530,6 +562,7 @@ function downloadAndImport(saveName,URL)
             if (myImport!==false)
             {
                 eraseFileFromSystem(saveName);
+                return true;
             }
             else {return false};
         }
@@ -537,7 +570,7 @@ function downloadAndImport(saveName,URL)
     }
     else {return false};
 };
-//copies and pastes a keyframe at custom input time
+//copies and pastes a keyframe at custom input time______________________________________________________________________________
 function cloneKeyAtTime(propPath,keyIndex,newKeyTime,deleteOld,timeIsFrames)
 {
     ////Retrive key properties
@@ -572,7 +605,7 @@ function cloneKeyAtTime(propPath,keyIndex,newKeyTime,deleteOld,timeIsFrames)
     }
     return true
 };
-//Returns all key properties from input keyframe
+//Returns all key properties from input keyframe_________________________________________________________________________________
 function keyProp(propPath,keyIndex)
 {
     ////Retrive key properties
@@ -606,7 +639,7 @@ function keyProp(propPath,keyIndex)
     };
     return [kVal,kTime,propValType,inIntType,outIntType,inTempEase,outTempEase,propPath.isSpatial,inSpatialTangent,outSpatialTangent,isRoving,spatialAutoBezier,temporalAutoBezier,spatialContinuous,temporalContinuous]
 };
-//Shifts in and out animation times for a 4-keyframe based I/O animation
+//Shifts in and out animation times for a 4-keyframe based I/O animation_________________________________________________________
 function IOanimKeySetter(propPath,newInTime,newOutTime)
 {
     //Obtain some Key info

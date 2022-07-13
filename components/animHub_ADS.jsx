@@ -1,0 +1,4 @@
+AdSegment = function() 
+{
+    this.rankUPToImm = {};
+}

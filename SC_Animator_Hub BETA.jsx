@@ -7,7 +7,7 @@ Component = function()
         name:"animHub_Initializer",
         url:"https://brianjosephstudio.github.io/components/animHub_Initializer.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_Initializer.jsx",
-        resolveIt: function(){searchComponent(this.url,this.uri)},
+        resolveIt: function(){return searchComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri);}
     }
 };
@@ -18,7 +18,10 @@ function primitiveAlert(codeNumber)
     [
         "File Object is not valid in function 'includeComponent()'. Alert(0)",
         "something failed while trying to download components in function 'downloadComponent()'.",
-        "something failed while trying to execute function 'resolveLocalDir()'."
+        "something failed while trying to execute function 'resolveLocalDir()'.",
+        "Something went wrong when trying to check for updates in function 'isUpdated()'. Check your internet connection.",
+        "Initializer is missing on this device and need to be downloaded, the Animator Hub can't run until an internet connection is established.",
+        "There are missing components on this device and it's adviced not to use the Animator Hub even if it opens, as it may cause run errors."
     ]
     var messageTag = 'Animator Hub:\n\n    ';
     return alert(messageTag+alertList[codeNumber])
@@ -52,13 +55,14 @@ function valid(uri)
 /*************************************************************************************************/
 function isUpdated()
 {
-    return true
-    /*var versionCheckJson = system.callSystem('curl -s '+UrlManager.jsonFile.versionCheck);
+    //return true
+    var versionCheck = system.callSystem('curl -s https://brianjosephstudio.github.io/jsonFiles/versionCheck.json');
     try
     {
-        if (versionCheckJson==currentVersion){return true}
+        var versionCheckJson = JSON.parse(versionCheck);
+        if (versionCheckJson.latestVersion==currentVersion){return true}
         else {return false}
-    } catch(e){return true}*/
+    } catch(e){primitiveAlert(3);return undefined}
 };
 /*************************************************************************************************/
 function downloadComponent(url,uri)
@@ -80,11 +84,16 @@ function searchComponent(url,uri)
         if(myDownload==true) {return searchComponent(url,uri)}
         else{return primitiveAlert(1)};
     }
+    else if (newFile.exists == false && isUpdated() == undefined){return false}
     else {return newFile};
 }
-/*************************************************************************************************/
+/************************************************************************************************/
 var hubComponents = new Component();
 resolveLocalDir();
-hubComponents.initializer.resolveIt();
+var myInit = hubComponents.initializer.resolveIt();
+if(myInit==false){primitiveAlert(4)}
+else
+{
 eval("#include '"+hubComponents.initializer.uri+"'");
-{initializeHub(this)}; 
+{initializeHub(this)};
+};
