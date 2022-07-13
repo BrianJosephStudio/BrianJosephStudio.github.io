@@ -114,7 +114,7 @@ function resolveComponents()
     hubComponents.elementalFunctions.resolveIt() == false ||
     hubComponents.generatorFunctions.resolveIt() == false ||
     hubComponents.errorReportCodes.resolveIt() == false ||
-    hubComponents.patchNotes.resolveIt())
+    hubComponents.patchNotes.resolveIt() == false)
     {primitiveAlert(5)};
 }
 /*********************************************************************************************/
