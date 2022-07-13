@@ -15,10 +15,10 @@ UrlManager =
     },
     template :
     {
-        agentIcon : "https://brianjosephstudio.github.io/templatesMissingFiles/Agent%20Icon.aep",
-        topBanner : "https://brianjosephstudio.github.io/templatesMissingFiles/Top%20Banner.aep",
-        agentStatsTable : "https://brianjosephstudio.github.io/templatesMissingFiles/Agent%20Stats%20Table.aep",
-        mapOverviews : "https://brianjosephstudio.github.io/templatesMissingFiles/Map%20Overviews.aep",
+        agentIcon : "https://brianjosephstudio.github.io/templates/Agent%20Icon.aep",
+        topBanner : "https://brianjosephstudio.github.io/templates/Top%20Banner.aep",
+        agentStatsTable : "https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table.aep",
+        mapOverviews : "https://brianjosephstudio.github.io/templates/Map%20Overviews.aep",
         globalTopicReference : "https://brianjosephstudio.github.io/templates/Global%20Topic%20Reference.aep"
     },
     jsonFile :

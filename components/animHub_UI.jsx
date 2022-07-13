@@ -163,12 +163,12 @@ function myScript(thisObj){
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.0.0");
+                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.0.2");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
                                     patchNotesBody.alignment = "left";
-                                    patchNotesBody.preferredSize = [300,90];
+                                    patchNotesBody.preferredSize = [300,250];
                         //
             for (var i = 0; i < hub.tabs.length; i++) {
                 hub.tabs[i].orientation = 'column';
