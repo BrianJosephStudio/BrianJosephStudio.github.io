@@ -51,7 +51,7 @@ function expandComponents()
     {
         saveName : "AdSegments.jsx",
         name:"Ad Segments",
-        url:"https://brianjosephstudio.github.io/components/animHUb_ADS.jsx",
+        url:"https://brianjosephstudio.github.io/components/animHub_ADS.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_ADS.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
