@@ -84,7 +84,7 @@ function searchComponent(url,uri)
     if(newFile.exists == false)
     {
         var myDownload = downloadComponent(url,uri);
-        if(myDownload==true) {return searchComponent(url,uri)}
+        if(myDownload==true) {return true}
         else{primitiveAlert(1)};return false; 
     }
     else {return newFile};
