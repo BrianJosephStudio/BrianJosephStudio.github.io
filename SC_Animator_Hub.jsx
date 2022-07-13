@@ -91,14 +91,10 @@ function searchComponent(url,uri)
 };
 function searchUpdateComponent(url,uri)
 {
-    var newFile = new File(uri);
-    if(newFile.exists == false || updateStatus == false)
-    {
-        var myDownload = downloadComponent(url,uri);
-        if(myDownload==true) {return searchUpdateComponent(url,uri)}
-        else{primitiveAlert(1)};return false; 
-    }
-    else {return newFile};
+    var newFile;
+    var myDownload = downloadComponent(url,uri);
+    if(myDownload==true) {return newFile = new File(uri);}
+    else{primitiveAlert(1)};return false;
 }
 /************************************************************************************************/
 var hubComponents = new Component();

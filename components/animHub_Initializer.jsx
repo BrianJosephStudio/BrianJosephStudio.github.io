@@ -1,4 +1,4 @@
-var currentVersion = '2.0.6';
+var currentVersion = '2.0.7';
 /*********************************************************************************************/
 function expandComponents()
 {

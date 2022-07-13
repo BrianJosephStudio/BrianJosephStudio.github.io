@@ -163,7 +163,7 @@ function myScript(thisObj){
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.0.6");
+                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.0.7");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
