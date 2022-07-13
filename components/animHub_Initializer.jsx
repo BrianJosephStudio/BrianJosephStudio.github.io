@@ -1,4 +1,4 @@
-var currentVersion = '2.0.2';
+var currentVersion = '2.0.3';
 /*********************************************************************************************/
 function expandComponents()
 {
@@ -107,16 +107,16 @@ function initializeHub(UIBody)
 function resolveComponents()
 {
     if(
-    hubComponents.initializer.resolveIt() == false || hubComponents.initializer.resolveIt() == undefined ||
-    hubComponents.urlManager.resolveIt() == false || hubComponents.urlManager.resolveIt() == undefined || 
-    hubComponents.ui.resolveIt() == false || hubComponents.ui.resolveIt() == undefined || 
-    hubComponents.globalVariables.resolveIt() == false || hubComponents.globalVariables.resolveIt() == undefined || 
-    hubComponents.templateConstructors.resolveIt() == false || hubComponents.templateConstructors.resolveIt() == undefined || 
-    hubComponents.ads.resolveIt() == false || hubComponents.ads.resolveIt() == false || 
-    hubComponents.elementalFunctions.resolveIt() == false || hubComponents.elementalFunctions.resolveIt() == undefined || 
-    hubComponents.generatorFunctions.resolveIt() == false || hubComponents.generatorFunctions.resolveIt() == undefined || 
-    hubComponents.errorReportCodes.resolveIt() == false || hubComponents.errorReportCodes.resolveIt() == undefined || 
-    hubComponents.patchNotes.resolveIt() == false|| hubComponents.patchNotes.resolveIt() == undefined)
+    hubComponents.initializer.resolveIt() == false ||
+    hubComponents.urlManager.resolveIt() == false ||
+    hubComponents.ui.resolveIt() == false ||
+    hubComponents.globalVariables.resolveIt() == false ||
+    hubComponents.templateConstructors.resolveIt() == false ||
+    hubComponents.ads.resolveIt() == false ||
+    hubComponents.elementalFunctions.resolveIt() == false ||
+    hubComponents.generatorFunctions.resolveIt() == false ||
+    hubComponents.errorReportCodes.resolveIt() == false ||
+    hubComponents.patchNotes.resolveIt() == false)
     {primitiveAlert(5)};
 }
 /*********************************************************************************************/
