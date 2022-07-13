@@ -89,6 +89,7 @@ function initializeHub(UIBody)
 {
     expandComponents();
     resolveComponents()
+    try{
     eval("#include '"+hubComponents.urlManager.uri+"'");
     eval("#include '"+hubComponents.globalVariables.uri+"'");
     eval("#include '"+hubComponents.elementalFunctions.uri+"'");
@@ -98,6 +99,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.errorReportCodes.uri+"'");
     eval("#include '"+hubComponents.ui.uri+"'");
     eval("#include '"+hubComponents.patchNotes.uri+"'");
+    }catch(e){return primitiveAlert(6)}
     myScript(UIBody)
     
 };
