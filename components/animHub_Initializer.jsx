@@ -1,4 +1,4 @@
-var currentVersion = '2.0.5';
+var currentVersion = '2.0.6';
 /*********************************************************************************************/
 function expandComponents()
 {
@@ -99,6 +99,7 @@ function initializeHub(UIBody)
     expandComponents();
     resolveComponents()
     try{
+    eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
     eval("#include '"+hubComponents.globalVariables.uri+"'");
     eval("#include '"+hubComponents.elementalFunctions.uri+"'");
@@ -115,18 +116,31 @@ function initializeHub(UIBody)
 /*********************************************************************************************/
 function resolveComponents()
 {
-    if(
-    hubComponents.initializer.updateIt() == false ||
-    hubComponents.urlManager.updateIt() == false ||
-    hubComponents.ui.updateIt() == false ||
-    hubComponents.globalVariables.updateIt() == false ||
-    hubComponents.templateConstructors.updateIt() == false ||
-    hubComponents.ads.updateIt() == false ||
-    hubComponents.elementalFunctions.updateIt() == false ||
-    hubComponents.generatorFunctions.updateIt() == false ||
-    hubComponents.errorReportCodes.updateIt() == false ||
-    hubComponents.patchNotes.updateIt() == false)
-    {primitiveAlert(5)};
+    if(updateStatus == true)
+    {
+        hubComponents.urlManager.resolveIt();
+        hubComponents.ui.resolveIt();
+        hubComponents.globalVariables.resolveIt();
+        hubComponents.templateConstructors.resolveIt();
+        hubComponents.ads.resolveIt();
+        hubComponents.elementalFunctions.resolveIt();
+        hubComponents.generatorFunctions.resolveIt();
+        hubComponents.errorReportCodes.resolveIt();
+        hubComponents.patchNotes.resolveIt();
+    }
+    else if(updateStatus == false)
+    {
+        hubComponents.initializer.updateIt();
+        hubComponents.urlManager.updateIt();
+        hubComponents.ui.updateIt();
+        hubComponents.globalVariables.updateIt();
+        hubComponents.templateConstructors.updateIt();
+        hubComponents.ads.updateIt();
+        hubComponents.elementalFunctions.updateIt();
+        hubComponents.generatorFunctions.updateIt();
+        hubComponents.errorReportCodes.updateIt();
+        hubComponents.patchNotes.updateIt();
+    };
 
 }
 /*********************************************************************************************/
