@@ -103,6 +103,31 @@ EgParameter =  function(propertyName,parValue,valueType,layerName,groupName1,gro
                 app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setValue(parValue);
             };
         }
-    }
+    };
+    this.textInput = 
+    {
+        name : propertyName,
+        parValue : parValue,
+        valueType : valueType,
+        layerName : layerName,
+        groupName1 : groupName1,
+        groupName2 : groupName2,
+        setEgValue : function()
+        {
+            app.activeViewer.setActive();
+            if(groupName1!==undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(propertyName).setValue(parValue);
+            }
+            else if (groupName1 !== undefined && groupName2 !== undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(groupName2).property(propertyName).setValue(parValue);
+            }
+            else if(groupName1 == undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setValue(parValue);
+            };
+        }
+    };
     return eval(this[valueType]);
 }

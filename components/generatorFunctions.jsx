@@ -257,18 +257,31 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         app.endUndoGroup();
     } catch(e) {errorCode(9)}
 };
-function generateTopBanner()
+function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)
 {
     try
     {
-        beginUndoGroup('Generate Top Banner');
+        app.beginUndoGroup('Generate Top Banner');
         var templateName = 'Top Banner';
         var commentTag = "animHub_template_[TB]";
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
         var compArray = ['Top Banner','Agents Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
-        
+        app.generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
+        var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined)
+        var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
+        var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
+        var autoNaming = new EgParameter('Auto-Naming',topBannerAutoNaming.value,'checkbox',templateName,'Settings',undefined);
+        var bannerText = new egParameter('Text',topBannerText.text,'textInput',templateName,'Settings',undefined);
+        var attachedFloating = new egParameter('Attached/Floating',topBannerAttachedFloating.selection.index,'menuControl',templateName,'Settings',undefined);
+        var side = new egParameter('Side',topBannerSide.selection.index,'menucontrol',templateName,'Settings',undefined);
+        mode.setEgValue();
+        agentSelect.setEgValue();
+        gunSelect.setEgValue();
+        autoNaming.setEgValue();
+        if(topBannerAutoNaming.value==false){bannerText.setEgValue()};
+        attachedFloating.setEgValue();
+        side.setEgValue();
         endUndoGroup();
     }catch(e){errorCode(13)}
-}
+};

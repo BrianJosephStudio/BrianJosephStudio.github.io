@@ -228,7 +228,7 @@ function myScript(thisObj){
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
         generateMapB.onClick = function(){generateMap('Map Overviews p5.0.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
-        generateTopBannerButton.onClick = function(){generateTopBanner()};
+        generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         //end of functionality                    
         hub.layout.layout(true);
         return hub;
