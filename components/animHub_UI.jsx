@@ -89,7 +89,7 @@ function myScript(thisObj){
                                         topBannerSide.selection = 0;
 
 
-                                        var generateTopBanner = topBannerPanel.add('button',undefined,'Generate');
+                                        var generateTopBannerButton = topBannerPanel.add('button',undefined,'Generate');
 
                             // Map Overviews //**************************************************************************************/
                             hub.tabs[1] = hub.tabGroup.add ("group");
@@ -227,7 +227,8 @@ function myScript(thisObj){
         //updateButton.onClick = function() {updateScript()};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
         generateMapB.onClick = function(){generateMap('Map Overviews p5.0.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
-        placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)}
+        placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
+        generateTopBannerButton.onClick = function(){generateTopBanner()};
         //end of functionality                    
         hub.layout.layout(true);
         return hub;
