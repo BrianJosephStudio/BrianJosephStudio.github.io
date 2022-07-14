@@ -1,4 +1,3 @@
-var currentVersion = '2.0.11';
 /*********************************************************************************************/
 function expandComponents()
 {
@@ -98,7 +97,6 @@ function initializeHub(UIBody)
 {
     expandComponents();
     checkVersion();
-    writeCurrentVersion()
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -141,19 +139,20 @@ function checkVersion()
         {
             return resolveComponents();
         }
-        else {return updateComponents();}
+        else {updateComponents(); writeCurrentVersion()}
     }
     else
     {
-        return updateComponents()
+        alert('hola')
+        updateComponents(); writeCurrentVersion();
     }
-}
+};
 function updateComponents()
 {
     hubComponents.initializer.updateIt();
     hubComponents.urlManager.updateIt();
     hubComponents.ui.updateIt();
-    hubComponents.globalVariables.updateIt();+
+    hubComponents.globalVariables.updateIt();
     hubComponents.templateConstructors.updateIt();
     hubComponents.ads.updateIt();
     hubComponents.elementalFunctions.updateIt();
@@ -163,6 +162,7 @@ function updateComponents()
 }
 function writeCurrentVersion()
 {
+    
     var jsonBody = '{"currentVersion": "'+latestVersion+'"}'
     var myVersion = new File("~/DOCUMENTS/Animator Hub/Json Files/localVersion.json");
     myVersion.open('w');
