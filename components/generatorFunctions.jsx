@@ -268,13 +268,13 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var saveName = "Top Banner.aep";
         var compArray = ['Top Banner','Agents Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
         generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
-        var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined)
+        var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined);
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var autoNaming = new EgParameter('Auto-Naming',topBannerAutoNaming.value,'checkbox',templateName,'Settings',undefined);
-        var bannerText = new egParameter('Text',topBannerText.text,'textInput',templateName,'Settings',undefined);
-        var attachedFloating = new egParameter('Attached/Floating',topBannerAttachedFloating.selection.index,'menuControl',templateName,'Settings',undefined);
-        var side = new egParameter('Side',topBannerSide.selection.index,'menucontrol',templateName,'Settings',undefined);
+        var bannerText = new EgParameter('Text',topBannerText.text,'textInput',templateName,'Settings',undefined);
+        var attachedFloating = new EgParameter('Attached/Floating',topBannerAttachedFloating.selection.index,'menuControl',templateName,'Settings',undefined);
+        var side = new EgParameter('Side',topBannerSide.selection.index,'menuControl',templateName,'Settings',undefined);
         mode.setEgValue();
         agentSelect.setEgValue();
         gunSelect.setEgValue();
