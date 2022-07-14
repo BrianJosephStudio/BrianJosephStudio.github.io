@@ -62,25 +62,22 @@ function myScript(thisObj){
                                     //Top Banner
                                     var topBannerPanel = topBannerTab.add('panel');
                                     topBannerPanel.orientation = 'row';
-                                    topBannerPanel.alignChildren = ['right','fill']
+                                    topBannerPanel.alignChildren = ['fill','fill']
                                         var topBannerSettingsGroup = topBannerPanel.add('group');
                                         topBannerSettingsGroup.orientation = 'column';
-                                        topBannerSettingsGroup.alignment = ['fill','fill'];
                                         topBannerSettingsGroup.alignChildren = ['fill','fill'];
                                         topBannerSettingsGroup.add('statictext',[0,0,100,10],'Mode:');
                                         var topBannerMenuGroup = topBannerSettingsGroup.add('group');
                                         topBannerMenuGroup.orientation = 'row';
-                                        var topBannerMode = topBannerMenuGroup.add('dropdownlist',undefined,['Titles','Agents','Guns']);
+                                        var topBannerMode = topBannerMenuGroup.add('dropdownlist',[0,0,200,30],['Titles','Agents','Guns']);
                                         topBannerMode.selection = 0;
-                                        topBannerMode.alignment = ['left','top'];
-                                        
-
                                             var topBannerModeTabs = [];
-                                                topBannerModeTabs[0] = topBannerSettingsGroup.add('group',[0,0,0,0]);
-                                                var topBannerAgentMenu = topBannerModeTabs[1] = topBannerMenuGroup.add('dropdownlist',[100,0,125,30],agentsArray);
-                                                topBannerAgentMenu.selection= 0;
-                                                var topBannerGunMenu = topBannerModeTabs[2] = topBannerMenuGroup.add('dropdownlist',[100,0,125,30],gunsArray);
-                                                topBannerGunMenu.selection = 0;
+                                            var topBannerAgentMenu = topBannerModeTabs[1];// = topBannerMenuGroup.add('dropdownlist',[0,0,-10,0],agentsArray);
+                                            /*topBannerAgentMenu.visible = false;
+                                            topBannerAgentMenu.selection = 0;*/
+                                            var topBannerGunMenu = topBannerModeTabs[2];//= topBannerMenuGroup.add('dropdownlist',[0,0,-10,0],gunsArray);
+                                            /*topBannerGunMenu.visible = false;
+                                            topBannerGunMenu.selection = 0;*/
                                         var topBannerAutoNaming = topBannerSettingsGroup.add('checkbox',undefined,'Auto-Naming');
                                         var topBannerText = topBannerSettingsGroup.add('edittext',undefined,'Top Banner Text');
                                         var topBannerAttachedFloating = topBannerSettingsGroup.add('dropdownlist',undefined,['Attached','Floating']);
@@ -178,8 +175,20 @@ function myScript(thisObj){
             }
             //Layout Changes
             hub.stubs.onChange = showTab;
-            topBannerMode.onChange = showMode;
+            topBannerMode.onChange = function(){showMode();};
             topBannerAutoNaming.onClick = autoNameCb;
+            titlesTabbedPanel.onChange = function()
+            {
+                topBannerAgentMenu = topBannerModeTabs[1] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],agentsArray);
+                topBannerAgentMenu.selection = 0;
+                //topBannerAgentMenu.bounds = [0,0,0,0];
+                topBannerAgentMenu.visible = false;
+                topBannerGunMenu = topBannerModeTabs[2] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],gunsArray);
+                topBannerGunMenu.selection = 0;
+                //topBannerGunMenu.bounds = [0,0,0,0];
+                topBannerGunMenu.visible = false;
+                showMode();
+            };
             //UI Functions //************************/
             function showTab () {
                 if (hub.stubs.selection !== null) {
@@ -191,23 +200,55 @@ function myScript(thisObj){
                 if (titlesTabbedPanel.selection == null) {titlesTabbedPanel.selection = 0;}
             }
             function showMode()
-            {try{
-                if (topBannerMode.selection !== null)
+            {
+                try
                 {
-                    for (var i= 0; i<topBannerModeTabs.length;i++)
+                    if (topBannerMode.selection !== null||topBannerMode.selection== null)
                     {
-                        topBannerModeTabs[i].visible = false;
-                        topBannerModeTabs.bounds = [0,0,0,0];
-                    }
-                    if (topBannerMode.selection.index !== 0)
-                    {
-                        topBannerMode.bounds = [0,0,100,30]
-                        topBannerModeTabs[topBannerMode.selection.index].bounds = [100,0,200,30];
-                        topBannerModeTabs[topBannerMode.selection.index].visible = true;
-                    }
-                    else{topBannerMode.bounds = [0,0,200,30]};
+                        //for (var i= 1; i<topBannerModeTabs.length;i++)
+                        {
+                            //topBannerModeTabs[i].bounds = [0,0,0,0];
+                            //topBannerModeTabs[i].visible = false;
+                            //topBannerModeTabs[i].selection = 0;
+                        }
+                        topBannerAgentMenu.bounds = [0,0,0,0];
+                        topBannerAgentMenu.visible = false;
+                        topBannerGunMenu.bounds = [0,0,0,0];
+                        topBannerGunMenu.visible = false;
+                        if (topBannerMode.selection.index == 1)
+                        {
+                            topBannerMode.bounds = [0,0,100,30]
+                            /*topBannerAgentMenu = topBannerModeTabs[1] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],agentsArray);
+                            topBannerAgentMenu.selection = 0;*/
+                            topBannerAgentMenu.bounds = [100,0,200,30];
+                            topBannerAgentMenu.visible = true;
+                            
+                        }
+                        else if(topBannerMode.selection.index == 2)
+                        {
+                            topBannerMode.bounds = [0,0,100,30]
+                            /*topBannerGunMenu = topBannerModeTabs[2] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],gunsArray);
+                            topBannerGunMenu.selection = 0;*/
+                            topBannerGunMenu.bounds = [100,0,200,30];
+                            topBannerGunMenu.visible = true;
+                        }
+                        else if (topBannerMode.selection.index==0)
+                        {
+                            topBannerMode.bounds = [0,0,200,30];
+                            //topBannerAgentMenu = topBannerModeTabs[1] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],agentsArray);
+                            //topBannerAgentMenu.selection = 0;
+                            topBannerAgentMenu.bounds = [0,0,0,0];
+                            topBannerAgentMenu.visible = false;
+                            //topBannerGunMenu = topBannerModeTabs[2] = topBannerMenuGroup.add('dropdownlist',[0,0,0,0],gunsArray);
+                            //topBannerGunMenu.selection = 0;
+                            topBannerGunMenu.bounds = [0,0,0,0];
+                            topBannerGunMenu.visible = false;
+                            
+                        };
+                        
 
-                }} catch(e){errorCode(10)}
+                    };
+                } catch(e){return errorCode(10)}
             }
             function autoNameCb()
             {
@@ -218,15 +259,14 @@ function myScript(thisObj){
             hub.stubs.selection = 0;
             topBannerMode.selection = 0;
             showTab();
-            showMode();
-            autoNameCb();
-        }
+            //showMode();
+        };
         //Start Functionality
         resetTitles.onClick = function() {resetTopicTitles()};
         openGTR.onClick = function () {goToGTR()};
         //updateButton.onClick = function() {updateScript()};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
-        generateMapB.onClick = function(){generateMap('Map Overviews p5.0.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
+        generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         //end of functionality                    
