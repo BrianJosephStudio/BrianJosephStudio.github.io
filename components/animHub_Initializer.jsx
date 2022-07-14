@@ -163,7 +163,7 @@ function updateComponents()
 }
 function writeCurrentVersion()
 {
-    var jsonBody = '{"currentVersion": '+latestVersion+'}'
+    var jsonBody = '{"currentVersion": "'+latestVersion+'"}'
     var myVersion = new File("~/DOCUMENTS/Animator Hub/Json Files/localVersion.json");
     myVersion.open('w');
     myVersion.write(jsonBody);
