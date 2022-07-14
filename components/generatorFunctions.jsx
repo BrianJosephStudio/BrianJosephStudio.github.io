@@ -257,3 +257,18 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         app.endUndoGroup();
     } catch(e) {errorCode(9)}
 };
+function generateTopBanner()
+{
+    try
+    {
+        beginUndoGroup('Generate Top Banner');
+        var templateName = 'Top Banner';
+        var commentTag = "animHub_template_[TB]";
+        var templateTag = '[TB]';
+        var saveName = "Top Banner.aep";
+        var compArray = ['Top Banner','Agents Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
+        
+        endUndoGroup();
+    }catch(e){errorCode(13)}
+}

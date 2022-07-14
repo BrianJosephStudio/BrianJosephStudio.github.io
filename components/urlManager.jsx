@@ -24,6 +24,7 @@ UrlManager =
     jsonFile :
     {
         versionCheck : "https://brianjosephstudio.github.io/jsonFiles/versionCheck.json",
+        agentStats : "https://brianjosephstudio.github.io/jsonFiles/agentStats.json"
 
     }
 }

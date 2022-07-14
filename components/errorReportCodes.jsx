@@ -4,33 +4,35 @@ function errorCode(errorCodeId)
         "Update has failed.\n\
         Here are a few suggested solutions for you to try:\
             -Make sure you are allowing Scripts to write files on your system in: Edit-Preferences-Scripting & Expressions.\
-            -Make sure you did run After Effects as Administrator before trying to update.",
+            -Make sure you did run After Effects as Administrator before trying to update.",//0
         
-        "Update has failed. Unspecified error.",
+        "Update has failed. Unspecified error.",//1
 
-        "There's an error in function 'updateScript'. Go talk to Brian!",
+        "There's an error in function 'updateScript'. Go talk to Brian!",//2
 
         "Update has failed.\n\
         Here are a few suggested solutions for you to try:\
-            -Make sure you have an active internet connection.",
+            -Make sure you have an active internet connection.",//3
 
-        "Animator Hub: There's an error in function 'Generate Template'.",
+        "Animator Hub: There's an error in function 'Generate Template'.",//4
 
-        "There's an error in function 'findItem.'",
+        "There's an error in function 'findItem.'",//5
 
-        "There's an error in function 'Import File To Project'.",
+        "There's an error in function 'Import File To Project'.",//6
 
-        "There's an error in function 'Import File To Project'.",
+        "There's an error in function 'Import File To Project'.",//7
 
-        "There's an error in function 'findTemplate'.",
+        "There's an error in function 'findTemplate'.",//8
 
-        "There's an error in function 'generateAgentIcon'.",
+        "There's an error in function 'generateAgentIcon'.",//9
 
-        "Error in scriptUI function.",
+        "Error in scriptUI function.",//10
 
-        "There's an error in function 'generateGTR'.",
+        "There's an error in function 'generateGTR'.",//11
 
-        "There's an error in function 'openGTR'."
+        "There's an error in function 'openGTR'.",//12
+
+        "There's an error in function 'generateTopBanner'."//13
         
     ];
     var myAppTag = 'Animator Hub:\n\n    -';
