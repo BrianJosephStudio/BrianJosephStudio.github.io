@@ -129,12 +129,12 @@ function resolveComponents()
 }
 function checkVersion()
 {
-    var myVersion = new File("~DOCUMENTS/Animator Hub/json Files/localVersion.json");
+    var myVersion = new File("~/DOCUMENTS/Animator Hub/Json Files/localVersion.json");
     if(myVersion.exists==true)
     {
         myVersion.open('r');
         var versionJson = myVersion.read();
-        myVersion.close()
+        myVersion.close();
         var myVersionJson = JSON.parse(versionJson);
         var currentVersion = myVersionJson.currentVersion;
         if(currentVersion==latestVersion)
@@ -164,9 +164,9 @@ function updateComponents()
 function writeCurrentVersion()
 {
     var jsonBody = '{"currentVersion": '+latestVersion+'}'
-    var myVersion = new File("~DOCUMENTS/Animator Hub/json Files/localVersion.json");
+    var myVersion = new File("~/DOCUMENTS/Animator Hub/Json Files/localVersion.json");
     myVersion.open('w');
-    myVersion.write(jsonBody)
+    myVersion.write(jsonBody);
     myVersion.close();
 }
 /*********************************************************************************************/
