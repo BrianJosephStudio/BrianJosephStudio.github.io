@@ -143,7 +143,6 @@ function checkVersion()
     }
     else
     {
-        alert('hola')
         updateComponents(); writeCurrentVersion();
     }
 };
