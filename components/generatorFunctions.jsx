@@ -282,6 +282,6 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         if(topBannerAutoNaming.value==false){bannerText.setEgValue()};
         attachedFloating.setEgValue();
         side.setEgValue();
-        endUndoGroup();
+        app.endUndoGroup();
     }catch(e){errorCode(13)}
 };
