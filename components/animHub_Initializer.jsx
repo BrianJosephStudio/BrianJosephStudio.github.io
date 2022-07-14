@@ -97,7 +97,8 @@ function expandComponents()
 function initializeHub(UIBody)
 {
     expandComponents();
-    resolveComponents()
+    checkVersion();
+    writeCurrentVersion()
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -116,8 +117,6 @@ function initializeHub(UIBody)
 /*********************************************************************************************/
 function resolveComponents()
 {
-    if(updateStatus == true)
-    {
         hubComponents.urlManager.resolveIt();
         hubComponents.ui.resolveIt();
         hubComponents.globalVariables.resolveIt();
@@ -127,21 +126,48 @@ function resolveComponents()
         hubComponents.generatorFunctions.resolveIt();
         hubComponents.errorReportCodes.resolveIt();
         hubComponents.patchNotes.resolveIt();
-    }
-    else if(updateStatus == false)
+}
+function checkVersion()
+{
+    var myVersion = new File("~DOCUMENTS/Animator Hub/json Files/localVersion.json");
+    if(myVersion.exists==true)
     {
-        hubComponents.initializer.updateIt();
-        hubComponents.urlManager.updateIt();
-        hubComponents.ui.updateIt();
-        hubComponents.globalVariables.updateIt();
-        hubComponents.templateConstructors.updateIt();
-        hubComponents.ads.updateIt();
-        hubComponents.elementalFunctions.updateIt();
-        hubComponents.generatorFunctions.updateIt();
-        hubComponents.errorReportCodes.updateIt();
-        hubComponents.patchNotes.updateIt();
-    };
-
+        myVersion.open('r');
+        var versionJson = myVersion.read();
+        myVersion.close()
+        var myVersionJson = JSON.parse(versionJson);
+        var currentVersion = myVersionJson.currentVersion;
+        if(currentVersion==latestVersion)
+        {
+            return resolveComponents();
+        }
+        else {return updateComponents();}
+    }
+    else
+    {
+        return updateComponents()
+    }
+}
+function updateComponents()
+{
+    hubComponents.initializer.updateIt();
+    hubComponents.urlManager.updateIt();
+    hubComponents.ui.updateIt();
+    hubComponents.globalVariables.updateIt();+
+    hubComponents.templateConstructors.updateIt();
+    hubComponents.ads.updateIt();
+    hubComponents.elementalFunctions.updateIt();
+    hubComponents.generatorFunctions.updateIt();
+    hubComponents.errorReportCodes.updateIt();
+    hubComponents.patchNotes.updateIt();
+}
+function writeCurrentVersion()
+{
+    var jsonBody = '{"currentVersion": '+latestVersion+'}'
+    var myVersion = new File("~DOCUMENTS/Animator Hub/json Files/localVersion.json");
+    myVersion.open('w');
+    myVersion.write(jsonBody)
+    myVersion.close();
 }
 /*********************************************************************************************/
 /*//Update Main Script

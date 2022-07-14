@@ -56,15 +56,14 @@ function valid(uri)
     return newFile.exists
 };
 /*************************************************************************************************/
-function isUpdated()
+function latestVersionCheck()
 {
     //return true
     var versionCheck = system.callSystem('curl -s --max-time 5 https://brianjosephstudio.github.io/jsonFiles/versionCheck.json');
     try
     {
         var versionCheckJson = JSON.parse(versionCheck);
-        if (versionCheckJson.latestVersion==currentVersion){return true}
-        else {return false}
+        return versionCheckJson.latestVersion;
     } catch(e){return undefined}
 };
 /*************************************************************************************************/
@@ -85,22 +84,21 @@ function searchComponent(url,uri)
     {
         var myDownload = downloadComponent(url,uri);
         if(myDownload==true) {return true}
-        else{primitiveAlert(1)};return false; 
+        else{primitiveAlert(1);return false;} 
     }
-    else {return newFile};
+    else {return true};
 };
 function searchUpdateComponent(url,uri)
 {
-    var newFile;
     var myDownload = downloadComponent(url,uri);
-    if(myDownload==true) {return newFile = new File(uri);}
-    else{primitiveAlert(1)};return false;
+    if(myDownload==true) {return true}
+    else{primitiveAlert(1);return false}
 }
 /************************************************************************************************/
 var hubComponents = new Component();
 resolveLocalDir();
 var myInit = hubComponents.initializer.resolveIt();
-var updateStatus = isUpdated();
+var latestVersion = latestVersionCheck();
 if(myInit==false){primitiveAlert(4)}
 else
 {

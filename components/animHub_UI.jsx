@@ -216,6 +216,7 @@ function myScript(thisObj){
             }
         hub.onShow = function () {
             hub.stubs.selection = 0;
+            topBannerMode.selection = 0;
             showTab();
             showMode();
             autoNameCb();
