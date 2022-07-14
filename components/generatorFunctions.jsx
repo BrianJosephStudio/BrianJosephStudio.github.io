@@ -267,7 +267,7 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
         var compArray = ['Top Banner','Agents Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
-        app.generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
         var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined)
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
