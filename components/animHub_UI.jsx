@@ -36,7 +36,7 @@ function myScript(thisObj){
                                 /*var topicTitlePanel = topicTitleTab.add('panel',undefined,'Topic Title Screen');
                                 var topicTitleMenu = topicTitlePanel.add('dropdownlist',undefined,[gtrTitleArray])*/
                                 //Topic Display
-                                var topicDisplayPanel = topicTitleTab.add('panel',undefined,'Topic Display');
+                                /*var topicDisplayPanel = topicTitleTab.add('panel',undefined,'Topic Display');
                                 topicDisplayPanel.orientation = 'row';
                                 topicDisplayPanel.alignChildren = 'right';
                                     var topicIdGroup1 = topicDisplayPanel.add('group');
@@ -54,7 +54,7 @@ function myScript(thisObj){
                                         cuVisibility.bounds = [0,30,90,60]
                                         cuVisibility.selection = 0;
                                     var generateTopicDisplay = topicDisplayPanel.add('button',undefined,'Generate');
-                                    generateTopicDisplay.alignment = ["right",'fill'];
+                                    generateTopicDisplay.alignment = ["right",'fill'];*/
                                 // Top Banner Tab //
                                 var topBannerTab = titlesTabbedPanel.add ('tab',undefined,'Top Banner');
                                 topBannerTab.add ('panel {preferredSize: [-1, -10]}');
@@ -160,7 +160,7 @@ function myScript(thisObj){
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.0.11");
+                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.1.0");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});

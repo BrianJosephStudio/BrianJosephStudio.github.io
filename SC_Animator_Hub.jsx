@@ -1,4 +1,3 @@
-
 Component = function()
 {
     this.initializer =
