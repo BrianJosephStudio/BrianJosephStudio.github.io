@@ -32,8 +32,13 @@ function errorCode(errorCodeId)
 
         "There's an error in function 'openGTR'.",//12
 
-        "There's an error in function 'generateTopBanner'."//13
+        "There's an error in function 'generateTopBanner'.",//13
         
+        "There's an error in Method 'resolve()' in class 'missingFile'.",//14
+        
+        "There's an invalid input in 'ItemObject()' instance.",//15
+
+        "There's an error in function 'placeOutroScreen'."//16
     ];
     var myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+errorList[errorCodeId]);
@@ -49,9 +54,9 @@ function reportCode(reportCodeId)
         
         "There's no active composition to import your template into.",
 
-        "Animator Hub: Seems like you're up to date, mate!",
+        "Seems like you're up to date, mate!",
 
-        "Animator Hub: You have successfully updated to the latest verion! Please restart After Effects to reflect changes.",
+        "You have successfully updated to the latest verion! Please restart After Effects to reflect changes.",
 
         "Please select a composition to import this template into!"
     ];

@@ -147,6 +147,147 @@ function findTemplate(commentTag)
     if(templateIndex==0){return false};
     return {object : obj, ID : templateID, index: templateIndex, templateName : tempName, parent : ParentFolder.name,parentID : ParentFolder.id}
 };
+ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspect)
+{
+    this.object = undefined;
+    this.index = undefined;
+    switch(searchMethod)
+    {//Search by name
+        case 'name':
+            for(var i = 1; i<= app.project.numItems; i++)
+            {
+                if (app.project.item(i).name == searchValue) 
+                {
+                    this.object = app.project.itemByID(app.project.item(i).id)
+                    this.index = i;
+                    ;break
+                };
+            };
+            break;
+        //Search by ID
+        case 'id':
+            for (var i = 1 ; i <= app.project.numItems; i++)
+            {
+                if (app.project.item(i).id == searchValue) 
+                {
+                    this.object = app.project.itemByID(searchValue);
+                    this.index = i;
+                    break;
+                }
+            }
+            break;
+        //Search a Perfect Media Match
+        case 'perfectMatch':
+            for(var i = 1; i<= app.project.numItems; i++)
+            {
+                if (app.project.item(i).name == searchValue &&
+                    app.project.item(i).width == width &&
+                    app.project.item(i).height == height &&
+                    app.project.item(i).frameRate == frameRate &&
+                    app.project.item(i).pixelAspect == pixelAspect)
+                {
+                    this.object = app.project.itemByID(app.project.item(i).id);
+                    this.index = i;
+                    break;
+                };
+            };
+            break;
+        //Search by Index
+        case 'index':
+            if(searchValue<=app.project.numItems)
+            {
+                this.object = app.project.itembyID(app.project.item(searchValue).id);
+                this.index = searchValue;
+            }
+            break;
+        //Search by Comment
+        case 'comment':
+            for(var i = 1; i<= app.project.numItems; i++)
+            {
+                if(app.project.item(i).comment == searchValue)
+                {
+                    this.object = app.project.item(i);
+                    this.index = i;
+                    break;
+                }
+            };
+            break;
+        //Search by object
+        case 'object':
+            for(var i = 1; i<= app.project.numItems; i++)
+            {
+                if(app.project.item(i) == searchValue)
+                {
+                    this.object = searchValue;
+                    this.index = i;
+                    break;
+                };
+            };
+            break;
+        default:
+            this.object = undefined;
+            this.index = undefined;
+    };
+    if(this.object==undefined ||this.index==undefined)
+    {
+        return this
+    }
+    /***************************************************************************/
+    // Parent Folder Declarations
+    this.parentFolder = this.object.parentFolder;
+    this.parentFolderID = this.parentFolder.id;
+    // if parent folder is Root.
+    if(this.parentFolder.name=='Root')
+    {
+        this.parentFolderLength = function(){return app.project.rootFolder.numItems};
+
+    }
+    // if parent folder is not Root.
+    else 
+    {
+        this.parentFolderLength = function()
+        {
+            var lastItem = this.parentFolder.item(this.parentFolder.numItems);
+            while(lastItem.typeName=='Folder')
+            {
+                 lastItem = lastItem.item(lastItem.numLayers);
+            }
+            for (var i = 1; i<= app.project.numItems;i++)
+            {
+                if(app.project.item(i).id==lastItem.id)
+                {
+                    return {length:i-this.parentFolderIndex(),lastLength:i}
+                }
+            }
+            return false
+        };
+        this.parentFolderIndex = function()
+        {
+            for (var i = this.index-1;i>0;i--)
+            {
+                if (app.project.item(i).id == this.parentFolderID)
+                {
+                    return i
+                }
+            }
+            return 0
+        };
+    };
+    /***************************************************************************/
+    this.length = this.object.numItems;
+    this.indexInParentFolder = function()
+    {
+        for (var i = 1; i <= this.parentFolderLength;i++)
+        {
+            if (this.parentFolder.item(i).id==this.object.id)
+            {
+                return i
+            }
+        }
+        return 0
+    };
+    return this
+};
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer________________________________
 function fetchEgCompOnline(saveName,URL)
 {
@@ -277,12 +418,13 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
 
 function fixMissing(compArray)
     {
-        var missingFiles = replaceMissing(compArray); 
+        var missingFiles = replaceMissing(compArray);
         if (missingFiles[1][0]!==undefined)
         {
             delMissingFiles(missingFiles[1]);
+            return true;
         };
-        if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
+        if (missingFiles[0]==true && missingFiles[1][0]==undefined){return errorCode()}
         else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
         {
             reportCode(1);
@@ -295,7 +437,7 @@ function delMissingFiles(idArray)
     for (i=0;i<idArray.length;i++)
     {
         var myItem = app.project.itemByID(idArray[i]);
-        if(myItem.typeName!=='Footage') {return false}
+        if(myItem.typeName!='Footage') {return false}
         else if(myItem.footageMissing==true && myItem.usedIn[0]==undefined) {myItem.remove()}
     };
     return true
@@ -334,28 +476,60 @@ function replaceMissing(compArray)
 {
     var completion = true;
     var report = [];
-    var arrayIndex = 0;
     for (var c = 0;c<compArray.length;c++)
     {
         var myComp = app.project.itemByID(findItem(compArray[c])[2]);
-        var layerName;
+        var missingLayer;
         for (var i=1;i<=myComp.numLayers;i++)
         {
             if(myComp.layer(i).source!==null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
             {
-                layerName = myComp.layer(i).source.name;
+                missingLayer = myComp.layer(i).source
                 var missingCheck = myComp.layer(i).source.id;
-                var targetItem = findItem(layerName,true);
-                if(targetItem[0]!==false && targetItem[1].typeName=='Footage')
+                var targetItem = findItem(missingLayer.name,true);
+                if (targetItem[0]==false) 
+                {
+                    var resourceFolder = new ItemObject("comment","animHub_resourceFolder_[RF]");
+                    if(resourceFolder.object == undefined)
+                    {
+                        resourceFolder = new ItemObject("object",app.project.items.addFolder("Animator Hub Resource Folder"))
+                        resourceFolder.object.comment = "animHub_resourceFolder_[RF]";
+                    };
+                    var myMissingFile = new MissingFile(missingLayer);
+                    var myResourceFolder = new ItemObject("comment",myMissingFile.resourceFolderComment);
+                    if(myResourceFolder.object == undefined)
+                    {
+                        myResourceFolder = new ItemObject("object",app.project.items.addFolder(myMissingFile.resourceFolder))
+                        myResourceFolder.object.comment = myMissingFile.resourceFolderComment;
+                        myResourceFolder.object.parentFolder = resourceFolder.object;
+                    };
+                    targetItem = [true];
+                    targetItem.push(myMissingFile.resolve());
+                    if(targetItem[0]!=false)
+                    {
+                        targetItem[1].parentFolder = myResourceFolder.object;
+                    }
+                    else{return errorCode(14)};
+                };
+                if(targetItem!=undefined && targetItem[1].typeName=='Footage')
                 {
                     myComp.layer(i).replaceSource(targetItem[1],true);
-                    if (myComp.layer(i).source!==app.project.itemByID(missingCheck))
+                    if (myComp.layer(i).source!=app.project.itemByID(missingCheck))
                     {
-                        report[arrayIndex] = missingCheck;
-                        arrayIndex +=1;
-                    }
-                }
-                else if (targetItem[0]==false) {completion = false};
+                        var repeated = false;
+                        for(var d = 0; d < report.length;d++)
+                        {
+                            if (missingCheck==report[d])
+                            {
+                                repeated = true;
+                            };
+                        };
+                        if(repeated == false)
+                        {
+                            report.push(missingCheck);
+                        };
+                    };
+                };
             };
         };
     };
@@ -396,9 +570,9 @@ function importFileToProject(fileObject)
         try
         {
             app.beginSuppressDialogs();
-            app.project.importFile(new ImportOptions(fileObject));
+            var myItem = app.project.importFile(new ImportOptions(fileObject));
             app.endSuppressDialogs(false);
-            return true
+            return myItem
         }
         catch(e)
         {
@@ -549,7 +723,7 @@ function deselectAll()
     }
     else {return undefined};
 };
-//Downloads a comp form database and imports it in project_______________________________________________________________________
+//Downloads a comp form database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
 function downloadAndImport(saveName,URL)
 {
     var myDownload = fetchEgCompOnline(saveName,URL);
@@ -569,6 +743,16 @@ function downloadAndImport(saveName,URL)
         else {return false};
     }
     else {return false};
+};
+//Downloads a resource file into its specified URI
+function downloadImportResource(saveName,url,uri)
+{
+    var resourceFile = new File(uri);
+    var resourceFolder = new Folder(resourceFile.path);
+    if(resourceFolder.exists==false){resourceFolder.create()};
+    var resourceFolderPath = resourceFolder.fsName;
+    system.callSystem('cmd.exe /c cd %HOMEPATH% && cd '+resourceFolderPath+' && curl -s -o "'+saveName+'" '+url);
+    return importFileToProject(resourceFile);
 };
 //copies and pastes a keyframe at custom input time______________________________________________________________________________
 function cloneKeyAtTime(propPath,keyIndex,newKeyTime,deleteOld,timeIsFrames)

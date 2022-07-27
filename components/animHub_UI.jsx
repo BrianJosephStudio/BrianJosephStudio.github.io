@@ -84,9 +84,50 @@ function myScript(thisObj){
                                         topBannerAttachedFloating.selection = 0
                                         var topBannerSide = topBannerSettingsGroup.add('dropdownlist',undefined,['Left','Right']);
                                         topBannerSide.selection = 0;
-
-
                                         var generateTopBannerButton = topBannerPanel.add('button',undefined,'Generate');
+                                    // Intro/Outro Tab //
+                                    var introOutroTab = titlesTabbedPanel.add('tab',undefined,'Intro/Outro');
+                                    introOutroTab.add('panel {preferredSize: [-1, -10]}');
+                                    introOutroTab.alignChildren = ['fill','fill'];
+                                        //Outro Screen
+                                        var outroPanel = introOutroTab.add('panel',undefined,'Outro Screen');
+                                        outroPanel.orientation = 'row';
+                                            var outroScreenMenuGroup = outroPanel.add('group');
+                                            outroScreenMenuGroup.orientation = 'column';
+                                            outroScreenMenuGroup.alignChildren = 'right';
+                                                var outroScreenMenu1 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu1.orientation = 'row';
+                                                    outroScreenMenu1.add('statictext',undefined,'Management');
+                                                    var outroScreenManagement = outroScreenMenu1.add('dropdownlist',undefined,scData.management);
+                                                    outroScreenManagement.selection = 0;
+                                                var outroScreenMenu2 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu2.orientation = 'row';
+                                                    outroScreenMenu2.add('statictext',undefined,'Content Creator');
+                                                    var outroScreenContentCreator = outroScreenMenu2.add('dropdownlist',undefined,scData.contentCreator);
+                                                    outroScreenContentCreator.selection = 0;
+                                                var outroScreenMenu3 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu3.orientation = 'row';
+                                                    outroScreenMenu3.add('statictext',undefined,'Voice-Over');
+                                                    var outroScreenVoiceOver = outroScreenMenu3.add('dropdownlist',undefined,scData.voiceOver);
+                                                    outroScreenVoiceOver.selection = 0;
+                                                var outroScreenMenu4 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu4.orientation = 'row';
+                                                    outroScreenMenu4.add('statictext',undefined,'Art Direction');
+                                                    var outroScreenArtDirection = outroScreenMenu4.add('dropdownlist',undefined,scData.artDirection);
+                                                    outroScreenArtDirection.selection = 0;
+                                                var outroScreenMenu5 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu5.orientation = 'row';
+                                                    outroScreenMenu5.add('statictext',undefined,'Piecer');
+                                                    var outroScreenPiecer = outroScreenMenu5.add('dropdownlist',undefined,scData.piecer);
+                                                    outroScreenPiecer.selection = 0;
+                                                var outroScreenMenu6 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu6.orientation = 'row';
+                                                    outroScreenMenu6.add('statictext',undefined,'Editor');
+                                                    var outroScreenEditor = outroScreenMenu6.add('dropdownlist',undefined,scData.editor);
+                                                    outroScreenEditor.selection = 0;
+                                            var outroScreenButton = outroPanel.add('button',undefined,'Place');
+                                            outroScreenButton.alignment = ['fill','fill'];
+
 
                             // Map Overviews //**************************************************************************************/
                             hub.tabs[1] = hub.tabGroup.add ("group");
@@ -160,7 +201,7 @@ function myScript(thisObj){
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.1.0");
+                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.2.0");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -269,6 +310,7 @@ function myScript(thisObj){
         generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
+        outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)};
         //end of functionality                    
         hub.layout.layout(true);
         return hub;

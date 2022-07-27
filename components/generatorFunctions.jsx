@@ -111,13 +111,7 @@ function generateMap(saveName,url,Map,screenSpan,manageFootage)
             if (myTemplate!==false)
             {
                 var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
-                var missingFiles = replaceMissing(compArray);
-                if(missingFiles[1][0]!==undefined)
-                {
-                    delMissingFiles(missingFiles[1]);
-                };
-                if (missingFiles[0]==true && missingFiles[1][0]==undefined){}
-                else if (missingFiles[0]==false || missingFiles[1][0]==undefined){reportCode(0)};
+                fixMissing(compArray);
                 return generateMap(saveName,url,Map,screenSpan,manageFootage)
             }
             else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
@@ -266,7 +260,7 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var commentTag = "animHub_template_[TB]";
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
-        var compArray = ['Top Banner','Agents Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
+        var compArray = ['Agents Frame','Guns Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
         generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
         var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined);
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
@@ -285,3 +279,29 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         app.endUndoGroup();
     }catch(e){errorCode(13)}
 };
+function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)
+{
+    try
+    {
+        app.beginUndoGroup('Place Outro Screen');
+        var templateName = 'Outro Screen';
+        var commentTag = "animHub_template_[OS]";
+        var templateTag = '[OS]';
+        var saveName = "Outro Screen.aep";
+        var compArray = ['Outro Screen','Credits'];
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.outroScreen,true,true,false,compArray)
+        var management = new EgParameter('Management',String(outroScreenManagement.selection),'textInput',templateName,undefined,undefined);
+        var contentCreator = new EgParameter('Content Creator',String(outroScreenContentCreator.selection),'textInput',templateName,undefined,undefined);
+        var voiceOver = new EgParameter('Voice-Over',String(outroScreenVoiceOver.selection),'textInput',templateName,undefined,undefined);
+        var artDirection = new EgParameter('Art Direction',String(outroScreenArtDirection.selection),'textInput',templateName,undefined,undefined);
+        var piecer = new EgParameter('Piecer',String(outroScreenPiecer.selection),'textInput',templateName,undefined,undefined);
+        var editor = new EgParameter('Editor',String(outroScreenEditor.selection),'textInput',templateName,undefined,undefined);
+        management.setEgValue();
+        contentCreator.setEgValue();
+        voiceOver.setEgValue();
+        artDirection.setEgValue();
+        piecer.setEgValue();
+        editor.setEgValue();
+        app.endUndoGroup();
+    }catch(e){errorCode(16)}
+}
