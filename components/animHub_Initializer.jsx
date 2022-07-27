@@ -133,7 +133,6 @@ function checkVersion()
         myVersion.open('r');
         var versionJson = myVersion.read();
         myVersion.close();
-        //var myVersionJson = JSON.parse(versionJson);
         var currentVersion = versionJson;
         if(currentVersion==latestVersion)
         {

@@ -424,7 +424,7 @@ function fixMissing(compArray)
             delMissingFiles(missingFiles[1]);
             return true;
         };
-        if (missingFiles[0]==true && missingFiles[1][0]==undefined){return errorCode()}
+        if (missingFiles[0]==true && missingFiles[1][0]==undefined){return true}
         else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
         {
             reportCode(1);
