@@ -21,6 +21,7 @@ UrlManager =
         agentStatsTable : "https://brianjosephstudio.github.io/templates/Agent%20Stats%20Table.aep",
         mapOverviews : "https://brianjosephstudio.github.io/templates/Map%20Overviews.aep",
         globalTopicReference : "https://brianjosephstudio.github.io/templates/Global%20Topic%20Reference.aep",
+        topicDisplay : "https://brianjosephstudio.github.io/templates/Topic%20Display.aep",
         outroScreen : 'https://brianjosephstudio.github.io/templates/Outro%20Screen.aep'
     },
     jsonFile :
@@ -173,6 +174,7 @@ UriManager =
         agentStatsTable : "~/DOCUMENTS/Animator%20Hub/templates/Agent%20Stats%20Table.aep",
         mapOverviews : "~/DOCUMENTS/Animator%20Hub/templates/Map%20Overviews.aep",
         globalTopicReference : "~/DOCUMENTS/Animator%20Hub/templates/Global%20Topic%20Reference.aep",
+        topicDisplay : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Display.aep",
         outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep'
     },
     jsonFile :

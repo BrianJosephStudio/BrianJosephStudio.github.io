@@ -1,12 +1,12 @@
 //Generate Template Function
-function generateTemplate(templateName,commentTag,saveName,URL,importToComp,hasMissingFiles,collapse,compArray)
+function generateTemplate(templateName,commentTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
 {
     try
     {
         var myTemplate = findTemplate(commentTag);
         if (myTemplate==false)
         {
-            downloadAndImport(saveName,URL);
+            downloadAndImport(saveName,URL,URI);
             if (hasMissingFiles==true){fixMissing(compArray)};
             return generateTemplate(templateName,commentTag,saveName,URL,importToComp,hasMissingFiles,collapse,compArray)
         };

@@ -291,8 +291,8 @@ ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspe
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer________________________________
 function fetchEgCompOnline(saveName,URL)
 {
-    system.callSystem('cmd.exe /c cd %HOMEPATH% && cd downloads && curl -s -f -o "'+saveName+'" "'+URL+'"');
-    var dataCheck = system.callSystem('cmd.exe /c cd %HOMEPATH% && cd downloads && if exist "'+saveName+'" (echo true) else (echo false)');
+    system.callSystem('cmd.exe /c cd %HOMEPATH% && cd documents/Animator Hub/Templates && curl -s -f -o "'+saveName+'" "'+URL+'"');
+    var dataCheck = system.callSystem('cmd.exe /c cd %HOMEPATH% && cd documents/Animator Hub/Templates && if exist "'+saveName+'" (echo true) else (echo false)');
     if (dataCheck.search('true')!==-1) {return true}
     else {return false};
 };
@@ -552,7 +552,7 @@ function eraseFileFromSystem(saveName)
 function findFileInSystem(fileName)
 {
     var URIname = encodeURI(fileName)
-    var myFile = new File('~/DOWNLOADS/'+URIname)
+    var myFile = new File('~/DOCUMENTS/Animator%20Hub/Templates/'+URIname)
     var openMyFile = myFile.open("r");
     myFile.close();
     if (openMyFile==true) {return myFile}
@@ -724,7 +724,7 @@ function deselectAll()
     else {return undefined};
 };
 //Downloads a comp form database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
-function downloadAndImport(saveName,URL)
+function downloadAndImport(saveName,URL,URI)
 {
     var myDownload = fetchEgCompOnline(saveName,URL);
     if (myDownload==true)
@@ -735,12 +735,26 @@ function downloadAndImport(saveName,URL)
             var myImport = importFileToProject(myFile);
             if (myImport!==false)
             {
-                eraseFileFromSystem(saveName);
+                //eraseFileFromSystem(saveName);
                 return true;
             }
-            else {return false};
+            else
+            {
+                return false
+            };
         }
-        else {return false};
+        else 
+        {
+            var myBackupFile = new File(URI);
+            if(myBackupFile.exists==true)
+            {
+                importFileToProject(myBackupFile);
+            }
+            else
+            {
+                return false
+            };
+        };
     }
     else {return false};
 };

@@ -63,7 +63,7 @@ function generateGTR()
         var templateName = "Global Topic Reference";
         var commentTag = 'animHub_template_[GTR]';
         var saveName = "Global Topic Reference.aep";
-       generateTemplate(templateName,commentTag,saveName,UrlManager.template.globalTopicReference,false,false,false,undefined)
+       generateTemplate(templateName,commentTag,saveName,UrlManager.template.globalTopicReference,UriManager.template.globalTopicReference,false,false,false,undefined)
     }
     catch(e)
     {
@@ -77,7 +77,7 @@ function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
     var commentTag = 'animHub_template_[AST]';
     var saveName = "Agent Stats Table.aep";
     var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
-    generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentStatsTable,true,true,true,compArray);
+    generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentStatsTable,UriManager.template.agentStatsTable,true,true,true,compArray);
     var sortRankcb = new EgParameter('Sort Rank',rsCB.value,'checkbox',templateName,'Settings',undefined);
     var winRatecb = new EgParameter('Win Rate',wrCB.value,'checkbox',templateName,'Settings',undefined);
     var pickRatecb = new EgParameter('Pick Rate',prCB.value,'checkbox',templateName,'Settings',undefined);
@@ -99,7 +99,7 @@ function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
     app.endUndoGroup();}catch(e){errorCode(4)}
 };
 //Generates map Overviews
-function generateMap(saveName,url,Map,screenSpan,manageFootage)
+function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
 {
     try
     { 
@@ -107,7 +107,7 @@ function generateMap(saveName,url,Map,screenSpan,manageFootage)
         var mapRootFolder = findItem(saveName);
         if(mapRootFolder[0]==false)
         {
-            var myTemplate = downloadAndImport(saveName,url);
+            var myTemplate = downloadAndImport(saveName,url,uri);
             if (myTemplate!==false)
             {
                 var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
@@ -236,7 +236,7 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         var commentTag = "animHub_template_[AI]";
         var saveName = "Agent Icon.aep";
         var compArray = ['M.A.I. Agents'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentIcon,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentIcon,UriManager.template.agentIcon,true,true,false,compArray);
         var attackDefense = new EgParameter('Attack/Defense',agentIconMenu2.selection.index,'menuControl',templateName,undefined,undefined);
         var agent = new EgParameter('Agent',agentIconMenu1.selection.index,'menuControl',templateName,undefined,undefined);
         var death = new EgParameter('Death',agentIconCheckbox1.value,'checkbox',templateName,undefined,undefined);
@@ -261,7 +261,7 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
         var compArray = ['Agents Frame','Guns Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,UriManager.template.topBanner,true,true,false,compArray);
         var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined);
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
@@ -289,7 +289,7 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         var templateTag = '[OS]';
         var saveName = "Outro Screen.aep";
         var compArray = ['Outro Screen','Credits'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.outroScreen,true,true,false,compArray)
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
         var management = new EgParameter('Management',String(outroScreenManagement.selection),'textInput',templateName,undefined,undefined);
         var contentCreator = new EgParameter('Content Creator',String(outroScreenContentCreator.selection),'textInput',templateName,undefined,undefined);
         var voiceOver = new EgParameter('Voice-Over',String(outroScreenVoiceOver.selection),'textInput',templateName,undefined,undefined);
@@ -303,5 +303,27 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         piecer.setEgValue();
         editor.setEgValue();
         app.endUndoGroup();
+    }catch(e){errorCode(16)}
+};
+function generateTopicDisplay(topicID,cuVisibility)
+{
+    try
+    {
+        app.beginUndoGroup('Place Outro Screen');
+        var GTR = findTemplate("animHub_template_[GTR]");
+        if(GTR==false){generateGTR()};
+        var templateName = 'Topic Display';
+        var commentTag = "animHub_template_[TD]";
+        var templateTag = '[TD]';
+        var saveName = "Topic Display.aep";
+        var compArray = [];
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
+        var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
+        var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'textInput',templateName,"Layout Settings",undefined);
+        topicId.setEgValue();
+        visibility.setEgValue();
+        app.activeViewer.setActive();
+        app.project.activeItem.selectedLayers[0].property("Essential Properties").property("Animation").property("Duration Slider").expression = "thisProperty.key(1).time-thisLayer.inPoint";
+
     }catch(e){errorCode(16)}
 }

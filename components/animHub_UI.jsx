@@ -36,7 +36,7 @@ function myScript(thisObj){
                                 /*var topicTitlePanel = topicTitleTab.add('panel',undefined,'Topic Title Screen');
                                 var topicTitleMenu = topicTitlePanel.add('dropdownlist',undefined,[gtrTitleArray])*/
                                 //Topic Display
-                                /*var topicDisplayPanel = topicTitleTab.add('panel',undefined,'Topic Display');
+                                var topicDisplayPanel = topicTitleTab.add('panel',undefined,'Topic Display');
                                 topicDisplayPanel.orientation = 'row';
                                 topicDisplayPanel.alignChildren = 'right';
                                     var topicIdGroup1 = topicDisplayPanel.add('group');
@@ -53,8 +53,8 @@ function myScript(thisObj){
                                         var cuVisibility = topicIdGroup2.add('dropdownlist',undefined,['Visible','Not Visible']);
                                         cuVisibility.bounds = [0,30,90,60]
                                         cuVisibility.selection = 0;
-                                    var generateTopicDisplay = topicDisplayPanel.add('button',undefined,'Generate');
-                                    generateTopicDisplay.alignment = ["right",'fill'];*/
+                                    var generateTopicDisplayButton = topicDisplayPanel.add('button',undefined,'Generate');
+                                    generateTopicDisplayButton.alignment = ["right",'fill'];
                                 // Top Banner Tab //
                                 var topBannerTab = titlesTabbedPanel.add ('tab',undefined,'Top Banner');
                                 topBannerTab.add ('panel {preferredSize: [-1, -10]}');
@@ -201,7 +201,7 @@ function myScript(thisObj){
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.2.0");
+                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.3.0");
                                 patchNotes.orientation = "column";
                                 patchNotes.alignment = "fill";
                                     var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
@@ -307,10 +307,11 @@ function myScript(thisObj){
         openGTR.onClick = function () {goToGTR()};
         //updateButton.onClick = function() {updateScript()};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
-        generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
+        generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,UriManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)};
+        generateTopicDisplayButton.onClick = function(){generateTopicDisplay(topicID,cuVisibility)}
         //end of functionality                    
         hub.layout.layout(true);
         return hub;
