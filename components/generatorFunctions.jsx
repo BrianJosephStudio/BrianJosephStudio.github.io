@@ -108,11 +108,11 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         if(mapRootFolder[0]==false)
         {
             var myTemplate = downloadAndImport(saveName,url,uri);
-            if (myTemplate!==false)
+            if (myTemplate!=false)
             {
                 var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
                 fixMissing(compArray);
-                return generateMap(saveName,url,Map,screenSpan,manageFootage)
+                return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
             }
             else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
         };
@@ -128,7 +128,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                 };
 
             };;
-            return generateMap(saveName,url,Map,screenSpan,manageFootage);
+            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage);
         };
         if (findItem('Maps [ND]')[0]==false || findItem('Map Comp 1')[0]==false || findItem('Map Edit 1')[0]==false || findItem('Comp Background 1')[0]==false)
         {   for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
@@ -138,7 +138,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                     app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
                 };
             };
-            return generateMap(saveName,url,Map,screenSpan,manageFootage)
+            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         };
         var mapMainFolderNumItems =  mapMainFolder[1].numItems;
         var usedCheck = undefined;
@@ -152,7 +152,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                 };
 
             };
-            return generateMap(saveName,url);
+            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage);
         }
         else if (mapMainFolderNumItems==1)
         {
@@ -319,7 +319,7 @@ function generateTopicDisplay(topicID,cuVisibility)
         var compArray = [];
         generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
-        var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'textInput',templateName,"Layout Settings",undefined);
+        var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         topicId.setEgValue();
         visibility.setEgValue();
         app.activeViewer.setActive();
