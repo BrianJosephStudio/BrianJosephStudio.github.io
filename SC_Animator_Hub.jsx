@@ -101,6 +101,6 @@ var latestVersion = latestVersionCheck();
 if(myInit==false){primitiveAlert(4)}
 else
 {
-eval("#include '"+hubComponents.initializer.uri+"'");
-{initializeHub(this)};
+    eval("#include '"+hubComponents.initializer.uri+"'");
+    {initializeHub(this)};
 };
