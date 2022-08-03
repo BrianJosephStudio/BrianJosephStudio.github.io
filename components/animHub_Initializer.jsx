@@ -162,7 +162,7 @@ function writeCurrentVersion()
 {
     
     var jsonBody = latestVersion;
-    var myVersion = new File("~/DOCUMENTS/Animator Hub/Json Files/localVersion.txt");
+    var myVersion = new File("~/DOCUMENTS/Animator%20Hub/Json%20Files/localVersion.txt");
     myVersion.open('w');
     myVersion.write(jsonBody);
     myVersion.close();

@@ -291,8 +291,8 @@ ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspe
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer________________________________
 function fetchEgCompOnline(saveName,URL)
 {
-    system.callSystem('cmd.exe /c cd %HOMEPATH% && cd documents/Animator Hub/Templates && curl -s -f -o "'+saveName+'" "'+URL+'"');
-    var dataCheck = system.callSystem('cmd.exe /c cd %HOMEPATH% && cd documents/Animator Hub/Templates && if exist "'+saveName+'" (echo true) else (echo false)');
+    system.callSystem('cmd.exe /c cd '+FolderObject.templates.fsName+' && curl -s -f -o "'+saveName+'" "'+URL+'"');
+    var dataCheck = system.callSystem('cmd.exe /c cd '+FolderObject.templates.fsName+' && if exist "'+saveName+'" (echo true) else (echo false)');
     if (dataCheck.search('true')!==-1) {return true}
     else {return false};
 };
@@ -765,7 +765,7 @@ function downloadImportResource(saveName,url,uri)
     var resourceFolder = new Folder(resourceFile.path);
     if(resourceFolder.exists==false){resourceFolder.create()};
     var resourceFolderPath = resourceFolder.fsName;
-    system.callSystem('cmd.exe /c cd %HOMEPATH% && cd '+resourceFolderPath+' && curl -s -o "'+saveName+'" '+url);
+    system.callSystem('cmd.exe /c cd '+resourceFolderPath+' && curl -s -o "'+saveName+'" '+url);
     return importFileToProject(resourceFile);
 };
 //copies and pastes a keyframe at custom input time______________________________________________________________________________

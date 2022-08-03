@@ -1,4 +1,4 @@
-UrlManager = 
+var UrlManager = 
 {
     component :
     {
@@ -151,7 +151,7 @@ UrlManager =
         outroScreen: "https://brianjosephstudio.github.io/resources/outroScreen/outroScreen.mp4"
     }
 };
-UriManager = 
+var UriManager = 
 {
     component :
     {
@@ -300,4 +300,12 @@ UriManager =
         spike : "~/DOCUMENTS/Animator%20Hub/Resources/Spike/Spike.png",
         outroScreen: "~/DOCUMENTS/Animator%20Hub/Resources/Outro%20Screen/outroScreen.mp4"
     }
+};
+var FolderObject = 
+{
+    animHub : new Folder('~/DOCUMENTS/Animator%20Hub/'),
+    templates : new Folder('~/DOCUMENTS/Animator%20Hub/Templates/'),
+    components : new Folder('~/DOCUMENTS/Animator%20Hub/Components/'),
+    Resources : new Folder('~/DOCUMENTS/Animator%20Hub/Resources/'),
+    jsonFiles : new Folder('~/DOCUMENTS/Animator%20Hub/jsonFiles/')
 }

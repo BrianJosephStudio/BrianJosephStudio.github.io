@@ -18,43 +18,27 @@ function myScript(thisObj){
                             titlesTabbedPanel.selection = 0;
                             topicTitleTab.add ('panel {preferredSize: [-1, -10]}');
                             topicTitleTab.alignChildren = ['fill','fill'];
+                                //Text Editor
+                                //topicTitleTab.add('statictext',[0,5,110,35],'Target Title');
+                                var topicID = topicTitleTab.add('dropdownlist',[0,0,90,30],gtrTitleArray);
+                                topicID.selection = 0;
+                                topicTitleTab.add('edittext',[0,0,300,60],'Insert Title Text',{multiline : true});
+                                    //Topic Title Screen
+                                var titleOptionsGroup = topicTitleTab.add("group");
+                                titleOptionsGroup.alignChildren = ["fill","fill"]; 
+                                    var topicTitleMenu = titleOptionsGroup.add('button',[0,0,150,30],'Generate Title Screen');
+                                    //Topic Display
+                                    var generateTopicDisplayButton = titleOptionsGroup.add('button',[150,0,300,30],'Generate Topic Display');
                                 //Global Topic Reference
-                                var GTRtools = topicTitleTab.add('panel',undefined,"Global Topic Reference");
-                                GTRtools.orientation = "column";
-                                GTRtools.alignChildren = "right";
-                                    var openGTRgroup = GTRtools.add("group",undefined,"");
-                                    openGTRgroup.orientation = "row";
-                                        openGTRgroup.add ('statictext',undefined,"Open Global Topic Reference");
-                                        var openGTR = openGTRgroup.add ('button',undefined,"Open");
-                                    var titleResetGroup = GTRtools.add('group',undefined,"");
-                                    titleResetGroup.alignment = "right";
-                                    titleResetGroup.orientation = "row";
-                                        titleResetGroup.add ('statictext',undefined,"Reset All Topic Titles To Default");
-                                        var resetTitles = titleResetGroup.add ('button',undefined,"Reset");
-                                        resetTitles.alignment = undefined, {resizeable:true, closeButton: true}
-                                //Topic Title Screen
-                                /*var topicTitlePanel = topicTitleTab.add('panel',undefined,'Topic Title Screen');
-                                var topicTitleMenu = topicTitlePanel.add('dropdownlist',undefined,[gtrTitleArray])*/
-                                //Topic Display
-                                var topicDisplayPanel = topicTitleTab.add('panel',undefined,'Topic Display');
-                                topicDisplayPanel.orientation = 'row';
-                                topicDisplayPanel.alignChildren = 'right';
-                                    var topicIdGroup1 = topicDisplayPanel.add('group');
-                                        topicIdGroup1.orientation = 'column';
-                                        topicIdGroup1.bounds = [25,0,100,50];
-                                        topicIdGroup1.add('statictext',[0,5,110,35],'Choose Title Number');
-                                        topicIdGroup1.add('statictext',[0,30,110,60],'Coming Up Visibility');
-                                    var topicIdGroup2 = topicDisplayPanel.add('group');
-                                        topicIdGroup2.orientation = 'column';
-                                        topicIdGroup2.alignChildren = ['right','fill']
-                                        var topicID = topicIdGroup2.add('dropdownlist',undefined,gtrTitleArray);
-                                        topicID.selection = 0;
-                                        topicID.bounds = [0,0,90,30]
-                                        var cuVisibility = topicIdGroup2.add('dropdownlist',undefined,['Visible','Not Visible']);
-                                        cuVisibility.bounds = [0,30,90,60]
-                                        cuVisibility.selection = 0;
-                                    var generateTopicDisplayButton = topicDisplayPanel.add('button',undefined,'Generate');
-                                    generateTopicDisplayButton.alignment = ["right",'fill'];
+                                var GTRtools = topicTitleTab.add('group');
+                                GTRtools.alignChildren = ['fill','fill'];
+                                GTRtools.orientation = 'column';
+                                var declareTitle = GTRtools.add('button',[0,0,300,30],'Declare Title')
+                                var GTRtools2 = GTRtools.add('group')
+                                GTRtools2.orientation = "row";
+                                GTRtools2.alignChildren = ["fill","fill"];
+                                        var openGTR = GTRtools2.add ('button',[0,0,150,30],"Open GTR");
+                                        var resetTitles = GTRtools2.add ('button',[150,0,300,30],"Reset GTR Titles");
                                 // Top Banner Tab //
                                 var topBannerTab = titlesTabbedPanel.add ('tab',undefined,'Top Banner');
                                 topBannerTab.add ('panel {preferredSize: [-1, -10]}');

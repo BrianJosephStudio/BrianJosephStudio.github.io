@@ -305,6 +305,79 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         app.endUndoGroup();
     }catch(e){errorCode(16)}
 };
+function declareTitle(titleBox,topicId)
+{
+    var text = titleBox.text.replace('\n',' ');
+    var line1 = titleBox.text.split('\n')[0];
+    var line2 = titleBox.split('\n')[1];
+    if(text.length == 0 || text == 'Insert Title Text')
+    {
+        return {line1:'Not A Valid Text Input',line2:'Not A Valid Text Input'}
+    };
+    var GTR = findTemplate('animHub_template_[GTR]');
+    GTR.object.layer(topicId.selection.index+1).property('Source Text').setValue(text);
+    return {line1:line1, line2:line2}
+};
+function generateTopicTitle(titleBox,style,topicId)
+{
+    try
+    {
+        app.activeViewer.setActive();
+        var selection = app.project.activeItem.selectedLayers[0].source.comment;
+    }
+    catch(e)
+    {
+        var selection = undefined
+    }
+    if(selection == 'animHub_template_[TT]')
+    {
+
+    }
+    else
+    {
+        //Private Style Variables
+        if(style.selection.index == 0)
+        {
+            //Default Style
+            var active1Value = true;
+            var active2Value = true;
+            var text1PosValue = [960,455.9];
+            var text2PosValue = [960,352.9];
+            var text1ScaleValue = [83.8,83.8];
+            var text2ScaleValue = [83.8,83.8];
+        }
+        else if (style.selection.index == 1)
+        {
+            //Reverse Style
+            var active1Value = true;
+            var active2Value = true;
+            var text1PosValue = [960,352.9];
+            var text2PosValue = [960,455.9];
+            var text1ScaleValue = [83.8,83.8];
+            var text2ScaleValue = [83.8,83.8];
+        }
+        //
+        var templateName = 'Topic Title';
+        var commentTag = "animHub_template_[TT]";
+        var templateTag = '[TT]';
+        var saveName = "Topic Title.aep";
+        var compArray = ['Topic Title','Title Box','Glass Panel','Black Panel'];
+        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
+        //
+        var myText = declareTitle(titleBox,topicId);
+        //
+        var topicID =  new EgParameter('Topic ID',topicId.selection.index,'menuControl',templateName,'Settings',undefined);
+        var active1 = new EgParameter('Active 1',active1Value,'checkbox',templateName,'Settings','Text');
+        var text1 = new EgParameter('Text 1',myText.line1,'textInput',templateName,'Settings','Text');
+        var text1Pos = new EgParameter('Text 1 Position',text1PosValue,'positionArray',templateName,'Settings','Text');
+        var text1Scale = new EgParameter('Text 1 Scale',text1ScaleValue,'scaleArray',templateName,'Settings','Text');
+        var active2 = new EgParameter('Active 2',active2Value,'checkbox',templateName,'Settings','Text');
+        var text2 = new EgParameter('Text 1',myText.line2,'textInput',templateName,'Settings','Text');
+        var text2Pos = new EgParameter('Text 2 Position',text2PosValue,'positionArray',templateName,'Settings','Text');
+        var text2Scale = new EgParameter('Text 2 Scale',text2ScaleValue,'scaleArray',templateName,'Settings','Text');
+
+    }
+}
 function generateTopicDisplay(topicID,cuVisibility)
 {
     try
@@ -319,11 +392,11 @@ function generateTopicDisplay(topicID,cuVisibility)
         var compArray = [];
         generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
-        var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
+        //var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         topicId.setEgValue();
-        visibility.setEgValue();
+        //visibility.setEgValue();
         app.activeViewer.setActive();
         app.project.activeItem.selectedLayers[0].property("Essential Properties").property("Animation").property("Duration Slider").expression = "thisProperty.key(1).time-thisLayer.inPoint";
 
     }catch(e){errorCode(16)}
-}
+};
