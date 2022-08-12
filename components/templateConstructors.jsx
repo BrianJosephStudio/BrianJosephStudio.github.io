@@ -962,6 +962,15 @@ ResourceFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.Halftone,
             resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
+        Scratches:
+        {
+            saveName: "SC Scratches Overlay.jpg",
+            resourceFolder: "Scratches Overlay",
+            resourceFolderComment: "animHub_overlayPatterns_[RF]",
+            url: UrlManager.resources.overlayPatterns.Scratches,
+            uri: UriManager.resources.overlayPatterns.Scratches,
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
+        },
     },
     this.roles =
     {

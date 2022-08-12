@@ -141,7 +141,8 @@ var UrlManager =
         {
             DiagonalLines : "https://brianjosephstudio.github.io/resources/overlayPatterns/SC%20Diagonal%20Lines.png",
             DiamondPattern : "https://brianjosephstudio.github.io/resources/overlayPatterns/SC%20Diamond%20Pattern.png",
-            Halftone : "https://brianjosephstudio.github.io/resources/overlayPatterns/SC%20Halftone%20Pattern.png"
+            Halftone : "https://brianjosephstudio.github.io/resources/overlayPatterns/SC%20Halftone%20Pattern.png",
+            Scratches : "https://brianjosephstudio.github.io/resources/overlayPatterns/SC%20Scratches%20Overlay.jpg"
         },
         roles :
         {
@@ -294,7 +295,8 @@ var UriManager =
         {
             DiagonalLines : "~/DOCUMENTS/Animator%20Hub/Resources/Overlay%20Patterns/SC%20Diagonal%20Lines.png",
             DiamondPattern : "~/DOCUMENTS/Animator%20Hub/Resources/Overlay%20Patterns/SC%20Diamond%20Pattern.png",
-            Halftone : "~/DOCUMENTS/Animator%20Hub/Resources/Overlay%20Patterns/SC%20Halftone%20Pattern.png"
+            Halftone : "~/DOCUMENTS/Animator%20Hub/Resources/Overlay%20Patterns/SC%20Halftone%20Pattern.png",
+            Scratches : "~/DOCUMENTS/Animator%20Hub/Resources/Overlay%20Patterns/SC%20Scratches%20Overlay.jpg"
         },
         roles :
         {
