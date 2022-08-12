@@ -467,7 +467,7 @@ function replaceLayers(compName,indexArray)
     }
     else
     {
-        alert("Animato Hub: There's an error in function 'replaceLayers'.\n\n    -One of the variables is false");
+        alert("AnimatoR Hub: There's an error in function 'replaceLayers'.\n\n    -One of the variables is false");
         return false
     };
 };
@@ -489,20 +489,9 @@ function replaceMissing(compArray)
                 var targetItem = findItem(missingLayer.name,true);
                 if (targetItem[0]==false) 
                 {
+                    var myMissingFile = new ResourceFile(missingLayer);
                     var resourceFolder = new ItemObject("comment","animHub_resourceFolder_[RF]");
-                    if(resourceFolder.object == undefined)
-                    {
-                        resourceFolder = new ItemObject("object",app.project.items.addFolder("Animator Hub Resource Folder"))
-                        resourceFolder.object.comment = "animHub_resourceFolder_[RF]";
-                    };
-                    var myMissingFile = new MissingFile(missingLayer);
-                    var myResourceFolder = new ItemObject("comment",myMissingFile.resourceFolderComment);
-                    if(myResourceFolder.object == undefined)
-                    {
-                        myResourceFolder = new ItemObject("object",app.project.items.addFolder(myMissingFile.resourceFolder))
-                        myResourceFolder.object.comment = myMissingFile.resourceFolderComment;
-                        myResourceFolder.object.parentFolder = resourceFolder.object;
-                    };
+                    resourceFolder()
                     targetItem = [true];
                     targetItem.push(myMissingFile.resolve());
                     if(targetItem[0]!=false)
@@ -885,3 +874,20 @@ function IOanimKeySetter(propPath,newInTime,newOutTime)
         }
     };
 };
+function resourceFolder(resourceFile)
+{
+    var resourceFolder = new ItemObject("comment","animHub_resourceFolder_[RF]");
+    if(resourceFolder.object == undefined)
+    {
+        resourceFolder = new ItemObject("object",app.project.items.addFolder("Animator Hub Resource Folder"))
+        resourceFolder.object.comment = "animHub_resourceFolder_[RF]";
+    };
+    var myResourceFolder = new ItemObject("comment",resourceFile.resourceFolderComment);
+    if(myResourceFolder.object == undefined)
+    {
+        myResourceFolder = new ItemObject("object",app.project.items.addFolder(resourceFile.resourceFolder))
+        myResourceFolder.object.comment = resourceFile.resourceFolderComment;
+        myResourceFolder.object.parentFolder = resourceFolder.object;
+    };
+    return myResourceFolder
+}

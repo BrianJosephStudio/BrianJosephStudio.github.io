@@ -1,18 +1,24 @@
 function myScript(thisObj){
     function myScript_buildUI(thisObj){
-        var hub = (thisObj instanceof Panel) ? thisObj : new Window("palette", "SC Animator Hub", undefined, {resizeable:true, closeButton: true});                          
+        var hub = (thisObj instanceof Panel) ? thisObj : new Window("palette", "SC Animator Hub", undefined, {resizeable:true, closeButton: true});
             hub.main = hub.add ('group {preferredSize: [1200, 500], alignChildren: ["left","top"]}');
             hub.main.orientation = "column";
                 hub.main.add('statictext{text:"Select a Workspace"}')
-                hub.stubs = hub.main.add ('dropdownlist', undefined, ['Titles','Map Overviews','Agent Stats','Updates & Patch Notes']);
+                hub.stubs = hub.main.add ('dropdownlist', undefined, ['Editing Tools','Titles','Map Overviews','Agent Stats','Updates & Patch Notes']);
                 hub.stubs.alignment = "fill";
                 hub.tabGroup = hub.main.add ('group {alignment: ["fill","fill"], orientation: "stack"}');
                         //Mode Tabs
                         hub.tabs = [];
-                        
+                        // Editing Tools Workspace //**********************************************************************************/
+                            var editingTools = hub.tabs[0] = hub.tabGroup.add('group');
+                            colorPalette = editingTools.add('image',undefined,'~/DOCUMENTS/Animator%20Hub/Resources/Editing%20Tools/SC_colorPalette.png')
+                            var etGroup1 = editingTools.add('group'); etGroup1.alignChildren = ['fill','fill']; etGroup1.orientation = 'row';
+                            var blurBGButton = etGroup1.add('button',undefined,'Blur Background');
+                            var vodModeButton = etGroup1.add('button',undefined,'VoD Mode');
+                            
                         // Topic Titles Tabbed Panel //********************************************************************************/
 
-                            var titlesTabbedPanel = hub.tabs[0] = hub.tabGroup.add ('tabbedpanel');
+                            var titlesTabbedPanel = hub.tabs[1] = hub.tabGroup.add ('tabbedpanel');
                             //Topic Titles Tab //
                             var topicTitleTab = titlesTabbedPanel.add ('tab',undefined,'Topic Titles');
                             titlesTabbedPanel.selection = 0;
@@ -20,20 +26,26 @@ function myScript(thisObj){
                             topicTitleTab.alignChildren = ['fill','fill'];
                                 //Text Editor
                                 //topicTitleTab.add('statictext',[0,5,110,35],'Target Title');
-                                var topicID = topicTitleTab.add('dropdownlist',[0,0,90,30],gtrTitleArray);
+                                var titleMenuGroup = topicTitleTab.add('group');
+                                titleMenuGroup.preferredWidth = 300;
+                                titleMenuGroup.orientation = 'row';
+                                titleMenuGroup.alignChildren = ["fill","fill"];
+                                var topicID = titleMenuGroup.add('dropdownlist',[0,0,90,30],gtrTitleArray);
                                 topicID.selection = 0;
-                                topicTitleTab.add('edittext',[0,0,300,60],'Insert Title Text',{multiline : true});
+                                var styleMenu = titleMenuGroup.add("dropdownlist",[90,0,180,30],["Default","Reversed"])
+                                styleMenu.selection = 0;
+                                var titleTextBox = topicTitleTab.add('edittext',[0,0,250,60],'Insert Title Text',{multiline : true});
                                     //Topic Title Screen
                                 var titleOptionsGroup = topicTitleTab.add("group");
                                 titleOptionsGroup.alignChildren = ["fill","fill"]; 
-                                    var topicTitleMenu = titleOptionsGroup.add('button',[0,0,150,30],'Generate Title Screen');
+                                    var topicTitleButton = titleOptionsGroup.add('button',[0,0,150,30],'Generate Topic Title');
                                     //Topic Display
                                     var generateTopicDisplayButton = titleOptionsGroup.add('button',[150,0,300,30],'Generate Topic Display');
                                 //Global Topic Reference
                                 var GTRtools = topicTitleTab.add('group');
                                 GTRtools.alignChildren = ['fill','fill'];
                                 GTRtools.orientation = 'column';
-                                var declareTitle = GTRtools.add('button',[0,0,300,30],'Declare Title')
+                                var declareTitleButton = GTRtools.add('button',[0,0,300,30],'Declare Title')
                                 var GTRtools2 = GTRtools.add('group')
                                 GTRtools2.orientation = "row";
                                 GTRtools2.alignChildren = ["fill","fill"];
@@ -114,19 +126,19 @@ function myScript(thisObj){
 
 
                             // Map Overviews //**************************************************************************************/
-                            hub.tabs[1] = hub.tabGroup.add ("group");
-                                hub.tabs[1].add ('panel {preferredSize: [-1, -10]}');
-                                hub.tabs[1].orientation = "column";
+                            var mapOverviews = hub.tabs[2] = hub.tabGroup.add ("group");
+                                mapOverviews.add ('panel {preferredSize: [-1, -10]}');
+                                mapOverviews.orientation = "column";
                                     //Map Overviews
-                                    var mapOvPanel1 = hub.tabs[1].add('panel',undefined,'Map Overviews');
+                                    var mapOvPanel1 = mapOverviews.add('panel',undefined,'Map Overviews');
                                     mapOvPanel1.orientation = 'row';
                                         var mapOvGroup2 = mapOvPanel1.add('group');
                                         mapOvGroup2.orientation = 'column';
                                         //mapOvGroup2.alignChildren = ['fill','fill'];
                                         var mapOvScreenSpan = mapOvGroup2.add('statictext',undefined,'Map Aperture:')
-                                        mapOvScreenSpan.bounds = [0,15,90,40];
+                                        mapOvScreenSpan.bounds = [0,15,90,50];
                                         //mapOvScreenSpan.alignment = ['right','fill']
-                                        var mapOvMenu1 = mapOvGroup2.add('dropdownlist',[0,40,90,70],mapsArray);
+                                        var mapOvMenu1 = mapOvGroup2.add('dropdownlist',[0,40,100,70],mapsArray);
                                         mapOvMenu1.selection = 0;
                                         mapOvMenu1.alignment = 'fill';
                                         var mapOvGroup1 = mapOvPanel1.add('group');
@@ -139,7 +151,7 @@ function myScript(thisObj){
                                         var generateMapB = mapOvPanel1.add('button',undefined,'Generate Map');
                                         generateMapB.alignment = 'fill';
                                     //Agent Icon
-                                    var agentIconPanel1 = hub.tabs[1].add('panel',undefined,'Agent Icon');
+                                    var agentIconPanel1 = mapOverviews.add('panel',undefined,'Agent Icon');
                                     agentIconPanel1.orientation = 'row';
                                     agentIconPanel1.alignment = 'fill';
                                         var agentIconPanel1Group1 = agentIconPanel1.add('group');
@@ -153,16 +165,13 @@ function myScript(thisObj){
                                         placeAgent.alignment = ["right",'fill'];
                                 
                             // Agents Stats //********************************************************************************************/
-                            hub.tabs[2] = hub.tabGroup.add ("group");
-                                hub.tabs[2].add ('panel {preferredSize: [-1, -10]}');
-                                hub.tabs[2].orientation = "column";
-                                var agentStatspanel = hub.tabs[2].add("Panel",undefined,"Agent Stats Table");
-                                agentStatspanel.orientation = "row";
-                                agentStatspanel.alignment = "fill";
-                                    var agentStatDropdown = agentStatspanel.add ("dropdownlist",undefined,(agentsArray));
-                                    agentStatDropdown.selection = 0;
-                                    agentStatDropdown.helpTip = "Select your Agent";
-                                    var statCBgroup = agentStatspanel.add('group',undefined,'');
+                            var agentStats = hub.tabs[3] = hub.tabGroup.add ("group");
+                                agentStats.add ('panel {preferredSize: [-1, -10]}');
+                                agentStats.orientation = "column";
+                                var agentStatsPanel = agentStats.add("Panel",undefined,"Agent Stats Table");
+                                agentStatsPanel.orientation = "row";
+                                agentStatsPanel.alignment = "fill";
+                                    var statCBgroup = agentStatsPanel.add('group',undefined,'');
                                     statCBgroup.orientation = "column";
                                     statCBgroup.alignChildren = "fill";
                                         var rsCB = statCBgroup.add('checkbox',undefined,'Sorted by Rank');
@@ -173,22 +182,29 @@ function myScript(thisObj){
                                         prCB.value = true;
                                         prCB.location = [0,20];
                                         var msCB = statCBgroup.add('checkbox',undefined,'Sorted by Map');
-                                    var generateTable = agentStatspanel.add("button",undefined,"Generate");
+                                    var statsGroup = agentStatsPanel.add("group");
+                                    statsGroup.orientation = "column";
+                                    statsGroup.alignment = ["fill","fill"];
+                                    statsGroup.alignChildren = "fill";
+                                    var agentStatDropdown = statsGroup.add ("dropdownlist",undefined,(agentsArray));
+                                    agentStatDropdown.selection = 0;
+                                    agentStatDropdown.helpTip = "Select your Agent";
+                                    var generateTable = statsGroup.add("button",undefined,"Generate");
                                     generateTable.alignment = ['fill','fill'];
 
                             //Patch notes //********************************************************************************************************/
-                            hub.tabs[3] = hub.tabGroup.add ("group");
-                                hub.tabs[3].add ('panel {preferredSize: [-1, -10]}');
-                                hub.tabs[3].orientation = "column";
-                                /*updateTabGroup = hub.tabs[3].add("group",undefined,"");
+                            var patchNotes = hub.tabs[4] = hub.tabGroup.add ("group");
+                                patchNotes.add ('panel {preferredSize: [-1, -10]}');
+                                patchNotes.orientation = "column";
+                                /*updateTabGroup = patchNotes.add("group",undefined,"");
                                 updateTabGroup.orientation = "row";
                                 updateTabGroup.alignment = "right";
                                 updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
                                 updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
-                                var patchNotes = hub.tabs[3].add("panel",undefined,"Patch Notes 2.3.2");
-                                patchNotes.orientation = "column";
-                                patchNotes.alignment = "fill";
-                                    var patchNotesBody = patchNotes.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
+                                var patchNotesPanel = patchNotes.add("panel");
+                                patchNotesPanel.orientation = "column";
+                                patchNotesPanel.alignment = "fill";
+                                    var patchNotesBody = patchNotesPanel.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
                                     patchNotesBody.alignment = "left";
                                     patchNotesBody.preferredSize = [300,250];
                         //
@@ -295,7 +311,11 @@ function myScript(thisObj){
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)};
-        generateTopicDisplayButton.onClick = function(){generateTopicDisplay(topicID,cuVisibility)}
+        topicTitleButton.onClick = function(){generateTopicTitle(titleTextBox,styleMenu,topicID)};
+        generateTopicDisplayButton.onClick = function(){generateTopicDisplay(topicID)};
+        declareTitleButton.onClick = function(){declareTitle(titleTextBox,topicID)};
+        blurBGButton.onClick = function(){blurBackground(true,true)};
+        vodModeButton.onClick = function(){vodMode()}
         //end of functionality                    
         hub.layout.layout(true);
         return hub;

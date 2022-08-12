@@ -129,10 +129,66 @@ EgParameter =  function(propertyName,parValue,valueType,layerName,groupName1,gro
             };
         }
     };
+    this.color = 
+    {
+        name : propertyName,
+        parValue : parValue,
+        valueType : valueType,
+        layerName : layerName,
+        groupName1 : groupName1,
+        groupName2 : groupName2,
+        setEgValue : function()
+        {
+            app.activeViewer.setActive();
+            if(groupName1 != undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(propertyName).setValue(parValue);
+            }
+            else if (groupName1 != undefined && groupName2 != undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(groupName2).property(propertyName).setValue(parValue);
+            }
+            else if(groupName1 == undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setValue(parValue);
+            };
+        }
+    };
+    this.positionArray = 
+    {
+        name : propertyName,
+        parValue : parValue,
+        valueType : valueType,
+        layerName : layerName,
+        groupName1 : groupName1,
+        groupName2 : groupName2,
+        setEgValue : function()
+        {
+            app.activeViewer.setActive();
+            if(groupName1 != undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(propertyName).setValue(parValue);
+            }
+            else if (groupName1 != undefined && groupName2 != undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(groupName2).property(propertyName).setValue(parValue);
+            }
+            else if(groupName1 == undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setValue(parValue);
+            };
+        }
+    };
     return eval(this[valueType]);
 }
-MissingFile = function(itemObject)
+ResourceFile = function(itemObject)
 {
+    function resolveFunction(saveName,url,uri)
+    {
+        if(new File(uri).exists!=true)
+        {return downloadImportResource(saveName,url,uri)}
+        else {return importFileToProject(new File(uri))}
+    }
     this.agents = 
     {
         Astra:
@@ -142,9 +198,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Astra,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },  
         Breach:
         {
@@ -153,9 +207,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Breach,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Brimstone:
         {
@@ -164,9 +216,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Brimstone,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Chamber:
         {
@@ -175,9 +225,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Chamber,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Cypher:
         {
@@ -186,9 +234,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Cypher,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Fade:
         {
@@ -197,9 +243,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Fade,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Jett:
         {
@@ -208,9 +252,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Jett,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         KAYO:
         {
@@ -219,9 +261,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.KAYO,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Killjoy:
         {
@@ -230,9 +270,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Killjoy,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Neon:
         {
@@ -241,9 +279,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Neon,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Omen:
         {
@@ -252,9 +288,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Omen,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Phoenix:
         {
@@ -263,9 +297,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Phoenix,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Raze:
         {
@@ -274,9 +306,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Raze,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Reyna:
         {
@@ -285,9 +315,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Reyna,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Sage:
         {
@@ -296,9 +324,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Sage,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Skye:
         {
@@ -307,9 +333,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Skye,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Sova:
         {
@@ -318,9 +342,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Sova,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Viper:
         {
@@ -329,9 +351,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Viper,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
         Yoru:
         {
@@ -340,9 +360,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.agents.Yoru,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
         
     },
@@ -355,9 +373,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Ares,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bucky:
         {
@@ -366,9 +382,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Bucky,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bulldog:
         {
@@ -377,9 +391,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Bulldog,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Classic:
         {
@@ -388,9 +400,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Classic,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Frenzy:
         {
@@ -399,9 +409,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Frenzy,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Ghost:
         {
@@ -410,9 +418,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Ghost,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Guardian:
         {
@@ -421,9 +427,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Guardian,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Judge:
         {
@@ -432,9 +436,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Judge,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Marshal:
         {
@@ -443,9 +445,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Marshal,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Odin:
         {
@@ -454,9 +454,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Odin,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Operator:
         {
@@ -465,9 +463,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Operator,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Phantom:
         {
@@ -476,9 +472,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Phantom,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Sheriff:
         {
@@ -487,9 +481,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Sheriff,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Shorty:
         {
@@ -498,9 +490,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Shorty,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Spectre:
         {
@@ -509,9 +499,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Spectre,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Stinger:
         {
@@ -520,9 +508,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Stinger,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Vandal:
         {
@@ -531,9 +517,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.guns.Vandal,
             resourceFolder: "Guns",
             resourceFolderComment: "animHub_guns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.armor = 
@@ -545,9 +529,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.armor.heavyShield,
             resourceFolder: "Armor",
             resourceFolderComment: "animHub_armor_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         lightShield:
         {
@@ -556,9 +538,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.armor.lightShield,
             resourceFolder: "Armor",
             resourceFolderComment: "animHub_armor_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.creditsIcon = 
@@ -570,9 +550,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.creditsIcon.creditsIcon,
             resourceFolder: "Credits Icon",
             resourceFolderComment: "animHub_creditsIcon_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.maps =
@@ -584,9 +562,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Ascent,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bind:
         {
@@ -595,9 +571,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Bind,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Breeze:
         {
@@ -606,9 +580,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Breeze,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Fracture:
         {
@@ -617,9 +589,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Fracture,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Haven:
         {
@@ -628,9 +598,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Haven,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Icebox:
         {
@@ -639,9 +607,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Icebox,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
        Pearl:
         {
@@ -650,9 +616,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Pearl,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Split:
         {
@@ -661,9 +625,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.maps.Split,
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.mapSplasharts =
@@ -675,9 +637,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Ascent,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bind:
         {
@@ -686,9 +646,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Bind,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Breeze:
         {
@@ -697,9 +655,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Breeze,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Fracture:
         {
@@ -708,9 +664,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Fracture,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Haven:
         {
@@ -719,9 +673,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Haven,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Icebox:
         {
@@ -730,9 +682,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Icebox,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
        Pearl:
         {
@@ -741,9 +691,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Pearl,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Split:
         {
@@ -752,9 +700,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.mapSplasharts.Split,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.rankbadges =
@@ -766,9 +712,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Iron1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Iron2:
         {
@@ -777,9 +721,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Iron2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Iron3:
         {
@@ -788,9 +730,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Iron3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bronze1:
         {
@@ -799,9 +739,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Bronze1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bronze2:
         {
@@ -810,9 +748,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Bronze2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Bronze3:
         {
@@ -821,9 +757,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Bronze3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Silver1:
         {
@@ -832,9 +766,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Silver1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Silver2:
         {
@@ -843,9 +775,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Silver2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Silver3:
         {
@@ -854,9 +784,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Silver3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Gold1:
         {
@@ -865,9 +793,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Gold1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Gold2:
         {
@@ -876,9 +802,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Gold2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Gold3:
         {
@@ -887,9 +811,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Gold3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Platinum1:
         {
@@ -898,9 +820,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Platinum1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Platinum2:
         {
@@ -909,9 +829,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Platinum2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Platinum3:
         {
@@ -920,9 +838,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Platinum3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Diamond1:
         {
@@ -931,9 +847,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Diamond1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Diamond2:
         {
@@ -942,9 +856,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Diamond2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Diamond3:
         {
@@ -953,9 +865,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Diamond3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Ascendant1:
         {
@@ -964,9 +874,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Ascendant1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Ascendant2:
         {
@@ -975,9 +883,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Ascendant2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Ascendant3:
         {
@@ -986,9 +892,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Ascendant3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Immortal1:
         {
@@ -997,9 +901,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Immortal1,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Immortal2:
         {
@@ -1008,9 +910,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Immortal2,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Immortal3:
         {
@@ -1019,9 +919,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Immortal3,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Radiant:
         {
@@ -1030,9 +928,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.rankBadges.Radiant,
             resourceFolder: "Rank Badges",
             resourceFolderComment: "animHub_rankBadges_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.overlayPatterns =
@@ -1046,9 +942,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.DiagonalLines,
             resourceFolder: "SC Overlay Patterns",
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         DiamondPattern:
         {
@@ -1057,9 +951,7 @@ MissingFile = function(itemObject)
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
             url: UrlManager.resources.overlayPatterns.DiamondPattern,
             uri: UriManager.resources.overlayPatterns.DiamondPattern,
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Halftone:
         {
@@ -1068,9 +960,7 @@ MissingFile = function(itemObject)
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
             url: UrlManager.resources.overlayPatterns.Halftone,
             uri: UriManager.resources.overlayPatterns.Halftone,
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
     },
     this.roles =
@@ -1082,9 +972,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.Controller,
             resourceFolder: "Roles",
             resourceFolderComment: "animHub_roles_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Duelist :
         {
@@ -1093,9 +981,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.Duelist,
             resourceFolder: "Roles",
             resourceFolderComment: "animHub_roles_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Initiator :
         {
@@ -1104,9 +990,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.Initiator,
             resourceFolder: "Roles",
             resourceFolderComment: "animHub_roles_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
         Sentinel :
         {
@@ -1115,9 +999,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.overlayPatterns.Sentinel,
             resourceFolder: "Roles",
             resourceFolderComment: "animHub_roles_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         },
 
     },
@@ -1130,9 +1012,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.spike,
             resourceFolder: "Spike",
             resourceFolderComment: "animHub_spike_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     },
     this.outroScreen =
@@ -1144,9 +1024,7 @@ MissingFile = function(itemObject)
             uri: UriManager.resources.outroScreen,
             resourceFolder: "Outro Screen",
             resourceFolderComment: "animHub_outroScreen_[RF]",
-            resolve: function(){if(new File(this.uri).exists!=true)
-                {return downloadImportResource(this.saveName,this.url,this.uri)}
-                else {return importFileToProject(new File(this.uri))}}
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }
     }; 
     var myObject = undefined;

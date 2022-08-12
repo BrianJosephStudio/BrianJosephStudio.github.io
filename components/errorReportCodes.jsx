@@ -14,7 +14,7 @@ function errorCode(errorCodeId)
         Here are a few suggested solutions for you to try:\
             -Make sure you have an active internet connection.",//3
 
-        "Animator Hub: There's an error in function 'Generate Template'.",//4
+        "There's an error in function 'Generate Template'.",//4
 
         "There's an error in function 'findItem.'",//5
 
@@ -38,7 +38,11 @@ function errorCode(errorCodeId)
         
         "There's an invalid input in 'ItemObject()' instance.",//15
 
-        "There's an error in function 'placeOutroScreen'."//16
+        "There's an error in function 'placeOutroScreen'.",//16
+
+        "There's an error in function 'generateTopicTitle'.",//17
+
+        "There's an error in Function 'blurBackground()'."//18
     ];
     var myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+errorList[errorCodeId]);

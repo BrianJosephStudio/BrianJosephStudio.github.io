@@ -12,7 +12,9 @@ var UrlManager =
         templateConstructors : 'https://brianjosephstudio.github.io/components/templateConstructors.jsx',
         patchNotes : 'https://brianjosephstudio.github.io/components/patchNotes.jsx',
         ADS : 'https://brianjosephstudio.github.io/components/animHub_ADS.jsx',
-        urlManager : 'https://brianjosephstudio.github.io/components/urlManager.jsx'
+        urlManager : 'https://brianjosephstudio.github.io/components/urlManager.jsx',
+        editingToolsFunctions : 'https://brianjosephstudio.github.io/components/editingToolsFunctions.jsx',
+        editingToolsGenerators : 'https://brianjosephstudio.github.io/components/editingToolsGenerators.jsx'
     },
     template :
     {
@@ -166,7 +168,9 @@ var UriManager =
         templateConstructors : '~/DOCUMENTS/Animator%20Hub/components/templateConstructors.jsx',
         patchNotes : '~/DOCUMENTS/Animator%20Hub/components/patchNotes.jsx',
         ADS : '~/DOCUMENTS/Animator%20Hub/components/animHUb_ADS.jsx',
-        urlManager : '~/DOCUMENTS/Animator%20Hub/components/urlManager.jsx'
+        urlManager : '~/DOCUMENTS/Animator%20Hub/components/urlManager.jsx',
+        editingToolsFunctions : '~/DOCUMENTS/Animator%20Hub/components/editingToolsFunctions.jsx',
+        editingToolsGenerators : '~/DOCUMENTS/Animator%20Hub/components/editingToolsGenerators.jsx'
     },
     template :
     {

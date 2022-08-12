@@ -307,15 +307,40 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
 };
 function declareTitle(titleBox,topicId)
 {
-    var text = titleBox.text.replace('\n',' ');
-    var line1 = titleBox.text.split('\n')[0];
-    var line2 = titleBox.split('\n')[1];
-    if(text.length == 0 || text == 'Insert Title Text')
-    {
-        return {line1:'Not A Valid Text Input',line2:'Not A Valid Text Input'}
-    };
     var GTR = findTemplate('animHub_template_[GTR]');
-    GTR.object.layer(topicId.selection.index+1).property('Source Text').setValue(text);
+    if(GTR==false){generateGTR(); GTR = findTemplate('animHub_template_[GTR]')};
+    var text = '';
+    var line1 = '';
+    var line2 = '';
+    if(titleBox.text.length != 0)
+    {
+        text = (titleBox.text.replace('\n',' '));
+        line1 = titleBox.text.split('\n')[0];
+        line2 = titleBox.text.split('\n')[1];
+        GTR.object.layer(topicId.selection.index+1).property('Source Text').setValue(text);
+    }
+    else if(titleBox.text.length == 0 || titleBox.text == 'Insert Title Text')
+    {
+        text = String(GTR.object.layer(topicId.selection.index+1).property('Source Text').value);
+        if(GTR.object.layer(topicId.selection.index+1).sourceRectAtTime(0,false).width >= 270)
+        {
+            var titleLength = text.split(' ').length;
+            var titleMidPoint = Math.ceil(text.split(' ').length/2)
+            for (var i = 0; i<titleMidPoint; i++)
+            {
+                line1 += text.split(' ')[i] + ' ';
+            };
+            for (var i = titleMidPoint-1; i< titleLength; i++)
+            {
+                line2 += text.split(' ')[i] + ' ';
+            };
+        }
+        else
+        {
+            line1 = text;
+            line2 = undefined;
+        };
+    };
     return {line1:line1, line2:line2}
 };
 function generateTopicTitle(titleBox,style,topicId)
@@ -329,62 +354,91 @@ function generateTopicTitle(titleBox,style,topicId)
     {
         var selection = undefined
     }
-    if(selection == 'animHub_template_[TT]')
+    try
     {
-
-    }
-    else
-    {
-        //Private Style Variables
-        if(style.selection.index == 0)
-        {
-            //Default Style
-            var active1Value = true;
-            var active2Value = true;
-            var text1PosValue = [960,455.9];
-            var text2PosValue = [960,352.9];
-            var text1ScaleValue = [83.8,83.8];
-            var text2ScaleValue = [83.8,83.8];
-        }
-        else if (style.selection.index == 1)
-        {
-            //Reverse Style
-            var active1Value = true;
-            var active2Value = true;
-            var text1PosValue = [960,352.9];
-            var text2PosValue = [960,455.9];
-            var text1ScaleValue = [83.8,83.8];
-            var text2ScaleValue = [83.8,83.8];
-        }
-        //
         var templateName = 'Topic Title';
         var commentTag = "animHub_template_[TT]";
         var templateTag = '[TT]';
         var saveName = "Topic Title.aep";
         var compArray = ['Topic Title','Title Box','Glass Panel','Black Panel'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
-        //
+        app.beginUndoGroup('Generate Topic Title')
+        if(selection != 'animHub_template_[TT]')
+        {
+            generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
+        };
         var myText = declareTitle(titleBox,topicId);
+        //Private Style Variables
+        var active1Value = true;
+        if(myText.line2 == undefined)
+        {
+            var active2Value = false;
+            var position1Value = [960,488.9];
+        }
+        else
+        {
+            var active2Value = true;
+            var position1Value = [960,455.9]
+        };
+        if(style.selection.index == 0)
+        {
+            //Default Style
+            var text1ScaleValue = 50;
+            var text2ScaleValue = 95;
+            var color1 = [0.9,0.9,0.9,0];
+            var color2 = [254/255,74/255,87/255,0];
+            var font1 = "Montserrat-Light";
+            var font2 = "Montserrat-Bold";
+        }
+        else if (style.selection.index == 1)
+        {
+            //Reverse Style
+            var text1ScaleValue = 95;
+            var text2ScaleValue = 50;
+            var color1 = [254/255,74/255,87/255,0];
+            var color2 = [0.9,0.9,0.9,0];
+            var font1 = "Montserrat-Bold";
+            var font2 = "Montserrat-Light";
+        };
+        //
         //
         var topicID =  new EgParameter('Topic ID',topicId.selection.index,'menuControl',templateName,'Settings',undefined);
+
         var active1 = new EgParameter('Active 1',active1Value,'checkbox',templateName,'Settings','Text');
         var text1 = new EgParameter('Text 1',myText.line1,'textInput',templateName,'Settings','Text');
-        var text1Pos = new EgParameter('Text 1 Position',text1PosValue,'positionArray',templateName,'Settings','Text');
-        var text1Scale = new EgParameter('Text 1 Scale',text1ScaleValue,'scaleArray',templateName,'Settings','Text');
-        var active2 = new EgParameter('Active 2',active2Value,'checkbox',templateName,'Settings','Text');
-        var text2 = new EgParameter('Text 1',myText.line2,'textInput',templateName,'Settings','Text');
-        var text2Pos = new EgParameter('Text 2 Position',text2PosValue,'positionArray',templateName,'Settings','Text');
-        var text2Scale = new EgParameter('Text 2 Scale',text2ScaleValue,'scaleArray',templateName,'Settings','Text');
+        var text1Scale = new EgParameter('Text 1 Font Size',text1ScaleValue,'slider',templateName,'Settings','Text');
+        var text1Font = new EgParameter('Text 1 Font',font1,'textInput',templateName,'Settings','Style');
+        var text1Color = new EgParameter('Text 1 Color',color1,'color',templateName,'Settings','Style');
+        var position1 = new EgParameter('Text 1 Position',position1Value,'positionArray',templateName,'Settings','Text')
+        topicID.setEgValue();
+        active1.setEgValue();
+        text1.setEgValue();
+        text1Scale.setEgValue();
+        text1Font.setEgValue();
+        text1Color.setEgValue();
+        position1.setEgValue();
 
+        var active2 = new EgParameter('Active 2',active2Value,'checkbox',templateName,'Settings','Text');
+        active2.setEgValue();
+        if(active2Value == true)
+        {
+            var text2 = new EgParameter('Text 2',myText.line2,'textInput',templateName,'Settings','Text');
+            var text2Scale = new EgParameter('Text 2 Font Size',text2ScaleValue,'slider',templateName,'Settings','Text');
+            var text2Font = new EgParameter('Text 2 Font',font2,'textInput',templateName,'Settings','Style');
+            var text2Color = new EgParameter('Text 2 Color',color2,'color',templateName,'Settings','Style');
+            text2.setEgValue();
+            text2Scale.setEgValue();
+            text2Font.setEgValue();
+            text2Color.setEgValue();
+        };
+        app.endUndoGroup();
     }
+        catch(e){errorCode(17)}
 }
 function generateTopicDisplay(topicID,cuVisibility)
 {
     try
     {
         app.beginUndoGroup('Place Outro Screen');
-        var GTR = findTemplate("animHub_template_[GTR]");
-        if(GTR==false){generateGTR()};
         var templateName = 'Topic Display';
         var commentTag = "animHub_template_[TD]";
         var templateTag = '[TD]';
@@ -397,6 +451,6 @@ function generateTopicDisplay(topicID,cuVisibility)
         //visibility.setEgValue();
         app.activeViewer.setActive();
         app.project.activeItem.selectedLayers[0].property("Essential Properties").property("Animation").property("Duration Slider").expression = "thisProperty.key(1).time-thisLayer.inPoint";
-
+        app.endUndoGroup();
     }catch(e){errorCode(16)}
 };

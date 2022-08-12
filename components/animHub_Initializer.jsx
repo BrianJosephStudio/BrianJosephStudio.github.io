@@ -91,12 +91,32 @@ function expandComponents()
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
+    hubComponents.editingToolsFunctions =
+    {
+        saveName : "editingToolsFunctions.jsx",
+        name:"Editing Tools Functions",
+        url:"https://brianjosephstudio.github.io/components/editingToolsFunctions.jsx",
+        uri:"~/DOCUMENTS/Animator Hub/Components/editingToolsFunctions.jsx",
+        resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
+        valid : function(){return valid(this.uri)}
+    };
+    hubComponents.editingToolsGenerators =
+    {
+        saveName : "editingToolsGenerators.jsx",
+        name:"Editing Tools Generators",
+        url:"https://brianjosephstudio.github.io/components/editingToolsGenerators.jsx",
+        uri:"~/DOCUMENTS/Animator Hub/Components/editingToolsGenerators.jsx",
+        resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
+        valid : function(){return valid(this.uri)}
+    };
 }
 /*********************************************************************************************/
 function initializeHub(UIBody)
 {
     expandComponents();
-    checkVersion();
+    //checkVersion();
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -108,6 +128,8 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.errorReportCodes.uri+"'");
     eval("#include '"+hubComponents.ui.uri+"'");
     eval("#include '"+hubComponents.patchNotes.uri+"'");
+    eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
+    eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
     }catch(e){return primitiveAlert(6)}
     myScript(UIBody)
     
@@ -124,6 +146,8 @@ function resolveComponents()
         hubComponents.generatorFunctions.resolveIt();
         hubComponents.errorReportCodes.resolveIt();
         hubComponents.patchNotes.resolveIt();
+        hubComponents.editingToolsFunctions.uri.resolveIt();
+        hubComponents.editingToolsGenerators.uri.resolveIt();
 }
 function checkVersion()
 {
@@ -157,6 +181,9 @@ function updateComponents()
     hubComponents.generatorFunctions.updateIt();
     hubComponents.errorReportCodes.updateIt();
     hubComponents.patchNotes.updateIt();
+    hubComponents.editingToolsFunctions.updateIt();
+    hubComponents.editingToolsGenerators.updateIt();
+
 }
 function writeCurrentVersion()
 {
