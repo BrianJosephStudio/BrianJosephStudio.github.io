@@ -146,8 +146,8 @@ function resolveComponents()
         hubComponents.generatorFunctions.resolveIt();
         hubComponents.errorReportCodes.resolveIt();
         hubComponents.patchNotes.resolveIt();
-        hubComponents.editingToolsFunctions.uri.resolveIt();
-        hubComponents.editingToolsGenerators.uri.resolveIt();
+        hubComponents.editingToolsFunctions.resolveIt();
+        hubComponents.editingToolsGenerators.resolveIt();
 }
 function checkVersion()
 {
