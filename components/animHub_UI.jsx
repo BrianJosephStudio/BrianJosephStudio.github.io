@@ -11,7 +11,7 @@ function myScript(thisObj){
                         hub.tabs = [];
                         // Editing Tools Workspace //**********************************************************************************/
                             var editingTools = hub.tabs[0] = hub.tabGroup.add('group');
-                            colorPalette = editingTools.add('image',undefined,'~/DOCUMENTS/Animator%20Hub/Resources/Editing%20Tools/SC_colorPalette.png')
+                            colorPalette = editingTools.add('image',undefined,colorPaletteBin)
                             var etGroup1 = editingTools.add('group'); etGroup1.alignChildren = ['fill','fill']; etGroup1.orientation = 'row';
                             var blurBGButton = etGroup1.add('button',undefined,'Blur Background');
                             var vodModeButton = etGroup1.add('button',undefined,'VoD Mode');
