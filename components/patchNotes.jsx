@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Patch 2.4.3\n\
+"Patch 2.4.4\n\
 -The Topic Titles tab inside the Titles' workspace has been updated.\
 -The new Topic Titles temnplate, as well as the newly reworked Topic Display template all can be operated from the hub, using help from the Global Topic Reference.\
 -New Workspace 'Editing Tools'.\

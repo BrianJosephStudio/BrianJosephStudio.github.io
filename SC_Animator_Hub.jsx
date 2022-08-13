@@ -58,11 +58,10 @@ function valid(uri)
 function latestVersionCheck()
 {
     //return true
-    var versionCheck = system.callSystem('curl -s --max-time 5 https://brianjosephstudio.github.io/jsonFiles/versionCheck.json');
+    var latestVersion = system.callSystem('curl -s --max-time 5 "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt"');
     try
     {
-        var versionCheckJson = JSON.parse(versionCheck);
-        return versionCheckJson.latestVersion;
+        return latestVersion;
     } catch(e){return undefined}
 };
 /*************************************************************************************************/
