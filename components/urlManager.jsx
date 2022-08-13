@@ -29,7 +29,7 @@ var UrlManager =
     },
     jsonFile :
     {
-        versionCheck : "https://brianjosephstudio.github.io/jsonFiles/versionCheck.json",
+        versionCheck : "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt",
         agentStats : "https://brianjosephstudio.github.io/jsonFiles/agentStats.json",
         SC_Data : "https://brianjosephstudio.github.io/jsonFiles/SC_Data.json"
 
@@ -186,7 +186,6 @@ var UriManager =
     },
     jsonFile :
     {
-        versionCheck : "~/DOCUMENTS/Animator%20Hub/jsonFiles/versionCheck.json",
         agentStats : "~/DOCUMENTS/Animator%20Hub/jsonFiles/agentStats.json",
         SC_Data : "~/DOCUMENTS/Animator%20Hub/jsonFiles/SC_Data.json"
     },
