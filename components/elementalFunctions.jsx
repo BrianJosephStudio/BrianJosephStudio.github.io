@@ -417,19 +417,19 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
 };
 
 function fixMissing(compArray)
+{
+    var missingFiles = replaceMissing(compArray);
+    if (missingFiles[1][0]!==undefined)
     {
-        var missingFiles = replaceMissing(compArray);
-        if (missingFiles[1][0]!==undefined)
-        {
-            delMissingFiles(missingFiles[1]);
-            return true;
-        };
-        if (missingFiles[0]==true && missingFiles[1][0]==undefined){return true}
-        else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
-        {
-            reportCode(1);
-        };
+        delMissingFiles(missingFiles[1]);
+        return true;
     };
+    if (missingFiles[0]==true && missingFiles[1][0]==undefined){return true}
+    else if (missingFiles[0]==false || missingFiles[1][0]==undefined)
+    {
+        reportCode(1);
+    };
+};
 //Erase Missing files targeted in an array_______________________________________________________________________________________
 function delMissingFiles(idArray)
 {
@@ -482,19 +482,18 @@ function replaceMissing(compArray)
         var missingLayer;
         for (var i=1;i<=myComp.numLayers;i++)
         {
-            if(myComp.layer(i).source!==null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
+            if(myComp.layer(i).source!=null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
             {
-                missingLayer = myComp.layer(i).source
+                missingLayer = myComp.layer(i).source;
                 var missingCheck = myComp.layer(i).source.id;
                 var targetItem = findItem(missingLayer.name,true);
                 if (targetItem[0]==false) 
                 {
                     var myMissingFile = new ResourceFile(missingLayer);
-                    var resourceFolder = new ItemObject("comment","animHub_resourceFolder_[RF]");
-                    resourceFolder()
+                    var myResourceFolder = resourceFolder(myMissingFile);
                     targetItem = [true];
                     targetItem.push(myMissingFile.resolve());
-                    if(targetItem[0]!=false)
+                    if(targetItem[1] != undefined)
                     {
                         targetItem[1].parentFolder = myResourceFolder.object;
                     }
