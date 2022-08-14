@@ -51,18 +51,20 @@ function reportCode(reportCodeId)
 {
     var reportList = [
         "Your Map was summoned succesfully but we could not find all the missing files inside this project.\
-        Seems like you're gonna have to manage missing files yourself for this one!",
+        Seems like you're gonna have to manage missing files yourself for this one!",//0
         
         "Your Template was summoned succesfully but we could not find all the missing files inside this project.\
-        Seems like you're gonna have to manage missing files yourself for this one!",
+        Seems like you're gonna have to manage missing files yourself for this one!",//1
         
-        "There's no active composition to import your template into.",
+        "There's no active composition to import your template into.",//2
 
-        "Seems like you're up to date, mate!",
+        "Seems like you're up to date, mate!",//3
 
-        "You have successfully updated to the latest verion! Please restart After Effects to reflect changes.",
+        "You have successfully updated to the latest verion! Please restart After Effects to reflect changes.",//4
 
-        "Please select a composition to import this template into!"
+        "Please select a composition to import this template into!",//5
+
+        "Please select clips to duplicate in your active composition!"//6
     ];
     myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+reportList[reportCodeId]);

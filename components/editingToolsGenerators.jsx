@@ -41,6 +41,7 @@ function blurBackground(addExposure,addInOutAnims)
 function vodMode()
 {
     app.beginUndoGroup("VoD Mode")
+    if (app.project.activeItem.selectedLayers[0] == undefined) {return reportCode(6)}
     app.activeViewer.setActive();
     var selection = app.project.activeItem.selectedLayers;
     var vodClips = [selection[0]];
@@ -67,12 +68,12 @@ function vodMode()
     var comp = app.project.activeItem;
     var compWidth = Math.floor(comp.width * 1.01);
     var compHeight = Math.floor(comp.height * 1.02);
-    var bgBorder = placeSolid("Clip Border","animHub_clipBorder_[ET]",[0.95,0.95,0.95],compWidth,compHeight,comp.pixelAspect);
+    var bgBorder = placeSolid("Clip Border","animHub_clipBorder_[ET]",[0.1,0.1,0.1],compWidth,compHeight,comp.pixelAspect);
     bgBorder.moveBefore(bgEffects.resourceFile);
     dropShadow = addProperty(bgBorder,"ADBE Drop Shadow");
     dropShadow.property("Distance").setValue(50);
     dropShadow.property("Softness").setValue(130);
-    bgBorder.blendingMode = 5226;
+    //bgBorder.blendingMode = 5226;
     var controlNull = placeNull("Control Null","animHub_controlNull_[ET]");
     for (var i = 0; i < duplicates.length; i++)
     {
