@@ -40,7 +40,7 @@ function blurBackground(addExposure,addInOutAnims)
 };
 function vodMode()
 {
-    app.beginUndoGroup("VoD Mode")
+    //app.beginUndoGroup("VoD Mode")
     if (app.project.activeItem.selectedLayers[0] == undefined) {return reportCode(6)}
     app.activeViewer.setActive();
     var selection = app.project.activeItem.selectedLayers;
@@ -85,5 +85,5 @@ function vodMode()
     addKeyframe("2d",nullScale,[88,88],0.75,6613,6614,[0,65],[0,65]);
     addKeyframe("2d",nullScale,[88,88],4.25,6614,6613,[0,65],[0,65]);
     addKeyframe("2d",nullScale,[100,100],5,6613,6612,[0,65],[0,65]);
-    app.endUndoGroup()
+    //app.endUndoGroup()
 }
