@@ -25,7 +25,8 @@ var UrlManager =
         globalTopicReference : "https://brianjosephstudio.github.io/templates/Global%20Topic%20Reference.aep",
         topicTitle : "https://brianjosephstudio.github.io/templates/Topic%20Title.aep",
         topicDisplay : "https://brianjosephstudio.github.io/templates/Topic%20Display.aep",
-        outroScreen : 'https://brianjosephstudio.github.io/templates/Outro%20Screen.aep'
+        outroScreen : 'https://brianjosephstudio.github.io/templates/Outro%20Screen.aep',
+        creatorTag : 'https://brianjosephstudio.github.io/templates/Content%20Creator%20Tag.aep'
     },
     jsonFile :
     {
@@ -151,6 +152,12 @@ var UrlManager =
             Initiator : "https://brianjosephstudio.github.io/resources/roles/Initiator.png",
             Sentinel : "https://brianjosephstudio.github.io/resources/roles/Sentinel.png",
         },
+        socialMediaLogos : 
+        {
+            TwitchLogo : "https://brianjosephstudio.github.io/resources/socialMediaLogos/Twitch%20Logo.png",
+            YoutubeLogo : "https://brianjosephstudio.github.io/resources/socialMediaLogos/Youtube%20Logo.png",
+            TwitterLogo : "https://brianjosephstudio.github.io/resources/socialMediaLogos/Twitter%20Logo.png",
+        },
         spike : "https://brianjosephstudio.github.io/resources/spike/Spike.png",
         outroScreen: "https://brianjosephstudio.github.io/resources/outroScreen/outroScreen.mp4"
     }
@@ -182,7 +189,8 @@ var UriManager =
         globalTopicReference : "~/DOCUMENTS/Animator%20Hub/templates/Global%20Topic%20Reference.aep",
         topicTitle : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Title.aep",
         topicDisplay : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Display.aep",
-        outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep'
+        outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep',
+        creatorTag : '~/DOCUMENTS/Animator%20Hub/templates/Content%20Creator%20Tag.aep'
     },
     jsonFile :
     {
@@ -303,6 +311,12 @@ var UriManager =
             Duelist : "~/DOCUMENTS/Animator%20Hub/Resources/Roles/Duelist.png",
             Initiator : "~/DOCUMENTS/Animator%20Hub/Resources/Roles/Initiator.png",
             Sentinel : "~/DOCUMENTS/Animator%20Hub/Resources/Roles/Sentinel.png",
+        },
+        socialMediaLogos : 
+        {
+            TwitchLogo : "~/DOCUMENTS/Animator%20Hub/Resources/Social%20Media%20Logos/Twitch%20Logo.png",
+            YoutubeLogo : "~/DOCUMENTS/Animator%20Hub/Resources/Social%20Media%20Logos/Youtube%20Logo.png",
+            TwitterLogo : "~/DOCUMENTS/Animator%20Hub/Resources/Social%20Media%20Logos/Twitter%20Logo.png",
         },
         spike : "~/DOCUMENTS/Animator%20Hub/Resources/Spike/Spike.png",
         outroScreen: "~/DOCUMENTS/Animator%20Hub/Resources/Outro%20Screen/outroScreen.mp4"
