@@ -454,3 +454,32 @@ function generateTopicDisplay(topicID,cuVisibility)
         app.endUndoGroup();
     }catch(e){errorCode(16)}
 };
+function generateCCT(menuControl)
+{
+    var templateName = 'Content Creator Tag';
+    var commentTag = "animHub_template_[CCT]";
+    var templateTag = '[CCT]';
+    var saveName = "Content Creator Tag.aep";
+    var compArray = ['Text Box','Social Media Logos','Glass Panel Shape 1','Glass Panel Shape 2','Glass Panel Shape 3'];
+    generateTemplate(templateName,commentTag,saveName,UrlManager.template.creatorTag,UriManager.template.creatorTag,true,true,true,compArray);
+    var socialMediaLibrary =
+    {
+        CaseyKing : [true,true,true],
+        Teets : [false,true,true],
+        DrZora : [true,true,false],
+        LukasBylsma : [true,false,false],
+        Jitterz : [true,false,false],
+        xtr : [true,false,false],
+        Dorshii : [true,false,false],
+        xJake : [true,false,false]
+    }
+    var cctName = String(menuControl.selection).replace(' ','');
+    var ccName = new EgParameter('Content Creator Name',String(menuControl.selection),'textInput',templateName,undefined,undefined);
+    var cctTwitch = new EgParameter('Twitch',socialMediaLibrary[cctName][0],'checkbox',templateName,undefined,undefined);
+    var cctYoutube = new EgParameter('Youtube',socialMediaLibrary[cctName][1],'checkbox',templateName,undefined,undefined);
+    var cctTwitter = new EgParameter('Twitter',socialMediaLibrary[cctName][2],'checkbox',templateName,undefined,undefined);
+    ccName.setEgValue();
+    cctTwitch.setEgValue();
+    cctYoutube.setEgValue();
+    cctTwitter.setEgValue();
+};

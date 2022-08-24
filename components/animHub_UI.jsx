@@ -11,6 +11,7 @@ function myScript(thisObj){
                         hub.tabs = [];
                         // Editing Tools Workspace //**********************************************************************************/
                             var editingTools = hub.tabs[0] = hub.tabGroup.add('group');
+                            editingTools.add ('panel {preferredSize: [-1, -10]}');
                             colorPalette = editingTools.add('image',undefined,colorPaletteBin)
                             var etGroup1 = editingTools.add('group'); etGroup1.alignChildren = ['fill','fill']; etGroup1.orientation = 'row';
                             var blurBGButton = etGroup1.add('button',undefined,'Blur Background');
@@ -18,7 +19,7 @@ function myScript(thisObj){
                             
                         // Topic Titles Tabbed Panel //********************************************************************************/
 
-                            var titlesTabbedPanel = hub.tabs[1] = hub.tabGroup.add ('tabbedpanel');
+                            var titlesTabbedPanel = hub.tabs[1] = hub.tabGroup.add ('tabbedpanel',[0,0,300,400]);
                             //Topic Titles Tab //
                             var topicTitleTab = titlesTabbedPanel.add ('tab',undefined,'Topic Titles');
                             titlesTabbedPanel.selection = 0;
@@ -123,7 +124,16 @@ function myScript(thisObj){
                                                     outroScreenEditor.selection = 0;
                                             var outroScreenButton = outroPanel.add('button',undefined,'Place');
                                             outroScreenButton.alignment = ['fill','fill'];
-
+                                // Content Creator Tag tab //
+                                var tagTab = titlesTabbedPanel.add('tab',undefined,'Creator Tags');
+                                tagTab.add ('panel {preferredSize: [-1, -10]}');
+                                    var cctPanel = tagTab.add('panel',[0,0,300,150],'Content Creator Tag');
+                                    cctPanel.orientation = 'row';
+                                    cctPanel.alignment = 'fill';
+                                    cctPanel.alignChildren = ['fill','fill'];
+                                        var ccMenu = cctPanel.add('dropdownlist',undefined,scData.contentCreator);
+                                        ccMenu.selection = 0;
+                                        var generateCCTButton = cctPanel.add('button',undefined,'Place');
 
                             // Map Overviews //**************************************************************************************/
                             var mapOverviews = hub.tabs[2] = hub.tabGroup.add ("group");
@@ -316,6 +326,7 @@ function myScript(thisObj){
         declareTitleButton.onClick = function(){declareTitle(titleTextBox,topicID)};
         blurBGButton.onClick = function(){blurBackground(true,true)};
         vodModeButton.onClick = function(){vodMode()}
+        generateCCTButton.onClick = function(){generateCCTButton(ccMenu)}
         //end of functionality                    
         hub.layout.layout(true);
         return hub;

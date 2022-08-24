@@ -1012,6 +1012,36 @@ ResourceFile = function(itemObject)
         },
 
     },
+    this.socialMediaLogos =
+    {
+        Twitch :
+        {
+            saveName: "Twitch Logo.png",
+            url: UrlManager.resources.socialMediaLogos.TwitchLogo,
+            uri: UriManager.resources.socialMediaLogos.TwitchLogo,
+            resourceFolder: "Logos",
+            resourceFolderComment: "animHub_logos_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
+        },
+        Youtube :
+        {
+            saveName: "Youtube Logo.png",
+            url: UrlManager.resources.socialMediaLogos.YoutubeLogo,
+            uri: UriManager.resources.socialMediaLogos.YoutubeLogo,
+            resourceFolder: "Logos",
+            resourceFolderComment: "animHub_logos_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
+        },
+        Twitter :
+        {
+            saveName: "Twitter Logo.png",
+            url: UrlManager.resources.socialMediaLogos.TwitterLogo,
+            uri: UriManager.resources.socialMediaLogos.TwitterLogo,
+            resourceFolder: "Logos",
+            resourceFolderComment: "animHub_logos_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
+        },
+    }
     this.spike =
     {
         Spike:
