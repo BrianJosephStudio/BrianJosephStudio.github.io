@@ -326,7 +326,7 @@ function myScript(thisObj){
         declareTitleButton.onClick = function(){declareTitle(titleTextBox,topicID)};
         blurBGButton.onClick = function(){blurBackground(true,true)};
         vodModeButton.onClick = function(){vodMode()}
-        generateCCTButton.onClick = function(){generateCCTButton(ccMenu)}
+        generateCCTButton.onClick = function(){generateCCT(ccMenu)}
         //end of functionality                    
         hub.layout.layout(true);
         return hub;
