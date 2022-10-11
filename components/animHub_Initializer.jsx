@@ -126,7 +126,7 @@ function expandComponents()
 function initializeHub(UIBody)
 {
     expandComponents();
-    //checkVersion();
+    checkVersion();
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
