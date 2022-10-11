@@ -86,4 +86,47 @@ function vodMode()
     addKeyframe("2d",nullScale,[88,88],4.25,6614,6613,[0,65],[0,65]);
     addKeyframe("2d",nullScale,[100,100],5,6613,6612,[0,65],[0,65]);
     //app.endUndoGroup()
+};
+function blurHighlight()
+{
+    var myShape = app.project.activeItem.selectedLayers[0];
+    if (myShape == undefined) {reportCode(7)};
+    myShape.name = "Masking Shape";
+    myShape.label = 13;
+    var gauss = addProperty(myShape,"ADBE Gaussian Blur 2");
+    gauss.property('Blurriness').setValue(100);
+    gauss.property(3).setValue(0);
+    var comment = "animHub_backgroundEffects_[ET]";
+    var adjLayer = placeAdjustmentLayer("Background Effects",comment);
+    adjLayer.moveAfter(myShape);
+    adjLayer.trackMatteType = 5014;
+    var gauss2 = addProperty(adjLayer,"ADBE Gaussian Blur 2");
+    gauss2.property('Blurriness').setValue(35);
+    gauss2.property(3).setValue(0);
+    var exposure = addProperty(adjLayer,"ADBE Exposure2");
+    exposure.property('Exposure').setValue(-1.2);
+
+    var adjOpacity = adjLayer.property("Transform").property('Opacity');
+    addKeyframe("1d",adjOpacity,0,0,6612,6613,[0,50],[300,25]);
+    addKeyframe("1d",adjOpacity,100,0.75,6613,6614,[0,50],[0,50]);
+    addKeyframe("1d",adjOpacity,100,4.25,6614,6613,[0,50],[0,50]);
+    addKeyframe("1d",adjOpacity,0,5,6613,6612,[0,50],[300,25]);
+
+}
+function blurIt()
+{
+    var myShape = app.project.activeItem.selectedLayers[0];
+    if (myShape == undefined) {reportCode(7)};
+    myShape.name = "Masking Shape";
+    myShape.label = 13;
+    var gauss = addProperty(myShape,"ADBE Gaussian Blur 2");
+    gauss.property('Blurriness').setValue(15);
+    gauss.property(3).setValue(0);
+    var comment = "animHub_backgroundEffects_[ET]";
+    var adjLayer = placeAdjustmentLayer("Background Effects",comment);
+    adjLayer.moveAfter(myShape);
+    adjLayer.trackMatteType = 5013;
+    var gauss2 = addProperty(adjLayer,"ADBE Gaussian Blur 2");
+    gauss2.property('Blurriness').setValue(35);
+    gauss2.property(3).setValue(0);
 }

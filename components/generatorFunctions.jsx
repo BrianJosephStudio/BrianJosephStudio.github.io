@@ -63,7 +63,8 @@ function generateGTR()
         var templateName = "Global Topic Reference";
         var commentTag = 'animHub_template_[GTR]';
         var saveName = "Global Topic Reference.aep";
-       generateTemplate(templateName,commentTag,saveName,UrlManager.template.globalTopicReference,UriManager.template.globalTopicReference,false,false,false,undefined)
+        var templateTag = '[GTR]';
+       generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.globalTopicReference,UriManager.template.globalTopicReference,false,false,false,undefined)
     }
     catch(e)
     {
@@ -71,32 +72,35 @@ function generateGTR()
     };
 };
 function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
-{try{
-    app.beginUndoGroup('Generate Agent Stats Table');
-    var templateName = "Agent Stats Table";
-    var commentTag = 'animHub_template_[AST]';
-    var saveName = "Agent Stats Table.aep";
-    var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
-    generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentStatsTable,UriManager.template.agentStatsTable,true,true,true,compArray);
-    var sortRankcb = new EgParameter('Sort Rank',rsCB.value,'checkbox',templateName,'Settings',undefined);
-    var winRatecb = new EgParameter('Win Rate',wrCB.value,'checkbox',templateName,'Settings',undefined);
-    var pickRatecb = new EgParameter('Pick Rate',prCB.value,'checkbox',templateName,'Settings',undefined);
-    var mapSortcb = new EgParameter('Map Sort',msCB.value,'checkbox',templateName,'Settings',undefined);
-    var agent = new EgParameter('Agent',agentStatDropdown.selection.index,'menuControl',templateName,'Data Input',undefined);
-    var sortRank = new EgParameter('Rank Sort',agentStats()[agentStatDropdown.selection.index].SortRank-1,'menuControl',templateName,'Data Input',undefined);
-    var winRate = new EgParameter('WR',agentStats()[agentStatDropdown.selection.index].WinRate,'slider',templateName,'Data Input',undefined);
-    var pickRate = new EgParameter('PR',agentStats()[agentStatDropdown.selection.index].PickRate,'slider',templateName,'Data Input',undefined);
-    var map = new EgParameter('Map',agentStats()[agentStatDropdown.selection.index].SortMap-1,'menuControl',templateName,'Data Input',undefined);
-    sortRankcb.setEgValue();
-    winRatecb.setEgValue();
-    pickRatecb.setEgValue();
-    mapSortcb.setEgValue();
-    agent.setEgValue();
-    sortRank.setEgValue();
-    winRate.setEgValue();
-    pickRate.setEgValue();
-    map.setEgValue();
-    app.endUndoGroup();}catch(e){errorCode(4)}
+{
+    try{
+        app.beginUndoGroup('Generate Agent Stats Table');
+        var templateName = "Agent Stats Table";
+        var commentTag = 'animHub_template_[AST]';
+        var templateTag = '[AST]'
+        var saveName = "Agent Stats Table.aep";
+        var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.agentStatsTable,UriManager.template.agentStatsTable,true,true,true,compArray);
+        var sortRankcb = new EgParameter('Sort Rank',rsCB.value,'checkbox',templateName,'Settings',undefined);
+        var winRatecb = new EgParameter('Win Rate',wrCB.value,'checkbox',templateName,'Settings',undefined);
+        var pickRatecb = new EgParameter('Pick Rate',prCB.value,'checkbox',templateName,'Settings',undefined);
+        var mapSortcb = new EgParameter('Map Sort',msCB.value,'checkbox',templateName,'Settings',undefined);
+        var agent = new EgParameter('Agent',agentStatDropdown.selection.index,'menuControl',templateName,'Data Input',undefined);
+        var sortRank = new EgParameter('Rank Sort',agentStats()[agentStatDropdown.selection.index].SortRank-1,'menuControl',templateName,'Data Input',undefined);
+        var winRate = new EgParameter('WR',agentStats()[agentStatDropdown.selection.index].WinRate,'slider',templateName,'Data Input',undefined);
+        var pickRate = new EgParameter('PR',agentStats()[agentStatDropdown.selection.index].PickRate,'slider',templateName,'Data Input',undefined);
+        var map = new EgParameter('Map',agentStats()[agentStatDropdown.selection.index].SortMap-1,'menuControl',templateName,'Data Input',undefined);
+        sortRankcb.setEgValue();
+        winRatecb.setEgValue();
+        pickRatecb.setEgValue();
+        mapSortcb.setEgValue();
+        agent.setEgValue();
+        sortRank.setEgValue();
+        winRate.setEgValue();
+        pickRate.setEgValue();
+        map.setEgValue();
+        app.endUndoGroup();} catch(e){errorCode(4)
+    }
 };
 //Generates map Overviews
 function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
@@ -107,7 +111,8 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         var mapRootFolder = findItem(saveName);
         if(mapRootFolder[0]==false)
         {
-            var myTemplate = downloadAndImport(saveName,url,uri);
+            var templateTag = '[MO]';
+            var myTemplate = downloadAndImport(saveName,url,uri,templateTag);
             if (myTemplate!=false)
             {
                 var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
@@ -234,9 +239,10 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         app.beginUndoGroup('Generate Agent Icon');
         var templateName = 'Agent Icon';
         var commentTag = "animHub_template_[AI]";
+        var templateTag = '[AI]';
         var saveName = "Agent Icon.aep";
         var compArray = ['M.A.I. Agents'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.agentIcon,UriManager.template.agentIcon,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.agentIcon,UriManager.template.agentIcon,true,true,false,compArray);
         var attackDefense = new EgParameter('Attack/Defense',agentIconMenu2.selection.index,'menuControl',templateName,undefined,undefined);
         var agent = new EgParameter('Agent',agentIconMenu1.selection.index,'menuControl',templateName,undefined,undefined);
         var death = new EgParameter('Death',agentIconCheckbox1.value,'checkbox',templateName,undefined,undefined);
@@ -261,7 +267,7 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
         var compArray = ['Agents Frame','Guns Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topBanner,UriManager.template.topBanner,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topBanner,UriManager.template.topBanner,true,true,false,compArray);
         var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined);
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
@@ -279,6 +285,22 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         app.endUndoGroup();
     }catch(e){errorCode(13)}
 };
+function placeIntroScreen()
+{
+    try
+    {
+        app.beginUndoGroup('Place Intro Screen');
+        var templateName = 'Intro Screen';
+        var commentTag = "animHub_template_[IS]";
+        var templateTag = '[IS]';
+        var saveName = "Intro Screen.aep";
+        var compArray = ['Intro Screen'];
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.introScreen,UriManager.template.introScreen,true,true,true,compArray);
+        app.project.activeItem.selectedLayers[0].source.openInViewer();
+        app.project.toolType = 9029;
+        app.endUndoGroup();
+    }catch(e){errorCode(16)}
+}
 function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)
 {
     try
@@ -289,7 +311,7 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         var templateTag = '[OS]';
         var saveName = "Outro Screen.aep";
         var compArray = ['Outro Screen','Credits'];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
         var management = new EgParameter('Management',String(outroScreenManagement.selection),'textInput',templateName,undefined,undefined);
         var contentCreator = new EgParameter('Content Creator',String(outroScreenContentCreator.selection),'textInput',templateName,undefined,undefined);
         var voiceOver = new EgParameter('Voice-Over',String(outroScreenVoiceOver.selection),'textInput',templateName,undefined,undefined);
@@ -349,11 +371,7 @@ function generateTopicTitle(titleBox,style,topicId)
     {
         app.activeViewer.setActive();
         var selection = app.project.activeItem.selectedLayers[0].source.comment;
-    }
-    catch(e)
-    {
-        var selection = undefined
-    }
+    } catch(e){var selection = undefined}
     try
     {
         var templateName = 'Topic Title';
@@ -364,7 +382,7 @@ function generateTopicTitle(titleBox,style,topicId)
         app.beginUndoGroup('Generate Topic Title')
         if(selection != 'animHub_template_[TT]')
         {
-            generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
+            generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
         };
         var myText = declareTitle(titleBox,topicId);
         //Private Style Variables
@@ -444,7 +462,7 @@ function generateTopicDisplay(topicID,cuVisibility)
         var templateTag = '[TD]';
         var saveName = "Topic Display.aep";
         var compArray = [];
-        generateTemplate(templateName,commentTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
+        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         //var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         topicId.setEgValue();
@@ -461,7 +479,7 @@ function generateCCT(menuControl)
     var templateTag = '[CCT]';
     var saveName = "Content Creator Tag.aep";
     var compArray = ['Text Box','Social Media Logos','Glass Panel Shape 1','Glass Panel Shape 2','Glass Panel Shape 3'];
-    generateTemplate(templateName,commentTag,saveName,UrlManager.template.creatorTag,UriManager.template.creatorTag,true,true,true,compArray);
+    generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.creatorTag,UriManager.template.creatorTag,true,true,true,compArray);
     var socialMediaLibrary =
     {
         CaseyKing : [true,true,true],
@@ -483,3 +501,16 @@ function generateCCT(menuControl)
     cctYoutube.setEgValue();
     cctTwitter.setEgValue();
 };
+function placeWaterMark()
+{
+    var templateName = 'SC Watermark';
+    var commentTag = "animHub_template_[WM]";
+    var templateTag = '[WM]';
+    var saveName = "SC_Watermark.aep";
+    var compArray = ['SC Watermark'];
+    generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.waterMark,UriManager.template.waterMark,true,false,false,compArray);
+    app.activeViewer.setActive();
+    var animPath = app.project.activeItem.selectedLayers[0].property('Essential Properties').property('Animation');
+    var outTime = app.project.activeItem.duration;
+    IOanimKeySetter(animPath,0,outTime)
+}

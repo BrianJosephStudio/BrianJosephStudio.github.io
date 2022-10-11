@@ -1,25 +1,98 @@
 function myScript(thisObj){
     function myScript_buildUI(thisObj){
         var hub = (thisObj instanceof Panel) ? thisObj : new Window("palette", "SC Animator Hub", undefined, {resizeable:true, closeButton: true});
+        var bgColor = hub.graphics.newBrush(hub.graphics.BrushType.SOLID_COLOR,[0.138,0.138,0.138,1]);
+            hub.graphics.backgroundColor = bgColor;
             hub.main = hub.add ('group {preferredSize: [1200, 500], alignChildren: ["left","top"]}');
             hub.main.orientation = "column";
-                hub.main.add('statictext{text:"Select a Workspace"}')
-                hub.stubs = hub.main.add ('dropdownlist', undefined, ['Editing Tools','Titles','Map Overviews','Agent Stats','Updates & Patch Notes']);
-                hub.stubs.alignment = "fill";
+                hub.main.header = hub.main.add('group'); hub.main.header.orientation = 'row';
+                hub.main.header.add('image',[0,0,200,30],UIImagePaths.animHub_header);
+                hub.main.header.add('image',[0,0,140,30],UIImagePaths.colorPalette);
+                // WorkSpaces //*******************************************************************************************************/
+                var workspaces = hub.main.add('group'); workspaces.orientation = 'row';
+                    workspaces.projectUtil = workspaces.add('iconbutton',[0,0,70,30],projectUtilIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.projectUtil.value = true; workspaces.projectUtil.helpTip = 'Project Utilities';
+                    workspaces.editingTools = workspaces.add('iconbutton',[0,0,70,30],editingToolsIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.editingTools.helpTip = 'Editing Tools';
+                    workspaces.titles = workspaces.add('iconbutton',[0,0,70,30],titlesIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.titles.helpTip = 'Title Templates';
+                    workspaces.mapOverviews = workspaces.add('iconbutton',[0,0,70,30],mapOverviewsIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.mapOverviews.helpTip = 'Map Overviews';
+                    workspaces.agentTemplates = workspaces.add('iconbutton',[0,0,70,30],agentTemplatesIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.agentTemplates.helpTip = 'Agent Related templates';
+                    workspaces.patchNotes = hub.main.header.add('iconbutton',[0,0,40,30],patchNotesIcon,{style : 'toolbutton',toggle : true})
+                        workspaces.patchNotes.helpTip = 'Patch Notes';
+                workspaces.array = [workspaces.projectUtil,workspaces.editingTools,workspaces.titles,workspaces.mapOverviews,workspaces.agentTemplates,workspaces.patchNotes];
+                var separator = hub.main.add('panel {preferredSize: [-1, -10]}'); separator.alignment = ['fill','fill'];
+                //*********************************************************************************************************************/
                 hub.tabGroup = hub.main.add ('group {alignment: ["fill","fill"], orientation: "stack"}');
                         //Mode Tabs
                         hub.tabs = [];
+                        // Project Utilities Workspace //******************************************************************************/
+                            var projectUtil = hub.tabs[0] = hub.tabGroup.add('group');
+                            projectUtil.panel1 = projectUtil.add('panel',undefined,'File Types'); projectUtil.panel1.orientation = 'row';
+                            //projectUtil.panel1.graphics.backgroundColor = brush;
+                            //Sort Target Buttons
+                            var compsButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],compsIcon,{style : 'toolbutton',toggle:true});
+                                    compsButton.value = true;
+                                    compsButton.helpTip = 'Compositions';
+                            var linkedComps = projectUtil.panel1.add('iconbutton',[0,0,34,40],linkedCompsIcon,{style:'toolbutton',toggle:true});
+                                    linkedComps.value = true;
+                                    linkedComps.helpTip = 'Dynamic Linked Comps';
+                            var templatesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],templatesIcon,{style:'toolbutton',toggle:true});
+                                    templatesButton.value = true;
+                                    templatesButton.helpTip = 'Animator Hub Templates';
+                            var videoFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],videoFilesIcon,{style:'toolbutton',toggle:true});
+                                    videoFilesButton.value = true;
+                                    videoFilesButton.helpTip = 'Video Files';
+                            var imageFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],imageFilesIcon,{style:'toolbutton',toggle:true});
+                                    imageFilesButton.value = true;
+                                    imageFilesButton.helpTip = 'Image Files';
+                            var audioFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],audioFilesIcon,{style:'toolbutton',toggle:true});
+                                    audioFilesButton.value = true;
+                                    audioFilesButton.helpTip = 'Audio Files';
+                            var solidsButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],solidsIcon,{style:'toolbutton',toggle:true});
+                                    solidsButton.value = true;
+                                    solidsButton.helpTip = 'Solids';
+                            var otherFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],otherFilesIcon,{style:'toolbutton',toggle:true});
+                                    otherFilesButton.value = true;
+                                    otherFilesButton.helpTip = 'Other Files';
+                            //
+                            projectUtil.group1 = projectUtil.add('group',[0,0,500,40]); projectUtil.group1.orientation = 'row'; projectUtil.group1.alignment = 'left';
+                            projectUtil.panel2 = projectUtil.group1.add('panel',[0,0,102,40],'Target Pool',{borderStyle:'raised'});
+                                projectUtil.panel2.orientation = 'row'; projectUtil.panel2.alignment = 'left';
+                            var targetPool = {};
+                                targetPool.project = projectUtil.panel2.add('iconButton',[0,0,34,40],targetPoolProjectIcon,{style:'toolButton',toggle:true});
+                                    targetPool.project.value = true;
+                                    targetPool.project.helpTip = 'Sort Entire Project'; 
+                                targetPool.onlySel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolOnlySelIcon,{style:'toolButton',toggle:true});
+                                    targetPool.onlySel.helpTip = 'Sort Selection Only';
+                                targetPool.excludeSel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolExcludeSelIcon,{style:'toolButton',toggle:true});
+                                    targetPool.excludeSel.helpTip = 'Exclude Selection'
+                            var sortFilesButton = projectUtil.group1.add('iconbutton',[50,0,77,60],sortFilesButtonIcon,{style: 'toolButton'});
+                            sortFilesButton.helpTip = 'Sort Project Files';
+                            sortFilesButton.alignment = ['right','bottom'];
+                            //var waterMarkButton = projectUtil.group1.add('iconButton',[0,0,34,40],waterMarkIcon,{style:'tollButton'});
+                            //waterMarkButton.alignment = 'right';
+
+
+
                         // Editing Tools Workspace //**********************************************************************************/
-                            var editingTools = hub.tabs[0] = hub.tabGroup.add('group');
-                            editingTools.add ('panel {preferredSize: [-1, -10]}');
-                            colorPalette = editingTools.add('image',undefined,colorPaletteBin)
+                            var editingTools = hub.tabs[1] = hub.tabGroup.add('group');
+                            editingTools.alignChildren = ['fill','top']
+                            //colorPalette = editingTools.add('image',undefined,colorPaletteBin)
                             var etGroup1 = editingTools.add('group'); etGroup1.alignChildren = ['fill','fill']; etGroup1.orientation = 'row';
                             var blurBGButton = etGroup1.add('button',undefined,'Blur Background');
                             var vodModeButton = etGroup1.add('button',undefined,'VoD Mode');
+                            var etGroup2 = editingTools.add('group'); etGroup2.alignChildren = ['fill','fill']; etGroup2.orientation = 'row';
+                            var blurHighlightButton = etGroup2.add('button',undefined,'Blur Highlight');
+                            var blurItButton = etGroup2.add('button',undefined,'Blur It!');
+                            var etGroup3 = editingTools.add('group'); etGroup3.alignChildren = ['fill','fill']; etGroup3.orientation = 'row';
+                            var placeWaterMarkButton = etGroup3.add('button',undefined,'Place Watermark');
                             
                         // Topic Titles Tabbed Panel //********************************************************************************/
 
-                            var titlesTabbedPanel = hub.tabs[1] = hub.tabGroup.add ('tabbedpanel',[0,0,300,400]);
+                            var titlesTabbedPanel = hub.tabs[2] = hub.tabGroup.add ('tabbedpanel',[0,0,300,400]);
                             //Topic Titles Tab //
                             var topicTitleTab = titlesTabbedPanel.add ('tab',undefined,'Topic Titles');
                             titlesTabbedPanel.selection = 0;
@@ -86,6 +159,11 @@ function myScript(thisObj){
                                     var introOutroTab = titlesTabbedPanel.add('tab',undefined,'Intro/Outro');
                                     introOutroTab.add('panel {preferredSize: [-1, -10]}');
                                     introOutroTab.alignChildren = ['fill','fill'];
+                                        //Intro Screen
+                                        var introPanel = introOutroTab.add('panel',undefined,'Intro Screen');
+                                        introPanel.orientation = 'row';
+                                            var introScreenButton = introPanel.add('button',undefined,'Place Intro Screen');
+                                            introScreenButton.alignment = ['fill','fill'];
                                         //Outro Screen
                                         var outroPanel = introOutroTab.add('panel',undefined,'Outro Screen');
                                         outroPanel.orientation = 'row';
@@ -136,9 +214,10 @@ function myScript(thisObj){
                                         var generateCCTButton = cctPanel.add('button',undefined,'Place');
 
                             // Map Overviews //**************************************************************************************/
-                            var mapOverviews = hub.tabs[2] = hub.tabGroup.add ("group");
+                            var mapOverviews = hub.tabs[3] = hub.tabGroup.add ("group");
                                 mapOverviews.add ('panel {preferredSize: [-1, -10]}');
                                 mapOverviews.orientation = "column";
+                                mapOverviews.alignChildren = ['fill','top'];
                                     //Map Overviews
                                     var mapOvPanel1 = mapOverviews.add('panel',undefined,'Map Overviews');
                                     mapOvPanel1.orientation = 'row';
@@ -159,7 +238,7 @@ function myScript(thisObj){
                                             mapOvCb1.value = 1;
                                             mapOvCb1.bounds = [0,50,110,65];
                                         var generateMapB = mapOvPanel1.add('button',undefined,'Generate Map');
-                                        generateMapB.alignment = 'fill';
+                                        generateMapB.alignment = ['right','fill'];
                                     //Agent Icon
                                     var agentIconPanel1 = mapOverviews.add('panel',undefined,'Agent Icon');
                                     agentIconPanel1.orientation = 'row';
@@ -175,7 +254,7 @@ function myScript(thisObj){
                                         placeAgent.alignment = ["right",'fill'];
                                 
                             // Agents Stats //********************************************************************************************/
-                            var agentStats = hub.tabs[3] = hub.tabGroup.add ("group");
+                            var agentStats = hub.tabs[4] = hub.tabGroup.add ("group");
                                 agentStats.add ('panel {preferredSize: [-1, -10]}');
                                 agentStats.orientation = "column";
                                 var agentStatsPanel = agentStats.add("Panel",undefined,"Agent Stats Table");
@@ -203,30 +282,34 @@ function myScript(thisObj){
                                     generateTable.alignment = ['fill','fill'];
 
                             //Patch notes //********************************************************************************************************/
-                            var patchNotes = hub.tabs[4] = hub.tabGroup.add ("group");
+                            var patchNotes = hub.tabs[5] = hub.tabGroup.add ("group");
                                 patchNotes.add ('panel {preferredSize: [-1, -10]}');
                                 patchNotes.orientation = "column";
-                                /*updateTabGroup = patchNotes.add("group",undefined,"");
-                                updateTabGroup.orientation = "row";
-                                updateTabGroup.alignment = "right";
-                                updateTabGroup.add ("statictext",undefined,"Current Version: "+currentVersion);
-                                updateButton = updateTabGroup.add("button",undefined,"Search for Updates");*/
                                 var patchNotesPanel = patchNotes.add("panel");
                                 patchNotesPanel.orientation = "column";
                                 patchNotesPanel.alignment = "fill";
-                                    var patchNotesBody = patchNotesPanel.add("staticText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
-                                    patchNotesBody.alignment = "left";
-                                    patchNotesBody.preferredSize = [300,250];
+                                    var patchNotesBody = patchNotesPanel.add("editText",undefined,patchNotesBodyText,{multiline:true,scrolling:true});
+                                    patchNotesBody.onChange = function(){patchNotesBody.text = patchNotesBodyText};
+                                    patchNotesBody.alignment = "fill";
+                                    patchNotesBody.preferredSize = [350,300];
                         //
-            for (var i = 0; i < hub.tabs.length; i++) {
+            for (var i = 0; i < hub.tabs.length; i++)
+            {
                 hub.tabs[i].orientation = 'column';
-                hub.tabs[i].alignChildren = 'fill';
+                //hub.tabs[i].alignChildren = 'fill';
                 hub.tabs[i].alignment = ['fill','fill'];
                 hub.tabs[i].visible = false;
             }
-            //Layout Changes
-            hub.stubs.onChange = showTab;
-            topBannerMode.onChange = function(){showMode();};
+            hub.tabs[0].visible = true;
+            hub.tabs[0]
+            // Callback Handlers //*****************************************************************************************************/
+            workspaces.projectUtil.onClick = function(){showTab(workspaces.array,0)}
+            workspaces.editingTools.onClick = function(){showTab(workspaces.array,1)}
+            workspaces.titles.onClick = function(){showTab(workspaces.array,2)}
+            workspaces.mapOverviews.onClick = function(){showTab(workspaces.array,3)}
+            workspaces.agentTemplates.onClick = function(){showTab(workspaces.array,4)}
+            workspaces.patchNotes.onClick = function(){showTab(workspaces.array,5)}
+            topBannerMode.onChange = function(){showMode()};
             topBannerAutoNaming.onClick = autoNameCb;
             titlesTabbedPanel.onChange = function()
             {
@@ -240,14 +323,30 @@ function myScript(thisObj){
                 topBannerGunMenu.visible = false;
                 showMode();
             };
-            //UI Functions //************************/
-            function showTab () {
-                if (hub.stubs.selection !== null) {
-                    for (var i = hub.tabs.length-1; i >= 0; i--) {
+            targetPool.project.onClick = function(){targetPoolSel(targetPool.project)};
+            targetPool.onlySel.onClick = function(){targetPoolSel(targetPool.onlySel)};
+            targetPool.excludeSel.onClick = function(){targetPoolSel(targetPool.excludeSel)};
+            compsButton.onClick = function(){fileTypeModifier(compsButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            linkedComps.onClick = function(){fileTypeModifier(linkedComps,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            templatesButton.onClick = function(){fileTypeModifier(templatesButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            videoFilesButton.onClick = function(){fileTypeModifier(videoFilesButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            imageFilesButton.onClick = function(){fileTypeModifier(imageFilesButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            audioFilesButton.onClick = function(){fileTypeModifier(audioFilesButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            solidsButton.onClick = function(){fileTypeModifier(solidsButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            otherFilesButton.onClick = function(){fileTypeModifier(otherFilesButton,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)}
+            //UI Functions //**********************************************************************************************************/
+            function showTab(buttonArray,buttonNumber)
+            {    
+                if(buttonArray[buttonNumber].value == false){buttonArray[buttonNumber].value = true};
+                for(var i = 0; i < buttonArray.length;i++)
+                {
+                    if (i == buttonNumber){continue};
+                    buttonArray[i].value = false;
+                }
+                for (var i = 0; i < hub.tabs.length; i++) {
                         hub.tabs[i].visible = false;
                     }
-                    hub.tabs[hub.stubs.selection.index].visible = true;
-                };
+                    hub.tabs[buttonNumber].visible = true;
                 if (titlesTabbedPanel.selection == null) {titlesTabbedPanel.selection = 0;}
             }
             function showMode()
@@ -306,28 +405,78 @@ function myScript(thisObj){
                 if(topBannerAutoNaming.value==false){topBannerText.enabled = true}
                 else{topBannerText.enabled = false}
             }
+            function targetPoolSel(button)
+            {
+                targets = [targetPool.project,targetPool.onlySel,targetPool.excludeSel];
+                for(var i = 0 ; i < targets.length; i++)
+                {
+                    if (targets[i] == button){continue};
+                    targets[i].value = false
+                };
+                if(targetPool.project.value == false && targetPool.onlySel.value == false && targetPool.excludeSel.value == false)
+                {
+                    targetPool.project.value = true
+                }
+            }
+            function fileTypeModifier(button,compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton)
+            {
+                var buttons = [compsButton,linkedComps,templatesButton,videoFilesButton,imageFilesButton,audioFilesButton,solidsButton,otherFilesButton];
+                if(ScriptUI.environment.keyboardState.altKey == true)
+                {
+                    for (var i = 0; i < buttons.length; i++)
+                    {
+                        if(buttons[i] == button){continue};
+                        buttons[i].value = false;
+                    };
+                    button.value = true;
+                }
+                else if(ScriptUI.environment.keyboardState.ctrlKey == true)
+                {
+                    for (var i = 0; i < buttons.length; i++)
+                    {
+                        if(buttons[i] == button){continue};
+                        buttons[i].value = true;
+                    };
+                    button.value = true;
+                }
+            }
+            //*************************************************************************************************************************/
         hub.onShow = function () {
-            hub.stubs.selection = 0;
+            hub.tabs[0].visible = true;
             topBannerMode.selection = 0;
-            showTab();
             //showMode();
         };
-        //Start Functionality
+        // Functionality //************************************************************************************************************/
         resetTitles.onClick = function() {resetTopicTitles()};
         openGTR.onClick = function () {goToGTR()};
-        //updateButton.onClick = function() {updateScript()};
-        generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
         generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,UriManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
+        generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
+        introScreenButton.onClick = function(){placeIntroScreen()}
         outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)};
         topicTitleButton.onClick = function(){generateTopicTitle(titleTextBox,styleMenu,topicID)};
         generateTopicDisplayButton.onClick = function(){generateTopicDisplay(topicID)};
         declareTitleButton.onClick = function(){declareTitle(titleTextBox,topicID)};
         blurBGButton.onClick = function(){blurBackground(true,true)};
         vodModeButton.onClick = function(){vodMode()}
+        blurHighlightButton.onClick = function(){blurHighlight()}
         generateCCTButton.onClick = function(){generateCCT(ccMenu)}
-        //end of functionality                    
+        blurItButton.onClick = function(){blurIt()};
+        sortFilesButton.onClick = function(){app.beginUndoGroup('Sort Files');sortFiles(
+            compsButton.value,linkedComps.value,
+            templatesButton.value,
+            videoFilesButton.value,
+            imageFilesButton.value,
+            audioFilesButton.value,
+            solidsButton.value,
+            otherFilesButton.value,
+            targetPool.project.value,
+            targetPool.onlySel.value,
+            targetPool.excludeSel.value
+            ); app.endUndoGroup()}
+        placeWaterMarkButton.onClick = function(){placeWaterMark()}
+        /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;
     }

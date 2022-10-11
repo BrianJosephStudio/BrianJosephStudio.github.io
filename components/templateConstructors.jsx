@@ -1,14 +1,14 @@
 //Generate Template Function
-function generateTemplate(templateName,commentTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
+function generateTemplate(templateName,commentTag,templateTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
 {
     try
     {
         var myTemplate = findTemplate(commentTag);
         if (myTemplate==false)
         {
-            downloadAndImport(saveName,URL,URI);
+            downloadAndImport(saveName,URL,URI,templateTag);
             if (hasMissingFiles==true){fixMissing(compArray)};
-            return generateTemplate(templateName,commentTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
+            return generateTemplate(templateName,commentTag,templateTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
         };
         app.activeViewer.setActive();
         if(app.project.activeItem == null){return reportCode(2)};
@@ -16,7 +16,7 @@ function generateTemplate(templateName,commentTag,saveName,URL,URI,importToComp,
         if(activeI.typeName=='Composition' && importToComp == true)
         {
             var myImport = importItemToActiveComp(myTemplate);
-            if (myImport!==true) {reportCode(5); return false};
+            if (myImport!=true) {reportCode(5); return false};
             if(collapse==true){activateCollapse(templateName)};
         }
         else if(activeI.typeName!=='Composition' && importToComp == true) {reportCode(5)};

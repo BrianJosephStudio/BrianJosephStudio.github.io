@@ -111,12 +111,22 @@ function expandComponents()
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
+    hubComponents.imagesUI = 
+    {
+        saveName : "images_UI.jsx",
+        name:"User Interface Images",
+        url:"https://brianjosephstudio.github.io/components/images_UI.jsx",
+        uri:"~/DOCUMENTS/Animator Hub/Components/images_UI.jsx",
+        resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
+        valid : function(){return valid(this.uri)}
+    };
 }
 /*********************************************************************************************/
 function initializeHub(UIBody)
 {
     expandComponents();
-    checkVersion();
+    //checkVersion();
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -130,6 +140,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.patchNotes.uri+"'");
     eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
     eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
+    eval("#include '"+hubComponents.imagesUI.uri+"'");
     }catch(e){return primitiveAlert(6)}
     myScript(UIBody)
     
@@ -148,6 +159,7 @@ function resolveComponents()
         hubComponents.patchNotes.resolveIt();
         hubComponents.editingToolsFunctions.resolveIt();
         hubComponents.editingToolsGenerators.resolveIt();
+        hubComponents.imagesUI.resolveIt();
 }
 function checkVersion()
 {
@@ -183,6 +195,7 @@ function updateComponents()
     hubComponents.patchNotes.updateIt();
     hubComponents.editingToolsFunctions.updateIt();
     hubComponents.editingToolsGenerators.updateIt();
+    hubComponents.imagesUI.updateIt();
 
 }
 function writeCurrentVersion()
@@ -195,38 +208,21 @@ function writeCurrentVersion()
     myVersion.close();
 }
 /*********************************************************************************************/
-/*//Update Main Script
-function updateMainScript() 
+function resolveUIImages()
 {
-    var AnimatorHubPath = $.fileName;
-    var versionCheckJson = system.callSystem('curl -s '+UrlManager.jsonFile.versionCheck);
-    if (versionCheckJson !='')
+    //Check Folder
+    var myFolder = new Folder("~/DOCUMENTS/Animator%20Hub/Resources/animHubUI");
+    if(myFolder.exists == false){myFolder.create()}
+    //Check Files
+    for (var i in UIImagePaths)
     {
-        var versionCheck = JSON.parse(versionCheckJson);
-        var latestVersion = versionCheck.latestVersion;
-        if (latestVersion == currentVersion){reportCode(3);}
-        else
-        {
-            try
-            {
-                var latestAnimatorHub = system.callSystem('curl -s '+urlmanager.component.animHub);
-                var newAnimatorHub = new File(AnimatorHubPath);
-                var openNewAnimatorHub = newAnimatorHub.open("w");
-                if (openNewAnimatorHub==true)
-                {            
-                    newAnimatorHub.write(latestAnimatorHub);
-                    newAnimatorHub.close();
-                    reportCode(4);
-                }
-                else if (openNewAnimatorHub==false){errorCode(0);}
-                else{errorCode(1)};
-            }
-            catch(e){errorCode(2)};
-        };
-    }
-    else{errorCode(3);};
+        var image = File(UIImagePaths[i]);
+        if(image.exists == true){continue};
+        var binData = UIBinImages[i];
+        image.open('w');
+        image.encoding = 'BINARY';
+        image.write(binData);
+        image.close()
+    };
     
-};
-
-var versionCheckJson = system.callSystem('curl -s '+UrlManager.jsonFile.versionCheck)
-alert(versionCheckJson)*/
+}

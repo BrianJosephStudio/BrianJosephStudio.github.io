@@ -64,7 +64,9 @@ function reportCode(reportCodeId)
 
         "Please select a composition to import this template into!",//5
 
-        "Please select clips to duplicate in your active composition!"//6
+        "Please select clips to duplicate in your active composition!",//6
+
+        "Please Select a Shape Layer to continue."//7
     ];
     myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+reportList[reportCodeId]);

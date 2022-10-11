@@ -360,6 +360,7 @@ function nameArrToIndexArr(nameArray)
 //Activates Collapse Transformations for the active comp and targeted layer name.________________________________________________
 function activateCollapse(templateName)
 {
+    app.activeViewer.setActive()
     var myLayer = app.project.activeItem.layer(templateName);
     myLayer.collapseTransformation = true;
 };
@@ -712,18 +713,21 @@ function deselectAll()
     else {return undefined};
 };
 //Downloads a comp form database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
-function downloadAndImport(saveName,URL,URI)
+function downloadAndImport(saveName,URL,URI,templateTag)
 {
     var myDownload = fetchEgCompOnline(saveName,URL);
     if (myDownload==true)
     {
         var myFile = findFileInSystem(saveName);
-        if (myFile!==false)
+        if (myFile!=false)
         {
             var myImport = importFileToProject(myFile);
-            if (myImport!==false)
+            if (myImport!=false)
             {
                 //eraseFileFromSystem(saveName);
+                myImport.comment = 'animHub_templateRoot_'+templateTag;
+                var templatesFolder = new ItemObject('comment','animHub_sortFiles_[TF]');
+                if(templatesFolder.object != undefined){myImport.parentFolder = templatesFolder.object};
                 return true;
             }
             else
@@ -880,6 +884,8 @@ function resourceFolder(resourceFile)
     {
         resourceFolder = new ItemObject("object",app.project.items.addFolder("Animator Hub Resource Folder"))
         resourceFolder.object.comment = "animHub_resourceFolder_[RF]";
+        var sortFilesFolder = new ItemObject('comment','animHub.sortFiles[PF]').object;
+        if(sortFilesfolder != undefined){resourceFolder.object.parentFolder = sortFilesFolder} 
     };
     var myResourceFolder = new ItemObject("comment",resourceFile.resourceFolderComment);
     if(myResourceFolder.object == undefined)
@@ -889,4 +895,164 @@ function resourceFolder(resourceFile)
         myResourceFolder.object.parentFolder = resourceFolder.object;
     };
     return myResourceFolder
+};
+function isInArray(array,item)
+{
+    for(var i = 0; i < array.length; i++)
+    {
+        if(array[i] == item) {return true};
+        return false
+    }
+};
+function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFilesVal,audioFilesVal,solidsVal,otherFilesVal,projectVal,onlySelVal,excludeVal)
+{
+    if(compsVal==false && linkedCompsVal == false && templatesVal== false && videoFilesVal== false && imageFilesVal == false && audioFilesVal == false && solidsVal == false) {return};
+    // Set up   
+    var compItems = []; var linkedComps = []; var imageFiles = []; var videoFiles = []; var templates = []; var audioFiles = []; var solids = []; var otherFiles = [];
+    var project = app.project;
+    function isTarget(itemObject)
+    {
+
+        if (projectVal == true || (projectVal == false && onlySelVal == false && excludeVal == false))
+        {
+            return true
+        };
+        var sel = app.project.selection;
+        if (onlySelVal == true)
+        {
+            for (var i = 0; i < sel.length; i++)
+            {
+                if(sel[i] == itemObject) {return true}
+            };
+            var parent = itemObject.parentFolder;
+            while(parent != app.project.rootFolder)
+            {
+                if(isInArray(sel,parent) == true) {return true};
+                parent = parent.parentFolder;
+            };
+            return false
+        }
+        else if(excludeVal == true)
+        {
+            for (var i = 0; i < sel.length; i++)
+            {
+                if(sel[i] == itemObject) {return false}
+            };
+            var parent = itemObject.parentFolder;
+            while(parent != app.project.rootFolder)
+            {
+                if(isInArray(sel,parent) == true) {return false};
+                parent = parent.parentFolder;
+            };
+            return true
+        };
+        return undefined;
+    };
+    // Get Files to Sort
+    for (var i = 1; i <= app.project.numItems; i++)
+    {
+        var item = app.project.item(i);
+        if (item.comment.slice(0,20) == 'animHub_templateRoot' && item.typeName == 'Folder' && isTarget(item) == true)
+            {templates.push(item)}
+        else if ((item.comment.substring(0,7) == 'animHub' || item.parentFolder.comment.substring(0,7) == 'animHub') && isTarget(item) == true)
+            {continue}
+        else if (item.typeName == 'Composition' && item.name.slice(-14,-3) == 'Linked Comp' && isTarget(item) == true)
+            {linkedComps.push(item)}
+        else if(item.typeName == 'Composition' && isTarget(item) == true)
+            {compItems.push(item)}
+        else if(item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.duration == 0 && item.hasAudio == false && isTarget(item) == true)
+            {imageFiles.push(item)}
+        else if (item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.duration > 0 && item.hasVideo == true && isTarget(item) == true)
+            {videoFiles.push(item)}
+        else if(item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.hasVideo == false && item.hasAudio == true && isTarget(item) == true)
+            {audioFiles.push(item)} 
+        else if (item.name == 'Solids' && item.typeName == 'Folder' && isTarget(item) == true)
+            {solids.push(item)}
+    };
+    //Create Folders
+    var projectFolder = new ItemObject('comment','animHub_sortFiles_[PF]').object;
+    if (projectFolder == undefined)
+    {
+        var projectFolder = app.project.items.addFolder('SkillCapped Project'); projectFolder.comment = 'animHub_sortFiles_[PF]';
+    };
+    var compsFolder = new ItemObject('comment','animHub_sortFiles_[CF]').object;
+    var linkedFolder = new ItemObject('comment','animHub_sortFiles_[LC]').object;
+    var templatesFolder = new ItemObject('comment','animHub_sortFiles_[TF]').object;
+    var filesFolder = new ItemObject('comment','animHub_sortFiles_[FF]').object;
+    var imagesFolder = new ItemObject('comment','animHub_sortFiles_[IF]').object;
+    var videoFolder = new ItemObject('comment','animHub_sortFiles_[VF]').object;
+    var audioFolder = new ItemObject('comment','animHub_sortFiles_[AF]').object;
+    var otherFolder = new ItemObject('comment','animHub_sortFiles_[OF]').object;
+    if(compItems.length > 0 && compsFolder == undefined && compsVal == true)
+        {compsFolder = projectFolder.items.addFolder('Compositions'); compsFolder.comment = 'animHub_sortFiles_[CF]'};
+    if(linkedComps.length > 0 && linkedFolder == undefined && linkedCompsVal == true)
+        {linkedFolder = projectFolder.items.addFolder('Dynamic Linked Comps'); linkedFolder.comment = 'animHub_sortFiles_[LC]'};
+    if(templates.length > 0 && templatesFolder == undefined && templatesVal == true)
+        {templatesFolder = projectFolder.items.addFolder('Animator Hub Templates'); templatesFolder.comment = 'animHub_sortFiles_[TF]'};
+    if(((imageFiles.length > 0 && imageFilesVal == true) || (videoFiles.length > 0 && videoFilesVal == true)) || (audioFiles.length > 0 && audioFilesVal == true) && filesFolder == undefined)
+        {filesFolder = projectFolder.items.addFolder('Footage Files'); filesFolder.comment = 'animHub_sortFiles_[FF]'};
+    if(imageFiles.length > 0 && imagesFolder == undefined && imageFilesVal == true)
+        {imagesFolder = filesFolder.items.addFolder('Image Files'); imagesFolder.comment = 'animHub_sortFiles_[IF]'};
+    if(videoFiles.length > 0 && videoFolder == undefined && videoFilesVal == true)
+        {videoFolder = filesFolder.items.addFolder('Video Files'); videoFolder.comment = 'animHub_sortFiles_[VF]'};
+    if(audioFiles.length > 0 && audioFolder == undefined && audioFilesVal == true)
+        {audioFolder = filesFolder.items.addFolder('Audio Files'); audioFolder.comment = 'animHub_sortFiles_[AF]'};
+    //Search for Animator Hub Resource Files Folder
+    var resourceFilesFolder = new ItemObject('comment','animHub_resourceFolder_[RF]')
+    {
+        if(resourceFilesFolder.object != undefined && isTarget(resourceFilesFolder.object) == true) {resourceFilesFolder.object.parentFolder = projectFolder}
+    }
+    //Put solids folders inside our Project Folder
+    if(solids[0] != undefined && solidsVal == true)
+    {
+        for(var i = 1; i < solids.length; i++)
+        {
+            while(solids[i].numItems > 0)
+            {
+                solids[i].item(1).parentFolder = solids[0]
+            };
+        };
+        solids[0].parentFolder = projectFolder;
+    };
+    //Loops to sort Files
+    var filesToSort = [compItems,linkedComps,imageFiles,videoFiles,templates,audioFiles];
+    var folders = [compsFolder,linkedFolder,imagesFolder,videoFolder,templatesFolder,audioFolder]
+    for (var i = 0; i < filesToSort.length; i++)
+    {
+        for(var o = 0; o < filesToSort[i].length; o++)
+        {
+            if(folders[i] != undefined)
+            {
+                filesToSort[i][o].parentFolder = folders[i];
+            }
+        }
+    }
+    //Clean project one last time and put the rest of items in 'Other'
+    if(app.project.rootFolder.numItems > 1 && otherFilesVal == true) 
+    {
+        if (otherFolder == undefined && otherFiles.length > 0)
+        {otherFolder = projectFolder.items.addFolder('Other'); otherFolder.comment = 'animHub_sortFiles_[OF]'};
+        for (var i = 1; i <= app.project.numItems; i++)
+        {
+            var item = app.project.item(i);
+            if (item.comment.substring(0,7) != 'animHub' && item.typeName != 'Footage' &&
+                item.typeName != 'Composition' && item.typeName != 'Folder' &&
+                item.parentFolder.comment.substring(0,7) != 'animHub'
+            )
+            {otherFiles.push(item)}
+        };
+        for (var i = 0; i < otherFiles.length; i++)
+        {
+            otherFiles[i].parentFolder = otherFolder;
+        }
+    }
+    //Delete Empty Folders
+    for(var p = project.numItems; p > 0 ; p--)
+    {
+        var item = app.project.item(p);
+        if(item.typeName == 'Folder' && item.numItems == 0 && item.comment.substring(0,7) != 'animHub' && isTarget(item) == true)
+        {
+            item.remove()
+        }
+    };
 }

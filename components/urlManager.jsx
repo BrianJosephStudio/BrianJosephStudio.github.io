@@ -14,7 +14,8 @@ var UrlManager =
         ADS : 'https://brianjosephstudio.github.io/components/animHub_ADS.jsx',
         urlManager : 'https://brianjosephstudio.github.io/components/urlManager.jsx',
         editingToolsFunctions : 'https://brianjosephstudio.github.io/components/editingToolsFunctions.jsx',
-        editingToolsGenerators : 'https://brianjosephstudio.github.io/components/editingToolsGenerators.jsx'
+        editingToolsGenerators : 'https://brianjosephstudio.github.io/components/editingToolsGenerators.jsx',
+        imagesUI : 'https://brianjosephstudio.github.io/components/images_UI.jsx'
     },
     template :
     {
@@ -26,7 +27,8 @@ var UrlManager =
         topicTitle : "https://brianjosephstudio.github.io/templates/Topic%20Title.aep",
         topicDisplay : "https://brianjosephstudio.github.io/templates/Topic%20Display.aep",
         outroScreen : 'https://brianjosephstudio.github.io/templates/Outro%20Screen.aep',
-        creatorTag : 'https://brianjosephstudio.github.io/templates/Content%20Creator%20Tag.aep'
+        creatorTag : 'https://brianjosephstudio.github.io/templates/Content%20Creator%20Tag.aep',
+        waterMark : 'https://brianjosephstudio.github.io/templates/SC_Watermark.aep'
     },
     jsonFile :
     {
@@ -178,7 +180,8 @@ var UriManager =
         ADS : '~/DOCUMENTS/Animator%20Hub/components/animHUb_ADS.jsx',
         urlManager : '~/DOCUMENTS/Animator%20Hub/components/urlManager.jsx',
         editingToolsFunctions : '~/DOCUMENTS/Animator%20Hub/components/editingToolsFunctions.jsx',
-        editingToolsGenerators : '~/DOCUMENTS/Animator%20Hub/components/editingToolsGenerators.jsx'
+        editingToolsGenerators : '~/DOCUMENTS/Animator%20Hub/components/editingToolsGenerators.jsx',
+        imagesUI : '~/DOCUMENTS/Animator%20Hub/components/images_UI.jsx'
     },
     template :
     {
@@ -190,7 +193,8 @@ var UriManager =
         topicTitle : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Title.aep",
         topicDisplay : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Display.aep",
         outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep',
-        creatorTag : '~/DOCUMENTS/Animator%20Hub/templates/Content%20Creator%20Tag.aep'
+        creatorTag : '~/DOCUMENTS/Animator%20Hub/templates/Content%20Creator%20Tag.aep',
+        waterMark : '~/DOCUMENTS/Animator%20Hub/templates/SC_Watermark.aep'
     },
     jsonFile :
     {
