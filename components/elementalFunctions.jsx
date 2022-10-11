@@ -960,7 +960,7 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
             {linkedComps.push(item)}
         else if(item.typeName == 'Composition' && isTarget(item) == true)
             {compItems.push(item)}
-        else if(item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.duration == 0 && item.hasAudio == false && isTarget(item) == true)
+        else if(item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.width != 0 && item.duration == 0 && item.hasAudio == false && isTarget(item) == true)
             {imageFiles.push(item)}
         else if (item.typeName == 'Footage' && item.mainSource != '[object SolidSource]' && item.duration > 0 && item.hasVideo == true && isTarget(item) == true)
             {videoFiles.push(item)}
@@ -968,6 +968,8 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
             {audioFiles.push(item)} 
         else if (item.name == 'Solids' && item.typeName == 'Folder' && isTarget(item) == true)
             {solids.push(item)}
+        else if (item.typeName != 'Folder' && item.mainSource != '[object SolidSource]')
+            {otherFiles.push(item)}
     };
     //Create Folders
     var projectFolder = new ItemObject('comment','animHub_sortFiles_[PF]').object;
@@ -1032,15 +1034,6 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
     {
         if (otherFolder == undefined && otherFiles.length > 0)
         {otherFolder = projectFolder.items.addFolder('Other'); otherFolder.comment = 'animHub_sortFiles_[OF]'};
-        for (var i = 1; i <= app.project.numItems; i++)
-        {
-            var item = app.project.item(i);
-            if (item.comment.substring(0,7) != 'animHub' && item.typeName != 'Footage' &&
-                item.typeName != 'Composition' && item.typeName != 'Folder' &&
-                item.parentFolder.comment.substring(0,7) != 'animHub'
-            )
-            {otherFiles.push(item)}
-        };
         for (var i = 0; i < otherFiles.length; i++)
         {
             otherFiles[i].parentFolder = otherFolder;
