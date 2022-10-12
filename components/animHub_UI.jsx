@@ -69,6 +69,9 @@ function myScript(thisObj){
                                     targetPool.onlySel.helpTip = 'Sort Selection Only';
                                 targetPool.excludeSel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolExcludeSelIcon,{style:'toolButton',toggle:true});
                                     targetPool.excludeSel.helpTip = 'Exclude Selection'
+                            var rootFolderButton = projectUtil.group1.add('iconButton',[0,0,40,60],rootFolderIcon,{style : 'toolbutton',toggle : true})
+                            rootFolderButton.value = true;
+                            rootFolderButton.helpTip = 'Create Project Root Folder';
                             var sortFilesButton = projectUtil.group1.add('iconbutton',[50,0,77,60],sortFilesButtonIcon,{style: 'toolButton'});
                             sortFilesButton.helpTip = 'Sort Project Files';
                             sortFilesButton.alignment = ['right','bottom'];
@@ -473,7 +476,8 @@ function myScript(thisObj){
             otherFilesButton.value,
             targetPool.project.value,
             targetPool.onlySel.value,
-            targetPool.excludeSel.value
+            targetPool.excludeSel.value,
+            rootFolderButton.value
             ); app.endUndoGroup()}
         placeWaterMarkButton.onClick = function(){placeWaterMark()}
         /******************************************************************************************************************************/                    
