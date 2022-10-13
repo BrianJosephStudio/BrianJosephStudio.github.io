@@ -420,7 +420,7 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
 function fixMissing(compArray)
 {
     var missingFiles = replaceMissing(compArray);
-    if (missingFiles[1][0]!==undefined)
+    if (missingFiles[1][0]!=undefined)
     {
         delMissingFiles(missingFiles[1]);
         return true;
@@ -884,8 +884,8 @@ function resourceFolder(resourceFile)
     {
         resourceFolder = new ItemObject("object",app.project.items.addFolder("Animator Hub Resource Folder"))
         resourceFolder.object.comment = "animHub_resourceFolder_[RF]";
-        var sortFilesFolder = new ItemObject('comment','animHub.sortFiles[PF]').object;
-        if(sortFilesfolder != undefined){resourceFolder.object.parentFolder = sortFilesFolder} 
+        var sortFilesFolder = new ItemObject('comment','animHub_sortFiles_[PF]').object;
+        if(sortFilesFolder != undefined){resourceFolder.object.parentFolder = sortFilesFolder} 
     };
     var myResourceFolder = new ItemObject("comment",resourceFile.resourceFolderComment);
     if(myResourceFolder.object == undefined)
