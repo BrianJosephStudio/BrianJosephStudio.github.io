@@ -50,7 +50,7 @@ function errorCode(errorCodeId)
 function reportCode(reportCodeId)
 {
     var reportList = [
-        "Your Map was summoned succesfully but we could not find all the missing files inside this project.\
+        "Your Template was summoned succesfully but we could not find all the missing files inside this project.\
         Seems like you're gonna have to manage missing files yourself for this one!",//0
         
         "Your Template was summoned succesfully but we could not find all the missing files inside this project.\

@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Version 3.0.4\n\
+"Version 3.1.0\n\
 -New revamped look in the works, long text buttons have been replaced with icons to save space. Icons show a help tip if you hover the mouse on them for a second, giving you information about what that button does.\n\
 -Color Palette is now visible at all times from all workspaces.\n\
 -Workspaces dropdown list has been replaced by tab icon buttons, making it more comfortable to change workspaces.\n\

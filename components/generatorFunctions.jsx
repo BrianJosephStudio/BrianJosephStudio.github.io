@@ -250,8 +250,11 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         agent.setEgValue();
         death.setEgValue();
         var myLayer = app.project.activeItem.layer('Map [ND]');
-        if(myLayer!== null){app.project.activeItem.selectedLayers[0].parent = myLayer}
-        app.project.activeItem.selectedLayers[0].property('Transform').property('Scale').setValue([4,4]);
+        if(myLayer!= null)
+        {
+            app.project.activeItem.selectedLayers[0].parent = myLayer
+            app.project.activeItem.selectedLayers[0].property('Transform').property('Scale').setValue([4,4]);
+        };
         app.project.activeItem.selectedLayers[0].property('Essential Properties').property('Rotation').expression = "transform.rotation";
         //make it parent of Map ND layer
         app.endUndoGroup();
