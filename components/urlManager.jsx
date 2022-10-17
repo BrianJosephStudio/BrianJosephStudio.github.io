@@ -26,6 +26,7 @@ var UrlManager =
         globalTopicReference : "https://brianjosephstudio.github.io/templates/Global%20Topic%20Reference.aep",
         topicTitle : "https://brianjosephstudio.github.io/templates/Topic%20Title.aep",
         topicDisplay : "https://brianjosephstudio.github.io/templates/Topic%20Display.aep",
+        introScreen : "https://brianjosephstudio.github.io/templates/Intro%20Screen.aep",
         outroScreen : 'https://brianjosephstudio.github.io/templates/Outro%20Screen.aep',
         creatorTag : 'https://brianjosephstudio.github.io/templates/Content%20Creator%20Tag.aep',
         waterMark : 'https://brianjosephstudio.github.io/templates/SC_Watermark.aep'
@@ -193,6 +194,7 @@ var UriManager =
         globalTopicReference : "~/DOCUMENTS/Animator%20Hub/templates/Global%20Topic%20Reference.aep",
         topicTitle : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Title.aep",
         topicDisplay : "~/DOCUMENTS/Animator%20Hub/templates/Topic%20Display.aep",
+        introScreen : "~/DOCUMENTS/Animator%20Hub/templates/Intro%20Screen.aep",
         outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep',
         creatorTag : '~/DOCUMENTS/Animator%20Hub/templates/Content%20Creator%20Tag.aep',
         waterMark : '~/DOCUMENTS/Animator%20Hub/templates/SC_Watermark.aep'
