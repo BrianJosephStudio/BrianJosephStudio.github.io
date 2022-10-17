@@ -245,10 +245,10 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.url,this.uri)}
         }, 
-        harbor:
+        Harbor:
         {
             saveName: "Harbor.webp",
-            url: urlManager.resources.agents.Harbor,
+            url: UrlManager.resources.agents.Harbor,
             uri: UriManager.resources.agents.Harbor,
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
