@@ -712,7 +712,7 @@ function deselectAll()
     }
     else {return undefined};
 };
-//Downloads a comp form database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
+//Downloads a comp from database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
 function downloadAndImport(saveName,URL,URI,templateTag)
 {
     var myDownload = fetchEgCompOnline(saveName,URL);
@@ -751,13 +751,17 @@ function downloadAndImport(saveName,URL,URI,templateTag)
     else {return false};
 };
 //Downloads a resource file into its specified URI
+function downloadResource(saveName,uri,url)
+{
+    var path = File(uri).fsName.slice(0,-(saveName.length));
+    system.callSystem('cmd.exe /c cd '+path+' && curl -s -o "'+saveName+'" '+url);
+    return {file : File(uri)}
+}
+//Downloads and imports a resource file into the project
 function downloadImportResource(saveName,url,uri)
 {
     var resourceFile = new File(uri);
-    var resourceFolder = new Folder(resourceFile.path);
-    if(resourceFolder.exists==false){resourceFolder.create()};
-    var resourceFolderPath = resourceFolder.fsName;
-    system.callSystem('cmd.exe /c cd '+resourceFolderPath+' && curl -s -o "'+saveName+'" '+url);
+    downloadResource(saveName,uri,url);
     return importFileToProject(resourceFile);
 };
 //copies and pastes a keyframe at custom input time______________________________________________________________________________
@@ -1057,4 +1061,16 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
             item.remove()
         }
     };
+};
+function updateResources(pathArray)
+{
+    for (var i = 0; i < pathArray.length; i++)
+    {
+        var path = File(pathArray[i]);
+        if (path.exists == true)
+        {
+            var resource = new ResourceFile({name : path.displayName});
+            downloadResource(resource.saveName,resource.uri,resource.url);
+        }
+    }
 }
