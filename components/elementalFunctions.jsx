@@ -753,16 +753,16 @@ function downloadAndImport(saveName,URL,URI,templateTag)
 //Downloads a resource file into its specified URI
 function downloadResource(saveName,uri,url)
 {
-    var path = File(uri).fsName.slice(0,-(saveName.length));
-    system.callSystem('cmd.exe /c cd '+path+' && curl -s -o "'+saveName+'" '+url);
-    return {file : File(uri)}
+    var file = File(uri);
+    var folder = Folder(file.path).fsName;
+    system.callSystem('cmd.exe /c cd '+folder+' && curl -s -o "'+saveName+'" '+url);
+    return {file : file}
 }
 //Downloads and imports a resource file into the project
 function downloadImportResource(saveName,url,uri)
 {
-    var resourceFile = new File(uri);
-    downloadResource(saveName,uri,url);
-    return importFileToProject(resourceFile);
+    var resource = downloadResource(saveName,uri,url);
+    return importFileToProject(resource.file);
 };
 //copies and pastes a keyframe at custom input time______________________________________________________________________________
 function cloneKeyAtTime(propPath,keyIndex,newKeyTime,deleteOld,timeIsFrames)
