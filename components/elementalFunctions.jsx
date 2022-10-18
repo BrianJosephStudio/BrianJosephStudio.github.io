@@ -753,11 +753,12 @@ function downloadAndImport(saveName,URL,URI,templateTag)
 //Downloads a resource file into its specified URI
 function downloadResource(saveName,uri,url)
 {
-    var file = File(uri);
-    var folder = Folder(file.path).fsName;
-    system.callSystem('cmd.exe /c cd '+folder+' && curl -s -o "'+saveName+'" '+url);
+    var file = new File(uri);
+    var folder = new Folder(file.path)
+    if(folder.exists == false){folder.create()};
+    system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);
     return {file : file}
-}
+};
 //Downloads and imports a resource file into the project
 function downloadImportResource(saveName,url,uri)
 {
