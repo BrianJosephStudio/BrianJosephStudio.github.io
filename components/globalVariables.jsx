@@ -14,4 +14,3 @@ var scData =
     piecer:["Cecil Sales","Kester De Vera","Jez"],
     editor:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Louise David","Brian Joseph Studio"]
 }
-var resourcesToUpdate = [UriManager.resources.maps.Fracture]

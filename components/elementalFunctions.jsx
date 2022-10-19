@@ -756,7 +756,7 @@ function downloadResource(saveName,uri,url)
     var file = new File(uri);
     var folder = new Folder(file.path)
     if(folder.exists == false){folder.create()};
-    system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);
+    try{system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);}catch(e){return undefined}
     return {file : file}
 };
 //Downloads and imports a resource file into the project
@@ -1063,15 +1063,68 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
         }
     };
 };
-function updateResources(pathArray)
+function updateResources()
 {
-    for (var i = 0; i < pathArray.length; i++)
+    //Check if app data folder exists if not create it
+    var localData = new Folder('~/APPDATA/local/Animator%20Hub/'); if(localData.exists == false) {localData.create()}
+    //check Update Log
+    var updateLogFile = File(UriManager.jsonFile.resourceUpdate);
+    if(updateLogFile.exists == false){;updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
+
+    updateLogFile.open('r'); 
+    var logArray = "["+updateLogFile.read()+"]"
+    var updateLog = eval(logArray);
+    updateLogFile.close()
+
+    if(updateLog.length >= 100){updateLogFile.remove();return updateResources()}
+    //Check Update Sheet
+    var updateSheet = eval(system.callSystem('curl -s "'+UrlManager.jsonFile.resourceUpdate+'"'));
+    //Create "Due Updates" array.
+    var dueUpdates = [];
+    if(updateSheet.length == 0){return}
+    if (updateLog.length != 0)
     {
-        var path = File(pathArray[i]);
+        for(var i = 0; i < updateSheet.length; i++)
+        {
+            var update = updateSheet[i]
+            for(var o = 0; o < updateLog.length; o++)
+            {
+                var log = updateLog[o];
+                if (update.number != log.number){continue}
+                if (log.status == "Updated" || log.status == "Not Applied"){break}
+                dueUpdates.push(update);
+            };
+
+        };
+    } else if (updateLog.length == 0) {dueUpdates = updateSheet};
+    // execute the updating and log action
+    for (var i = 0; i < dueUpdates.length; i++)
+    {
+        updateLogFile.open("a")
+        var path = File(dueUpdates[i].uri);
         if (path.exists == true)
         {
-            var resource = new ResourceFile({name : path.displayName});
-            downloadResource(resource.saveName,resource.uri,resource.url);
+            var resource = new ResourceFile({name : dueUpdates[i].name});
+            var download = downloadResource(resource.saveName,resource.uri,resource.url);
+            if(download == null)
+            {
+                dueUpdates[i].status = "Failed";
+                if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
+                else{updateLogFile.write(",\n"+dueUpdates[i])}
+            }
+            else
+            {
+                dueUpdates[i].status = "Updated";
+                if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
+                else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
+            }
         }
+        else
+        {
+            dueUpdates[i].status = "Not Applied";
+            if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
+            else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
+        }
+        updateLogFile.close()
     }
 }

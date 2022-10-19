@@ -35,7 +35,8 @@ var UrlManager =
     {
         versionCheck : "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt",
         agentStats : "https://brianjosephstudio.github.io/jsonFiles/agentStats.json",
-        SC_Data : "https://brianjosephstudio.github.io/jsonFiles/SC_Data.json"
+        SC_Data : "https://brianjosephstudio.github.io/jsonFiles/SC_Data.json",
+        resourceUpdate: "https://brianjosephstudio.github.io/jsonFiles/resourceUpdateSheet.txt"
 
     },
     resources :
@@ -202,7 +203,8 @@ var UriManager =
     jsonFile :
     {
         agentStats : "~/DOCUMENTS/Animator%20Hub/jsonFiles/agentStats.json",
-        SC_Data : "~/DOCUMENTS/Animator%20Hub/jsonFiles/SC_Data.json"
+        SC_Data : "~/DOCUMENTS/Animator%20Hub/jsonFiles/SC_Data.json",
+        resourceUpdate : "~/APPDATA/local/Animator%20Hub/resourceUpdateLog.txt"
     },
     resources :
     {

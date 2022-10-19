@@ -142,7 +142,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
     eval("#include '"+hubComponents.imagesUI.uri+"'");
     }catch(e){return primitiveAlert(6)}
-    updateResources(resourcesToUpdate);
+    try{updateResources();}catch(e){alert(alertCode(8))}
     myScript(UIBody)
     
 };

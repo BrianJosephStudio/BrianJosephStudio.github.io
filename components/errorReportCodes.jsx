@@ -66,7 +66,9 @@ function reportCode(reportCodeId)
 
         "Please select clips to duplicate in your active composition!",//6
 
-        "Please Select a Shape Layer to continue."//7
+        "Please Select a Shape Layer to continue.",//7
+
+        "Error in Function updateResources"//8
     ];
     myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+reportList[reportCodeId]);
