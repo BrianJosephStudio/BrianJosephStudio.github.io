@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Version 3.3.1\n\
+"Version 3.3.2\n\
 -Blur Background now creates adjustment layer on top of the upmost selected layer instead of always on top of all layers.\
 -New revamped look in the works, long text buttons have been replaced with icons to save space. Icons show a help tip if you hover the mouse on them for a second, giving you information about what that button does.\n\
 -Color Palette is now visible at all times from all workspaces.\n\
