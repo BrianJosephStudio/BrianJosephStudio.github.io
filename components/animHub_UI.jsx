@@ -29,7 +29,7 @@ function myScript(thisObj){
                         //Mode Tabs
                         hub.tabs = [];
                         // Project Utilities Workspace //******************************************************************************/
-                            var projectUtil = hub.tabs[0] = hub.tabGroup.add('group');
+                            var projectUtil = hub.tabs[0] = hub.tabGroup.add('group'); projectUtil.orientation = 'column';
                             projectUtil.panel1 = projectUtil.add('panel',undefined,'File Types'); projectUtil.panel1.orientation = 'row';
                             //projectUtil.panel1.graphics.backgroundColor = brush;
                             //Sort Target Buttons
@@ -75,23 +75,27 @@ function myScript(thisObj){
                             var sortFilesButton = projectUtil.group1.add('iconbutton',[50,0,77,60],sortFilesButtonIcon,{style: 'toolButton'});
                             sortFilesButton.helpTip = 'Sort Project Files';
                             sortFilesButton.alignment = ['right','bottom'];
-                            //var waterMarkButton = projectUtil.group1.add('iconButton',[0,0,34,40],waterMarkIcon,{style:'tollButton'});
-                            //waterMarkButton.alignment = 'right';
-
-
 
                         // Editing Tools Workspace //**********************************************************************************/
-                            var editingTools = hub.tabs[1] = hub.tabGroup.add('group');
-                            editingTools.alignChildren = ['fill','top']
-                            //colorPalette = editingTools.add('image',undefined,colorPaletteBin)
-                            var etGroup1 = editingTools.add('group'); etGroup1.alignChildren = ['fill','fill']; etGroup1.orientation = 'row';
-                            var blurBGButton = etGroup1.add('button',undefined,'Blur Background');
-                            var vodModeButton = etGroup1.add('button',undefined,'VoD Mode');
-                            var etGroup2 = editingTools.add('group'); etGroup2.alignChildren = ['fill','fill']; etGroup2.orientation = 'row';
-                            var blurHighlightButton = etGroup2.add('button',undefined,'Blur Highlight');
-                            var blurItButton = etGroup2.add('button',undefined,'Blur It!');
-                            var etGroup3 = editingTools.add('group'); etGroup3.alignChildren = ['fill','fill']; etGroup3.orientation = 'row';
-                            var placeWaterMarkButton = etGroup3.add('button',undefined,'Place Watermark');
+                            var editingTools = hub.tabs[1] = hub.tabGroup.add('group'); editingTools.orientation = 'row';
+                            editingTools.leftGroup = editingTools.add('group'); editingTools.leftGroup.alignment = ['left','fill']; editingTools.leftGroup.orientation = 'column'
+                                editingTools.leftGroup.add('image',[0,0,65,15],UIImagePaths.generalTab)
+                                var waterMarkButton = editingTools.leftGroup.add('iconbutton',[0,0,55,55],waterMarkIcon); waterMarkButton.helpTip = "Place Watermark";
+
+                            editingTools.separator = editingTools.add('panel',[0,0,-1,100]); editingTools.separator.alignment = ['left','fill'];
+                            editingTools.rightGroup = editingTools.add('group'); editingTools.rightGroup. alignment = ['left','top']; editingTools.rightGroup.orientation = 'column';
+                                editingTools.rightGroup.add('image',[0,0,180,15],UIImagePaths.blurModeTab);
+                                var blurButtonGroup = editingTools.rightGroup.add('group'); blurButtonGroup.orientation = 'row'; blurButtonGroup.alignment = 'left'
+                                    var blurBGButton = blurButtonGroup.add('iconbutton',[0,0,55,55],blurBackgroundIcon); blurBGButton.helpTip = "Blur background";
+                                    var blurHighlightButton = blurButtonGroup.add('iconbutton',[0,0,55,55],blurHighlightIcon); blurHighlightButton.helpTip = "Blur Highlight";
+                                    var blurItButton = blurButtonGroup.add('iconbutton',[0,0,55,55],blurItIcon); blurItButton.helpTip = "Blur Shape";
+                                editingTools.rightGroup.add('image',[0,0,180,15],UIImagePaths.clipModeTab);
+                                var clipModeButtonGroup = editingTools.rightGroup.add('group'); clipModeButtonGroup.alignment = 'left'; clipModeButtonGroup.orientation = 'row';
+                                    var vodModeButton = clipModeButtonGroup.add('iconbutton',[0,0,55,55],vodModeIcon);vodModeButton.helpTip = "VoD Mode";
+                                    //var splitScreenButton = clipModeButtonGroup.add('iconbutton',[0,0,55,55],splitScreenIcon); splitScreenButton.helpTip = "Split Screen";
+
+                                //editingTools.rightGroup.add('image',[0,0,180,15],UIImagePaths.materialsTab);
+                                //var materialsButtonGroup = editingTools.rightGroup.add('group'); materialsButtonGroup.alignment = 'left'; materialsButtonGroup.orientation = 'row';
                             
                         // Topic Titles Tabbed Panel //********************************************************************************/
 
@@ -298,7 +302,7 @@ function myScript(thisObj){
                         //
             for (var i = 0; i < hub.tabs.length; i++)
             {
-                hub.tabs[i].orientation = 'column';
+                //hub.tabs[i].orientation = 'column';
                 //hub.tabs[i].alignChildren = 'fill';
                 hub.tabs[i].alignment = ['fill','fill'];
                 hub.tabs[i].visible = false;
@@ -479,7 +483,7 @@ function myScript(thisObj){
             targetPool.excludeSel.value,
             rootFolderButton.value
             ); app.endUndoGroup()}
-        placeWaterMarkButton.onClick = function(){placeWaterMark()}
+        waterMarkButton.onClick = function(){placeWaterMark()}
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

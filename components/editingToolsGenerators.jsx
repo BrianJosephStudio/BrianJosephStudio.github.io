@@ -3,8 +3,19 @@ function blurBackground(addExposure,addInOutAnims)
     try
     {
         app.beginUndoGroup("Blur Background")
+        app.activeViewer.setActive();
+        var sel = app.project.activeItem.selectedLayers;
+        var index;
+        for(var i = 0; i < sel.length; i++)
+        {
+            if (i == 0){index = sel[i].index; continue};
+            if(sel[i].index < index){index = sel[i].index};
+        };
+
         var comment = "animHub_backgroundEffects_[ET]";
         var adjLayer = placeAdjustmentLayer("Background Effects",comment)
+        if(sel.length>0) {adjLayer.moveBefore(app.project.activeItem.layer(index+1))}
+
         if(addExposure == true)
         {
             var exposure = addProperty(adjLayer,"ADBE Exposure2");
@@ -16,6 +27,8 @@ function blurBackground(addExposure,addInOutAnims)
         var myLayer = placeResource("SC Diagonal Lines.png")
         myLayer.blendingMode = 5226;
         myLayer.property('Transform').property('Scale').setValue([40.9,40.9]);
+        if(sel.length>0) {myLayer.moveBefore(adjLayer)}
+
         if(addInOutAnims == true)
         {
             var adjOpacity = adjLayer.property("Transform").property('Opacity');

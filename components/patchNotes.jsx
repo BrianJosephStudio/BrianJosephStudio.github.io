@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Version 3.3.2\n\
+"Version 3.4.0\n\
 -Blur Background now creates adjustment layer on top of the upmost selected layer instead of always on top of all layers.\
 -New revamped look in the works, long text buttons have been replaced with icons to save space. Icons show a help tip if you hover the mouse on them for a second, giving you information about what that button does.\n\
 -Color Palette is now visible at all times from all workspaces.\n\
@@ -11,4 +11,3 @@ var patchNotesBodyText =
     -'Blur It!' button does the opposite, takes a shape layer and uses it to blur something out of the screen.\
     -'Place Watermark' button generates the new watermark template, it sets in and out animation points to match length of composition.\n\
 -New 'Place Intro Screen' button inside Titles workspace on the Intro/Outro tab.";
-
