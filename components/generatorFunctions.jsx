@@ -516,4 +516,69 @@ function placeWaterMark()
     var animPath = app.project.activeItem.selectedLayers[0].property('Essential Properties').property('Animation');
     var outTime = app.project.activeItem.duration;
     IOanimKeySetter(animPath,0,outTime)
+};
+function resolveResource(selection,placeInComp)
+{
+    AccessToken()
+    var resourceArray = [];
+    treeView2Resourcearray(selection);
+    for(var i = 0; i < resourceArray.length; i++)
+    {
+        var targetItem = new ItemObject('fileObject',File(resourceArray[i].uri));
+        if (targetItem.object != undefined)
+        {
+            if (targetItem.object.parentFolder.comment != resourceArray.resourceFolderComment)
+            {
+                targetItem.object.parentfolder = resourceFolder(resourceArray[i]);
+            }
+        }
+        else
+        {
+            var file = File(resourceArray[i].uri);
+            if(file.exists == true)
+            {
+                targetItem = new ItemObject("object",importFileToProject(file));
+                targetItem.object.parentFolder = resourceFolder(resourceArray[i]).object
+            }
+            else
+            {
+                var saveName = resourceArray[i].saveName;
+                var dbPath = resourceArray[i].dropboxPath;
+                var uri = resourceArray[i].uri
+                targetItem = new ItemObject("object",downloadImportResource(saveName,dbPath,uri));
+                targetItem.object.parentFolder = resourceFolder(resourceArray[i]).object
+            };
+        };
+        targetItem.selected = true;
+        if(placeInComp == true)
+        {
+            app.activeViewer.setActive();
+            var sel = app.project.activeItem.selectedLayers
+            var index;
+            for(var i = 0; i < sel.length; i++)
+            {
+                if (i == 0){index = sel[i].index; continue};
+                if(sel[i].index < index){index = sel[i].index};
+            };
+            newLayer = app.project.activeItem.layers.add(targetItem.object);
+            newLayer.moveBefore(app.project.activeItem.layer(index+1));
+        };
+        deselectAll();
+        targetItem.object.selected == true;
+    };
+    function treeView2Resourcearray(selection)
+    {
+        if(selection.type == "node")
+        {
+            for(var i = 0; i < selection.items.length; i++)
+            {
+                treeView2Resourcearray(selection.items[i])
+            };
+        }
+        else
+        {
+            resourceArray.push(new ResourceFile({name:selection.text}));
+        }
+        
+    };
 }

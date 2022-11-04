@@ -1,5 +1,18 @@
 //// ELEMENTAL FUNCTIONS ////
-
+function parseJson(jsonString)
+{
+    var body = jsonString.slice(1,-1);
+    var inputComponents = body.split(",");
+    var output = {};
+    for(var i = 0; i < inputComponents.length; i++)
+    {
+        var inputComponent = inputComponents[i].split(":");
+        var key = eval(inputComponent[0]);
+        var value = inputComponent[1];
+        output[key] = value;
+    };
+    return output
+}
 //Agent Stats JSON ______________________________________________________________________________________________________________
 function agentData()
 {
@@ -222,6 +235,17 @@ ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspe
                     this.index = i;
                     break;
                 };
+            };
+            break;
+            //Search by File Object
+        case 'fileObject':
+            for(var i = 1; i <= app.project.numItems; i++)
+            {
+                if(app.project.item(i).mainSource == "[object FileSource]" && app.project.item(i).file.fullName == searchValue.fullName)
+                {
+                    this.object = app.project.item(i);
+                    this.index = i;
+                }
             };
             break;
         default:
@@ -475,6 +499,7 @@ function replaceLayers(compName,indexArray)
 //Replace Missing layers in comp from project items with matching names__________________________________________________________
 function replaceMissing(compArray)
 {
+    AccessToken();
     var completion = true;
     var report = [];
     for (var c = 0;c<compArray.length;c++)
@@ -488,7 +513,7 @@ function replaceMissing(compArray)
                 missingLayer = myComp.layer(i).source;
                 var missingCheck = myComp.layer(i).source.id;
                 var targetItem = findItem(missingLayer.name,true);
-                if (targetItem[0]==false) 
+                if (targetItem[0]==false)
                 {
                     var myMissingFile = new ResourceFile(missingLayer);
                     var myResourceFolder = resourceFolder(myMissingFile);
@@ -702,9 +727,9 @@ function customEGParameters(templateName,parameterArray,valueArray)
 function deselectAll()
 {
     var sel = app.project.selection;
-    if(sel!==undefined)
+    if(sel!=undefined)
     {
-        for(var i = 0;i<sel.length;i++)
+        for(var i = 0; i < sel.length; i++)
         {
             sel[i].selected = false;
         };
@@ -751,18 +776,24 @@ function downloadAndImport(saveName,URL,URI,templateTag)
     else {return false};
 };
 //Downloads a resource file into its specified URI
-function downloadResource(saveName,uri,url)
+function downloadResource(saveName,dropboxPath,uri)
 {
     var file = new File(uri);
-    var folder = new Folder(file.path)
+    var folder = new Folder(file.path);
     if(folder.exists == false){folder.create()};
-    try{system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);}catch(e){return undefined}
+    //try{system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);}catch(e){return undefined}
+    var accTk = File(UriManager.jsonFile.accessToken);
+    accTk.open('r');
+    var accessToken = accTk.read();
+    accTk.close();
+    var download = new DropBox('download');
+    download(saveName,dropboxPath,file,accessToken);
     return {file : file}
 };
 //Downloads and imports a resource file into the project
-function downloadImportResource(saveName,url,uri)
+function downloadImportResource(saveName,dropboxPath,uri)
 {
-    var resource = downloadResource(saveName,uri,url);
+    var resource = downloadResource(saveName,dropboxPath,uri);
     return importFileToProject(resource.file);
 };
 //copies and pastes a keyframe at custom input time______________________________________________________________________________
@@ -1066,14 +1097,14 @@ function sortFiles(compsVal,linkedCompsVal,templatesVal,videoFilesVal,imageFiles
 function updateResources()
 {
     //Check if app data folder exists if not create it
-    var localData = new Folder('~/APPDATA/local/Animator%20Hub/'); if(localData.exists == false) {localData.create()}
+    var localData = new Folder('~/APPDATA/local/Animator%20Hub'); if(localData.exists == false) {localData.create()}
     //check Update Log
     var updateLogFile = File(UriManager.jsonFile.resourceUpdate);
-    if(updateLogFile.exists == false){;updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
+    if(updateLogFile.exists == false){updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
 
     updateLogFile.open('r'); 
     var logArray = "["+updateLogFile.read()+"]"
-    var updateLog = eval(logArray);
+    var updateLog = eval(logArray)
     updateLogFile.close()
 
     if(updateLog.length >= 100){updateLogFile.remove();return updateResources()}
@@ -1092,11 +1123,11 @@ function updateResources()
                 var log = updateLog[o];
                 if (update.number != log.number){continue}
                 if (log.status == "Updated" || log.status == "Not Applied"){break}
-                dueUpdates.push(update);
+                dueUpdates.push(update)
             };
-
         };
     } else if (updateLog.length == 0) {dueUpdates = updateSheet};
+    AccessToken();
     // execute the updating and log action
     for (var i = 0; i < dueUpdates.length; i++)
     {
@@ -1127,4 +1158,4 @@ function updateResources()
         }
         updateLogFile.close()
     }
-}
+};

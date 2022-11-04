@@ -36,7 +36,8 @@ var UrlManager =
         versionCheck : "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt",
         agentStats : "https://brianjosephstudio.github.io/jsonFiles/agentStats.json",
         SC_Data : "https://brianjosephstudio.github.io/jsonFiles/SC_Data.json",
-        resourceUpdate: "https://brianjosephstudio.github.io/jsonFiles/resourceUpdateSheet.txt"
+        resourceUpdate: "https://brianjosephstudio.github.io/jsonFiles/resourceUpdateSheet.txt",
+        accessToken : "https://brianjosephstudio.github.io/jsonFiles/accTk.txt"
 
     },
     resources :
@@ -202,15 +203,16 @@ var UriManager =
     },
     jsonFile :
     {
-        agentStats : "~/DOCUMENTS/Animator%20Hub/jsonFiles/agentStats.json",
-        SC_Data : "~/DOCUMENTS/Animator%20Hub/jsonFiles/SC_Data.json",
-        resourceUpdate : "~/APPDATA/local/Animator%20Hub/resourceUpdateLog.txt"
+        agentStats : "~/DOCUMENTS/Animator%20Hub/json%20Files/agentStats.json",
+        SC_Data : "~/DOCUMENTS/Animator%20Hub/json%20Files/SC_Data.json",
+        resourceUpdate : "~/APPDATA/local/Animator%20Hub/resourceUpdateLog.txt",
+        accessToken : "~/DOCUMENTS/Animator%20Hub/json%20Files/accTk.txt"
     },
     resources :
     {
         agents :
         {
-            Astra : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Astra.png",
+            Astra : "~/DOCUMENTS/Animator Hub/Resources/Agents/Astra.png",
             Breach : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Breach.png",
             Brimstone : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Brimstone.png",
             Chamber : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Chamber.png",

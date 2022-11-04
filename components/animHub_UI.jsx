@@ -29,52 +29,75 @@ function myScript(thisObj){
                         //Mode Tabs
                         hub.tabs = [];
                         // Project Utilities Workspace //******************************************************************************/
-                            var projectUtil = hub.tabs[0] = hub.tabGroup.add('group'); projectUtil.orientation = 'column';
-                            projectUtil.panel1 = projectUtil.add('panel',undefined,'File Types'); projectUtil.panel1.orientation = 'row';
-                            //projectUtil.panel1.graphics.backgroundColor = brush;
-                            //Sort Target Buttons
-                            var compsButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],compsIcon,{style : 'toolbutton',toggle:true});
-                                    compsButton.value = true;
-                                    compsButton.helpTip = 'Compositions';
-                            var linkedComps = projectUtil.panel1.add('iconbutton',[0,0,34,40],linkedCompsIcon,{style:'toolbutton',toggle:true});
-                                    linkedComps.value = true;
-                                    linkedComps.helpTip = 'Dynamic Linked Comps';
-                            var templatesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],templatesIcon,{style:'toolbutton',toggle:true});
-                                    templatesButton.value = true;
-                                    templatesButton.helpTip = 'Animator Hub Templates';
-                            var videoFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],videoFilesIcon,{style:'toolbutton',toggle:true});
-                                    videoFilesButton.value = true;
-                                    videoFilesButton.helpTip = 'Video Files';
-                            var imageFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],imageFilesIcon,{style:'toolbutton',toggle:true});
-                                    imageFilesButton.value = true;
-                                    imageFilesButton.helpTip = 'Image Files';
-                            var audioFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],audioFilesIcon,{style:'toolbutton',toggle:true});
-                                    audioFilesButton.value = true;
-                                    audioFilesButton.helpTip = 'Audio Files';
-                            var solidsButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],solidsIcon,{style:'toolbutton',toggle:true});
-                                    solidsButton.value = true;
-                                    solidsButton.helpTip = 'Solids';
-                            var otherFilesButton = projectUtil.panel1.add('iconbutton',[0,0,34,40],otherFilesIcon,{style:'toolbutton',toggle:true});
-                                    otherFilesButton.value = true;
-                                    otherFilesButton.helpTip = 'Other Files';
-                            //
-                            projectUtil.group1 = projectUtil.add('group',[0,0,500,40]); projectUtil.group1.orientation = 'row'; projectUtil.group1.alignment = 'left';
-                            projectUtil.panel2 = projectUtil.group1.add('panel',[0,0,102,40],'Target Pool',{borderStyle:'raised'});
-                                projectUtil.panel2.orientation = 'row'; projectUtil.panel2.alignment = 'left';
-                            var targetPool = {};
-                                targetPool.project = projectUtil.panel2.add('iconButton',[0,0,34,40],targetPoolProjectIcon,{style:'toolButton',toggle:true});
-                                    targetPool.project.value = true;
-                                    targetPool.project.helpTip = 'Sort Entire Project'; 
-                                targetPool.onlySel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolOnlySelIcon,{style:'toolButton',toggle:true});
-                                    targetPool.onlySel.helpTip = 'Sort Selection Only';
-                                targetPool.excludeSel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolExcludeSelIcon,{style:'toolButton',toggle:true});
-                                    targetPool.excludeSel.helpTip = 'Exclude Selection'
-                            var rootFolderButton = projectUtil.group1.add('iconButton',[0,0,40,60],rootFolderIcon,{style : 'toolbutton',toggle : true})
-                            rootFolderButton.value = true;
-                            rootFolderButton.helpTip = 'Create Project Root Folder';
-                            var sortFilesButton = projectUtil.group1.add('iconbutton',[50,0,77,60],sortFilesButtonIcon,{style: 'toolButton'});
-                            sortFilesButton.helpTip = 'Sort Project Files';
-                            sortFilesButton.alignment = ['right','bottom'];
+                        var projectUtil = hub.tabs[0] = hub.tabGroup.add('group'); projectUtil.orientation = 'row';
+                        projectUtil.group1 = projectUtil.add('group'); projectUtil.group1.orientation = 'column';
+                        projectUtil.group1.alignment = ["left","top"];
+                        projectUtil.separator = projectUtil.add('panel',[0,0,-1,100]); projectUtil.separator.alignment = ['left','fill'];
+                        projectUtil.group2 = projectUtil.add('group'); projectUtil.group2.orientation = 'column';
+                        projectUtil.group2.alignment = ["fill","top"];
+                        projectUtil.group2.group1 = projectUtil.group2.add("group"); projectUtil.group2.group1.orientation = 'column';
+
+                        var resourcesTitle = projectUtil.group1.add('image',[0,0,81,18],resourcesTitleIcon);
+                                resourcesTitle.alignment = ["left","bottom"];
+                        var resourceTreeView = projectUtil.group1.add('treeview',[0,0,176,270]);
+                                resourceTreeView.alignment = ["left","top"]
+                        
+                        projectUtil.group3 = projectUtil.group1.add('group'); projectUtil.group3.alignment = ["fill","fill"]
+                        projectUtil.group3.orientation = 'row'
+                        createItemTree(resourceTreeView,DropBoxPath.resources);
+                        var importResourceButton = projectUtil.group3.add('iconButton',[0,0,88,27],importButtonIcon,{style: 'toolButton'});
+                        importResourceButton.helpTip = 'Import resource to project';
+                        var placeResourceButton = projectUtil.group3.add('iconButton',[0,0,88,27],placeButtonIcon,{style: 'toolButton'});
+                        placeResourceButton.helpTip = "Place resource in active comp";
+
+                        projectUtil.group4 = projectUtil.group2.group1.add("group");
+                        projectUtil.panel1 = projectUtil.group4.add('panel',undefined,'File Types'); projectUtil.panel1.orientation = 'column'; projectUtil.panel1.alignment = ["fill","top"];
+                        //projectUtil.panel1.graphics.backgroundColor = brush;
+                        //Sort Target Buttons
+                        projectUtil.panel1.group1 = projectUtil.panel1.add("group"); projectUtil.panel1.group1.orientation = 'row'; projectUtil.panel1.group1.alignment = ["fill","top"];
+                        projectUtil.panel1.group2 = projectUtil.panel1.add("group"); projectUtil.panel1.group2.orientation = 'row'; projectUtil.panel1.group2.alignment = ["left","top"];
+                        var compsButton = projectUtil.panel1.group1.add('iconbutton',[0,0,34,40],compsIcon,{style : 'toolbutton',toggle:true});
+                                compsButton.value = true;
+                                compsButton.helpTip = 'Compositions';
+                        var linkedComps = projectUtil.panel1.group1.add('iconbutton',[0,0,34,40],linkedCompsIcon,{style:'toolbutton',toggle:true});
+                                linkedComps.value = true;
+                                linkedComps.helpTip = 'Dynamic Linked Comps';
+                        var templatesButton = projectUtil.panel1.group1.add('iconbutton',[0,0,34,40],templatesIcon,{style:'toolbutton',toggle:true});
+                                templatesButton.value = true;
+                                templatesButton.helpTip = 'Animator Hub Templates';
+                        var videoFilesButton = projectUtil.panel1.group1.add('iconbutton',[0,0,34,40],videoFilesIcon,{style:'toolbutton',toggle:true});
+                                videoFilesButton.value = true;
+                                videoFilesButton.helpTip = 'Video Files';
+                        var imageFilesButton = projectUtil.panel1.group2.add('iconbutton',[0,0,34,40],imageFilesIcon,{style:'toolbutton',toggle:true});
+                                imageFilesButton.value = true;
+                                imageFilesButton.helpTip = 'Image Files';
+                        var audioFilesButton = projectUtil.panel1.group2.add('iconbutton',[0,0,34,40],audioFilesIcon,{style:'toolbutton',toggle:true});
+                                audioFilesButton.value = true;
+                                audioFilesButton.helpTip = 'Audio Files';
+                        var solidsButton = projectUtil.panel1.group2.add('iconbutton',[0,0,34,40],solidsIcon,{style:'toolbutton',toggle:true});
+                                solidsButton.value = true;
+                                solidsButton.helpTip = 'Solids';
+                        var otherFilesButton = projectUtil.panel1.group2.add('iconbutton',[0,0,34,40],otherFilesIcon,{style:'toolbutton',toggle:true});
+                                otherFilesButton.value = true;
+                                otherFilesButton.helpTip = 'Other Files';
+                        //
+                        projectUtil.group5 = projectUtil.group2.group1.add('group',[0,0,500,40]); projectUtil.group5.orientation = 'row'; projectUtil.group5.alignment = 'left';
+                        projectUtil.panel2 = projectUtil.group5.add('panel',[0,0,102,40],'Target Pool',{borderStyle:'raised'});
+                            projectUtil.panel2.orientation = 'row'; projectUtil.panel2.alignment = 'left';
+                        var targetPool = {};
+                            targetPool.project = projectUtil.panel2.add('iconButton',[0,0,34,40],targetPoolProjectIcon,{style:'toolButton',toggle:true});
+                                targetPool.project.value = true;
+                                targetPool.project.helpTip = 'Sort Entire Project'; 
+                            targetPool.onlySel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolOnlySelIcon,{style:'toolButton',toggle:true});
+                                targetPool.onlySel.helpTip = 'Sort Selection Only';
+                            targetPool.excludeSel = projectUtil.panel2.add('iconbutton',[0,0,34,40],targetPoolExcludeSelIcon,{style:'toolButton',toggle:true});
+                                targetPool.excludeSel.helpTip = 'Exclude Selection'
+                        var rootFolderButton = projectUtil.group5.add('iconButton',[0,0,40,60],rootFolderIcon,{style : 'toolbutton',toggle : true})
+                                rootFolderButton.value = true;
+                                rootFolderButton.helpTip = 'Create Project Root Folder';
+                        var sortFilesButton = projectUtil.group2.group1.add('iconbutton',[0,0,190,27],sortFilesButtonIcon,{style: 'toolButton'});
+                        sortFilesButton.helpTip = 'Sort Project Files';
+                        sortFilesButton.alignment = ['center','top'];
 
                         // Editing Tools Workspace //**********************************************************************************/
                             var editingTools = hub.tabs[1] = hub.tabGroup.add('group'); editingTools.orientation = 'row';
@@ -447,6 +470,37 @@ function myScript(thisObj){
                     button.value = true;
                 }
             }
+            function createItemTree(treeView,resourcePaths)
+            {
+                for(var prop in resourcePaths)
+                {
+                    if(typeof(resourcePaths[prop]) == "string")
+                    {
+                        var path = resourcePaths[prop]
+                        var fileName =  path.split("/");
+                        var itemName = fileName[fileName.length-1];
+                        var itemList = treeView.add("item",itemName);
+                        var itemIcon = File("~/documents/animator hub/resources/animHubUI/item icons/"+ itemName.split(".")[0] + ".png");
+                        if(itemIcon.exists == true)
+                        {
+                            itemList.image = itemIcon;
+                        }
+                        else if(itemName.slice(-3,itemName.length) == "mp4" || itemName.slice(-3,itemName.length) == "mov")
+                        {
+                            itemList.image = UIImagePaths.listItemIcons.videoFiles_icon
+                        }
+                        //itemList.resource = new ResourceFile({name:itemName});
+                    }
+                    else
+                    {
+                        var nodeName = prop.slice(0,1).toUpperCase() + prop.slice(1,prop.length);
+                        var itemList = treeView.add('node',nodeName);
+                        itemList.image = UIImagePaths.listItemIcons.folder_icon
+                        createItemTree(itemList,resourcePaths[prop]);
+                    }
+                }
+            }
+            
             //*************************************************************************************************************************/
         hub.onShow = function () {
             hub.tabs[0].visible = true;
@@ -484,6 +538,8 @@ function myScript(thisObj){
             rootFolderButton.value
             ); app.endUndoGroup()}
         waterMarkButton.onClick = function(){placeWaterMark()}
+        importResourceButton.onClick = function(){resolveResource(resourceTreeView.selection,false)}
+        placeResourceButton.onClick = function(){resolveResource(resourceTreeView.selection,true)}
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

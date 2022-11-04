@@ -1,3 +1,5 @@
 [
-    {"number": '0000', "name": "Fracture.png", "uri": UriManager.resources.maps.Fracture, "status": undefined}
+    {"number": '0000', "name": "Fracture.png", "uri": UriManager.resources.maps.Fracture, "status": undefined},
+    {"number": '0001', "name": "Heavy Shield.png", "uri" : UriManager.resources.armor.HeavyShield, "status" : undefined},
+    {"number": '0002', "name": "Light Shield.png", "uri" : UriManager.resources.armor.LightShield, "status" : undefined}
 ]

@@ -1,13 +1,5 @@
 var patchNotesBodyText =
-"Version 3.4.0\n\
--Blur Background now creates adjustment layer on top of the upmost selected layer instead of always on top of all layers.\
--New revamped look in the works, long text buttons have been replaced with icons to save space. Icons show a help tip if you hover the mouse on them for a second, giving you information about what that button does.\n\
--Color Palette is now visible at all times from all workspaces.\n\
--Workspaces dropdown list has been replaced by tab icon buttons, making it more comfortable to change workspaces.\n\
--New workspace 'Project Utilities'.\n\
--New function to organize your project files inside Project Utilities.\n\
--New buttons inside Editing Tools:\
-    -'Blur Highlight' button takes a shape layer and uses it to highlight an element on screen.\
-    -'Blur It!' button does the opposite, takes a shape layer and uses it to blur something out of the screen.\
-    -'Place Watermark' button generates the new watermark template, it sets in and out animation points to match length of composition.\n\
--New 'Place Intro Screen' button inside Titles workspace on the Intro/Outro tab.";
+"Version 3.5.0\n\
+-Resources Manager:\
+    There's a new Resources Manager in Project Utilities. You can use this tool to import most of our resources individually.\
+    Not all resources are currently available, this is an ongoing project, however all necesary files for any of our Animator Hub Templates can be downloaded form here.";

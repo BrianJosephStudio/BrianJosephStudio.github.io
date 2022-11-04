@@ -116,17 +116,27 @@ function expandComponents()
         saveName : "images_UI.jsx",
         name:"User Interface Images",
         url:"https://brianjosephstudio.github.io/components/images_UI.jsx",
-        uri:"~/DOCUMENTS/Animator Hub/Components/images_UI.jsx",
+        uri:"~/DOCUMENTS/Animator%20Hub/Components/images_UI.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
         valid : function(){return valid(this.uri)}
     };
+    hubComponents.dropboxAPI = 
+    {
+        saveName : "dropboxAPI.jsx",
+        name : "Dropbox API",
+        url : "https://brianjosephstudio.github.io/components/dropboxAPI.jsx",
+        uri : "~/DOCUMENTS/Animator%20Hub/Components/dropboxAPI.jsx",
+        resolveIt : function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
+        valid : function(){return valid(this.uri)}
+    }
 }
 /*********************************************************************************************/
 function initializeHub(UIBody)
 {
     expandComponents();
-    checkVersion();
+    //checkVersion();
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -141,6 +151,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
     eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
     eval("#include '"+hubComponents.imagesUI.uri+"'");
+    eval("#include '"+hubComponents.dropboxAPI.uri+"'")
     }catch(e){return primitiveAlert(6)}
     try{updateResources();}catch(e){reportCode(8)}
     myScript(UIBody)
@@ -161,6 +172,7 @@ function resolveComponents()
         hubComponents.editingToolsFunctions.resolveIt();
         hubComponents.editingToolsGenerators.resolveIt();
         hubComponents.imagesUI.resolveIt();
+        hubComponents.dropboxAPI.resolveIt();
 }
 function checkVersion()
 {
@@ -197,6 +209,7 @@ function updateComponents()
     hubComponents.editingToolsFunctions.updateIt();
     hubComponents.editingToolsGenerators.updateIt();
     hubComponents.imagesUI.updateIt();
+    hubComponents.dropboxAPI.updateIt();
 
 }
 function writeCurrentVersion()
@@ -214,16 +227,31 @@ function resolveUIImages()
     //Check Folder
     var myFolder = new Folder("~/DOCUMENTS/Animator%20Hub/Resources/animHubUI");
     if(myFolder.exists == false){myFolder.create()}
+    var listItemIcons = new Folder("~/DOCUMENTS/Animator%20Hub/Resources/animHubUI/itemIcons");
+    if(listItemIcons.exists == false){listItemIcons.create()}
     //Check Files
     for (var i in UIImagePaths)
     {
-        var image = File(UIImagePaths[i]);
-        if(image.exists == true){continue};
-        var binData = UIBinImages[i];
-        image.open('w');
-        image.encoding = 'BINARY';
-        image.write(binData);
-        image.close()
+        if(typeof(UIImagePaths[i]) == "string")
+        {
+            var image = File(UIImagePaths[i]);
+            if(image.exists == true){continue};
+            var binData = UIBinImages[i];
+            image.open('w');
+            image.encoding = 'BINARY';
+            image.write(binData);
+            image.close()
+        }
     };
+    for (var i in UIImagePaths.listItemIcons)
+    {
+        var image = File(UIImagePaths.listItemIcons[i]);
+            if(image.exists == true){continue};
+            var binData = UIBinImages.listItemIcons[i];
+            image.open('w');
+            image.encoding = 'BINARY';
+            image.write(binData);
+            image.close()
+    }
     
 }
