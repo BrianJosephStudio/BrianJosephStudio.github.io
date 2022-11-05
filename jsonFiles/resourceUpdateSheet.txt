@@ -1,5 +1,8 @@
 [
     {"number": '0000', "name": "Fracture.png", "uri": UriManager.resources.maps.Fracture, "status": undefined},
-    {"number": '0001', "name": "Heavy Shield.png", "uri" : UriManager.resources.armor.HeavyShield, "status" : undefined},
-    {"number": '0002', "name": "Light Shield.png", "uri" : UriManager.resources.armor.LightShield, "status" : undefined}
+    {"number": '0001', "type" : "resource", "name": "Heavy Shield.png", "uri" : UriManager.resources.armor.HeavyShield, "newName" : "Heavy Shield.png, "status" : undefined},
+    {"number": '0002', "type" : "resource", "name": "Light Shield.png", "uri" : UriManager.resources.armor.LightShield, "newName" : "Light Shield.png, "status" : undefined},
+    {"number": '0003', "type": "icon", "name": "sortFilesButton_normal.png", "uri": UIImagePaths.sortFilesButton_normal, "status": "undefined"},
+    {"number": '0004', "type": "icon", "name": "sortFilesButton_pressed.png", "uri": UIImagePaths.sortFilesButton_pressed, "status": "undefined"},
+    {"number": '0005', "type": "icon", "name": "sortFilesButton_roll.png", "uri": UIImagePaths.sortFilesButton_roll, "status": "undefined"}
 ]
