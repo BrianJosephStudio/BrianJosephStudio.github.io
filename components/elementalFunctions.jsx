@@ -13,6 +13,17 @@ function parseJson(jsonString)
     };
     return output
 }
+function stringifyJson(object)
+{
+    var properties = [];
+    for(var prop in object)
+    {
+        var string = '"'+prop+'":'+object[prop]
+        properties.push(string)
+    }
+    var output = "{" + properties.join() + "}";
+    return String(output)
+};
 //Agent Stats JSON ______________________________________________________________________________________________________________
 function agentData()
 {
@@ -1106,9 +1117,10 @@ function updateResources()
     var logArray = "["+updateLogFile.read()+"]"
     var updateLog = eval(logArray)
     updateLogFile.close()
-
+    //If too long then erase and start clean.
     if(updateLog.length >= 100){updateLogFile.remove();return updateResources()}
-    //Check Update Sheet
+
+    //Check Update Sheet 
     var updateSheet = eval(system.callSystem('curl -s "'+UrlManager.jsonFile.resourceUpdate+'"'));
     //Create "Due Updates" array.
     var dueUpdates = [];
@@ -1118,12 +1130,19 @@ function updateResources()
         for(var i = 0; i < updateSheet.length; i++)
         {
             var update = updateSheet[i]
+            //Check if update exists in update logs
             for(var o = 0; o < updateLog.length; o++)
             {
                 var log = updateLog[o];
-                if (update.number != log.number){continue}
-                if (log.status == "Updated" || log.status == "Not Applied"){break}
-                dueUpdates.push(update)
+                if (update.number == log.number)
+                {
+                    if (log.status != "Updated" && log.status != "Not Applied")
+                    {
+                        dueUpdates.push(update)
+                    };
+                    break
+                }
+                else if (o == updateLog.length-1) {dueUpdates.push(update); break}
             };
         };
     } else if (updateLog.length == 0) {dueUpdates = updateSheet};
@@ -1135,18 +1154,23 @@ function updateResources()
         var path = File(dueUpdates[i].uri);
         if (path.exists == true)
         {
-            var resource = new ResourceFile({name : dueUpdates[i].name});
-            var download = downloadResource(resource.saveName,resource.uri,resource.url);
-            if(download == null)
+            path.remove()
+            var download = null;
+            if(dueUpdates[i].type == "resource")
+            {
+                var resource = new ResourceFile({name : dueUpdates[i].newName});
+                download = downloadResource(resource.saveName,resource.dropboxPath,resource.uri);
+            };
+            if(download == null && dueUpdates[i].type == "resource")
             {
                 dueUpdates[i].status = "Failed";
-                if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
+                if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
                 else{updateLogFile.write(",\n"+dueUpdates[i])}
             }
             else
             {
                 dueUpdates[i].status = "Updated";
-                if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
+                if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
                 else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
             }
         }
@@ -1157,5 +1181,5 @@ function updateResources()
             else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
         }
         updateLogFile.close()
-    }
+    };
 };

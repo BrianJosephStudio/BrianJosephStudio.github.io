@@ -480,7 +480,7 @@ function myScript(thisObj){
                         var fileName =  path.split("/");
                         var itemName = fileName[fileName.length-1];
                         var itemList = treeView.add("item",itemName);
-                        var itemIcon = File("~/documents/animator hub/resources/animHubUI/item icons/"+ itemName.split(".")[0] + ".png");
+                        var itemIcon = File("~/documents/animator hub/resources/animHubUI/itemIcons/"+ itemName.split(".")[0].replace(/ /g,"_") + "_icon.png");
                         if(itemIcon.exists == true)
                         {
                             itemList.image = itemIcon;

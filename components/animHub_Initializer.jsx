@@ -154,6 +154,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.dropboxAPI.uri+"'")
     }catch(e){return primitiveAlert(6)}
     try{updateResources();}catch(e){reportCode(8)}
+    resolveUIImages();
     myScript(UIBody)
     
 };

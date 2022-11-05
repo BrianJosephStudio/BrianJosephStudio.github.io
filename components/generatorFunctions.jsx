@@ -522,12 +522,13 @@ function resolveResource(selection,placeInComp)
     AccessToken()
     var resourceArray = [];
     treeView2Resourcearray(selection);
+    deselectAll();
     for(var i = 0; i < resourceArray.length; i++)
     {
         var targetItem = new ItemObject('fileObject',File(resourceArray[i].uri));
         if (targetItem.object != undefined)
         {
-            if (targetItem.object.parentFolder.comment != resourceArray.resourceFolderComment)
+            if (targetItem.object.parentFolder.comment != resourceArray[i].resourceFolderComment)
             {
                 targetItem.object.parentfolder = resourceFolder(resourceArray[i]);
             }
@@ -549,22 +550,21 @@ function resolveResource(selection,placeInComp)
                 targetItem.object.parentFolder = resourceFolder(resourceArray[i]).object
             };
         };
-        targetItem.selected = true;
+        targetItem.object.selected = true;
         if(placeInComp == true)
         {
             app.activeViewer.setActive();
             var sel = app.project.activeItem.selectedLayers
+            var newLayer = app.project.activeItem.layers.add(targetItem.object);
+            if(sel[0] == undefined || selection.type == "node"){continue};
             var index;
             for(var i = 0; i < sel.length; i++)
             {
                 if (i == 0){index = sel[i].index; continue};
                 if(sel[i].index < index){index = sel[i].index};
             };
-            newLayer = app.project.activeItem.layers.add(targetItem.object);
             newLayer.moveBefore(app.project.activeItem.layer(index+1));
         };
-        deselectAll();
-        targetItem.object.selected == true;
     };
     function treeView2Resourcearray(selection)
     {
@@ -579,6 +579,5 @@ function resolveResource(selection,placeInComp)
         {
             resourceArray.push(new ResourceFile({name:selection.text}));
         }
-        
     };
 }
