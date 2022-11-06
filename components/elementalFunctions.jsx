@@ -1112,14 +1112,12 @@ function updateResources()
     //check Update Log
     var updateLogFile = File(UriManager.jsonFile.resourceUpdate);
     if(updateLogFile.exists == false){updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
-
     updateLogFile.open('r'); 
     var logArray = "["+updateLogFile.read()+"]"
     var updateLog = eval(logArray)
     updateLogFile.close()
     //If too long then erase and start clean.
     if(updateLog.length >= 100){updateLogFile.remove();return updateResources()}
-
     //Check Update Sheet 
     var updateSheet = eval(system.callSystem('curl -s "'+UrlManager.jsonFile.resourceUpdate+'"'));
     //Create "Due Updates" array.
@@ -1160,6 +1158,15 @@ function updateResources()
             {
                 var resource = new ResourceFile({name : dueUpdates[i].newName});
                 download = downloadResource(resource.saveName,resource.dropboxPath,resource.uri);
+            }
+            else if(dueUpdates[i].type == "icon")
+            {
+                var image = File(dueUpdates[i].uri);
+                var binData = eval(dueUpdates[i].bin);
+                image.open('w');
+                image.encoding = 'BINARY';
+                image.write(binData);
+                image.close()
             };
             if(download == null && dueUpdates[i].type == "resource")
             {
