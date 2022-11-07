@@ -1172,20 +1172,20 @@ function updateResources()
             {
                 dueUpdates[i].status = "Failed";
                 if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
-                else{updateLogFile.write(",\n"+dueUpdates[i])}
+                else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))}
             }
             else
             {
                 dueUpdates[i].status = "Updated";
                 if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
-                else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
+                else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))};
             }
         }
         else
         {
             dueUpdates[i].status = "Not Applied";
-            if(updateLog.length==0){updateLogFile.write(JSON.stringify(dueUpdates[i]))}
-            else{updateLogFile.write(",\n"+JSON.stringify(dueUpdates[i]))};
+            if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
+            else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))};
         }
         updateLogFile.close()
     };

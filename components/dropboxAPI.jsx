@@ -40,7 +40,6 @@ DropBox = function(type)
     this.download = function(saveName,dropboxPath,uri,accessToken)
     {
         var command = 'curl -o "'+saveName+'" -X POST https://content.dropboxapi.com/2/files/download --header "Authorization: Bearer '+accessToken+'" --header "Dropbox-API-Arg: {\\"path\\":\\"'+dropboxPath+'\\"}"'
-        alert(command)
         var path = Folder(uri.path);
         system.callSystem('cmd.exe /c cd \\ && cd '+path.fsName+' && '+command)
         return uri;
