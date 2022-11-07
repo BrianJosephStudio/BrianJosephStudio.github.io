@@ -681,8 +681,8 @@ var waterMarkIcon = ScriptUI.newImage(
 var resourcesTitleIcon = "~/documents/animator hub/resources/animHubUI/resourcesTitle.png";
 var itemListIcons = 
 {
-    folderIcon : "~/documents/animator hub/resources/animHubUI/itemIcons/folderIcon.png",
-    videoFiles : "~/documents/animator hub/resources/animHubUI/itemIcons/videoFilesIcon.png"
+    folderIcon : "~/documents/animator hub/resources/animHubUI/itemIcons/folder_icon.png",
+    videoFiles : "~/documents/animator hub/resources/animHubUI/itemIcons/videoFiles_icon.png"
 }
 
 var importButtonIcon = ScriptUI.newImage(
