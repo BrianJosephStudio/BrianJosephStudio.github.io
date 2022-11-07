@@ -92,8 +92,11 @@ var UrlManager =
             HeavyShield : "https://brianjosephstudio.github.io/resources/armor/Heavy%20Shield.png",
             LightShield : "https://brianjosephstudio.github.io/resources/armor/Light%20Shield.png",
         },
-        creditsIcon: "https://brianjosephstudio.github.io/resources/creditsIcon/Credits%20Icon.png",
-        maps :
+        creditsIcon: 
+        {
+            CreditsIcon : "https://brianjosephstudio.github.io/resources/creditsIcon/Credits%20Icon.png",
+        },
+            maps :
         {
             Ascent : "https://brianjosephstudio.github.io/resources/maps/Ascent.png",
             Bind : "https://brianjosephstudio.github.io/resources/maps/Bind.png",
@@ -258,7 +261,10 @@ var UriManager =
             HeavyShield : "~/DOCUMENTS/Animator%20Hub/Resources/Armor/Heavy%20Shield.png",
             LightShield : "~/DOCUMENTS/Animator%20Hub/Resources/Armor/Light%20Shield.png",
         },
-        creditsIcon: "~/DOCUMENTS/Animator%20Hub/Resources/Credits%20Icon/Credits%20Icon.png",
+        creditsIcon: 
+        {
+            CreditsIcon : "~/DOCUMENTS/Animator%20Hub/Resources/Credits%20Icon/Credits%20Icon.png",
+        },
         maps :
         {
             Ascent : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Ascent.png",
