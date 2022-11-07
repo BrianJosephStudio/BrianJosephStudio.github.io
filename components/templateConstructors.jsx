@@ -594,8 +594,8 @@ ResourceFile = function(itemObject)
         creditsIcon:
         {
             saveName: "Credits Icon.png",
-            url: UrlManager.resources.creditsIcon.creditsIcon,
-            uri: UriManager.resources.creditsIcon.creditsIcon,
+            url: UrlManager.resources.creditsIcon.CreditsIcon,
+            uri: UriManager.resources.creditsIcon.CreditsIcon,
             dropboxPath : DropBoxPath.resources.creditsIcon.CreditsIcon,
             resourceFolder: "Credits Icon",
             resourceFolderComment: "animHub_creditsIcon_[RF]",
