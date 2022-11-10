@@ -500,6 +500,14 @@ function myScript(thisObj){
                     }
                 }
             }
+            function keyModifier(callback,url)
+            {
+                if(ScriptUI.environment.keyboardState.altKey == true)
+                {
+                    return system.callSystem("cmd.exe /c start "+url);
+                }
+                return callback
+            }
             
             //*************************************************************************************************************************/
         hub.onShow = function () {
@@ -538,8 +546,8 @@ function myScript(thisObj){
             rootFolderButton.value
             ); app.endUndoGroup()}
         waterMarkButton.onClick = function(){placeWaterMark()}
-        importResourceButton.onClick = function(){resolveResource(resourceTreeView.selection,false)}
-        placeResourceButton.onClick = function(){resolveResource(resourceTreeView.selection,true)}
+        importResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,false)},UrlManager.resources.tutorial.resourceManager)};
+        placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.resources.tutorial.resourceManager)};
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

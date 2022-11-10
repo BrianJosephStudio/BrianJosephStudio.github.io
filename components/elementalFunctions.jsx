@@ -220,7 +220,7 @@ ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspe
         case 'index':
             if(searchValue<=app.project.numItems)
             {
-                this.object = app.project.itembyID(app.project.item(searchValue).id);
+                this.object = app.project.item(searchValue);
                 this.index = searchValue;
             }
             break;

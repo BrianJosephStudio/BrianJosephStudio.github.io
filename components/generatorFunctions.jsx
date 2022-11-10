@@ -108,8 +108,8 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
     try
     { 
         app.beginUndoGroup('Generate Map');
-        var mapRootFolder = findItem(saveName);
-        if(mapRootFolder[0]==false)
+        var mapRootFolder = new ItemObject("name",saveName);
+        if(mapRootFolder.object==undefined)
         {
             var templateTag = '[MO]';
             var myTemplate = downloadAndImport(saveName,url,uri,templateTag);
@@ -119,13 +119,13 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                 fixMissing(compArray);
                 return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
             }
-            else {alert("Animator Hub: There's and error in function generateMap.\n\nSuggested Actions:\n    -Make sure we have an active Internet Connection."); return false};
+            else {errorCode(19); return false};
         };
         var mapMainFolderName = 'Map Overviews [MO]';
-        var mapMainFolder = findItem(mapMainFolderName);
-        if (mapMainFolder[0]==false)
+        var mapMainFolder = new ItemObject("name",mapMainFolderName);
+        if (mapMainFolder.object==undefined)
         {
-            for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+            for(var i = mapRootFolder.index;i<=folderRelativeLength(mapRootFolder.index)[1];i++)
             {
                 if (app.project.item(i).typeName!=='Footage')
                 {
@@ -135,8 +135,8 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
             };;
             return generateMap(saveName,url,uri,Map,screenSpan,manageFootage);
         };
-        if (findItem('Maps [ND]')[0]==false || findItem('Map Comp 1')[0]==false || findItem('Map Edit 1')[0]==false || findItem('Comp Background 1')[0]==false)
-        {   for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+        if (new ItemObject("name",'Maps [ND]').object==undefined || new ItemObject("name",'Map Comp 1').object==undefined || new ItemObject("name",'Map Edit 1').object==undefined || new ItemObject("name",'Comp Background 1').object==undefined)
+        {   for(var i = mapRootFolder.index;i<=folderRelativeLength(mapRootFolder.index)[1];i++)
             {
                 if (app.project.item(i).typeName!=='Footage')
                 {
@@ -145,13 +145,14 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
             };
             return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         };
-        var mapMainFolderNumItems =  mapMainFolder[1].numItems;
+        
+        var mapMainFolderNumItems =  mapMainFolder.object.numItems;
         var usedCheck = undefined;
         if (mapMainFolderNumItems==0)
         {
-            for(var i = mapRootFolder[0];i<=folderRelativeLength(mapRootFolder)[1];i++)
+            for(var i = mapRootFolder.index;i<=folderRelativeLength(mapRootFolder.index)[1];i++)
             {
-                if (app.project.item(i).typeName!=='Footage')
+                if (app.project.item(i).typeName != 'Footage')
                 {
                     app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
                 };
@@ -161,29 +162,30 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         }
         else if (mapMainFolderNumItems==1)
         {
-            usedCheck = mapMainFolder[1].item(1).item(2).usedIn[0];
+            usedCheck = mapMainFolder.object.item(1).item(2).usedIn[0];
         };
         if(usedCheck!==undefined || mapMainFolderNumItems>1)
         {
-            var targetItem = mapMainFolder[1].item(mapMainFolderNumItems);
+            var targetItem = mapMainFolder.object.item(mapMainFolderNumItems);
             //Duplicate Last Folder
             var newMOFolder = duplicator(targetItem);
             if (newMOFolder==false) {return alert('Animator Hub: NewMOFolder is false')}
             //Replace Layers
-            var mapComp = findItem(newMOFolder.item(2).name);
-            var mapEdit = findItem(newMOFolder.item(1).item(2).name);
-            var compBG = findItem(newMOFolder.item(1).item(1).name);
-            mapComp[1].layer(serialNamer(mapEdit[3],undefined,true)).replaceSource(mapEdit[1],true);
-            mapComp[1].layer(serialNamer(compBG[3],undefined,true)).replaceSource(compBG[1],true);
-            mapEdit[1].layer('Reference Background.').replaceSource(compBG[1],true);
+            var mapComp = new ItemObject("name",newMOFolder.item(2).name);
+            var mapEdit = new ItemObject("name",newMOFolder.item(1).item(2).name);
+            var compBG = new ItemObject("name",newMOFolder.item(1).item(1).name);
+            mapComp.object.layer(serialNamer(mapEdit[3],undefined,true)).replaceSource(mapEdit.object,true);
+            mapComp.object.layer(serialNamer(compBG[3],undefined,true)).replaceSource(compBG.object,true);
+            mapEdit.object.layer('Reference Background.').replaceSource(compBG.object,true);
         }
         else if (usedCheck==undefined)
         {
-            var newMOFolder = mapMainFolder[1].item(1);
-            var mapComp = findItem(newMOFolder.item(2).name);
-            var mapEdit = findItem(newMOFolder.item(1).item(2).name);
-            var compBG = findItem(newMOFolder.item(1).item(1).name);
+            var newMOFolder = mapMainFolder.object.item(1);
+            var mapComp = new ItemObject("name",newMOFolder.item(2).name);
+            var mapEdit = new ItemObject("name",newMOFolder.item(1).item(2).name);
+            var compBG = new ItemObject("name",newMOFolder.item(1).item(1).name);
         };
+        
         //Find last map comp
         var lastMapComp = newMOFolder.item(2);
         //Bring active viewer to front
@@ -199,24 +201,24 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         if(isNaN(screenSpan.text)==false){var screenSpanValue = eval(screenSpan.text)}
         else{var screenSpanValue = 100;}
         myPath.setValueAtKey(2,screenSpanValue); myPath.setValueAtKey(3,screenSpanValue);
-        while(compBG[1].numLayers>2) {compBG[1].layer(3).remove()};
-        while(mapEdit[1].layer(mapEdit[1].numLayers).hasVideo==false && mapEdit[1].layer(mapEdit[1].numLayers).hasAudio==true) {mapEdit[1].layer(mapEdit[1].numLayers).remove()};
+        while(compBG.object.numLayers>2) {compBG.object.layer(3).remove()};
+        while(mapEdit.object.layer(mapEdit.object.numLayers).hasVideo==false && mapEdit.object.layer(mapEdit.object.numLayers).hasAudio==true) {mapEdit.object.layer(mapEdit.object.numLayers).remove()};
         if(manageFootage.value==true)
         {
             for (var i = 1; i <= myActive.numLayers; i++)
             {
                 if (myActive.layer(i).hasVideo==true && myActive.layer(i).source.comment.split("_")[0]!=='animHub')
                 {
-                    myActive.layer(i).copyToComp(compBG[1]);
-                    compBG[1].layer(1).moveToEnd();
+                    myActive.layer(i).copyToComp(compBG.object);
+                    compBG.object.layer(1).moveToEnd();
                     myActive.layer(i).enabled = false;
                     if(myActive.layer(i).hasAudio==true){myActive.layer(i).audioEnabled=false};
                     myActive.layer(i).shy = true;
                 }
                 else if (myActive.layer(i).hasVideo==false && myActive.layer(i).hasAudio==true)
                 {
-                    myActive.layer(i).copyToComp(mapEdit[1]);
-                    mapEdit[1].layer(1).moveToEnd();
+                    myActive.layer(i).copyToComp(mapEdit.object);
+                    mapEdit.object.layer(1).moveToEnd();
                     myActive.layer(i).audioEnabled=false;
                     myActive.layer(i).shy = true;
                 };
@@ -225,9 +227,9 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
 
         };
         //Open Map Edit
-        mapEdit[1].openInViewer();
+        mapEdit.object.openInViewer();
         //Set Map
-        mapEdit[1].layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map.selection.index+1);
+        mapEdit.object.layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map.selection.index+1);
         app.endUndoGroup();
     }
     catch(e){alert("Animator Hub: There's an error in function 'generateMap'.\n\nSuggested Actions:\n    -Go talk to Brian!")}
@@ -563,7 +565,7 @@ function resolveResource(selection,placeInComp)
                 if (i == 0){index = sel[i].index; continue};
                 if(sel[i].index < index){index = sel[i].index};
             };
-            newLayer.moveBefore(app.project.activeItem.layer(index+1));
+            newLayer.moveBefore(app.project.activeItem.layer(index));
         };
     };
     function treeView2Resourcearray(selection)

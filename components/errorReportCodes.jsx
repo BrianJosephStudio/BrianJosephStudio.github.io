@@ -42,7 +42,9 @@ function errorCode(errorCodeId)
 
         "There's an error in function 'generateTopicTitle'.",//17
 
-        "There's an error in Function 'blurBackground()'."//18
+        "There's an error in Function 'blurBackground()'.",//18
+
+        "Animator Hub: There's and error in function generateMap."//19
     ];
     var myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+errorList[errorCodeId]);

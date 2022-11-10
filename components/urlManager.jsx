@@ -168,7 +168,11 @@ var UrlManager =
             TwitterLogo : "https://brianjosephstudio.github.io/resources/socialMediaLogos/Twitter%20Logo.png",
         },
         spike : "https://brianjosephstudio.github.io/resources/spike/Spike.png",
-        outroScreen: "https://brianjosephstudio.github.io/resources/outroScreen/outroScreen.mp4"
+        outroScreen: "https://brianjosephstudio.github.io/resources/outroScreen/outroScreen.mp4",
+        tutorial : 
+        {
+            resourceManager : "https://youtu.be/qMIJCPt97Tg"
+        }
     }
 };
 var UriManager = 
