@@ -541,7 +541,7 @@ function myScript(thisObj){
         // Functionality //************************************************************************************************************/
         resetTitles.onClick = function() {resetTopicTitles()};
         openGTR.onClick = function () {goToGTR()};
-        generateMapB.onClick = function(){generateMap('Map Overviews.aep',UrlManager.template.mapOverviews,UriManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
+        generateMapB.onClick = function(){generateMap('Map Overviews.aep',DropBoxPath.template.mapOverviews,UriManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}

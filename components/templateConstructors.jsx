@@ -1195,9 +1195,9 @@ ResourceFile = function(itemObject)
         },
         DesktopPlaceholder :
         {
-            saveName: "Desktop Placeholder.mp4",
-            uri: UriManager.resources.video.DesktopPlaceholder,
-            dropboxPath : DropBoxPath.resources.video.DesktopPlaceholder,
+            saveName: "Desktop Spaceholder.mp4",
+            uri: UriManager.resources.video.DesktopSpaceholder,
+            dropboxPath : DropBoxPath.resources.video.DesktopSpaceholder,
             resourceFolder: "video",
             resourceFolderComment: "animHub_video_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}      

@@ -346,7 +346,7 @@ var UriManager =
         video :
         {
             OutroScreen: "~/DOCUMENTS/Animator%20Hub/Resources/Outro%20Screen/outroScreen.mp4",
-            DesktopPlaceholder : "~/DOCUMENTS/Animator%20Hub/Resources/CTA/Desktop%20Placeholder.mp4"
+            DesktopSpaceholder : "~/DOCUMENTS/Animator%20Hub/Resources/CTA/Desktop%20Spaceholder.mp4"
         }
     }
 };

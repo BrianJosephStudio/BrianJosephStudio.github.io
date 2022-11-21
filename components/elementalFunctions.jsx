@@ -522,7 +522,7 @@ function replaceMissing(compArray)
     var report = [];
     for (var c = 0;c<compArray.length;c++)
     {
-        var myComp = app.project.itemByID(findItem(compArray[c])[2]);
+        var myComp = new ItemObject("name",compArray[c]).object;
         var missingLayer;
         for (var i=1;i<=myComp.numLayers;i++)
         {
