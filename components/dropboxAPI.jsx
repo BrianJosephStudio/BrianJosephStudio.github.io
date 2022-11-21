@@ -12,7 +12,7 @@ function AccessToken()
         return response.access_token;
     };
         // Get the last Access Token.
-    var accTk = File("~/DOCUMENTS/Animator%20Hub/json%20Files/accTk.txt");
+    var accTk = File("~/DOCUMENTS/Animator Hub/json Files/accTk.txt");
     if(accTk.exists == false)
     {
         accTk.open('w');
@@ -48,6 +48,21 @@ DropBox = function(type)
 }
 var DropBoxPath =
 {
+    template : 
+    {
+        agentIcon : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Agent Icon.aep",
+        topBanner : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Top Banner.aep",
+        agentStatsTable : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Agent Stats Table.aep",
+        mapOverviews : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Map Overviews.aep",
+        globalTopicReference : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Global Topic Reference.aep",
+        topicTitle : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Topic Title.aep",
+        topicDisplay : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Topic Display.aep",
+        introScreen : "/Animator_Hub_Database/brianjosephstudio.github.io/templates/Intro Screen.aep",
+        outroScreen : '/Animator_Hub_Database/brianjosephstudio.github.io/templates/Outro Screen.aep',
+        creatorTag : '/Animator_Hub_Database/brianjosephstudio.github.io/templates/Content Creator Tag.aep',
+        waterMark : '/Animator_Hub_Database/brianjosephstudio.github.io/templates/SC_Watermark.aep',
+        callToAction1 : '/Animator_Hub_Database/brianjosephstudio.github.io/templates/callToAction1.aep'
+    },
     resources :
     {
         agents :
@@ -177,9 +192,10 @@ var DropBoxPath =
         {
             Spike : "/Animator_Hub_Database/BrianJosephStudio.github.io/resources/Spike/Spike.png"
         },
-        outroScreen: 
+        video: 
         {
-            OutroScreen : "/Animator_Hub_Database/BrianJosephStudio.github.io/resources/outroScreen/outroScreen.mp4"
+            OutroScreen : "/Animator_Hub_Database/BrianJosephStudio.github.io/resources/outroScreen/outroScreen.mp4",
+            DesktopPlaceholder : "/Animator_Hub_Database/BrianJosephStudio.github.io/resources/CTA/Desktop Placeholder.mp4"
         }
     }
 }

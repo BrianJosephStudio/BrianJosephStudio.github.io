@@ -64,7 +64,7 @@ function generateGTR()
         var commentTag = 'animHub_template_[GTR]';
         var saveName = "Global Topic Reference.aep";
         var templateTag = '[GTR]';
-       generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.globalTopicReference,UriManager.template.globalTopicReference,false,false,false,undefined)
+       generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.globalTopicReference,UriManager.template.globalTopicReference,false,false,false,undefined)
     }
     catch(e)
     {
@@ -80,7 +80,7 @@ function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
         var templateTag = '[AST]'
         var saveName = "Agent Stats Table.aep";
         var compArray = ['Agent Pool [ast0]','Map Pool [ast0]','Rank Pool [ast0]','Agent Stats Table'];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.agentStatsTable,UriManager.template.agentStatsTable,true,true,true,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.agentStatsTable,UriManager.template.agentStatsTable,true,true,true,compArray);
         var sortRankcb = new EgParameter('Sort Rank',rsCB.value,'checkbox',templateName,'Settings',undefined);
         var winRatecb = new EgParameter('Win Rate',wrCB.value,'checkbox',templateName,'Settings',undefined);
         var pickRatecb = new EgParameter('Pick Rate',prCB.value,'checkbox',templateName,'Settings',undefined);
@@ -103,7 +103,7 @@ function generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)
     }
 };
 //Generates map Overviews
-function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
+function generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
 {
     try
     { 
@@ -112,12 +112,12 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
         if(mapRootFolder.object==undefined)
         {
             var templateTag = '[MO]';
-            var myTemplate = downloadAndImport(saveName,url,uri,templateTag);
+            var myTemplate = downloadAndImport(saveName,dropboxPath,uri,templateTag);
             if (myTemplate!=false)
             {
                 var compArray = ['Maps [ND]','Comp Background 1','Map Edit 1'];
                 fixMissing(compArray);
-                return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
+                return generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
             }
             else {errorCode(19); return false};
         };
@@ -133,7 +133,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                 };
 
             };;
-            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage);
+            return generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage);
         };
         if (new ItemObject("name",'Maps [ND]').object==undefined || new ItemObject("name",'Map Comp 1').object==undefined || new ItemObject("name",'Map Edit 1').object==undefined || new ItemObject("name",'Comp Background 1').object==undefined)
         {   for(var i = mapRootFolder.index;i<=folderRelativeLength(mapRootFolder.index)[1];i++)
@@ -143,7 +143,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                     app.project.item(i).name = app.project.item(i).name+' CORRUPTED';
                 };
             };
-            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
+            return generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
         };
         
         var mapMainFolderNumItems =  mapMainFolder.object.numItems;
@@ -158,7 +158,7 @@ function generateMap(saveName,url,uri,Map,screenSpan,manageFootage)
                 };
 
             };
-            return generateMap(saveName,url,uri,Map,screenSpan,manageFootage);
+            return generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage);
         }
         else if (mapMainFolderNumItems==1)
         {
@@ -244,7 +244,7 @@ function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
         var templateTag = '[AI]';
         var saveName = "Agent Icon.aep";
         var compArray = ['M.A.I. Agents'];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.agentIcon,UriManager.template.agentIcon,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.agentIcon,UriManager.template.agentIcon,true,true,false,compArray);
         var attackDefense = new EgParameter('Attack/Defense',agentIconMenu2.selection.index,'menuControl',templateName,undefined,undefined);
         var agent = new EgParameter('Agent',agentIconMenu1.selection.index,'menuControl',templateName,undefined,undefined);
         var death = new EgParameter('Death',agentIconCheckbox1.value,'checkbox',templateName,undefined,undefined);
@@ -272,7 +272,7 @@ function generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,top
         var templateTag = '[TB]';
         var saveName = "Top Banner.aep";
         var compArray = ['Agents Frame','Guns Frame','Top Banner Agent Pool','Top Banner Gun Pool'];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topBanner,UriManager.template.topBanner,true,true,false,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topBanner,UriManager.template.topBanner,true,true,false,compArray);
         var mode = new EgParameter('Mode',topBannerMode.selection.index,'menuControl',templateName,'Settings',undefined);
         var agentSelect = new EgParameter('Agent Select',topBannerAgentMenu.selection.index,'menuControl',templateName,'Settings',undefined);
         var gunSelect = new EgParameter('Gun Select',topBannerGunMenu.selection.index,'menuControl',templateName,'Settings',undefined);
@@ -300,7 +300,7 @@ function placeIntroScreen()
         var templateTag = '[IS]';
         var saveName = "Intro Screen.aep";
         var compArray = ['Intro Screen'];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.introScreen,UriManager.template.introScreen,true,true,true,compArray);
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.introScreen,UriManager.template.introScreen,true,true,true,compArray);
         app.project.activeItem.selectedLayers[0].source.openInViewer();
         app.project.toolType = 9029;
         app.endUndoGroup();
@@ -316,7 +316,7 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         var templateTag = '[OS]';
         var saveName = "Outro Screen.aep";
         var compArray = ['Outro Screen','Credits'];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
         var management = new EgParameter('Management',String(outroScreenManagement.selection),'textInput',templateName,undefined,undefined);
         var contentCreator = new EgParameter('Content Creator',String(outroScreenContentCreator.selection),'textInput',templateName,undefined,undefined);
         var voiceOver = new EgParameter('Voice-Over',String(outroScreenVoiceOver.selection),'textInput',templateName,undefined,undefined);
@@ -387,7 +387,7 @@ function generateTopicTitle(titleBox,style,topicId)
         app.beginUndoGroup('Generate Topic Title')
         if(selection != 'animHub_template_[TT]')
         {
-            generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
+            generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topicTitle,UriManager.template.topicTitle,true,true,true,compArray);
         };
         var myText = declareTitle(titleBox,topicId);
         //Private Style Variables
@@ -467,7 +467,7 @@ function generateTopicDisplay(topicID,cuVisibility)
         var templateTag = '[TD]';
         var saveName = "Topic Display.aep";
         var compArray = [];
-        generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         //var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         topicId.setEgValue();
@@ -484,7 +484,7 @@ function generateCCT(menuControl)
     var templateTag = '[CCT]';
     var saveName = "Content Creator Tag.aep";
     var compArray = ['Text Box','Social Media Logos','Glass Panel Shape 1','Glass Panel Shape 2','Glass Panel Shape 3'];
-    generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.creatorTag,UriManager.template.creatorTag,true,true,true,compArray);
+    generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.creatorTag,UriManager.template.creatorTag,true,true,true,compArray);
     var socialMediaLibrary =
     {
         CaseyKing : [true,true,true],
@@ -513,7 +513,7 @@ function placeWaterMark()
     var templateTag = '[WM]';
     var saveName = "SC_Watermark.aep";
     var compArray = ['SC Watermark'];
-    generateTemplate(templateName,commentTag,templateTag,saveName,UrlManager.template.waterMark,UriManager.template.waterMark,true,false,false,compArray);
+    generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.waterMark,UriManager.template.waterMark,true,false,false,compArray);
     app.activeViewer.setActive();
     var animPath = app.project.activeItem.selectedLayers[0].property('Essential Properties').property('Animation');
     var outTime = app.project.activeItem.duration;
@@ -582,4 +582,47 @@ function resolveResource(selection,placeInComp)
             resourceArray.push(new ResourceFile({name:selection.text}));
         }
     };
+};
+function guessGuideName(guideName)
+{
+    var introScreen = new ItemObject("comment","animHub_template_[IS]")
+    if (introScreen.object != undefined)
+    {
+        var text = introScreen.object.layer(2).sourceText.value.toString().replace(/\r/g," ");
+        guideName.text = text;
+    }
+    else{reportCo
+        de(10)}
+}
+function generateCTA1(guideName,progressBar)
+{
+    var templateName = 'Call To Action';
+    var commentTag = "animHub_template_[CTA]";
+    var templateTag = '[CTA]';
+    var saveName = "callToAction1.aep";
+    var compArray = ["Call To Action","Youtube Layout"];
+    generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.callToAction1,UriManager.template.callToAction1,true,true,false,compArray);
+    var guideNameProp = new EgParameter("Guide Name",guideName,"textInput",templateName,undefined,undefined);
+    guideNameProp.setEgValue();
+
+    var progressBarProp = new EgParameter("Progress Bar",progressBar,"slider",templateName,undefined,undefined);
+    progressBarProp.setEgValue();
+
+    app.activeViewer.setActive();
+    var layers = [];
+    for(var i = 2; i <= app.project.activeItem.numLayers; i++)
+    {
+        var layer = app.project.activeItem.layer(i);
+        layers.push(layer.index)
+    };
+    if(layers.length > 0)
+    {
+        var precomp = app.project.activeItem.layers.precompose(layers,"CTA background",true);
+        precomp.comment = "animHub_temp_[CTA]";
+    } else {return report(9)};
+    var background = new EgParameter("Background Clip",precomp,"footage",templateName,undefined,undefined);
+    background.setEgValue()
+    app.project.activeItem.layer(precomp.name).enabled = false;
+    app.project.activeItem.layer(precomp.name).shy = true;
+    app.project.activeItem.hideShyLayers = true;
 }

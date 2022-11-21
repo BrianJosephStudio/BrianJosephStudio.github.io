@@ -171,7 +171,8 @@ var UrlManager =
         outroScreen: "https://brianjosephstudio.github.io/resources/outroScreen/outroScreen.mp4",
         tutorial : 
         {
-            resourceManager : "https://youtu.be/qMIJCPt97Tg"
+            resourceManager : "https://youtu.be/qMIJCPt97Tg",
+            callToAction1 : "https://youtu.be/vRBHV0GbgH4"
         }
     }
 };
@@ -206,7 +207,8 @@ var UriManager =
         introScreen : "~/DOCUMENTS/Animator%20Hub/templates/Intro%20Screen.aep",
         outroScreen : '~/DOCUMENTS/Animator%20Hub/templates/Outro%20Screen.aep',
         creatorTag : '~/DOCUMENTS/Animator%20Hub/templates/Content%20Creator%20Tag.aep',
-        waterMark : '~/DOCUMENTS/Animator%20Hub/templates/SC_Watermark.aep'
+        waterMark : '~/DOCUMENTS/Animator%20Hub/templates/SC_Watermark.aep',
+        callToAction1 : '~/DOCUMENTS/Animator%20Hub/templates/callToACtion1.aep'
     },
     jsonFile :
     {
@@ -341,7 +343,11 @@ var UriManager =
             TwitterLogo : "~/DOCUMENTS/Animator%20Hub/Resources/Social%20Media%20Logos/Twitter%20Logo.png",
         },
         spike : "~/DOCUMENTS/Animator%20Hub/Resources/Spike/Spike.png",
-        outroScreen: "~/DOCUMENTS/Animator%20Hub/Resources/Outro%20Screen/outroScreen.mp4"
+        video :
+        {
+            OutroScreen: "~/DOCUMENTS/Animator%20Hub/Resources/Outro%20Screen/outroScreen.mp4",
+            DesktopPlaceholder : "~/DOCUMENTS/Animator%20Hub/Resources/CTA/Desktop%20Placeholder.mp4"
+        }
     }
 };
 var FolderObject = 

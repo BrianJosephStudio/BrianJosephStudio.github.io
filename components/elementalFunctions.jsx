@@ -324,11 +324,18 @@ ItemObject = function (searchMethod,searchValue,width,height,frameRate,pixelAspe
     return this
 };
 //Fetch Online Essential Graphics Comp | Downloads an .aep file from the database on the computer________________________________
-function fetchEgCompOnline(saveName,URL)
+function fetchEgCompOnline(saveName,dropboxPath,uri)
 {
-    system.callSystem('cmd.exe /c cd '+FolderObject.templates.fsName+' && curl -s -f -o "'+saveName+'" "'+URL+'"');
+    AccessToken();
+    var download = new DropBox("download");
+    var accTk = File(UriManager.jsonFile.accessToken);
+    accTk.open('r');
+    var accessToken = accTk.read();
+    accTk.close();
+    download(saveName,dropboxPath,File(uri),accessToken)
+    
     var dataCheck = system.callSystem('cmd.exe /c cd '+FolderObject.templates.fsName+' && if exist "'+saveName+'" (echo true) else (echo false)');
-    if (dataCheck.search('true')!==-1) {return true}
+    if (dataCheck.search('true')!=-1) {return true}
     else {return false};
 };
 //Fetch Online Json | Returns Json ready to be parsed____________________________________________________________________________
@@ -519,7 +526,7 @@ function replaceMissing(compArray)
         var missingLayer;
         for (var i=1;i<=myComp.numLayers;i++)
         {
-            if(myComp.layer(i).source!=null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true)
+            if(myComp.layer(i).source!=null && myComp.layer(i).source.typeName == 'Footage' && myComp.layer(i).source.footageMissing==true && myComp.layer(i).source.comment.slice(0,19) != "animHub_placeholder")
             {
                 missingLayer = myComp.layer(i).source;
                 var missingCheck = myComp.layer(i).source.id;
@@ -577,10 +584,8 @@ function eraseFileFromSystem(saveName)
 function findFileInSystem(fileName)
 {
     var URIname = encodeURI(fileName)
-    var myFile = new File('~/DOCUMENTS/Animator%20Hub/Templates/'+URIname)
-    var openMyFile = myFile.open("r");
-    myFile.close();
-    if (openMyFile==true) {return myFile}
+    var file = new File('~/DOCUMENTS/Animator%20Hub/Templates/'+URIname)
+    if (file.exists==true) {return file}
     else {return false};
 };
 //Imports a File Object into the current project.________________________________________________________________________________
@@ -749,15 +754,15 @@ function deselectAll()
     else {return undefined};
 };
 //Downloads a comp from database and imports it in project. it then erases the downloaded file from system_______________________________________________________________________
-function downloadAndImport(saveName,URL,URI,templateTag)
+function downloadAndImport(saveName,dropboxPath,uri,templateTag)
 {
-    var myDownload = fetchEgCompOnline(saveName,URL);
+    var myDownload = fetchEgCompOnline(saveName,dropboxPath,uri);
     if (myDownload==true)
     {
-        var myFile = findFileInSystem(saveName);
-        if (myFile!=false)
+        var file = findFileInSystem(saveName);
+        if (file!=false)
         {
-            var myImport = importFileToProject(myFile);
+            var myImport = importFileToProject(file);
             if (myImport!=false)
             {
                 //eraseFileFromSystem(saveName);
@@ -773,7 +778,7 @@ function downloadAndImport(saveName,URL,URI,templateTag)
         }
         else 
         {
-            var myBackupFile = new File(URI);
+            var myBackupFile = new File(uri);
             if(myBackupFile.exists==true)
             {
                 importFileToProject(myBackupFile);

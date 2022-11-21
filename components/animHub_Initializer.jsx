@@ -136,7 +136,7 @@ function expandComponents()
 function initializeHub(UIBody)
 {
     expandComponents();
-    checkVersion();
+    //checkVersion();
     try{
     eval("#include '"+hubComponents.initializer.uri+"'");
     eval("#include '"+hubComponents.urlManager.uri+"'");
@@ -151,7 +151,7 @@ function initializeHub(UIBody)
     eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
     eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
     eval("#include '"+hubComponents.imagesUI.uri+"'");
-    eval("#include '"+hubComponents.dropboxAPI.uri+"'")
+    eval("#include '"+hubComponents.dropboxAPI.uri+"'");
     }catch(e){return primitiveAlert(6)}
     try{updateResources();}catch(e){reportCode(8)}
     myScript(UIBody)

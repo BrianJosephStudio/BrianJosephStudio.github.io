@@ -1,14 +1,14 @@
 //Generate Template Function
-function generateTemplate(templateName,commentTag,templateTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
+function generateTemplate(templateName,commentTag,templateTag,saveName,dropboxPath,uri,importToComp,hasMissingFiles,collapse,compArray)
 {
     try
     {
         var myTemplate = findTemplate(commentTag);
         if (myTemplate==false)
         {
-            downloadAndImport(saveName,URL,URI,templateTag);
+            downloadAndImport(saveName,dropboxPath,uri,templateTag);
             if (hasMissingFiles==true){fixMissing(compArray)};
-            return generateTemplate(templateName,commentTag,templateTag,saveName,URL,URI,importToComp,hasMissingFiles,collapse,compArray)
+            return generateTemplate(templateName,commentTag,templateTag,saveName,dropboxPath,uri,importToComp,hasMissingFiles,collapse,compArray)
         };
         app.activeViewer.setActive();
         if(app.project.activeItem == null){return reportCode(2)};
@@ -176,6 +176,31 @@ EgParameter =  function(propertyName,parValue,valueType,layerName,groupName1,gro
             else if(groupName1 == undefined && groupName2 == undefined)
             {
                 app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setValue(parValue);
+            };
+        }
+    },
+    this.footage =
+    {
+        name : propertyName,
+        parValue : parValue,
+        valueType : valueType,
+        layerName : layerName,
+        groupName1 : groupName1,
+        groupName2 : groupName2,
+        setEgValue : function()
+        {
+            app.activeViewer.setActive();
+            if(groupName1 != undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(propertyName).setAlternateSource(parValue);
+            }
+            else if (groupName1 != undefined && groupName2 != undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(groupName1).property(groupName2).property(propertyName).setAlternateSource(parValue);
+            }
+            else if(groupName1 == undefined && groupName2 == undefined)
+            {
+                app.project.activeItem.layer(layerName).property('Essential Properties').property(propertyName).setAlternateSource(parValue);
             };
         }
     };
@@ -1156,18 +1181,28 @@ ResourceFile = function(itemObject)
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         }
     },
-    this.outroScreen =
+    this.video =
     {
-        outroScreen :
+        OutroScreen :
         {
             saveName: "outroScreen.mp4",
             url: UrlManager.resources.outroScreen,
-            uri: UriManager.resources.outroScreen,
-            dropboxPath : DropBoxPath.resources.outroScreen.OutroScreen,
-            resourceFolder: "Outro Screen",
-            resourceFolderComment: "animHub_outroScreen_[RF]",
+            uri: UriManager.resources.video.OutroScreen,
+            dropboxPath : DropBoxPath.resources.video.OutroScreen,
+            resourceFolder: "video",
+            resourceFolderComment: "animHub_video_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
+        DesktopPlaceholder :
+        {
+            saveName: "Desktop Placeholder.mp4",
+            uri: UriManager.resources.video.DesktopPlaceholder,
+            dropboxPath : DropBoxPath.resources.video.DesktopPlaceholder,
+            resourceFolder: "video",
+            resourceFolderComment: "animHub_video_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}      
         }
+
     }; 
     var myObject = undefined;
     var obj = this;

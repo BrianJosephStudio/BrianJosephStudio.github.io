@@ -15,7 +15,7 @@ function myScript(thisObj){
                     workspaces.editingTools = workspaces.add('iconbutton',[0,0,70,30],editingToolsIcon,{style : 'toolbutton',toggle : true})
                         workspaces.editingTools.helpTip = 'Editing Tools';
                     workspaces.titles = workspaces.add('iconbutton',[0,0,70,30],titlesIcon,{style : 'toolbutton',toggle : true})
-                        workspaces.titles.helpTip = 'Title Templates';
+                        workspaces.titles.helpTip = 'Templates';
                     workspaces.mapOverviews = workspaces.add('iconbutton',[0,0,70,30],mapOverviewsIcon,{style : 'toolbutton',toggle : true})
                         workspaces.mapOverviews.helpTip = 'Map Overviews';
                     workspaces.agentTemplates = workspaces.add('iconbutton',[0,0,70,30],agentTemplatesIcon,{style : 'toolbutton',toggle : true})
@@ -120,7 +120,7 @@ function myScript(thisObj){
                                 //editingTools.rightGroup.add('image',[0,0,180,15],UIImagePaths.materialsTab);
                                 //var materialsButtonGroup = editingTools.rightGroup.add('group'); materialsButtonGroup.alignment = 'left'; materialsButtonGroup.orientation = 'row';
                             
-                        // Topic Titles Tabbed Panel //********************************************************************************/
+                        // Tabbed Panel //********************************************************************************/
 
                             var titlesTabbedPanel = hub.tabs[2] = hub.tabGroup.add ('tabbedpanel',[0,0,300,400]);
                             //Topic Titles Tab //
@@ -242,6 +242,29 @@ function myScript(thisObj){
                                         var ccMenu = cctPanel.add('dropdownlist',undefined,scData.contentCreator);
                                         ccMenu.selection = 0;
                                         var generateCCTButton = cctPanel.add('button',undefined,'Place');
+                                // Call To Action Tab //
+                                var ctaTab = titlesTabbedPanel.add('tab',undefined,'CTA');
+                                ctaTab.add('panel {preferredSize: [-1, -10]}');
+
+                                        var ctaPanel = ctaTab.add('panel',[0,50,300,200],"Full Screen Mode");
+                                            ctaPanel.orientation = 'column'
+                                            ctaPanel.alignment = "fill";
+                                            ctaPanel.alignChildren = ["fill","fill"];
+                                            
+                                                ctaPanel.guideNameBar = ctaPanel.add("edittext",undefined,"Enter Current Guide Name");
+                                                
+                                                ctaPanel.progressBar = ctaPanel.add("slider",undefined,92,0,100);
+                                                    ctaPanel.progressBar.alignment = ["fill","top"];
+                                                    ctaPanel.progressBar.helpTip = "Sets the template's 'youtube progress bar' position."
+                                                    
+                                                ctaPanel.group = ctaPanel.add('group');
+                                                    
+                                                    ctaPanel.guess = ctaPanel.group.add('button',[0,0,100,35],"Guess");
+                                                        ctaPanel.guess.helpTip = "Guess current guide name.\nalt+click for tutorial.";
+                                                    
+                                                    ctaPanel.generateButton = ctaPanel.group.add('button',undefined,"Generate");
+                                                        ctaPanel.generateButton.alignment = ["fill","fill"];
+                                                        ctaPanel.generateButton.helpTip = "Generate full screen call to action template.\nalt+click for tutorial."
 
                             // Map Overviews //**************************************************************************************/
                             var mapOverviews = hub.tabs[3] = hub.tabGroup.add ("group");
@@ -506,7 +529,7 @@ function myScript(thisObj){
                 {
                     return system.callSystem("cmd.exe /c start "+url);
                 }
-                return callback
+                return callback()
             }
             
             //*************************************************************************************************************************/
@@ -548,6 +571,8 @@ function myScript(thisObj){
         waterMarkButton.onClick = function(){placeWaterMark()}
         importResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,false)},UrlManager.resources.tutorial.resourceManager)};
         placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.resources.tutorial.resourceManager)};
+        ctaPanel.generateButton.onClick = function(){keyModifier(function(){generateCTA1(ctaPanel.guideNameBar.text,ctaPanel.progressBar.value)},UrlManager.resources.tutorial.callToAction1)};
+        ctaPanel.guess.onClick = function(){keyModifier(function(){guessGuideName(ctaPanel.guideNameBar)},UrlManager.resources.tutorial.callToAction1)}
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

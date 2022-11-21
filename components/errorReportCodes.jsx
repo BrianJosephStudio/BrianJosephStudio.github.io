@@ -70,7 +70,11 @@ function reportCode(reportCodeId)
 
         "Please Select a Shape Layer to continue.",//7
 
-        "Error in Function updateResources"//8
+        "Error in Function updateResources.",//8
+
+        "No background clips were found in your composition.",//9
+
+        "Could not find the Intro Screen template inside the current project."//10
     ];
     myAppTag = 'Animator Hub:\n\n    -';
     return alert(myAppTag+reportList[reportCodeId]);
