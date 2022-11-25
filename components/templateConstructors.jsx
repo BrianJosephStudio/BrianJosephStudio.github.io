@@ -1053,11 +1053,8 @@ ResourceFile = function(itemObject)
             saveName: "SC Diagonal Lines.png",
             resourceFolder: "SC Overlay Patterns",
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
-            url: UrlManager.resources.overlayPatterns.DiagonalLines,
             uri: UriManager.resources.overlayPatterns.DiagonalLines,
             dropboxPath : DropBoxPath.resources.overlayPatterns.DiagonalLines,
-            resourceFolder: "SC Overlay Patterns",
-            resourceFolderComment: "animHub_overlayPatterns_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         },
         DiamondPattern:
@@ -1065,7 +1062,6 @@ ResourceFile = function(itemObject)
             saveName: "SC Diamond Pattern.png",
             resourceFolder: "SC Overlay Patterns",
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
-            url: UrlManager.resources.overlayPatterns.DiamondPattern,
             uri: UriManager.resources.overlayPatterns.DiamondPattern,
             dropboxPath : DropBoxPath.resources.overlayPatterns.DiamondPattern,
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
@@ -1075,7 +1071,6 @@ ResourceFile = function(itemObject)
             saveName: "SC Halftone Pattern.png",
             resourceFolder: "SC Overlay Patterns",
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
-            url: UrlManager.resources.overlayPatterns.Halftone,
             uri: UriManager.resources.overlayPatterns.Halftone,
             dropboxPath : DropBoxPath.resources.overlayPatterns.Halftone,
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
@@ -1085,7 +1080,6 @@ ResourceFile = function(itemObject)
             saveName: "SC Scratches Overlay.jpg",
             resourceFolder: "Scratches Overlay",
             resourceFolderComment: "animHub_overlayPatterns_[RF]",
-            url: UrlManager.resources.overlayPatterns.Scratches,
             uri: UriManager.resources.overlayPatterns.Scratches,
             dropboxPath : DropBoxPath.resources.overlayPatterns.Scratches,
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
@@ -1193,7 +1187,7 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_video_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         },
-        DesktopPlaceholder :
+        DesktopSpaceholder :
         {
             saveName: "Desktop Spaceholder.mp4",
             uri: UriManager.resources.video.DesktopSpaceholder,
