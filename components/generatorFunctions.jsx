@@ -461,12 +461,12 @@ function generateTopicDisplay(topicID,cuVisibility)
 {
     try
     {
-        app.beginUndoGroup('Place Outro Screen');
+        app.beginUndoGroup('Place Topic Display');
         var templateName = 'Topic Display';
         var commentTag = "animHub_template_[TD]";
         var templateTag = '[TD]';
         var saveName = "Topic Display.aep";
-        var compArray = [];
+        var compArray = ["Topic Display"];
         generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         //var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
