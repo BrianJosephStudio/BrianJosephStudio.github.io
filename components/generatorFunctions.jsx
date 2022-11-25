@@ -467,7 +467,7 @@ function generateTopicDisplay(topicID,cuVisibility)
         var templateTag = '[TD]';
         var saveName = "Topic Display.aep";
         var compArray = ["Topic Display"];
-        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topicDisplay,UriManager.template.topicDisplay,true,false,false,compArray)
+        generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.topicDisplay,UriManager.template.topicDisplay,true,true,false,compArray)
         var topicId = new EgParameter('Topic ID',topicID.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         //var visibility = new EgParameter("Coming Up Visibility",cuVisibility.selection.index,'menuControl',templateName,"Layout Settings",undefined);
         topicId.setEgValue();
