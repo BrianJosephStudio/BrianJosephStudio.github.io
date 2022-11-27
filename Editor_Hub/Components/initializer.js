@@ -1,3 +1,4 @@
+const homedir = require('os').homedir();
 const dir = require(`${homedir}/Documents/Editor Hub/Components/dir.js`);
 const localVersion = dir.editorHub.localVersion;
 const errorCode = require('./errorCode.mjs');
