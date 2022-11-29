@@ -4,7 +4,7 @@ Component = function()
     {
         saveName : "animHub_Initializer.jsx",
         name:"animHub_Initializer",
-        url:"https://brianjosephstudio.github.io/components/animHub_Initializer.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/animHub_Initializer.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_Initializer.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -58,7 +58,7 @@ function valid(uri)
 function latestVersionCheck()
 {
     //return true
-    var latestVersion = system.callSystem('curl -s --max-time 5 "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt"');
+    var latestVersion = system.callSystem('curl -s --max-time 5 "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/versionCheck.txt"');
     try
     {
         return latestVersion;
