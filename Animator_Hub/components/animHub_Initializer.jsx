@@ -5,7 +5,7 @@ function expandComponents()
     {
         saveName : "animHub_UI.jsx",
         name:"animHub_UI",
-        url:"https://brianjosephstudio.github.io/components/animHub_UI.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/animHub_UI.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_UI.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -15,7 +15,7 @@ function expandComponents()
     {
         saveName : "globalVariables.jsx",
         name:"Global Variables",
-        url:"https://brianjosephstudio.github.io/components/globalVariables.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/globalVariables.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/globalVariables.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -25,7 +25,7 @@ function expandComponents()
     {
         saveName : "elementalFunctions.jsx",
         name:"Elemental Functions",
-        url:"https://brianjosephstudio.github.io/components/elementalFunctions.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/elementalFunctions.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/elementalFunctions.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -35,7 +35,7 @@ function expandComponents()
     {
         saveName : "templateConstructors.jsx",
         name:"Template Constructors",
-        url:"https://brianjosephstudio.github.io/components/templateConstructors.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/templateConstructors.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/templateConstructors.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -45,7 +45,7 @@ function expandComponents()
     {
         saveName : "generatorFunctions.jsx",
         name:"Generator Functions",
-        url:"https://brianjosephstudio.github.io/components/generatorFunctions.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/generatorFunctions.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/generatorFunctions.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -55,7 +55,7 @@ function expandComponents()
     {
         saveName : "AdSegments.jsx",
         name:"Ad Segments",
-        url:"https://brianjosephstudio.github.io/components/animHub_ADS.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/animHub_ADS.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/animHub_ADS.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -65,7 +65,7 @@ function expandComponents()
     {
         saveName : "errorReportCodes.jsx",
         name:"Error & Report Codes",
-        url:"https://brianjosephstudio.github.io/components/errorReportCodes.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/errorReportCodes.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/errorReportCodes.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -75,7 +75,7 @@ function expandComponents()
     {
         saveName : "patchNotes.jsx",
         name:"Patch Notes",
-        url:"https://brianjosephstudio.github.io/components/patchNotes.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/patchNotes.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/patchNotes.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -85,7 +85,7 @@ function expandComponents()
     {
         saveName : "urlManager.jsx",
         name:"URL Manager",
-        url:"https://brianjosephstudio.github.io/components/urlManager.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/urlManager.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/urlManager.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -95,7 +95,7 @@ function expandComponents()
     {
         saveName : "editingToolsFunctions.jsx",
         name:"Editing Tools Functions",
-        url:"https://brianjosephstudio.github.io/components/editingToolsFunctions.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/editingToolsFunctions.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/editingToolsFunctions.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -105,7 +105,7 @@ function expandComponents()
     {
         saveName : "editingToolsGenerators.jsx",
         name:"Editing Tools Generators",
-        url:"https://brianjosephstudio.github.io/components/editingToolsGenerators.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/editingToolsGenerators.jsx",
         uri:"~/DOCUMENTS/Animator Hub/Components/editingToolsGenerators.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -115,7 +115,7 @@ function expandComponents()
     {
         saveName : "images_UI.jsx",
         name:"User Interface Images",
-        url:"https://brianjosephstudio.github.io/components/images_UI.jsx",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/images_UI.jsx",
         uri:"~/DOCUMENTS/Animator%20Hub/Components/images_UI.jsx",
         resolveIt: function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
@@ -125,7 +125,7 @@ function expandComponents()
     {
         saveName : "dropboxAPI.jsx",
         name : "Dropbox API",
-        url : "https://brianjosephstudio.github.io/components/dropboxAPI.jsx",
+        url : "https://brianjosephstudio.github.io/Animator_Hub/components/dropboxAPI.jsx",
         uri : "~/DOCUMENTS/Animator%20Hub/Components/dropboxAPI.jsx",
         resolveIt : function(){return searchComponent(this.url,this.uri)},
         updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
