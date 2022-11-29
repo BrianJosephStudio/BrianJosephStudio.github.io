@@ -39,6 +39,11 @@ var UrlManager =
         resourceUpdate: "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/resourceUpdateSheet.txt",
         accessToken : "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/accTk.txt"
 
+    },
+    tutorial : 
+    {
+        resourceManager : "https://youtu.be/qMIJCPt97Tg",
+        callToAction1 : "https://youtu.be/vRBHV0GbgH4"
     }
 };
 var UriManager = 

@@ -46,8 +46,8 @@ function errorCode(errorCodeId)
 
         "Animator Hub: There's and error in function generateMap."//19
     ];
-    var myAppTag = 'Animator Hub:\n\n    -';
-    return alert(myAppTag+errorList[errorCodeId]);
+    var myAppTag = 'Animator Hub';
+    return alert(errorList[errorCodeId],myAppTag);
 };
 function reportCode(reportCodeId)
 {
@@ -76,6 +76,6 @@ function reportCode(reportCodeId)
 
         "Could not find the Intro Screen template inside the current project."//10
     ];
-    myAppTag = 'Animator Hub:\n\n    -';
-    return alert(myAppTag+reportList[reportCodeId]);
+    myAppTag = 'Animator Hub';
+    return alert(reportList[reportCodeId],myAppTag);
 };

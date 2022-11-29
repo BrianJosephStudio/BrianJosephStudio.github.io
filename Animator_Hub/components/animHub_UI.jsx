@@ -569,10 +569,10 @@ function myScript(thisObj){
             rootFolderButton.value
             ); app.endUndoGroup()}
         waterMarkButton.onClick = function(){placeWaterMark()}
-        importResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,false)},UrlManager.resources.tutorial.resourceManager)};
-        placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.resources.tutorial.resourceManager)};
-        ctaPanel.generateButton.onClick = function(){keyModifier(function(){generateCTA1(ctaPanel.guideNameBar.text,ctaPanel.progressBar.value)},UrlManager.resources.tutorial.callToAction1)};
-        ctaPanel.guess.onClick = function(){keyModifier(function(){guessGuideName(ctaPanel.guideNameBar)},UrlManager.resources.tutorial.callToAction1)}
+        importResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,false)},UrlManager.tutorial.resourceManager)};
+        placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.tutorial.resourceManager)};
+        ctaPanel.generateButton.onClick = function(){keyModifier(function(){generateCTA1(ctaPanel.guideNameBar.text,ctaPanel.progressBar.value)},UrlManager.tutorial.callToAction1)};
+        ctaPanel.guess.onClick = function(){keyModifier(function(){guessGuideName(ctaPanel.guideNameBar)},UrlManager.tutorial.callToAction1)}
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

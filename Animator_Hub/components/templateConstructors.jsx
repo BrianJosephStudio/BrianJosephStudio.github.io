@@ -219,7 +219,6 @@ ResourceFile = function(itemObject)
         Astra:
         {
             saveName: "Astra.png",
-            url: UrlManager.resources.agents.Astra,
             uri: UriManager.resources.agents.Astra,
             dropboxPath : DropBoxPath.resources.agents.Astra,
             resourceFolder: "Agents",
@@ -229,7 +228,6 @@ ResourceFile = function(itemObject)
         Breach:
         {
             saveName: "Breach.png",
-            url: UrlManager.resources.agents.Breach,
             uri: UriManager.resources.agents.Breach,
             dropboxPath : DropBoxPath.resources.agents.Breach,
             resourceFolder: "Agents",
@@ -239,7 +237,6 @@ ResourceFile = function(itemObject)
         Brimstone:
         {
             saveName: "Brimstone.png",
-            url: UrlManager.resources.agents.Brimstone,
             uri: UriManager.resources.agents.Brimstone,
             dropboxPath : DropBoxPath.resources.agents.Brimstone,
             resourceFolder: "Agents",
@@ -249,7 +246,6 @@ ResourceFile = function(itemObject)
         Chamber:
         {
             saveName: "Chamber.png",
-            url: UrlManager.resources.agents.Chamber,
             uri: UriManager.resources.agents.Chamber,
             dropboxPath : DropBoxPath.resources.agents.Chamber,
             resourceFolder: "Agents",
@@ -259,7 +255,6 @@ ResourceFile = function(itemObject)
         Cypher:
         {
             saveName: "Cypher.png",
-            url: UrlManager.resources.agents.Cypher,
             uri: UriManager.resources.agents.Cypher,
             dropboxPath : DropBoxPath.resources.agents.Cypher,
             resourceFolder: "Agents",
@@ -269,7 +264,6 @@ ResourceFile = function(itemObject)
         Fade:
         {
             saveName: "Fade.png",
-            url: UrlManager.resources.agents.Fade,
             uri: UriManager.resources.agents.Fade,
             dropboxPath : DropBoxPath.resources.agents.Fade,
             resourceFolder: "Agents",
@@ -279,7 +273,6 @@ ResourceFile = function(itemObject)
         Harbor:
         {
             saveName: "Harbor.webp",
-            url: UrlManager.resources.agents.Harbor,
             uri: UriManager.resources.agents.Harbor,
             dropboxPath : DropBoxPath.resources.agents.Harbor,
             resourceFolder: "Agents",
@@ -289,7 +282,6 @@ ResourceFile = function(itemObject)
         Jett:
         {
             saveName: "Jett.png",
-            url: UrlManager.resources.agents.Jett,
             uri: UriManager.resources.agents.Jett,
             dropboxPath : DropBoxPath.resources.agents.Jett,
             resourceFolder: "Agents",
@@ -299,7 +291,6 @@ ResourceFile = function(itemObject)
         KAYO:
         {
             saveName: "KAYO.png",
-            url: UrlManager.resources.agents.KAYO,
             uri: UriManager.resources.agents.KAYO,
             dropboxPath : DropBoxPath.resources.agents.KAYO,
             resourceFolder: "Agents",
@@ -309,7 +300,6 @@ ResourceFile = function(itemObject)
         Killjoy:
         {
             saveName: "Killjoy.png",
-            url: UrlManager.resources.agents.Killjoy,
             uri: UriManager.resources.agents.Killjoy,
             dropboxPath : DropBoxPath.resources.agents.Killjoy,
             resourceFolder: "Agents",
@@ -319,7 +309,6 @@ ResourceFile = function(itemObject)
         Neon:
         {
             saveName: "Neon.png",
-            url: UrlManager.resources.agents.Neon,
             uri: UriManager.resources.agents.Neon,
             dropboxPath : DropBoxPath.resources.agents.Neon,
             resourceFolder: "Agents",
@@ -329,7 +318,6 @@ ResourceFile = function(itemObject)
         Omen:
         {
             saveName: "Omen.png",
-            url: UrlManager.resources.agents.Omen,
             uri: UriManager.resources.agents.Omen,
             dropboxPath : DropBoxPath.resources.agents.Omen,
             resourceFolder: "Agents",
@@ -339,7 +327,6 @@ ResourceFile = function(itemObject)
         Phoenix:
         {
             saveName: "Phoenix.png",
-            url: UrlManager.resources.agents.Phoenix,
             uri: UriManager.resources.agents.Phoenix,
             dropboxPath : DropBoxPath.resources.agents.Phoenix,
             resourceFolder: "Agents",
@@ -349,7 +336,6 @@ ResourceFile = function(itemObject)
         Raze:
         {
             saveName: "Raze.png",
-            url: UrlManager.resources.agents.Raze,
             uri: UriManager.resources.agents.Raze,
             dropboxPath : DropBoxPath.resources.agents.Raze,
             resourceFolder: "Agents",
@@ -359,7 +345,6 @@ ResourceFile = function(itemObject)
         Reyna:
         {
             saveName: "Reyna.png",
-            url: UrlManager.resources.agents.Reyna,
             uri: UriManager.resources.agents.Reyna,
             dropboxPath : DropBoxPath.resources.agents.Reyna,
             resourceFolder: "Agents",
@@ -369,7 +354,6 @@ ResourceFile = function(itemObject)
         Sage:
         {
             saveName: "Sage.png",
-            url: UrlManager.resources.agents.Sage,
             uri: UriManager.resources.agents.Sage,
             dropboxPath : DropBoxPath.resources.agents.Sage,
             resourceFolder: "Agents",
@@ -379,7 +363,6 @@ ResourceFile = function(itemObject)
         Skye:
         {
             saveName: "Skye.png",
-            url: UrlManager.resources.agents.Skye,
             uri: UriManager.resources.agents.Skye,
             dropboxPath : DropBoxPath.resources.agents.Skye,
             resourceFolder: "Agents",
@@ -389,7 +372,6 @@ ResourceFile = function(itemObject)
         Sova:
         {
             saveName: "Sova.png",
-            url: UrlManager.resources.agents.Sova,
             uri: UriManager.resources.agents.Sova,
             dropboxPath : DropBoxPath.resources.agents.Sova,
             resourceFolder: "Agents",
@@ -399,7 +381,6 @@ ResourceFile = function(itemObject)
         Viper:
         {
             saveName: "Viper.png",
-            url: UrlManager.resources.agents.Viper,
             uri: UriManager.resources.agents.Viper,
             dropboxPath : DropBoxPath.resources.agents.Viper,
             resourceFolder: "Agents",
@@ -409,7 +390,6 @@ ResourceFile = function(itemObject)
         Yoru:
         {
             saveName: "Yoru.png",
-            url: UrlManager.resources.agents.Yoru,
             uri: UriManager.resources.agents.Yoru,
             dropboxPath : DropBoxPath.resources.agents.Yoru,
             resourceFolder: "Agents",
@@ -423,7 +403,6 @@ ResourceFile = function(itemObject)
         Ares:
         {
             saveName: "Ares.png",
-            url: UrlManager.resources.guns.Ares,
             uri: UriManager.resources.guns.Ares,
             dropboxPath : DropBoxPath.resources.guns.Ares,
             resourceFolder: "Guns",
@@ -433,7 +412,6 @@ ResourceFile = function(itemObject)
         Bucky:
         {
             saveName: "Bucky.png",
-            url: UrlManager.resources.guns.Bucky,
             uri: UriManager.resources.guns.Bucky,
             dropboxPath : DropBoxPath.resources.guns.Bucky,
             resourceFolder: "Guns",
@@ -443,7 +421,6 @@ ResourceFile = function(itemObject)
         Bulldog:
         {
             saveName: "Bulldog.png",
-            url: UrlManager.resources.guns.Bulldog,
             uri: UriManager.resources.guns.Bulldog,
             dropboxPath : DropBoxPath.resources.guns.Bulldog,
             resourceFolder: "Guns",
@@ -453,7 +430,6 @@ ResourceFile = function(itemObject)
         Classic:
         {
             saveName: "Classic.png",
-            url: UrlManager.resources.guns.Classic,
             uri: UriManager.resources.guns.Classic,
             dropboxPath : DropBoxPath.resources.guns.Classic,
             resourceFolder: "Guns",
@@ -463,7 +439,6 @@ ResourceFile = function(itemObject)
         Frenzy:
         {
             saveName: "Frenzy.png",
-            url: UrlManager.resources.guns.Frenzy,
             uri: UriManager.resources.guns.Frenzy,
             dropboxPath : DropBoxPath.resources.guns.Frenzy,
             resourceFolder: "Guns",
@@ -473,7 +448,6 @@ ResourceFile = function(itemObject)
         Ghost:
         {
             saveName: "Ghost.png",
-            url: UrlManager.resources.guns.Ghost,
             uri: UriManager.resources.guns.Ghost,
             dropboxPath : DropBoxPath.resources.guns.Ghost,
             resourceFolder: "Guns",
@@ -483,7 +457,6 @@ ResourceFile = function(itemObject)
         Guardian:
         {
             saveName: "Guardian.png",
-            url: UrlManager.resources.guns.Guardian,
             uri: UriManager.resources.guns.Guardian,
             dropboxPath : DropBoxPath.resources.guns.Guardian,
             resourceFolder: "Guns",
@@ -493,7 +466,6 @@ ResourceFile = function(itemObject)
         Judge:
         {
             saveName: "Judge.png",
-            url: UrlManager.resources.guns.Judge,
             uri: UriManager.resources.guns.Judge,
             dropboxPath : DropBoxPath.resources.guns.Judge,
             resourceFolder: "Guns",
@@ -503,7 +475,6 @@ ResourceFile = function(itemObject)
         Marshal:
         {
             saveName: "Marshal.png",
-            url: UrlManager.resources.guns.Marshal,
             uri: UriManager.resources.guns.Marshal,
             dropboxPath : DropBoxPath.resources.guns.Marshal,
             resourceFolder: "Guns",
@@ -513,7 +484,6 @@ ResourceFile = function(itemObject)
         Odin:
         {
             saveName: "Odin.png",
-            url: UrlManager.resources.guns.Odin,
             uri: UriManager.resources.guns.Odin,
             dropboxPath : DropBoxPath.resources.guns.Odin,
             resourceFolder: "Guns",
@@ -523,7 +493,6 @@ ResourceFile = function(itemObject)
         Operator:
         {
             saveName: "Operator.png",
-            url: UrlManager.resources.guns.Operator,
             uri: UriManager.resources.guns.Operator,
             dropboxPath : DropBoxPath.resources.guns.Operator,
             resourceFolder: "Guns",
@@ -533,7 +502,6 @@ ResourceFile = function(itemObject)
         Phantom:
         {
             saveName: "Phantom.png",
-            url: UrlManager.resources.guns.Phantom,
             uri: UriManager.resources.guns.Phantom,
             dropboxPath : DropBoxPath.resources.guns.Phantom,
             resourceFolder: "Guns",
@@ -543,7 +511,6 @@ ResourceFile = function(itemObject)
         Sheriff:
         {
             saveName: "Sheriff.png",
-            url: UrlManager.resources.guns.Sheriff,
             uri: UriManager.resources.guns.Sheriff,
             dropboxPath : DropBoxPath.resources.guns.Sheriff,
             resourceFolder: "Guns",
@@ -553,7 +520,6 @@ ResourceFile = function(itemObject)
         Shorty:
         {
             saveName: "Shorty.png",
-            url: UrlManager.resources.guns.Shorty,
             uri: UriManager.resources.guns.Shorty,
             dropboxPath : DropBoxPath.resources.guns.Shorty,
             resourceFolder: "Guns",
@@ -563,7 +529,6 @@ ResourceFile = function(itemObject)
         Spectre:
         {
             saveName: "Spectre.png",
-            url: UrlManager.resources.guns.Spectre,
             uri: UriManager.resources.guns.Spectre,
             dropboxPath : DropBoxPath.resources.guns.Spectre,
             resourceFolder: "Guns",
@@ -573,7 +538,6 @@ ResourceFile = function(itemObject)
         Stinger:
         {
             saveName: "Stinger.png",
-            url: UrlManager.resources.guns.Stinger,
             uri: UriManager.resources.guns.Stinger,
             dropboxPath : DropBoxPath.resources.guns.Stinger,
             resourceFolder: "Guns",
@@ -583,7 +547,6 @@ ResourceFile = function(itemObject)
         Vandal:
         {
             saveName: "Vandal.png",
-            url: UrlManager.resources.guns.Vandal,
             uri: UriManager.resources.guns.Vandal,
             dropboxPath : DropBoxPath.resources.guns.Vandal,
             resourceFolder: "Guns",
@@ -596,7 +559,6 @@ ResourceFile = function(itemObject)
         heavyShield:
         {
             saveName: "Heavy Shield.png",
-            url: UrlManager.resources.armor.HeavyShield,
             uri: UriManager.resources.armor.HeavyShield,
             dropboxPath : DropBoxPath.resources.armor.HeavyShield,
             resourceFolder: "Armor",
@@ -606,7 +568,6 @@ ResourceFile = function(itemObject)
         lightShield:
         {
             saveName: "Light Shield.png",
-            url: UrlManager.resources.armor.LightShield,
             uri: UriManager.resources.armor.LightShield,
             dropboxPath : DropBoxPath.resources.armor.LightShield,
             resourceFolder: "Armor",
@@ -619,7 +580,6 @@ ResourceFile = function(itemObject)
         creditsIcon:
         {
             saveName: "Credits Icon.png",
-            url: UrlManager.resources.creditsIcon.CreditsIcon,
             uri: UriManager.resources.creditsIcon.CreditsIcon,
             dropboxPath : DropBoxPath.resources.creditsIcon.CreditsIcon,
             resourceFolder: "Credits Icon",
@@ -632,7 +592,6 @@ ResourceFile = function(itemObject)
         Ascent:
         {
             saveName: "Ascent.png",
-            url: UrlManager.resources.maps.Ascent,
             uri: UriManager.resources.maps.Ascent,
             dropboxPath : DropBoxPath.resources.maps.Ascent,
             resourceFolder: "Maps",
@@ -642,7 +601,6 @@ ResourceFile = function(itemObject)
         Bind:
         {
             saveName: "Bind.png",
-            url: UrlManager.resources.maps.Bind,
             uri: UriManager.resources.maps.Bind,
             dropboxPath : DropBoxPath.resources.maps.Bind,
             resourceFolder: "Maps",
@@ -652,7 +610,6 @@ ResourceFile = function(itemObject)
         Breeze:
         {
             saveName: "Breeze.png",
-            url: UrlManager.resources.maps.Breeze,
             uri: UriManager.resources.maps.Breeze,
             dropboxPath : DropBoxPath.resources.maps.Breeze,
             resourceFolder: "Maps",
@@ -662,7 +619,6 @@ ResourceFile = function(itemObject)
         Fracture:
         {
             saveName: "Fracture.png",
-            url: UrlManager.resources.maps.Fracture,
             uri: UriManager.resources.maps.Fracture,
             dropboxPath : DropBoxPath.resources.maps.Fracture,
             resourceFolder: "Maps",
@@ -672,7 +628,6 @@ ResourceFile = function(itemObject)
         Haven:
         {
             saveName: "Haven.png",
-            url: UrlManager.resources.maps.Haven,
             uri: UriManager.resources.maps.Haven,
             dropboxPath : DropBoxPath.resources.maps.Haven,
             resourceFolder: "Maps",
@@ -682,7 +637,6 @@ ResourceFile = function(itemObject)
         Icebox:
         {
             saveName: "Icebox.png",
-            url: UrlManager.resources.maps.Icebox,
             uri: UriManager.resources.maps.Icebox,
             dropboxPath : DropBoxPath.resources.maps.Icebox,
             resourceFolder: "Maps",
@@ -692,7 +646,6 @@ ResourceFile = function(itemObject)
        Pearl:
         {
             saveName: "Pearl.png",
-            url: UrlManager.resources.maps.Pearl,
             uri: UriManager.resources.maps.Pearl,
             dropboxPath : DropBoxPath.resources.maps.Pearl,
             resourceFolder: "Maps",
@@ -702,7 +655,6 @@ ResourceFile = function(itemObject)
         Split:
         {
             saveName: "Split.png",
-            url: UrlManager.resources.maps.Split,
             uri: UriManager.resources.maps.Split,
             dropboxPath : DropBoxPath.resources.maps.Split,
             resourceFolder: "Maps",
@@ -715,7 +667,6 @@ ResourceFile = function(itemObject)
         Ascent:
         {
             saveName: "Ascent Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Ascent,
             uri: UriManager.resources.mapSplasharts.Ascent,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Ascent,
             resourceFolder: "Map Splasharts",
@@ -725,7 +676,6 @@ ResourceFile = function(itemObject)
         Bind:
         {
             saveName: "Bind Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Bind,
             uri: UriManager.resources.mapSplasharts.Bind,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Bind,
             resourceFolder: "Map Splasharts",
@@ -735,7 +685,6 @@ ResourceFile = function(itemObject)
         Breeze:
         {
             saveName: "Breeze Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Breeze,
             uri: UriManager.resources.mapSplasharts.Breeze,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Breeze,
             resourceFolder: "Map Splasharts",
@@ -745,7 +694,6 @@ ResourceFile = function(itemObject)
         Fracture:
         {
             saveName: "Fracture Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Fracture,
             uri: UriManager.resources.mapSplasharts.Fracture,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Fracture,
             resourceFolder: "Map Splasharts",
@@ -755,7 +703,6 @@ ResourceFile = function(itemObject)
         Haven:
         {
             saveName: "Haven Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Haven,
             uri: UriManager.resources.mapSplasharts.Haven,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Haven,
             resourceFolder: "Map Splasharts",
@@ -765,7 +712,6 @@ ResourceFile = function(itemObject)
         Icebox:
         {
             saveName: "Icebox Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Icebox,
             uri: UriManager.resources.mapSplasharts.Icebox,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Icebox,
             resourceFolder: "Map Splasharts",
@@ -775,7 +721,6 @@ ResourceFile = function(itemObject)
        Pearl:
         {
             saveName: "Pearl Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Pearl,
             uri: UriManager.resources.mapSplasharts.Pearl,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Pearl,
             resourceFolder: "Map Splasharts",
@@ -785,7 +730,6 @@ ResourceFile = function(itemObject)
         Split:
         {
             saveName: "Split Splashart.png",
-            url: UrlManager.resources.mapSplasharts.Split,
             uri: UriManager.resources.mapSplasharts.Split,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Split,
             resourceFolder: "Map Splasharts",
@@ -798,7 +742,6 @@ ResourceFile = function(itemObject)
         Iron1:
         {
             saveName: "Iron 1.png",
-            url: UrlManager.resources.rankBadges.Iron1,
             uri: UriManager.resources.rankBadges.Iron1,
             dropboxPath : DropBoxPath.resources.rankBadges.Iron1,
             resourceFolder: "Rank Badges",
@@ -808,7 +751,6 @@ ResourceFile = function(itemObject)
         Iron2:
         {
             saveName: "Iron 2.png",
-            url: UrlManager.resources.rankBadges.Iron2,
             uri: UriManager.resources.rankBadges.Iron2,
             dropboxPath : DropBoxPath.resources.rankBadges.Iron2,
             resourceFolder: "Rank Badges",
@@ -818,7 +760,6 @@ ResourceFile = function(itemObject)
         Iron3:
         {
             saveName: "Iron 3.png",
-            url: UrlManager.resources.rankBadges.Iron3,
             uri: UriManager.resources.rankBadges.Iron3,
             dropboxPath : DropBoxPath.resources.rankBadges.Iron3,
             resourceFolder: "Rank Badges",
@@ -828,7 +769,6 @@ ResourceFile = function(itemObject)
         Bronze1:
         {
             saveName: "Bronze 1.png",
-            url: UrlManager.resources.rankBadges.Bronze1,
             uri: UriManager.resources.rankBadges.Bronze1,
             dropboxPath : DropBoxPath.resources.rankBadges.Bronze1,
             resourceFolder: "Rank Badges",
@@ -838,7 +778,6 @@ ResourceFile = function(itemObject)
         Bronze2:
         {
             saveName: "Bronze 2.png",
-            url: UrlManager.resources.rankBadges.Bronze2,
             uri: UriManager.resources.rankBadges.Bronze2,
             dropboxPath : DropBoxPath.resources.rankBadges.Bronze2,
             resourceFolder: "Rank Badges",
@@ -848,7 +787,6 @@ ResourceFile = function(itemObject)
         Bronze3:
         {
             saveName: "Bronze 3.png",
-            url: UrlManager.resources.rankBadges.Bronze3,
             uri: UriManager.resources.rankBadges.Bronze3,
             dropboxPath : DropBoxPath.resources.rankBadges.Bronze3,
             resourceFolder: "Rank Badges",
@@ -858,7 +796,6 @@ ResourceFile = function(itemObject)
         Silver1:
         {
             saveName: "Silver 1.png",
-            url: UrlManager.resources.rankBadges.Silver1,
             uri: UriManager.resources.rankBadges.Silver1,
             dropboxPath : DropBoxPath.resources.rankBadges.Silver1,
             resourceFolder: "Rank Badges",
@@ -868,7 +805,6 @@ ResourceFile = function(itemObject)
         Silver2:
         {
             saveName: "Silver 2.png",
-            url: UrlManager.resources.rankBadges.Silver2,
             uri: UriManager.resources.rankBadges.Silver2,
             dropboxPath : DropBoxPath.resources.rankBadges.Silver2,
             resourceFolder: "Rank Badges",
@@ -878,7 +814,6 @@ ResourceFile = function(itemObject)
         Silver3:
         {
             saveName: "Silver 3.png",
-            url: UrlManager.resources.rankBadges.Silver3,
             uri: UriManager.resources.rankBadges.Silver3,
             dropboxPath : DropBoxPath.resources.rankBadges.Silver3,
             resourceFolder: "Rank Badges",
@@ -888,7 +823,6 @@ ResourceFile = function(itemObject)
         Gold1:
         {
             saveName: "Gold 1.png",
-            url: UrlManager.resources.rankBadges.Gold1,
             uri: UriManager.resources.rankBadges.Gold1,
             dropboxPath : DropBoxPath.resources.rankBadges.Gold1,
             resourceFolder: "Rank Badges",
@@ -898,7 +832,6 @@ ResourceFile = function(itemObject)
         Gold2:
         {
             saveName: "Gold 2.png",
-            url: UrlManager.resources.rankBadges.Gold2,
             uri: UriManager.resources.rankBadges.Gold2,
             dropboxPath : DropBoxPath.resources.rankBadges.Gold2,
             resourceFolder: "Rank Badges",
@@ -908,7 +841,6 @@ ResourceFile = function(itemObject)
         Gold3:
         {
             saveName: "Gold 3.png",
-            url: UrlManager.resources.rankBadges.Gold3,
             uri: UriManager.resources.rankBadges.Gold3,
             dropboxPath : DropBoxPath.resources.rankBadges.Gold3,
             resourceFolder: "Rank Badges",
@@ -918,7 +850,6 @@ ResourceFile = function(itemObject)
         Platinum1:
         {
             saveName: "Platinum 1.png",
-            url: UrlManager.resources.rankBadges.Platinum1,
             uri: UriManager.resources.rankBadges.Platinum1,
             dropboxPath : DropBoxPath.resources.rankBadges.Platinum1,
             resourceFolder: "Rank Badges",
@@ -928,7 +859,6 @@ ResourceFile = function(itemObject)
         Platinum2:
         {
             saveName: "Platinum 2.png",
-            url: UrlManager.resources.rankBadges.Platinum2,
             uri: UriManager.resources.rankBadges.Platinum2,
             dropboxPath : DropBoxPath.resources.rankBadges.Platinum2,
             resourceFolder: "Rank Badges",
@@ -938,7 +868,6 @@ ResourceFile = function(itemObject)
         Platinum3:
         {
             saveName: "Platinum 3.png",
-            url: UrlManager.resources.rankBadges.Platinum3,
             uri: UriManager.resources.rankBadges.Platinum3,
             dropboxPath : DropBoxPath.resources.rankBadges.Platinum3,
             resourceFolder: "Rank Badges",
@@ -948,7 +877,6 @@ ResourceFile = function(itemObject)
         Diamond1:
         {
             saveName: "Diamond 1.png",
-            url: UrlManager.resources.rankBadges.Diamond1,
             uri: UriManager.resources.rankBadges.Diamond1,
             dropboxPath : DropBoxPath.resources.rankBadges.Diamond1,
             resourceFolder: "Rank Badges",
@@ -958,7 +886,6 @@ ResourceFile = function(itemObject)
         Diamond2:
         {
             saveName: "Diamond 2.png",
-            url: UrlManager.resources.rankBadges.Diamond2,
             uri: UriManager.resources.rankBadges.Diamond2,
             dropboxPath : DropBoxPath.resources.rankBadges.Diamond2,
             resourceFolder: "Rank Badges",
@@ -968,7 +895,6 @@ ResourceFile = function(itemObject)
         Diamond3:
         {
             saveName: "Diamond 3.png",
-            url: UrlManager.resources.rankBadges.Diamond3,
             uri: UriManager.resources.rankBadges.Diamond3,
             dropboxPath : DropBoxPath.resources.rankBadges.Diamond3,
             resourceFolder: "Rank Badges",
@@ -978,7 +904,6 @@ ResourceFile = function(itemObject)
         Ascendant1:
         {
             saveName: "Ascendant 1.png",
-            url: UrlManager.resources.rankBadges.Ascendant1,
             uri: UriManager.resources.rankBadges.Ascendant1,
             dropboxPath : DropBoxPath.resources.rankBadges.Ascendant1,
             resourceFolder: "Rank Badges",
@@ -988,7 +913,6 @@ ResourceFile = function(itemObject)
         Ascendant2:
         {
             saveName: "Ascendant 2.png",
-            url: UrlManager.resources.rankBadges.Ascendant2,
             uri: UriManager.resources.rankBadges.Ascendant2,
             dropboxPath : DropBoxPath.resources.rankBadges.Ascendant2,
             resourceFolder: "Rank Badges",
@@ -998,7 +922,6 @@ ResourceFile = function(itemObject)
         Ascendant3:
         {
             saveName: "Ascendant 3.png",
-            url: UrlManager.resources.rankBadges.Ascendant3,
             uri: UriManager.resources.rankBadges.Ascendant3,
             dropboxPath : DropBoxPath.resources.rankBadges.Ascendant3,
             resourceFolder: "Rank Badges",
@@ -1008,7 +931,6 @@ ResourceFile = function(itemObject)
         Immortal1:
         {
             saveName: "Immortal 1.png",
-            url: UrlManager.resources.rankBadges.Immortal1,
             uri: UriManager.resources.rankBadges.Immortal1,
             dropboxPath : DropBoxPath.resources.rankBadges.Immortal1,
             resourceFolder: "Rank Badges",
@@ -1018,7 +940,6 @@ ResourceFile = function(itemObject)
         Immortal2:
         {
             saveName: "Immortal 2.png",
-            url: UrlManager.resources.rankBadges.Immortal2,
             uri: UriManager.resources.rankBadges.Immortal2,
             dropboxPath : DropBoxPath.resources.rankBadges.Immortal2,
             resourceFolder: "Rank Badges",
@@ -1028,7 +949,6 @@ ResourceFile = function(itemObject)
         Immortal3:
         {
             saveName: "Immortal 3.png",
-            url: UrlManager.resources.rankBadges.Immortal3,
             uri: UriManager.resources.rankBadges.Immortal3,
             dropboxPath : DropBoxPath.resources.rankBadges.Immortal3,
             resourceFolder: "Rank Badges",
@@ -1038,7 +958,6 @@ ResourceFile = function(itemObject)
         Radiant:
         {
             saveName: "Radiant.png",
-            url: UrlManager.resources.rankBadges.Radiant,
             uri: UriManager.resources.rankBadges.Radiant,
             dropboxPath : DropBoxPath.resources.rankBadges.Radiant,
             resourceFolder: "Rank Badges",
@@ -1090,7 +1009,6 @@ ResourceFile = function(itemObject)
         Controller :
         {
             saveName: "Controller.png",
-            url: UrlManager.resources.roles.Controller,
             uri: UriManager.resources.roles.Controller,
             dropboxPath : DropBoxPath.resources.roles.Controller,
             resourceFolder: "Roles",
@@ -1100,7 +1018,6 @@ ResourceFile = function(itemObject)
         Duelist :
         {
             saveName: "Duelist.png",
-            url: UrlManager.resources.roles.Duelist,
             uri: UriManager.resources.roles.Duelist,
             dropboxPath : DropBoxPath.resources.roles.Duelist,
             resourceFolder: "Roles",
@@ -1110,7 +1027,6 @@ ResourceFile = function(itemObject)
         Initiator :
         {
             saveName: "Initiator.png",
-            url: UrlManager.resources.roles.Initiator,
             uri: UriManager.resources.roles.Initiator,
             dropboxPath : DropBoxPath.resources.roles.Initiator,
             resourceFolder: "Roles",
@@ -1120,7 +1036,6 @@ ResourceFile = function(itemObject)
         Sentinel :
         {
             saveName: "Sentinel.png",
-            url: UrlManager.resources.roles.Sentinel,
             uri: UriManager.resources.roles.Sentinel,
             dropboxPath : DropBoxPath.resources.roles.Sentinel,
             resourceFolder: "Roles",
@@ -1134,7 +1049,6 @@ ResourceFile = function(itemObject)
         Twitch :
         {
             saveName: "Twitch Logo.png",
-            url: UrlManager.resources.socialMediaLogos.TwitchLogo,
             uri: UriManager.resources.socialMediaLogos.TwitchLogo,
             dropboxPath : DropBoxPath.resources.socialMediaLogos.TwitchLogo,
             resourceFolder: "Logos",
@@ -1144,7 +1058,6 @@ ResourceFile = function(itemObject)
         Youtube :
         {
             saveName: "Youtube Logo.png",
-            url: UrlManager.resources.socialMediaLogos.YoutubeLogo,
             uri: UriManager.resources.socialMediaLogos.YoutubeLogo,
             dropboxPath : DropBoxPath.resources.socialMediaLogos.YoutubeLogo,
             resourceFolder: "Logos",
@@ -1154,7 +1067,6 @@ ResourceFile = function(itemObject)
         Twitter :
         {
             saveName: "Twitter Logo.png",
-            url: UrlManager.resources.socialMediaLogos.TwitterLogo,
             uri: UriManager.resources.socialMediaLogos.TwitterLogo,
             dropboxPath : DropBoxPath.resources.socialMediaLogos.TwitterLogo,
             resourceFolder: "Logos",
@@ -1167,7 +1079,6 @@ ResourceFile = function(itemObject)
         Spike:
         {
             saveName: "Spike.png",
-            url: UrlManager.resources.spike,
             uri: UriManager.resources.spike,
             dropboxPath : DropBoxPath.resources.spike.Spike,
             resourceFolder: "Spike",
@@ -1180,7 +1091,6 @@ ResourceFile = function(itemObject)
         OutroScreen :
         {
             saveName: "outroScreen.mp4",
-            url: UrlManager.resources.outroScreen,
             uri: UriManager.resources.video.OutroScreen,
             dropboxPath : DropBoxPath.resources.video.OutroScreen,
             resourceFolder: "video",

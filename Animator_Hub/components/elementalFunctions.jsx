@@ -51,7 +51,7 @@ function agentStats()
 {
     try
     {
-        var agentStatsURL = fetchOnlineJson("https://brianjosephstudio.github.io/jsonFiles/agentStats.json");
+        var agentStatsURL = fetchOnlineJson(UrlManager.jsonFile.agentStats);
         var agentStats = JSON.parse(agentStatsURL);
         return agentStats
     }

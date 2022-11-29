@@ -25,8 +25,8 @@ function primitiveAlert(codeNumber)
         "There are missing components on this device and there's no internet connection. The Animator Hub will not open."
 
     ]
-    var messageTag = 'Animator Hub:\n\n    ';
-    return alert(messageTag+alertList[codeNumber])
+    var messageTag = 'Animator Hub';
+    return alert(alertList[codeNumber],messageTag)
 };
 /*************************************************************************************************/
 function resolveLocalDir()
