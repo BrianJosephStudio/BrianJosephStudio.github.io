@@ -1,60 +1,16 @@
 const homedir = require('os').homedir();
-const dir = require(`${homedir}/Documents/Editor Hub/Components/dir.js`);
-const localVersion = dir.editorHub.localVersion;
-const errorCode = require('./errorCode.mjs');
+const path = require('path');
+const {readFile} = require('fs/promises')
+global.dir = require(`${homedir}/Documents/Editor Hub/Components/dir.js`);
+//const localVersion = dir.editorHub.localVersion;
+//const errorCode = require('./errorCode.mjs');
 /*
     *VERSION CHECK
 */
-async function versionCheck(localVersion)
-{
-    const versionPrototype = JSON.stringify({currentVersion:'1.0.0'});
-    var currentVersion;
-    var latestVersion;
-    await readFile(path,'utf-8')
-        .then(result =>
-            {
-                currentVersion = JSON.parse(result);
-            })
-        .catch(error=>
-            {
-                writeFile(path,versionPrototype)
-                .then(success=>
-                    {
-                        return readMyFile(path)
-                    })
-                .catch(err=>
-                    {
-                        errorCode(0)
-                    })
-            });
-    var counter = 0;
-    var cmd = spawn('cmd');
-    cmd.stdout.on('data',(data)=> {
-        counter++;
-        if(counter==3)
-        {
-            latestVersion = data.toString('ascii');
-        }
-    })
-    cmd.stderr.on('err',(err) => {alert(err)})
-    cmd.stdin.write('curl "https://brianjosephstudio.github.io/jsonFiles/versionCheck.txt"\n')
-    cmd.stdin.end();
-
-    if(currentVersion == latestVersion){return dalse};
-    return true;
-}
-versionCheck().then(requireUpdate => alert(requireUpdate))
-
-
-var alertButton;
-    alertButton = document.getElementById("testButton1");
-alert(alertButton)
-alertButton.addEventListener(placeTemplate)
-alert('3')
 
 function placeTemplate()
 {
-    var cmd = spawn('cmd',undefined,{cwd:dir.animHub.root})
+    var cmd = spawn('cmd',undefined,{cwd:dir.editorHub.root})
         cmd.stdout.on('output',(output) =>
         {
             alert(output);
@@ -69,7 +25,7 @@ function placeTemplate()
 /*
     Workspace tab functions
 */
-function change_wpTab(event)
+global.change_wpTab = (event) =>
 {
     var wp_tabs = document.getElementsByClassName("wp_tab")
     for(var i = 0; i < wp_tabs.length; i++)
@@ -94,16 +50,21 @@ function change_wpTab(event)
         }
     }
 }
-alert('index.js')
 async function hubInit()
 {
-    var myFile = path.resolve(editorHub_dir,'components/editorHub.html');
-    await readFile(myFile)
-    .then(data =>
-        {
-            var body = document.getElementById('editorHub');
-            body.innerHTML = data;
-        })
-    .catch(e => alert(e));
+    let myFile = path.resolve(editorHub_dir,'components/editorHub.html');
+    await readFile(myFile,undefined,{encoding:'utf-8'})
+        .then(data =>
+            {
+                var body = document.getElementById('editorHub');
+                body.innerHTML = data;
+            })
+        .catch(e => {throw e});
 
 };
+hubInit().then(res =>
+    {
+        var alertButton;
+        alertButton = document.getElementById("testButton1");
+        alertButton.addEventListener(placeTemplate)
+    })
