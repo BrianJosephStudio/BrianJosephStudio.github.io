@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Version 3.7.5\n\
+"Version 3.7.6\n\
 -Call To Action:\
     New template youtube call to actions.\n\
 Version 3.6.0\n\
