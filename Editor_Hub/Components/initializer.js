@@ -1,70 +1,79 @@
+/**
+ * DEPENDENCIES
+ */
 const homedir = require('os').homedir();
 const path = require('path');
-const {readFile} = require('fs/promises')
+const { readFileSync , writeFileSync , statSync , mkdirSync} = require('fs');
+const { spawnSync } = require('child_process');
+/*
+    *VERSION CHECK/RESOLVE MODULES
+*/
+
+/**
+ * IMPORT EDITOR HUB MODULES
+ */
 global.dir = require(`${homedir}/Documents/Editor Hub/Components/dir.js`);
-//const localVersion = dir.editorHub.localVersion;
-//const errorCode = require('./errorCode.mjs');
-/*
-    *VERSION CHECK
-*/
+global.ui = require(dir.editorHub.component.ui)
 
-function placeTemplate()
-{
-    var cmd = spawn('cmd',undefined,{cwd:dir.editorHub.root})
-        cmd.stdout.on('output',(output) =>
-        {
-            alert(output);
-        });
-        cmd.stderr.on('err',(err) =>
-        {
-            alert(err)
-        });
-    cmd.stdin.write(`curl -o "myTemplate.aep" "https://brianjosephstudio.github.io/templates/SC_Watermark.aep"\n`);
-    cmd.stdin.end();
-};
-/*
-    Workspace tab functions
-*/
-global.change_wpTab = (event) =>
-{
-    var wp_tabs = document.getElementsByClassName("wp_tab")
-    for(var i = 0; i < wp_tabs.length; i++)
-    {
-        wp_tabs[i].firstElementChild.className = wp_tabs[i].firstElementChild.className.replace("_active","")
-    }
 
-    event.currentTarget.firstElementChild.className += "_active";
-    var wp_panels = document.getElementsByClassName("wp_container");
-    for (var i = 0; i < wp_panels.length; i++)
-    {
-        wp_panels[i].style.display = "none";
-    }
-    var buttonName  = event.currentTarget.firstElementChild.className;
-    for(var i = 0; i < wp_panels.length; i++)
-    {
-        var panelName = wp_panels[i].id;
-        if(panelName.split("_")[1] == buttonName.split("_")[1])
-        {
-            wp_panels[i].style.display = "block";
-            break;
-        }
-    }
-}
 async function hubInit()
 {
-    let myFile = path.resolve(editorHub_dir,'components/editorHub.html');
-    await readFile(myFile,undefined,{encoding:'utf-8'})
-        .then(data =>
-            {
-                var body = document.getElementById('editorHub');
-                body.innerHTML = data;
-            })
-        .catch(e => {throw e});
-
+    ui.buildUI()
 };
 hubInit().then(res =>
     {
-        var alertButton;
-        alertButton = document.getElementById("testButton1");
-        alertButton.addEventListener(placeTemplate)
+        //var alertButton;
+        //alertButton = document.getElementById("testButton1");
+        //alertButton.addEventListener(placeTemplate)
     })
+
+/**
+ *  FUNCTIONS
+ */
+ async function versionCheck()
+ {
+     
+ };
+ async function fileExist(filePath)
+ {
+     try
+     {
+         readFileSync(filePath,{encoding:'utf-8'})
+         return true
+     }
+     catch(e){return false}
+ };
+ async function resolveFolder(path)
+{
+    try
+    {
+        let isDir = statSync(path).isDirectory;
+        if (isDir == false){return undefined}
+        else if (isDir == true){return true}
+    }
+    catch(e)
+    {
+        if(e.code = "ENOENT")
+        {
+            try
+            {
+                let newDir = mkdirSync(path,{recursive:true});
+                try
+                {
+                    return statSync(newDir).isDirectory
+                }
+                catch(e){throw e}
+            }
+            catch(e){throw e}
+        }
+        else{throw e}
+    }
+};
+ async function downloadModule(module)
+ {
+     let cwd = path.dirname(module);
+     let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Components/${path.basename(module)}"\n`;
+
+     spawnSync('cmd',undefined,{cwd:cwd,input:input})
+     return module
+ }
