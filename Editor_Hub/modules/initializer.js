@@ -47,9 +47,8 @@
      /**
       * IMPORT EDITOR HUB MODULES
       */
-     global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
-     global.ui = require(dir.editorHub.module.ui)
- 
+        global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
+        global.ui = require(dir.editorHub.module.ui)
      /**
       * BUILD UI
       */
@@ -70,13 +69,11 @@
   };
   async function resolveModule(module)
   {
-     let exists = fileExist(module);
+     let exists = await fileExist(module);
      if(exists == false)
      {
-         try
-         {
-             return downloadModule(module)
-         } catch(e){throw e}
+        alert('should go in here')
+        return await downloadModule(module)
      }
      else if (exists == true){return true}
   }
@@ -110,10 +107,7 @@
   {
      for (let i = 0; i < modules.length; i++)
      {
-         try
-         {
-             downloadModule(modules[i])
-         }catch(e){throw e}
+        await downloadModule(modules[i])
      }
      return true
   }
@@ -121,15 +115,15 @@
  {
      for (let i = 0; i < modules.length; i++)
      {
-         try
-         {
-             resolveModule(modules[i])
-         } catch(e) { throw e}
+            alert(modules[i])
+             await resolveModule(modules[i])
+             .catch(e => {throw e})
      };
      return true
   }
   async function downloadModule(module)
   {
+    alert('fetch enter')
       let cwd = path.dirname(module);
       let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Modules/${path.basename(module)}"\n`;
       try
