@@ -72,7 +72,6 @@
      let exists = await fileExist(module);
      if(exists == false)
      {
-        alert('should go in here')
         return await downloadModule(module)
      }
      else if (exists == true){return true}
@@ -115,7 +114,6 @@
  {
      for (let i = 0; i < modules.length; i++)
      {
-            alert(modules[i])
              await resolveModule(modules[i])
              .catch(e => {throw e})
      };
@@ -123,7 +121,6 @@
   }
   async function downloadModule(module)
   {
-    alert('fetch enter')
       let cwd = path.dirname(module);
       let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Modules/${path.basename(module)}"\n`;
       try
