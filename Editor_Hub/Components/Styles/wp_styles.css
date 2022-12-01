@@ -1,0 +1,210 @@
+#separator
+{
+    display: block;
+    position: absolute;
+    height : 1px;
+    width : inherit;
+    bottom: 1%;
+    background: hsl(0, 0%, 35%);
+    margin: 0px;
+    box-shadow: 0px 0px 7px 0px white;
+}
+.tabPanel
+{
+    position: relative;
+    width : 467px;
+    height : 42px;
+    margin-bottom : 10px;
+    overflow: hidden;
+}
+.wp_tab
+{
+    position: relative;
+    display : inline;
+    width : 90px;
+    height : inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    margin: 0px;
+    overflow: hidden;
+}
+.select_glow
+{
+    display: none;
+    position: absolute;
+    width: 60px;
+    height: 15px;
+    background: rgb(250, 250, 250);
+    border-radius: 75%;
+    margin: 0px;
+    top: 99%;
+    left: 14px;
+    box-shadow: 0px -1px 14px 0px rgb(255, 255, 255);
+    transition: 0.6s;
+    transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
+}
+.select_glow_active
+{
+    position: absolute;
+    width: 60%;
+    height: 75%;
+    background: white;
+    border-radius: 50%;
+    top: 99%;
+    left: calc(50% - 30%);
+    box-shadow: 0px -3px 12px 0px white;
+    transition: 0.6s;
+}
+.select_glow_inactive
+{
+    position: absolute;
+    width: 60%;
+    height: 75%;
+    background: white;
+    border-radius: 50%;
+    top: 120%;
+    left: calc(50% - 30%);
+    box-shadow: 0px 0px 12px 0px white;
+    transition: 1s;
+}
+/*    Project Utilities     */
+.wp_projectUtil_tab
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_projectUtil_inactive.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.6s;
+}
+.wp_projectUtil_tab:hover
+{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_projectUtil_roll.svg");
+}
+.wp_projectUtil_tab_active
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_projectUtil_active.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.4s
+}
+/*  Editing Tools   */
+.wp_editingTools_tab
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_editingTools_inactive.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.6s;
+}
+.wp_editingTools_tab:hover
+{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_editingTools_roll.svg");
+}
+.wp_editingTools_tab_active
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_editingTools_active.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.4s;
+}
+/*    Titles  */
+.wp_titles_tab
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_titles_inactive.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.6s;
+}
+.wp_titles_tab:hover
+{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_titles_roll.svg");
+}
+.wp_titles_tab_active
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_titles_active.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.4s;
+}
+/*  Map Overviews   */
+.wp_mapOverviews_tab
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_mapOverviews_inactive.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.6s;
+}
+.wp_mapOverviews_tab:hover
+{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_mapOverviews_roll.svg");
+}
+.wp_mapOverviews_tab_active
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_mapOverviews_active.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.4s;
+}
+/*  Agent Templates */
+.wp_agentTemplates_tab
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_agentTemplates_inactive.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.6s;
+}
+.wp_agentTemplates_tab:hover
+{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_agentTemplates_roll.svg");
+}
+.wp_agentTemplates_tab_active
+{
+    display: inherit;
+    width : 100%;
+    height : 100%;
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_agentTemplates_active.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.4s;
+}
+/*  WorkSpace Container */
+.wp_container
+{
+    display: none;
+    width : 450px;
+    height : 250px;
+    border-width : 0px;
+    border-style : solid;
+    border-color : hsl(0, 0%, 35%);
+}
+#wp_projectUtil
+{
+    display: block;
+}

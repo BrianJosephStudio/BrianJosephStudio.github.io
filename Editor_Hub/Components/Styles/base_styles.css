@@ -1,0 +1,56 @@
+h1
+{
+    font-family : Univers LT Std;
+    font-weight : bold;
+    font-size : 22px;
+    color : #FFFFFF;
+    color : rgb(229.5, 229.5, 229.5);
+}
+h2
+{
+    font-family : Mont;
+    font-style : italic;
+    font-size : 10px;
+    color : hsl(0, 0%, 90%);
+}
+h3
+{
+    display: inline;
+    color: rgb(168, 168, 168);
+    bottom: 0%;
+    right: 0%;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: thin;
+}
+body
+{
+    background: rgb(33.15,33.15,33.15)
+}
+header
+{
+    margin-bottom : 10px;
+}
+button
+{
+    font-family : Mont;
+    font-weight : bold;
+    font-style : italic;
+    font-size : 16px;
+    color : #232323;
+    color : rgb(35, 35, 35);
+    margin : 20px;
+    display : block;
+    width : 100px;
+    height : 25px;
+    background : #E5E5E5;
+    background : rgb(229, 229, 229);
+    border-style : Solid;
+    border-color : #E5E5E5;
+    border-color : rgba(229, 229, 229, 1);
+    border-width : 2px;
+    border-radius : 0px;
+    -moz-border-radius : 0px;
+    -webkit-border-radius : 0px;
+    cursor: pointer
+}

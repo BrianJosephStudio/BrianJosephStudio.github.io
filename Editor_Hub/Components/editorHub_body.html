@@ -1,29 +1,36 @@
 
 <header>
-    <img src="../ui/headerLogo.png" alt="The image could not be loaded"></img>
+    <img src="https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/headerLogo.png" alt="The image could not be loaded"></img>
 </header>
 <!--Workspace Tab Bar-->
 <div class="tabPanel">
     
     <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "wp_projectUtil_tab_active"></div>
+        <div class = "select_glow_active"></div>
+        <div title="Project Utilities" class = "wp_projectUtil_tab_active"></div>
     </button>
 
     <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "wp_editingTools_tab"></div>
+        <div class = "select_glow_inactive"></div>
+        <div title="Editing Tools" class = "wp_editingTools_tab"></div>
     </button>
 
     <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "wp_titles_tab"></div>
+        <div class = "select_glow_inactive"></div>
+        <div title="Templates" class = "wp_titles_tab"></div>
     </button>
 
     <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "wp_mapOverviews_tab"></div>
+        <div class = "select_glow_inactive"></div>
+        <div title="Map Overviews" class = "wp_mapOverviews_tab"></div>
     </button>
 
     <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "wp_agentTemplates_tab"></div>
+        <div class = "select_glow_inactive"></div>
+        <div title="Agent Templates" class = "wp_agentTemplates_tab"></div>
     </button>
+    <div id="selectGlow" class="select_glow"></div>
+    <div id="separator"></div>
 </div>
 
     <!--Workspace Panels-->
@@ -42,3 +49,5 @@
 <div id="wp_agentTemplates" class="wp_container">
     <button id="testButton5">Cut</button>
 </div>
+<div id="separator"></div>
+<!--    <h3>v1.0.0</h3> -->

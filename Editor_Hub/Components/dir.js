@@ -4,19 +4,19 @@ const homedir = require('os').homedir();
 */
 const editorHub =
 {
-    root : editorHub_dir,
+    root : `${homedir}/DOCUMENTS/Editor Hub`,
     folder :
     {
-        components : `${homedir}/DOCUMENTS/Editor Hub/components`,
+        modules : `${homedir}/DOCUMENTS/Editor Hub/modules`,
         jsonFiles : `${homedir}/DOCUMENTS/Editor Hub/jsonFiles`,
         templates : `${homedir}/DOCUMENTS/Editor Hub/templates`,
         resources : `${homedir}/DOCUMENTS/Editor Hub/resources`,
-        styles : `${homedir}/DOCUMENTS/Editor Hub/styles`
+        styles : `${homedir}/DOCUMENTS/Editor Hub/modules/styles`
     },
-    component :
+    module :
     {
-        ui : `${homedir}/DOCUMENTS/Editor Hub/components/UI.js`,
-        htmlBody : `${homedir}/DOCUMENTS/Editor Hub/components/editorHub_body.html`
+        ui : `${homedir}/DOCUMENTS/Editor Hub/modules/UI.js`,
+        htmlBody : `${homedir}/DOCUMENTS/Editor Hub/modules/editorHub_body.html`
     },
     jsonFiles :
     {
@@ -24,8 +24,8 @@ const editorHub =
     },
     style :
     {
-        base_style : `${homedir}/DOCUMENTS/Editor Hub/styles/base_style.css`,
-        wp_style : `${homedir}/DOCUMENTS/Editor Hub/styles/wp_style.css`
+        base_style : `${homedir}/DOCUMENTS/Editor Hub/modules/styles/base_styles.css`,
+        wp_style : `${homedir}/DOCUMENTS/Editor Hub/modules/styles/wp_styles.css`
     },
     appData : `${homedir}/AppData/Local/Editor Hub`
 };
@@ -34,7 +34,7 @@ const editorHub =
 */
 const animHub =
 {
-    root : animHub_dir,
+    root : `${homedir}/DOCUMENTS/Animator Hub`,
     folder :
     {
         components : `${homedir}/DOCUMENTS/Animator HUb/components`,

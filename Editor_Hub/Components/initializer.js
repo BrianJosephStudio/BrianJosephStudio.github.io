@@ -1,79 +1,141 @@
 /**
  * DEPENDENCIES
  */
-const homedir = require('os').homedir();
-const path = require('path');
-const { readFileSync , writeFileSync , statSync , mkdirSync} = require('fs');
-const { spawnSync } = require('child_process');
-/*
-    *VERSION CHECK/RESOLVE MODULES
-*/
-
-/**
- * IMPORT EDITOR HUB MODULES
+ const homedir = require('os').homedir();
+ const path = require('path');
+ const { readFileSync , writeFileSync , statSync , mkdirSync} = require('fs');
+ const { spawnSync } = require('child_process');
+ /*
+     *VERSION CHECK/RESOLVE MODULES
  */
-global.dir = require(`${homedir}/Documents/Editor Hub/Components/dir.js`);
-global.ui = require(dir.editorHub.component.ui)
-
-
-async function hubInit()
-{
-    ui.buildUI()
-};
-hubInit().then(res =>
-    {
-        //var alertButton;
-        //alertButton = document.getElementById("testButton1");
-        //alertButton.addEventListener(placeTemplate)
-    })
-
-/**
- *  FUNCTIONS
- */
- async function versionCheck()
+ hubInit().then(res =>
+     {
+         //var alertButton;
+         //alertButton = document.getElementById("testButton1");
+         //alertButton.addEventListener(placeTemplate)
+     })
+     .catch(e => hubException(e))
+ 
+ 
+ async function hubInit()
  {
-     
- };
- async function fileExist(filePath)
+     let editorHub = `${homedir}/DOCUMENTS/Editor Hub`;
+     await resolveFolder(`${editorHub}/modules/styles`)
+     /**
+      * PRIMITIVE PATHS
+      */
+     let modules =
+     [
+         `${editorHub}/modules/editorHub_body.html`,
+         `${editorHub}/modules/dir.js`,
+         `${editorHub}/modules/UI.js`,
+         `${editorHub}/modules/styles/base_styles.css`,
+         `${editorHub}/modules/styles/wp_styles.css`
+     ];
+     /**
+      * RESOLVE MODULES / UPDATE
+      */
+     if(global.updateRequired == true)
+     {
+         await updateModules(modules)
+     }
+     else if (global.updateRequired == false)
+     {
+         await resolveModules(modules)
+     }
+ 
+     /**
+      * IMPORT EDITOR HUB MODULES
+      */
+     global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
+     global.ui = require(dir.editorHub.module.ui)
+ 
+     /**
+      * BUILD UI
+      */
+     await ui.buildUI()
+ }
+ 
+ /**
+  *  FUNCTIONS
+  */
+  async function fileExist(filePath)
+  {
+      try
+      {
+          readFileSync(filePath,{encoding:'utf-8'})
+          return true
+      }
+      catch(e){return false}
+  };
+  async function resolveModule(module)
+  {
+     let exists = fileExist(module);
+     if(exists == false)
+     {
+         try
+         {
+             return downloadModule(module)
+         } catch(e){throw e}
+     }
+     else if (exists == true){return true}
+  }
+  async function resolveFolder(folder)
  {
      try
      {
-         readFileSync(filePath,{encoding:'utf-8'})
-         return true
+         let isDir = statSync(folder).isDirectory;
+         if (isDir == false){return undefined}
+         else if (isDir == true){return true}
      }
-     catch(e){return false}
- };
- async function resolveFolder(path)
-{
-    try
-    {
-        let isDir = statSync(path).isDirectory;
-        if (isDir == false){return undefined}
-        else if (isDir == true){return true}
-    }
-    catch(e)
-    {
-        if(e.code = "ENOENT")
-        {
-            try
-            {
-                let newDir = mkdirSync(path,{recursive:true});
-                try
-                {
-                    return statSync(newDir).isDirectory
-                }
-                catch(e){throw e}
-            }
-            catch(e){throw e}
-        }
-        else{throw e}
-    }
-};
- async function downloadModule(module)
+     catch(e)
+     {
+         if(e.code = "ENOENT")
+         {
+             try
+             {
+                 let newDir = mkdirSync(folder,{recursive:true});
+                 try
+                 {
+                     return statSync(newDir).isDirectory
+                 }
+                 catch(e){throw e}
+             }
+             catch(e){throw e}
+         }
+         else{throw e}
+     }
+  };
+  async function updateModules(modules)
+  {
+     for (let i = 0; i < modules.length; i++)
+     {
+         try
+         {
+             downloadModule(modules[i])
+         }catch(e){throw e}
+     }
+     return true
+  }
+  async function resolveModules(modules)
  {
-     let cwd = path.dirname(module);
-     let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Components/${path.basename(module)}"\n`;
-
-     spawnSync('cmd',undefined,{cwd:cwd,input:input})
-     return module
- }
+     for (let i = 0; i < modules.length; i++)
+     {
+         try
+         {
+             resolveModule(modules[i])
+         } catch(e) { throw e}
+     };
+     return true
+  }
+  async function downloadModule(module)
+  {
+      let cwd = path.dirname(module);
+      let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Modules/${path.basename(module)}"\n`;
+      try
+      {
+         spawnSync('cmd',undefined,{cwd:cwd,input:input})
+         return module
+      }catch(e){throw e}
+  }
+  function hubException(exception){alert(exception)}

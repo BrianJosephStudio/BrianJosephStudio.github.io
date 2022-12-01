@@ -21,27 +21,38 @@ async function buildUI()
         headElement.appendChild(base_style)
         headElement.appendChild(wp_style)
     //CREATE HTML BODY
-    let bodyContent = readFileSync(dir.editorHub.component.htmlBody,{encoding:'utf-8'});
+    let bodyContent = readFileSync(dir.editorHub.module.htmlBody,{encoding:'utf-8'});
     let body = document.getElementById('editorHub');
     body.innerHTML = bodyContent;
 }
 function change_wpTab(event)
 {
+    //Reset all classes to inactive
     var wp_tabs = document.getElementsByClassName("wp_tab")
     for(var i = 0; i < wp_tabs.length; i++)
     {
-        wp_tabs[i].firstElementChild.className = wp_tabs[i].firstElementChild.className.replace("_active","")
-    }
+        wp_tabs[i].getElementsByTagName('div')[1].className = wp_tabs[i].getElementsByTagName('div')[1].className.replace("_active","")
 
-    event.currentTarget.firstElementChild.className += "_active";
+        wp_tabs[i].getElementsByTagName('div')[0].className = 'select_glow_inactive'
+    }
+    //Change style for selected button's icon
+    event.currentTarget.getElementsByTagName('div')[1].className += "_active";
+    event.currentTarget.getElementsByTagName('div')[0].className = 'select_glow_active';
+    let tabWidth = event.currentTarget.style.width;
+    let glowPos = event.currentTarget.getElementsByTagName('div')[1].getBoundingClientRect().left;
+    let selectGlow = document.getElementsByClassName('select_glow')[0];
+    selectGlow.style.left = `${glowPos - (tabWidth/2)}px`;
+
+    //Make all containers invisible
     var wp_panels = document.getElementsByClassName("wp_container");
     for (var i = 0; i < wp_panels.length; i++)
     {
         wp_panels[i].style.display = "none";
     }
-    var buttonName  = event.currentTarget.firstElementChild.className;
+    //Set the active panel visible
+    var buttonName  = event.currentTarget.getElementsByTagName('div')[1].className;
     for(var i = 0; i < wp_panels.length; i++)
-    {
+    { 
         var panelName = wp_panels[i].id;
         if(panelName.split("_")[1] == buttonName.split("_")[1])
         {
