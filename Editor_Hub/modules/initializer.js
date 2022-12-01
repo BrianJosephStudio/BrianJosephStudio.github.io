@@ -3,6 +3,7 @@
  */
  const homedir = require('os').homedir();
  const path = require('path');
+ const { writeFile } = require('fs/promises')
  const { readFileSync , writeFileSync , statSync , mkdirSync} = require('fs');
  const { spawnSync } = require('child_process');
  /*
@@ -114,19 +115,17 @@
  {
      for (let i = 0; i < modules.length; i++)
      {
-             await resolveModule(modules[i])
-             .catch(e => {throw e})
+        await resolveModule(modules[i])
+        .catch(e => {throw e})
      };
      return true
   }
   async function downloadModule(module)
   {
-      let cwd = path.dirname(module);
-      let input = `curl -s -o "${path.basename(module)}" "https://brianjosephstudio.github.io/Editor_Hub/Modules/${path.basename(module)}"\n`;
-      try
-      {
-         spawnSync('cmd',undefined,{cwd:cwd,input:input})
-         return module
-      }catch(e){throw e}
+    let  url = module.split('modules')[1]
+    return await fetch (`https://brianjosephstudio.github.io/Editor_Hub/modules${url}`)
+        .then(res => res.text())
+        .then(async mod => writeFile(module,mod))
+        .catch(e => {throw e})
   }
   function hubException(exception){alert(exception)}
