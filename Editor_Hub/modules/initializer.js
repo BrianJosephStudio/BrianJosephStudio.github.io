@@ -6,16 +6,14 @@
  const { writeFile } = require('fs/promises')
  const { readFileSync , writeFileSync , statSync , mkdirSync} = require('fs');
  const { spawnSync } = require('child_process');
+ const cs = new CSInterface();
+ 
+ window.open("", "Example Window", "width=600,height=400,menubar=no,toolbar=no,location=no");
+//  cs.openURLInDefaultBrowser('https://google.com')
  /*
      *VERSION CHECK/RESOLVE MODULES
  */
- hubInit().then(res =>
-     {
-         //var alertButton;
-         //alertButton = document.getElementById("testButton1");
-         //alertButton.addEventListener(placeTemplate)
-     })
-     .catch(e => hubException(e))
+ hubInit()
  
  
  async function hubInit()
@@ -50,6 +48,9 @@
       */
         global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
         global.ui = require(dir.editorHub.module.ui)
+        global.trackList = require(dir.editorHub.module.audioTools.trackList);
+        global.hubException = function(exception){alert(`Error:\n\n${exception}`,'Editor Hub')};
+        cs.evalScript(`$.evalFile/${global.dir.editorHub.module.JSON}`)
      /**
       * BUILD UI
       */
@@ -128,4 +129,3 @@
         .then(async mod => writeFile(module,mod))
         .catch(e => {throw e})
   }
-  function hubException(exception){alert(exception)}

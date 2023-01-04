@@ -1,53 +1,78 @@
 
 <header>
-    <img src="https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/headerLogo.png" alt="The image could not be loaded"></img>
+    <div>
+        <img src="https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/headerLogo.png" alt="The image could not be loaded"></img>
+    </div>
+    <div style="margin-left: auto;">
+        <h3>v-1.0.0</h3>
+    </div>
 </header>
 <!--Workspace Tab Bar-->
-<div class="tabPanel">
+<div class="app">
+    <div class="tabPanel">
+        <!-- Worskpace Tabs -->
+        <button class="wp_tab" onClick="ui.change_wpTab(event)">
+            <div class="select_glow select_glow_active"></div>
+            <div title="Audio Tools" class = "tab audioTools audioTools_active"></div>
+        </button>
+
+        <button class="wp_tab" onClick="ui.change_wpTab(event)">
+            <div class="select_glow"></div>
+            <div class="tab info" title="Info"></div>
+        </button>
+
+        <div id="selectGlow" class="select_glow"></div>
+        <div id="separator"></div>
+    </div>
     
-    <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "select_glow_active"></div>
-        <div title="Project Utilities" class = "wp_projectUtil_tab_active"></div>
-    </button>
-
-    <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "select_glow_inactive"></div>
-        <div title="Editing Tools" class = "wp_editingTools_tab"></div>
-    </button>
-
-    <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "select_glow_inactive"></div>
-        <div title="Templates" class = "wp_titles_tab"></div>
-    </button>
-
-    <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "select_glow_inactive"></div>
-        <div title="Map Overviews" class = "wp_mapOverviews_tab"></div>
-    </button>
-
-    <button class="wp_tab" onClick="ui.change_wpTab(event)">
-        <div class = "select_glow_inactive"></div>
-        <div title="Agent Templates" class = "wp_agentTemplates_tab"></div>
-    </button>
-    <div id="selectGlow" class="select_glow"></div>
-    <div id="separator"></div>
-</div>
-
     <!--Workspace Panels-->
-<div id="wp_projectUtil" class="wp_container">
-    <button id="testButton1">Place</button>
+    
+    <div id="wp_audioTools" class="wp_container">
+        <!-- Audio Tools Tab Panel -->
+        <div class="innerTabsBody">
+            <div class="audioToolTabs">
+                <div id="songManagerTab" title="Song Manager" class="audioToolTab audioToolTab_active"></div>
+            </div>
+            <!---->
+            <!-- Audio Tool Containers -->
+            <div id="songManagerContainer" class="audioToolContainer">
+                <audio id="audioPlayer" class="audioPlayer" controls></audio>
+                <div style="display: flex;height:inherit;width:inherit">
+                    <div id="trackListDiv" class="trackListDiv" onclick="global.deselectAll(event,'trackListItem')"></div>
+                    <div style="display: flex; flex-direction: column; margin-left: 10px;">
+                        <!-- <button class="button">Place</button> -->
+                        <button class="button" onclick="global.trackList.previewTrack()">Preview</button>
+                        <button class="button" onclick="global.trackList.importTrack()">Import</button>
+                        <h2 id="statusAlert" class="statusAlert"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="wp_info" class="wp_container">
+        <div class="patchNotes">
+            <h1>Patch <span style="color: #2772CC">Notes</span> 1.0.0</h1>
+            <div class="changeTitle">
+                <h2><span style="color: #2772CC">New</span> - Editor Hub.</h2>
+            </div>
+            <p>The editor hub is a tool developed to help Skill Capped piecers and editors automate repetitive and technically tedious tasks.</p>
+            <div class="changeTitle">
+                <h2><span style="color: #2772CC">New</span> - Audio Tools Workspace</h2>
+            </div>
+            <p>The Audio Tools workspace is meant to host a variety of audio related tools.</p>
+            <div class="changeTitle">
+                <h2><span style="color: #2772CC">New</span> - Song manager</h2>
+            </div>
+            <p>The song Manager allows you to preview and download tracks without having to import them into the project.</p>
+        </div>
+    </div>
+<!-- 
+    <div id="wp_agentTemplates" class="wp_container">
+        <iframe width="336" height="189" src="https://www.youtube.com/embed/vRBHV0GbgH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div> 
+-->
+
+    <!-- <div id="separator"></div> -->
+    <!--    <h3>v1.0.0</h3> -->
 </div>
-<div id="wp_editingTools" class="wp_container">
-    <button id="testButton2">Summon</button>
-</div>
-<div id="wp_titles" class="wp_container">
-    <button id="testButton3">Generate</button>
-</div>
-<div id="wp_mapOverviews" class="wp_container">
-    <button id="testButton4">Import</button>
-</div>
-<div id="wp_agentTemplates" class="wp_container">
-    <button id="testButton5">Cut</button>
-</div>
-<div id="separator"></div>
-<!--    <h3>v1.0.0</h3> -->

@@ -1,0 +1,15 @@
+.patchNotes{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: hsl(0, 0%, 8%);
+    border-radius: 15px;
+    width: 80%;
+    height: inherit;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.changeTitle{
+    background-color: hsl(0, 0%, 16%);
+    padding: 4px;
+}

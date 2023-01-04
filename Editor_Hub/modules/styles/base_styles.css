@@ -1,27 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,900;0,100;1,100;1,400&display=swap');
 h1
 {
-    font-family : Univers LT Std;
-    font-weight : bold;
+    /* font-family : Univers LT Std; */
+    font-family: 'Lato', sans-serif;
     font-size : 22px;
-    color : #FFFFFF;
-    color : rgb(229.5, 229.5, 229.5);
+    font-weight: 900;
+    color : hsl(0, 0%, 90%);
 }
 h2
 {
-    font-family : Mont;
-    font-style : italic;
-    font-size : 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size : 16px;
     color : hsl(0, 0%, 90%);
+    margin: 0px;
 }
 h3
 {
-    display: inline;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
     color: rgb(168, 168, 168);
-    bottom: 0%;
-    right: 0%;
     font-size: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: thin;
+    margin: 0px;
+    padding: 0px;
+}
+p{
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    color: hsl(0, 0%, 60%);
 }
 body
 {
@@ -29,28 +37,70 @@ body
 }
 header
 {
-    margin-bottom : 10px;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    max-width: calc(90px * 5);
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    outline: none;
 }
-button
+img{
+    margin: 0px;
+    padding: 0px;
+}
+.button
 {
+    display: flex;
+    place-content: center;
     font-family : Mont;
-    font-weight : bold;
-    font-style : italic;
+    font-weight : thin;
+    font-style : regular;
     font-size : 16px;
-    color : #232323;
-    color : rgb(35, 35, 35);
-    margin : 20px;
-    display : block;
+    color : hsl(0, 0%, 50%);
+    margin : 5px 0px;
     width : 100px;
     height : 25px;
-    background : #E5E5E5;
-    background : rgb(229, 229, 229);
-    border-style : Solid;
-    border-color : #E5E5E5;
-    border-color : rgba(229, 229, 229, 1);
-    border-width : 2px;
-    border-radius : 0px;
-    -moz-border-radius : 0px;
-    -webkit-border-radius : 0px;
-    cursor: pointer
+    background : hsl(0, 0%, 10%);
+    border: none;
+    border-width: 0px;
+    border-radius : 50px;
+    cursor: pointer;
+    outline: none;
+}
+.button:hover
+{
+    color: hsl(0, 0%, 90%);
+    background: hsl(0, 0%, 20%);
+    border: none;
+    outline: none;
+}
+.button:active
+{
+    background: hsl(0, 0%, 30%);
+}
+/* width */
+::-webkit-scrollbar
+{
+    width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+    background: hsl(0, 0%, 18%);
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+    background: hsl(0, 0%, 27%);
 }
