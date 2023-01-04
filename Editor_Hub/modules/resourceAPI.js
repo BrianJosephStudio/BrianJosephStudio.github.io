@@ -3,7 +3,7 @@ const path = require('path')
 const cs = new CSInterface();
 const dropbox = require(global.dir.editorHub.module.dropboxAPI);
 const valorant = require(global.dir.editorHub.module.valAPI);
-cs.evalScript(`$.evalFile('${global.dir.editorHub.module.resourceAPIjsx}')`)
+// cs.evalScript(`$.evalFile('${global.dir.editorHub.module.resourceAPIjsx}')`)
 /** RESOURCE CLASS
  * @param {string} dropboxPath The dropbox path for the target resource file.
  * @returns A Resource Object
@@ -58,7 +58,7 @@ async function resolveResource(resource,API)
         {
             if(e.code == 'ENOENT' && API == 'valorant')
             {
-                await valorant.download(resource.uri,resource.url);
+                // await valorant.download(resource.uri,resource.url);
                 return true
             }
             else if(e.code == 'ENOENT' && API == 'dropbox')
