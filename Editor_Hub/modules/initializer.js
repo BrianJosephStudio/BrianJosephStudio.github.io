@@ -1,7 +1,6 @@
 /**
  * DEPENDENCIES
  */
-alert('holaaas')
 const homedir = require('os').homedir();
 const path = require('path');
 const { writeFile, mkdir } = require('fs/promises')
