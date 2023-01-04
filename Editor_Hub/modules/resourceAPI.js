@@ -1,4 +1,5 @@
-const { readFile } = require('fs/promises');
+const { readFile, mkdir } = require('fs/promises');
+const path = require('path')
 const cs = new CSInterface();
 const dropbox = require(global.dir.editorHub.module.dropboxAPI);
 const valorant = require(global.dir.editorHub.module.valAPI);
@@ -62,6 +63,7 @@ async function resolveResource(resource,API)
             }
             else if(e.code == 'ENOENT' && API == 'dropbox')
             {
+                await mkdir(path.dirname(resource.uri),{recursive: true})
                 await dropbox.download(resource.uri,resource.dropboxPath)
                 cs.evalScript(`setDescription(File('${resource.uri}'),'${resource.description}')`)
                 return true
