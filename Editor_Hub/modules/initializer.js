@@ -26,6 +26,7 @@ async function hubInit()
         `${editorHub}/modules/dir.js`,
         `${editorHub}/modules/UI.js`,
         `${editorHub}/modules/JSON.js`,
+        `${editorHub}/modules/dropboxAPI.js`,
         `${editorHub}/modules/resourceAPI.js`,
         `${editorHub}/modules/resourceAPI.jsx`,
         `${editorHub}/modules/wp_audioTools/trackList.js`,

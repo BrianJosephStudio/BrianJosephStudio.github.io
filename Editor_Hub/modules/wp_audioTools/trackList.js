@@ -1,8 +1,5 @@
 const dropbox = require(global.dir.editorHub.module.dropboxAPI);
 const resourceAPI = require(global.dir.editorHub.module.resourceAPI);
-const ui = require(dir.editorHub.module.ui);
-const cs = new CSInterface()
-
 async function populateTrackList()
 {
     return await dropbox.AccessToken()
