@@ -28,8 +28,15 @@
          `${editorHub}/modules/editorHub_body.html`,
          `${editorHub}/modules/dir.js`,
          `${editorHub}/modules/UI.js`,
+         `${editorHub}/modules/JSON.js`,
+         `${editorHub}/modules/resourceAPI.js`,
+         `${editorHub}/modules/resourceAPI.jsx`,
+         `${editorHub}/modules/wp_audioTools/trackList.js`,
          `${editorHub}/modules/styles/base_styles.css`,
-         `${editorHub}/modules/styles/wp_styles.css`
+         `${editorHub}/modules/styles/wp_styles.css`,
+         `${editorHub}/modules/wp_audioTools/audioTools_styles.css`,
+         `${editorHub}/modules/wp_patchNotes/patchNotes_styles.css`,
+
      ];
      /**
       * RESOLVE MODULES / UPDATE
@@ -126,6 +133,6 @@
     let  url = module.split('modules')[1]
     return await fetch (`https://brianjosephstudio.github.io/Editor_Hub/modules${url}`)
         .then(res => res.text())
-        .then(async mod => writeFile(module,mod))
+        .then(async mod => await writeFile(module,mod))
         .catch(e => {throw e})
   }
