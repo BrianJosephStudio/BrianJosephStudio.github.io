@@ -8,8 +8,6 @@
  const { spawnSync } = require('child_process');
  const cs = new CSInterface();
  
- window.open("", "Example Window", "width=600,height=400,menubar=no,toolbar=no,location=no");
-//  cs.openURLInDefaultBrowser('https://google.com')
  /*
      *VERSION CHECK/RESOLVE MODULES
  */
