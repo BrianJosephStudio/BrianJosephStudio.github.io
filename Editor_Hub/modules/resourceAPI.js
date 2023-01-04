@@ -2,7 +2,7 @@ const { readFile, mkdir } = require('fs/promises');
 const path = require('path')
 const cs = new CSInterface();
 const dropbox = require(global.dir.editorHub.module.dropboxAPI);
-const valorant = require(global.dir.editorHub.module.valAPI);
+// const valorant = require(global.dir.editorHub.module.valAPI);
 // cs.evalScript(`$.evalFile('${global.dir.editorHub.module.resourceAPIjsx}')`)
 /** RESOURCE CLASS
  * @param {string} dropboxPath The dropbox path for the target resource file.
