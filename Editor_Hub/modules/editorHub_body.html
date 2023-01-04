@@ -12,13 +12,13 @@
     <div class="tabPanel">
         <!-- Worskpace Tabs -->
         <button class="wp_tab" onClick="ui.change_wpTab(event)">
-            <div class="select_glow select_glow_active"></div>
-            <div title="Audio Tools" class = "tab audioTools audioTools_active"></div>
+            <div class="select_glow"></div>
+            <div title="Audio Tools" class = "tab audioTools"></div>
         </button>
 
         <button class="wp_tab" onClick="ui.change_wpTab(event)">
-            <div class="select_glow"></div>
-            <div class="tab info" title="Info"></div>
+            <div class="select_glow select_glow_active"></div>
+            <div class="tab info info_active" title="Info"></div>
         </button>
 
         <div id="selectGlow" class="select_glow"></div>
@@ -52,19 +52,24 @@
 
     <div id="wp_info" class="wp_container">
         <div class="patchNotes">
-            <h1>Patch <span style="color: #2772CC">Notes</span> 1.0.0</h1>
+            <h1>Patch <span style="color: #2772CC">Notes</span>:</h1>
+            <h1 style="font-weight: 400;">v-1.0.0</h1>
             <div class="changeTitle">
-                <h2><span style="color: #2772CC">New</span> - Editor Hub.</h2>
+                <h2><span style="font-style: italic;color: #2772CC">new</span> - Editor Hub.</h2>
             </div>
-            <p>The editor hub is a tool developed to help Skill Capped piecers and editors automate repetitive and technically tedious tasks.</p>
+            <p>The Editor Hub is a Premiere extension developed to help Skill Capped piecers and editors automate repetitive and technically tedious tasks as well as to standardize editing frameworks, workflows and asset libraries.</p>
             <div class="changeTitle">
-                <h2><span style="color: #2772CC">New</span> - Audio Tools Workspace</h2>
+                <h2><span style="font-style: italic;color: #2772CC">new</span> - Audio Tools Workspace</h2>
             </div>
-            <p>The Audio Tools workspace is meant to host a variety of audio related tools.</p>
+            <p>The Audio Tools workspace is meant to host a variety of audio related tools such as dealing with background music, SFX and even audio processing effects such as EQ, compression, etc.
+                <br>The only tool available on v-1.0.0 is the 'Song Manager'.
+            </p>
             <div class="changeTitle">
-                <h2><span style="color: #2772CC">New</span> - Song manager</h2>
+                <h2><span style="font-style: italic;color: #2772CC">new</span> - Song Manager</h2>
             </div>
-            <p>The song Manager allows you to preview and download tracks without having to import them into the project.</p>
+            <p>The song Manager allows users to preview tracks without having to import them into the project, giving them access to the official updated list of tracks.
+                <br>Once you like a track you can download it to the project in order to add it to the timeline. For more details click on the 'Song Manager' tab to the left while holding down 'alt' to open the tutorial for this tool.
+            </p>
         </div>
     </div>
 <!-- 
