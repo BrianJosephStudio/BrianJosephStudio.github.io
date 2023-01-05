@@ -20,8 +20,8 @@ async function generateToken(refreshToken)
 async function AccessToken()
 {
     await generateToken(refreshToken)
-    .then(accTk => {
-        writeFile(global.dir.editorHub.jsonFiles.accTk,accTk)
+    .then(async accTk => {
+        await writeFile(global.dir.editorHub.jsonFiles.accTk,accTk)
     })
     .catch(e => global.hubException(e))
 };
