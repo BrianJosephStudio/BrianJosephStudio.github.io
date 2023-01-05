@@ -7,7 +7,7 @@ function setDescription(FileObject,description)
         var xmpMeta = new XMPMeta(); xmpMeta.setProperty( XMPConst.NS_XMP,"Resource",description)
         xmpFile.putXMP(xmpMeta)
         xmpFile.closeFile()
-    }catch(e){alert(e)}
+    }catch(e){alert(e,'Editor Hub')}
 }
 
 function getDescription(item)

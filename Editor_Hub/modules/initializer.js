@@ -54,7 +54,7 @@ async function hubInit()
        global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
        global.ui = require(dir.editorHub.module.ui)
        global.trackList = require(dir.editorHub.module.audioTools.trackList);
-       global.hubException = function(exception){alert(`Error:\n\n${exception}`,'Editor Hub')};
+       global.hubException = function(exception){cs.evalScript(`alert('Error:\\n\\n${exception}','Editor Hub')`)};
        cs.evalScript(`$.evalFile/${global.dir.editorHub.module.JSON}`)
     /**
      * BUILD UI
