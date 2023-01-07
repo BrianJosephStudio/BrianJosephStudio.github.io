@@ -149,6 +149,7 @@ var UriManager =
             Fracture : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Fracture.png",
             Haven : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Haven.png",
             Icebox : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Icebox.png",
+            Lotus : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Lotus.png",
             Pearl : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Pearl.png",
             Split :"~/DOCUMENTS/Animator%20Hub/Resources/Maps/Split.png"
         },

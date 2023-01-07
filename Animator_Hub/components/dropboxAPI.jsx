@@ -125,6 +125,7 @@ var DropBoxPath =
             Fracture : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Fracture.png",
             Haven : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Haven.png",
             Icebox : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Icebox.png",
+            Lotus : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Lotus.png",
             Pearl : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Pearl.png",
             Split :"/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Split.png"
         },

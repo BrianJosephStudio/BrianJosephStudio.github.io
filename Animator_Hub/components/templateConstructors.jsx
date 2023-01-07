@@ -643,6 +643,15 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_maps_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         },
+        Lotus:
+        {
+            saveName: "Lotus.png",
+            uri: UriManager.resources.maps.Lotus,
+            dropboxPath : DropBoxPath.resources.maps.Lotus,
+            resourceFolder: "Maps",
+            resourceFolderComment: "animHub_maps_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
        Pearl:
         {
             saveName: "Pearl.png",
