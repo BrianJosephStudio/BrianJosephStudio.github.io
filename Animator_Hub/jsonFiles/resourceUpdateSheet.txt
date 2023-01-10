@@ -4,5 +4,6 @@
     {"number": '0002', "type": "resource", "name": "Light Shield.png", "uri": UriManager.resources.armor.LightShield, "newName" : "Light Shield.png", "status" : undefined},
     {"number": '0006', "type": "icon", "name": "sortFilesButton_normal", "uri": UIImagePaths.sortFilesButton_normal, "bin": "UIBinImages.sortFilesButton_normal", "status": undefined},
     {"number": '0007', "type": "icon", "name": "sortFilesButton_pressed", "uri": UIImagePaths.sortFilesButton_pressed, "bin": "UIBinImages.sortFilesButton_pressed", "status": undefined},
-    {"number": '0008', "type": "icon", "name": "sortFilesButton_roll", "uri": UIImagePaths.sortFilesButton_roll, "bin": "UIBinImages.sortFilesButton_roll", "status": undefined}
+    {"number": '0008', "type": "icon", "name": "sortFilesButton_roll", "uri": UIImagePaths.sortFilesButton_roll, "bin": "UIBinImages.sortFilesButton_roll", "status": undefined},
+    {"number": '0009', "type": "resource", "name": "Split.png", "uri": UriManager.resources.maps.Split, "newName": "Split.png", "status" : undefined}
 ]
