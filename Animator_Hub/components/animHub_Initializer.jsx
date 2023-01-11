@@ -1,6 +1,20 @@
+function hubError(e)
+{
+    alert(e.name+'\n\n'+e.description+'\n\n'+'In file: '+e.fileName+'\n\n'+'at line: '+e.line,'Animator Hub')
+}
 /*********************************************************************************************/
 function expandComponents()
 {
+    hubComponents.JSON =
+    {
+        saveName : "JSON.js",
+        name:"JSON",
+        url:"https://brianjosephstudio.github.io/Animator_Hub/components/JSON.js",
+        uri:"~/DOCUMENTS/Animator Hub/Components/JSON.js",
+        resolveIt: function(){return searchComponent(this.url,this.uri)},
+        updateIt: function(){return searchUpdateComponent(this.url,this.uri)},
+        valid : function(){return valid(this.uri)}
+    };
     hubComponents.ui =
     {
         saveName : "animHub_UI.jsx",
@@ -138,28 +152,29 @@ function initializeHub(UIBody)
     expandComponents();
     checkVersion();
     try{
-    eval("#include '"+hubComponents.initializer.uri+"'");
-    eval("#include '"+hubComponents.urlManager.uri+"'");
-    eval("#include '"+hubComponents.globalVariables.uri+"'");
-    eval("#include '"+hubComponents.elementalFunctions.uri+"'");
-    eval("#include '"+hubComponents.templateConstructors.uri+"'");
-    eval("#include '"+hubComponents.ads.uri+"'");
-    eval("#include '"+hubComponents.generatorFunctions.uri+"'");
-    eval("#include '"+hubComponents.errorReportCodes.uri+"'");
-    eval("#include '"+hubComponents.ui.uri+"'");
-    eval("#include '"+hubComponents.patchNotes.uri+"'");
-    eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
-    eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
-    eval("#include '"+hubComponents.imagesUI.uri+"'");
-    eval("#include '"+hubComponents.dropboxAPI.uri+"'");
-    }catch(e){return primitiveAlert(6)}
-    try{updateResources();}catch(e){reportCode(8)}
+        $.evalFile('~/DOCUMENTS/Animator%20Hub/components/JSON.js');
+        eval("#include '"+hubComponents.initializer.uri+"'");
+        eval("#include '"+hubComponents.urlManager.uri+"'");
+        eval("#include '"+hubComponents.globalVariables.uri+"'");
+        eval("#include '"+hubComponents.elementalFunctions.uri+"'");
+        eval("#include '"+hubComponents.templateConstructors.uri+"'");
+        eval("#include '"+hubComponents.ads.uri+"'");
+        eval("#include '"+hubComponents.generatorFunctions.uri+"'");
+        eval("#include '"+hubComponents.errorReportCodes.uri+"'");
+        eval("#include '"+hubComponents.ui.uri+"'");
+        eval("#include '"+hubComponents.patchNotes.uri+"'");
+        eval("#include '"+hubComponents.editingToolsFunctions.uri+"'");
+        eval("#include '"+hubComponents.editingToolsGenerators.uri+"'");
+        eval("#include '"+hubComponents.imagesUI.uri+"'");
+        eval("#include '"+hubComponents.dropboxAPI.uri+"'");
+    }catch(e){return hubError(e)}
+    try{updateResources();}catch(e){hubError(e)}
     myScript(UIBody)
-    
 };
 /*********************************************************************************************/
 function resolveComponents()
 {
+        hubComponents.JSON.resolveIt();
         hubComponents.urlManager.resolveIt();
         hubComponents.ui.resolveIt();
         hubComponents.globalVariables.resolveIt();
@@ -196,6 +211,7 @@ function checkVersion()
 };
 function updateComponents()
 {
+    hubComponents.JSON.updateIt();
     hubComponents.initializer.updateIt();
     hubComponents.urlManager.updateIt();
     hubComponents.ui.updateIt();
@@ -210,7 +226,6 @@ function updateComponents()
     hubComponents.editingToolsGenerators.updateIt();
     hubComponents.imagesUI.updateIt();
     hubComponents.dropboxAPI.updateIt();
-
 }
 function writeCurrentVersion()
 {

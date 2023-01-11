@@ -18,7 +18,7 @@ function stringifyJson(object)
     var properties = [];
     for(var prop in object)
     {
-        var string = '"'+prop+'":'+object[prop]
+        var string = '"'+prop+'":"'+object[prop]+'"'
         properties.push(string)
     }
     var output = "{" + properties.join() + "}";
@@ -1116,15 +1116,23 @@ function updateResources()
     var localData = new Folder('~/APPDATA/local/Animator%20Hub'); if(localData.exists == false) {localData.create()}
     //check Update Log
     var updateLogFile = File(UriManager.jsonFile.resourceUpdate);
+    // if not exist then create
     if(updateLogFile.exists == false){updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
-    updateLogFile.open('r'); 
-    var logArray = "["+updateLogFile.read()+"]"
-    var updateLog = eval(logArray)
+    
+    updateLogFile.open('r');
+    /* Get Log,  */
+    var updateLog = JSON.parse(updateLogFile.read())// collection of past resource updates as a json array object.
     updateLogFile.close()
+    
+    
     //If too long then erase and start clean.
     if(updateLog.length >= 100){updateLogFile.remove();return updateResources()}
-    //Check Update Sheet 
+    
+    
+    //Get Update Sheet from database
     var updateSheet = eval(system.callSystem('curl -s "'+UrlManager.jsonFile.resourceUpdate+'"'));
+    
+    
     //Create "Due Updates" array.
     var dueUpdates = [];
     if(updateSheet.length == 0){return}
@@ -1153,8 +1161,8 @@ function updateResources()
     // execute the updating and log action
     for (var i = 0; i < dueUpdates.length; i++)
     {
-        updateLogFile.open("a")
-        var path = File(dueUpdates[i].uri);
+        updateLogFile.open("e")
+        var path = File(eval(dueUpdates[i].uri));
         if (path.exists == true)
         {
             path.remove()
@@ -1166,7 +1174,7 @@ function updateResources()
             }
             else if(dueUpdates[i].type == "icon")
             {
-                var image = File(dueUpdates[i].uri);
+                var image = File(eval(dueUpdates[i].uri));
                 var binData = eval(dueUpdates[i].bin);
                 image.open('w');
                 image.encoding = 'BINARY';
@@ -1176,21 +1184,19 @@ function updateResources()
             if(download == null && dueUpdates[i].type == "resource")
             {
                 dueUpdates[i].status = "Failed";
-                if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
-                else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))}
             }
             else
             {
                 dueUpdates[i].status = "Updated";
-                if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
-                else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))};
             }
+            updateLog.push(dueUpdates[i]);
+            updateLogFile.write(JSON.stringify(updateLog))
         }
         else
         {
             dueUpdates[i].status = "Not Applied";
-            if(updateLog.length==0){updateLogFile.write(stringifyJson(dueUpdates[i]))}
-            else{updateLogFile.write(",\n"+stringifyJson(dueUpdates[i]))};
+            updateLog.push(dueUpdates[i]);
+            updateLogFile.write(JSON.stringify(updateLog))
         }
         updateLogFile.close()
     };

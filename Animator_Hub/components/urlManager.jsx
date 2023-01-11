@@ -36,9 +36,8 @@ var UrlManager =
         versionCheck : "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/versionCheck.txt",
         agentStats : "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/agentStats.json",
         SC_Data : "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/SC_Data.json",
-        resourceUpdate: "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/resourceUpdateSheet.txt",
+        resourceUpdate: "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/resourceUpdateSheet.json",
         accessToken : "https://brianjosephstudio.github.io/Animator_Hub/jsonFiles/accTk.txt"
-
     },
     tutorial : 
     {
@@ -50,6 +49,7 @@ var UriManager =
 {
     component :
     {
+        JSON : '~/DOCUMENTS/Animator%20Hub/components/JSON.js',
         animHub : '~/DOCUMENTS/Animator%20Hub/SC_Animator_Hub.jsx',
         Initializer : '~/DOCUMENTS/Animator%20Hub/Components/animHub_Initializer.jsx',
         globalVariables : '~/DOCUMENTS/Animator%20Hub/components/globalVariables.jsx',
@@ -84,7 +84,7 @@ var UriManager =
     {
         agentStats : "~/DOCUMENTS/Animator%20Hub/json%20Files/agentStats.json",
         SC_Data : "~/DOCUMENTS/Animator%20Hub/json%20Files/SC_Data.json",
-        resourceUpdate : "~/APPDATA/local/Animator%20Hub/resourceUpdateLog.txt",
+        resourceUpdate : "~/APPDATA/local/Animator%20Hub/resourceUpdateLog.json",
         accessToken : "~/DOCUMENTS/Animator%20Hub/json%20Files/accTk.txt"
     },
     resources :
