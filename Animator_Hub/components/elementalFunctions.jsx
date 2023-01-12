@@ -1,29 +1,4 @@
 //// ELEMENTAL FUNCTIONS ////
-function parseJson(jsonString)
-{
-    var body = jsonString.slice(1,-1);
-    var inputComponents = body.split(",");
-    var output = {};
-    for(var i = 0; i < inputComponents.length; i++)
-    {
-        var inputComponent = inputComponents[i].split(":");
-        var key = eval(inputComponent[0]);
-        var value = inputComponent[1];
-        output[key] = value;
-    };
-    return output
-}
-function stringifyJson(object)
-{
-    var properties = [];
-    for(var prop in object)
-    {
-        var string = '"'+prop+'":"'+object[prop]+'"'
-        properties.push(string)
-    }
-    var output = "{" + properties.join() + "}";
-    return String(output)
-};
 //Agent Stats JSON ______________________________________________________________________________________________________________
 function agentData()
 {
@@ -1120,6 +1095,8 @@ function updateResources()
     if(updateLogFile.exists == false){updateLogFile.open('w');updateLogFile.write();updateLogFile.close()};
     
     updateLogFile.open('r');
+    //I added the below line so I don't have to ask editors to erase this file from their computers.
+    if(updateLogFile.read() == ''){updateLogFile.write('[]')}
     /* Get Log,  */
     var updateLog = JSON.parse(updateLogFile.read())// collection of past resource updates as a json array object.
     updateLogFile.close()
