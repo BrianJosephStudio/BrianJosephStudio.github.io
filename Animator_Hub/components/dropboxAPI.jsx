@@ -7,7 +7,7 @@ function AccessToken()
         var request = system.callSystem(command);
         var response = JSON.parse(request);
         accTk.open('w');
-        accTk.write(response.access_token.slice(2,-1));
+        accTk.write(response.access_token);
         accTk.close()
         return response.access_token;
     };

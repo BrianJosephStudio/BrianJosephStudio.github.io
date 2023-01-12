@@ -738,7 +738,7 @@ function downloadAndImport(saveName,dropboxPath,uri,templateTag)
         if (file!=false)
         {
             var myImport = importFileToProject(file);
-            if (myImport!=false)
+            if (myImport!=false && myImport != null)
             {
                 //eraseFileFromSystem(saveName);
                 myImport.comment = 'animHub_templateRoot_'+templateTag;
