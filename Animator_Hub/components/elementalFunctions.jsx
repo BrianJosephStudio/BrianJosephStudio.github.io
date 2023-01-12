@@ -753,18 +753,20 @@ function downloadAndImport(saveName,dropboxPath,uri,templateTag)
         }
         else 
         {
-            var myBackupFile = new File(uri);
-            if(myBackupFile.exists==true)
-            {
-                importFileToProject(myBackupFile);
-            }
-            else
-            {
-                return false
-            };
+            return false
         };
     }
-    else {return false};
+    else {
+        var myBackupFile = new File(uri);
+        if(myBackupFile.exists==true)
+        {
+            importFileToProject(myBackupFile);
+        }
+        else
+        {
+            return false
+        };
+    };
 };
 //Downloads a resource file into its specified URI
 function downloadResource(saveName,dropboxPath,uri)
