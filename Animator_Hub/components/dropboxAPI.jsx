@@ -28,7 +28,7 @@ function AccessToken()
         var command = 'curl -s -X POST https://api.dropboxapi.com/2/check/user --header "Authorization: Bearer '+accessToken+'" --header "Content-Type: application/json" --data "{\\"query\\":\\"valid\\"}"'    
         var request = system.callSystem(command);
         //We turn request response iinto a json object
-        var response = parseJson(request);
+        var response = JSON.parse(request);
         //Access token is valid and we can return it for use 
         if(response.result == valid) { return accessToken}
         else {return generateToken(accTk)}
