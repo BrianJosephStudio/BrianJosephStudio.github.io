@@ -6,7 +6,8 @@ function generateTemplate(templateName,commentTag,templateTag,saveName,dropboxPa
         var myTemplate = findTemplate(commentTag);
         if (myTemplate==false)
         {
-            downloadAndImport(saveName,dropboxPath,uri,templateTag);
+            var download = downloadAndImport(saveName,dropboxPath,uri,templateTag);
+            if(download == false){return errorCode(20)};
             if (hasMissingFiles==true){fixMissing(compArray)};
             return generateTemplate(templateName,commentTag,templateTag,saveName,dropboxPath,uri,importToComp,hasMissingFiles,collapse,compArray)
         };

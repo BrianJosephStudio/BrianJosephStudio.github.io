@@ -44,7 +44,9 @@ function errorCode(errorCodeId)
 
         "There's an error in Function 'blurBackground()'.",//18
 
-        "Animator Hub: There's and error in function generateMap."//19
+        "There's and error in function generateMap.",//19
+
+        "Your template couldn't be downloaded. Talk to Brian."//20
     ];
     var myAppTag = 'Animator Hub';
     return alert(errorList[errorCodeId],myAppTag);
