@@ -5,7 +5,7 @@ function AccessToken()
     {
         var command = "curl -s https://api.dropbox.com/oauth2/token -d grant_type=refresh_token -d refresh_token="+refreshToken+" -u ezvsqb5qklsy5h5:j5e4s5njjdpb8hl";
         var request = system.callSystem(command);
-        var response = parseJson(request);
+        var response = JSON.parse(request);
         accTk.open('w');
         accTk.write(response.access_token.slice(2,-1));
         accTk.close()
