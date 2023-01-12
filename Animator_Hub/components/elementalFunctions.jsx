@@ -1096,7 +1096,9 @@ function updateResources()
     
     updateLogFile.open('r');
     //I added the below line so I don't have to ask editors to erase this file from their computers.
-    if(updateLogFile.read() == ''){updateLogFile.write('[]')}
+    if(updateLogFile.read().length == 0){updateLogFile.write('[]')}
+    updateLogFile.seek(0)
+
     /* Get Log,  */
     var updateLog = JSON.parse(updateLogFile.read())// collection of past resource updates as a json array object.
     updateLogFile.close()
