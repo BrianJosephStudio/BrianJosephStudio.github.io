@@ -1,4 +1,4 @@
-const { readFile, writeFile, mkdir } = require('fs/promises')
+const { readFile, writeFile, mkdir, rm } = require('fs/promises')
 const TrackList = require(global.dir.editorHub.module.audioTools.trackList)
 const dropbox = require(global.dir.editorHub.module.dropboxAPI)
 const cs = new CSInterface();
@@ -50,14 +50,17 @@ async function addLog(updateLogs,newEntry,status){
 }
 async function updateResource(updateEntry){
     const uri = eval(updateEntry.uri);
+    const newUri = eval(updateEntry.newUri)
     const dropboxPath = eval(updateEntry.dropboxPath)
+    
     return await readFile(uri)
+    .then(async () => await rm(uri))
     .then(async () => {
-        await dropbox.download(uri,dropboxPath)
+        await dropbox.download(newUri,dropboxPath)
     })
     .then(() => {return true})
     .catch( e => {
-        if(e.code == 'NOENT'){
+        if(e.code == 'ENOENT'){
             return false
         }
         global.hubException(e)
