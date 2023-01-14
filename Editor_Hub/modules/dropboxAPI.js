@@ -50,6 +50,26 @@ async function download(uri,dropboxPath)
         }
     )
 }
+/* Returns a readable stream */
+async function streamAudio(dropboxPath){
+    return await readFile(global.dir.editorHub.jsonFiles.accTk,{encoding:'utf-8'})
+    .then(async accTk => 
+        {
+            accTk = JSON.parse(accTk).access_token
+            return await fetch('https://content.dropboxapi.com/2/files/download',
+                {
+                    method: 'post',
+                    headers: {
+                        Authorization: `Bearer ${accTk}`,
+                        "Dropbox-API-Arg" : `{"path":"${dropboxPath}"}`
+                    },
+                }
+            )
+            .then(res => {return res.body})
+            .catch(e => global.hubException(e))
+        }
+    )
+}
 /**
  * 
  * @param {*} dropboxPath The dropbox path for the target folder 
@@ -90,6 +110,11 @@ async function getFiles(dropboxPath)
                     {
                         pathArray.push(json.entries[i].path_display)
                     }
+                    pathArray.sort((a, b) => {
+                        const fileNameA = a.split('/').pop();
+                        const fileNameB = b.split('/').pop();
+                        return fileNameA.localeCompare(fileNameB);
+                      })
                     return pathArray
                 })
             .catch(e => global.hubException(e))
@@ -106,7 +131,9 @@ const dropboxPath =
             modules : 
             {
                 root : `/BrianJosephStudio.github.io/Editor_Hub/modules`,
-                wp_audioTools : `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_audioTools`
+                wp_audioTools : `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_audioTools`,
+                wp_footageManager : `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_footageManager`,
+                wp_patchNotes : `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_footageManager`
             },
             jsonFiles : `/BrianJosephStudio.github.io/Editor_Hub/jsonFiles`,
             templates : `/BrianJosephStudio.github.io/Editor_Hub/templates`,
@@ -123,5 +150,5 @@ const dropboxPath =
         }
     }
 }
-module.exports = {AccessToken,download,getFiles,dropboxPath}
+module.exports = {AccessToken,download,getFiles,streamAudio,dropboxPath}
 // console.log(y.length);

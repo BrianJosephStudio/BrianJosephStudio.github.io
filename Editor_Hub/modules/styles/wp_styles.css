@@ -79,6 +79,19 @@
     box-shadow: 0px -3px 12px 0px white;
     transition: 0.6s;
 }
+/*    Footage Manager  */
+.footageManager{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_audioTools_inactive.svg");
+}
+.footageManager:hover{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_audioTools_roll.svg");
+}
+.footageManager_active{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_audioTools_active.svg");
+}
+.footageManager_active:hover{
+    background-image: url("https://BrianJosephStudio.github.io/Editor_Hub/Resources/ui/wp_audioTools_active.svg");
+}
 
 /*    Audio Tools  */
 .audioTools{

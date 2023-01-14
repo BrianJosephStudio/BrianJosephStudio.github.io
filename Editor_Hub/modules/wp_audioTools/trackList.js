@@ -3,18 +3,18 @@ const resourceAPI = require(global.dir.editorHub.module.resourceAPI);
 async function populateTrackList()
 {
     return await dropbox.AccessToken()
-    .then(async () => 
+    .then(async () =>
         {
             return await dropbox.getFiles(dropbox.dropboxPath.editorHub.folder.resources.music)
         })
-    .then(async trackList => 
+    .then(async trackList =>
         {
             let elementArray = [];
             for(var trackPath of trackList)
             {
                 let res = await new resourceAPI.Resource(trackPath);
                 let elem = document.createElement('div');
-                elem.addEventListener('keydown',(event) => 
+                elem.addEventListener('keydown',(event) =>
                 {
                     if(event.code == 'Space')
                     {
@@ -45,6 +45,7 @@ async function selectedtrack()
 }
 async function importTrack()
 {
+    let audioPlayer = document.getElementById('audioPlayer');
     let status = document.getElementById('statusAlert')
     status.textContent = 'Waiting...'
     let opacityLoop = setInterval(() => {
@@ -54,7 +55,7 @@ async function importTrack()
     },750)
     let activeItem = await selectedtrack()
     let resource = new resourceAPI.Resource(activeItem);
-    await resourceAPI.importResource(resource,'dropbox')
+    await resourceAPI.importResource(resource,'dropbox').then(() => {if(audioPlayer.paused == false){audioPlayer.pause()}})
     clearInterval(opacityLoop)
     status.style.opacity = 0
     clearInterval(playInterval)
@@ -71,23 +72,30 @@ async function previewTrack()
         if(status.style.opacity == 0){val = 1}
         status.style.opacity = val;
     },750)
+    
 
     await resourceAPI.resolveResource(resource,'dropbox')
     .then(res => {
         let inter = 0;
         let playInterval = setInterval(() => {
-            audioPlayer.src = resource.uri
-            audioPlayer.play()
-            inter++
-            if(audioPlayer.paused == false || inter == 16)
-            {
-                clearInterval(opacityLoop)
-                status.style.opacity = 0
-                clearInterval(playInterval)
-            }
+        audioPlayer.src = resource.uri
+        audioPlayer.play()
+        inter++
+        if(audioPlayer.paused == false || inter == 16)
+        {
+            clearInterval(opacityLoop)
+            status.style.opacity = 0
+            clearInterval(playInterval)
+        }
         },500)
     })
-
-// audioPlayer.reload()
 }
-module.exports = {populateTrackList,importTrack,previewTrack};
+async function getTrackList(){
+    let output = []
+    let elemCollection = document.getElementById("trackListDiv").children;
+    for(elem in elemCollection){
+        alert(elem.id)
+        output.push(elem.id)
+    }
+}
+module.exports = {populateTrackList,importTrack,previewTrack,getTrackList};

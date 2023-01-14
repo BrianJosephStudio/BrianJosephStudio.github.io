@@ -27,6 +27,11 @@ async function buildUI()
         patchNotes_style.setAttribute('id', 'patchNotes_style')
         patchNotes_style.setAttribute('rel','stylesheet')
         patchNotes_style.setAttribute('href',dir.editorHub.style.patchNotes_style)
+        /* Import footageManager Styles */
+        let footageManager_style = document.createElement('link')
+        footageManager_style.setAttribute('id', 'footageManager_style')
+        footageManager_style.setAttribute('rel','stylesheet')
+        footageManager_style.setAttribute('href',dir.editorHub.style.footageManager_style)
         //Append head elements to head
         let headElement = document.getElementsByTagName('head')[0];
         headElement.appendChild(charset)
@@ -34,6 +39,7 @@ async function buildUI()
         headElement.appendChild(wp_style)
         headElement.appendChild(audioTools_style)
         headElement.appendChild(patchNotes_style)
+        headElement.appendChild(footageManager_style)
     //CREATE HTML BODY
     let bodyContent = readFileSync(dir.editorHub.module.htmlBody,{encoding:'utf-8'});
     let body = document.getElementById('editorHub');
@@ -90,7 +96,14 @@ async function createTrackList()
         })
     .catch(e => global.hubException(e))
 }
-
+function handleClick(event,tutorial,callback){
+    if (event.getModifierState('Alt')){
+        cep.util.openURLInDefaultBrowser(tutorial)
+    }
+    else{
+        callback()
+    }
+}
 function itemSelection(event,multiSelect,active,inactive)
 {
     document.getSelection().removeAllRanges();
@@ -147,4 +160,4 @@ function deselectAll(event,inactive)
             item.className = inactive
         };
 }
-module.exports = {buildUI,change_wpTab,itemSelection,deselectAll}
+module.exports = {buildUI,change_wpTab,itemSelection,deselectAll,handleClick}

@@ -11,6 +11,11 @@
 <div class="app">
     <div class="tabPanel">
         <!-- Worskpace Tabs -->
+        <button class="wp_tab" onClick="ui.change_wpTab(event)" style="display: none;">
+            <div class="select_glow"></div>
+            <div title="Footage" class = "tab footageManager"></div>
+        </button>
+
         <button class="wp_tab" onClick="ui.change_wpTab(event)">
             <div class="select_glow"></div>
             <div title="Audio Tools" class = "tab audioTools"></div>
@@ -26,12 +31,23 @@
     </div>
     
     <!--Workspace Panels-->
+
+    <div id="wp_footageManager" class="wp_container">
+        <!-- Media Viewer -->
+        <!-- <video class="mediaViewer">
+            
+        </video> -->
+        <div class="mediaBrowser">
+
+        </div>
+
+    </div>
     
     <div id="wp_audioTools" class="wp_container">
         <!-- Audio Tools Tab Panel -->
         <div class="innerTabsBody">
             <div class="audioToolTabs">
-                <div id="songManagerTab" title="Song Manager" class="audioToolTab audioToolTab_active"></div>
+                <div id="songManagerTab" title="Song Manager" class="audioToolTab audioToolTab_active" onclick="global.ui.handleClick(event,global.dir.tutorial.editorHub.songManager,() => null)"></div>
             </div>
             <!---->
             <!-- Audio Tool Containers -->
@@ -41,8 +57,8 @@
                     <div id="trackListDiv" class="trackListDiv" onclick="global.deselectAll(event,'trackListItem')"></div>
                     <div style="display: flex; flex-direction: column; margin-left: 10px;">
                         <!-- <button class="button">Place</button> -->
-                        <button class="button" onclick="global.trackList.previewTrack()">Preview</button>
-                        <button class="button" onclick="global.trackList.importTrack()">Import</button>
+                        <button class="button" onclick="global.ui.handleClick(event,global.dir.tutorial.editorHub.songManager,() => global.trackList.previewTrack())">Preview</button>
+                        <button class="button" onclick="global.ui.handleClick(event,global.dir.tutorial.editorHub.songManager,() => global.trackList.importTrack())">Import</button>
                         <h2 id="statusAlert" class="statusAlert"></h2>
                     </div>
                 </div>
@@ -52,7 +68,7 @@
 
     <div id="wp_info" class="wp_container">
         <div class="patchNotes">
-            <h1>Patch <span style="color: #2772CC">Notes</span>:</h1>
+            <h1>Patch <span style="color: #2772CC">Notes</span> :</h1>
             <h1 style="font-weight: 400;">v-1.0.0</h1>
             <div class="changeTitle">
                 <h2><span style="font-style: italic;color: #2772CC">new</span> - Editor Hub.</h2>

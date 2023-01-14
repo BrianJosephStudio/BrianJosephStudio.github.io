@@ -30,10 +30,12 @@ async function hubInit()
         `${editorHub}/modules/resourceAPI.js`,
         `${editorHub}/modules/resourceAPI.jsx`,
         `${editorHub}/modules/wp_audioTools/trackList.js`,
+        `${editorHub}/modules/resourceUpdates.js`,
         `${editorHub}/modules/styles/base_styles.css`,
         `${editorHub}/modules/styles/wp_styles.css`,
         `${editorHub}/modules/wp_audioTools/audioTools_styles.css`,
         `${editorHub}/modules/wp_patchNotes/patchNotes_styles.css`,
+        `${editorHub}/modules/wp_footageManager/footageManager_styles.css`,
 
     ];
     /**
@@ -51,11 +53,13 @@ async function hubInit()
     /**
      * IMPORT EDITOR HUB MODULES
      */
-       global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
-       global.ui = require(dir.editorHub.module.ui)
-       global.trackList = require(dir.editorHub.module.audioTools.trackList);
-       global.hubException = function(exception){cs.evalScript(`alert('Error:\\n\\n${exception}','Editor Hub')`)};
-       cs.evalScript(`$.evalFile/${global.dir.editorHub.module.JSON}`)
+        global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
+        global.ui = require(dir.editorHub.module.ui)
+        global.trackList = require(dir.editorHub.module.audioTools.trackList);
+        global.hubException = (exception) => {cs.evalScript(`alert('Error:\\n\\n${exception}','Editor Hub')`)};
+        const resourceUpdates = require(global.dir.editorHub.module.resourceUpdates)
+        cs.evalScript(`$.evalFile/${global.dir.editorHub.module.JSON}`)
+        resourceUpdates.updateResources().catch(e => global.hubException(e))
     /**
      * BUILD UI
      */

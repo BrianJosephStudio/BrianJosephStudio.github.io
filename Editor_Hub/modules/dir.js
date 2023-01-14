@@ -10,7 +10,9 @@ const editorHub =
         modules : 
         {
             root : `${homedir}/DOCUMENTS/Editor Hub/modules`,
-            wp_audioTools : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools`
+            wp_audioTools : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools`,
+            wp_footageManager : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_footageManager`,
+            wp_patchNotes : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_patchNotes`
         },
         jsonFiles : `${homedir}/DOCUMENTS/Editor Hub/jsonFiles`,
         templates : `${homedir}/DOCUMENTS/Editor Hub/templates`,
@@ -23,7 +25,8 @@ const editorHub =
             sfx : `${homedir}/DOCUMENTS/Editor Hub/resources/sfx`,
             ui : `${homedir}/DOCUMENTS/Editor Hub/resources/ui`
         },
-        styles : `${homedir}/DOCUMENTS/Editor Hub/modules/styles`
+        styles : `${homedir}/DOCUMENTS/Editor Hub/modules/styles`,
+        appData : `${homedir}/AppData/Local/Editor Hub`
     },
     module :
     {
@@ -34,6 +37,7 @@ const editorHub =
         dropboxAPI : `${homedir}/DOCUMENTS/Editor Hub/modules/dropboxAPI.js`,
         valAPI : `${homedir}/DOCUMENTS/Editor Hub/modules/valAPI.js`,
         resourceLibrary : `${homedir}/DOCUMENTS/Editor Hub/modules/resourceLibrary.js`,
+        resourceUpdates : `${homedir}/DOCUMENTS/Editor Hub/modules/resourceUpdates.js`,
         audioTools :
             {
                 trackList : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools/trackList.js`
@@ -50,9 +54,12 @@ const editorHub =
         base_style : `${homedir}/DOCUMENTS/Editor Hub/modules/styles/base_styles.css`,
         wp_style : `${homedir}/DOCUMENTS/Editor Hub/modules/styles/wp_styles.css`,
         audioTools_style : `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools/audioTools_styles.css`,
-        patchNotes_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_PatchNotes/patchNotes_styles.css`
+        patchNotes_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_PatchNotes/patchNotes_styles.css`,
+        footageManager_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_footageManager/footageManager_styles.css`
     },
-    appData : `${homedir}/AppData/Local/Editor Hub`
+    appData : {
+        updateLogs : `${homedir}/AppData/Local/Editor Hub/updateLogs.json`
+    }
 };
 /*
     *ANIMATOR HUB SYSTEM PATHS
@@ -70,4 +77,9 @@ const animHub =
     localVersion : `${homedir}/DOCUMENTS/Animator HUb/jsonFiles/localVersion.txt`,
     appData : `${homedir}/AppData/Local/Animator Hub`
 };
-module.exports = {editorHub,animHub}
+const tutorial = {
+    editorHub : {
+        songManager : 'https://youtu.be/iOiG81SkjSk'
+    }
+}
+module.exports = {editorHub,animHub,tutorial}
