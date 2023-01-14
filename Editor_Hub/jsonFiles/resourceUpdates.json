@@ -10,9 +10,9 @@
     },
     {
         "id" : 1 ,
-        "name" : "SynthWave 05.wav",
+        "name" : "Synthwave 05.wav",
         "newName" : "SynthWave 05.wav",
-        "uri" : "global.dir.editorHub.folder.resources.music + '/SynthWave 05.wav'",
+        "uri" : "global.dir.editorHub.folder.resources.music + '/Synthwave 05.wav'",
         "newUri" : "global.dir.editorHub.folder.resources.music + '/SynthWave 05.wav'",
         "dropboxPath" : "dropbox.dropboxPath.editorHub.folder.resources.music + '/SynthWave 05.wav'",
         "status" : null
