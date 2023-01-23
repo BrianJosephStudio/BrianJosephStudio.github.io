@@ -76,7 +76,13 @@ function reportCode(reportCodeId)
 
         "No background clips were found in your composition.",//9
 
-        "Could not find the Intro Screen template inside the current project."//10
+        "Could not find the Intro Screen template inside the current project.",//10
+
+        "There is no shape layer selected.",//11
+
+        "Too many layers selected, please select a shape layer.",//12
+
+        "It seems like you aren't selecting a shape layer.\nPlease make sure you're using a new shape layer and haven't altered its name after creation."//13
     ];
     myAppTag = 'Animator Hub';
     return alert(reportList[reportCodeId],myAppTag);

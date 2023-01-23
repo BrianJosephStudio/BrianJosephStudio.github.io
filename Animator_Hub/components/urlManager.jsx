@@ -42,7 +42,8 @@ var UrlManager =
     tutorial : 
     {
         resourceManager : "https://youtu.be/qMIJCPt97Tg",
-        callToAction1 : "https://youtu.be/vRBHV0GbgH4"
+        callToAction1 : "https://youtu.be/vRBHV0GbgH4",
+        textHighlight : "https://youtu.be/SmSJJO6zLTc"
     }
 };
 var UriManager = 

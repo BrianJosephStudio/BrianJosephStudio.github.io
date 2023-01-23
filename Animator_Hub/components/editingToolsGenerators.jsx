@@ -143,3 +143,131 @@ function blurIt()
     gauss2.property('Blurriness').setValue(35);
     gauss2.property(3).setValue(0);
 }
+function textHighlight(){
+    app.activeViewer.setActive()
+    var selected = app.project.activeItem.selectedLayers;
+    if(selected.length == 0){return reportCode(11)}
+    else if(selected.length > 1){return reportCode(12)}
+
+    currentTime = app.project.activeItem.time
+    
+    var maskLayer = selected[0];
+    var methods = [
+        {
+            name:'Multiply',
+            bgColor: [1,0.89,0.4],
+            adjustmentLayer : false,
+            blendingMode: 5216,
+            effects : []
+        },
+        {
+            name : 'Invert',
+            bgColor: null,
+            adjustmentLayer : true,
+            blendingMode: 5212,
+            effects : [{name: 'ADBE Invert', params : []}]
+        },
+        {
+            name : 'Hue',
+            bgColor: null,
+            adjustmentLayer : true,
+            blendingMode: 5212,
+            effects : [
+                {
+                    name:'ADBE HUE SATURATION',
+                    params : [
+                    {name : 'colorize', value : true},
+                    {name : 'Colorize Hue', value : 57},
+                    {name : 'Colorize Saturation', value : 65}
+                    ]
+                }
+            ]
+        }
+    ]
+    app.beginUndoGroup('Text Highlight')
+    if(maskLayer.name.split(' ')[0] == 'Shape'){
+        maskLayer.name = "Text Highlight"
+        maskLayer.label = 2
+        maskLayer.inPoint = currentTime
+        maskLayer.outPoint = currentTime + 5
+        
+        var opacity = maskLayer.property('Transform').property('Opacity')
+        var contents = maskLayer.property('Contents')
+    
+        var lengths = []
+        var lengthSum = 0;
+        var pointControl = addProperty(maskLayer,'ADBE Point Control')
+        var pointProp = pointControl.property('Point')
+        for(var i = contents.numProperties; i > 0; i--){
+            var points = []
+            var expression = 'content('+i+').content("Path 1").path.points()'
+            pointProp.expression = expression+'[0]'
+            points.push(pointProp.value)
+            pointProp.expression = expression+'[1]'
+            points.push(pointProp.value)
+            var length = points[1][0] - points[0][0]
+            lengths[i] = length
+            lengthSum += length
+        }
+        pointControl.remove()
+        var currentLinear = 0;  
+        var newProp = addProperty(maskLayer,'ADBE Slider Control')
+        newProp.name = 'Animation'
+        var slider = newProp.property('Slider')
+        for(var i = contents.numProperties; i > 0; i--){
+            var pathLength = lengths[i]
+            
+            var shape = contents.property(i).property('Contents')
+            var trimPaths = shape.addProperty('ADBE Vector Filter - Trim')
+            var trimEnd = trimPaths.property('End')
+            var pathPercentage = (pathLength / lengthSum) * 100
+            trimEnd.expression = "linear(effect('Animation')('Slider'),"+currentLinear+","+(currentLinear+pathPercentage)+",0,100)"
+            currentLinear += pathPercentage
+     
+        }
+        addKeyframe("1d",slider,0,currentTime,6614,6613,[0,100],[0,25])
+        addKeyframe("1d",slider,100,currentTime+1.5,6613,6614,[0,50],[0,25])
+        addKeyframe("1d",opacity,100,currentTime+4.5,6614,6613,[0,100],[0,25])
+        addKeyframe("1d",opacity,0,currentTime+5,6613,6612,[0,50],[0,25])
+
+        setMethod(maskLayer,methods[0])
+    }
+    else if(maskLayer.name.split(' : ')[0] == 'Text Highlight'){
+        currentMethod = maskLayer.name.split(' : ')[1]
+        var newMethod;
+        for(var i = 0; i< methods.length; i++){
+            if(methods[i].name == currentMethod){
+                if(i == methods.length -1 ){
+                    newMethod = methods[0]
+                    break
+                }
+                newMethod = methods[i+1]
+                break
+            }
+        }
+        setMethod(maskLayer,newMethod)
+    }else{reportCode(13)}
+    function setMethod(layerItem,newMethod){
+        removeEffects(layerItem,['Animation'])
+        if(newMethod.bgColor != null){
+            var shapes = layerItem.property('Contents')
+            for(var i = 1; i <= shapes.numProperties; i++){
+                var shapeFill = shapes.property(i).property('Contents').property('Fill 1').property('Opacity')
+                shapeFill.setValue(0)
+                var shapeStroke = shapes.property(i).property('Contents').property('Stroke 1').property('Color')
+                shapeStroke.setValue(newMethod.bgColor)
+            }
+        }
+        layerItem.adjustmentLayer = newMethod.adjustmentLayer
+        layerItem.blendingMode = newMethod.blendingMode
+        if(newMethod.effects.length != 0){
+            for(var i = 0; i< newMethod.effects.length; i++){
+                var effect = newMethod.effects[i]
+                addProperty(layerItem,effect.name,effect.params)
+            }
+        };
+        var newName = layerItem.name.split(' : ')[0] + ' : ' + newMethod.name
+        layerItem.name = newName
+    }
+    app.endUndoGroup()
+}

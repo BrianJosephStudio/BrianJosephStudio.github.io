@@ -56,9 +56,16 @@ function placeSolid(name,comment,color,width,height,pixelAspect)
     };
     return solidLayer
 };
-function addProperty(layerObject,matchName)
+function addProperty(layerObject,matchName,params)
 {
-    return layerObject.property("ADBE Effect Parade").addProperty(matchName);
+    var newProperty = layerObject.property("ADBE Effect Parade").addProperty(matchName);
+    if(params == undefined || params.length == 0){return newProperty}
+    if(params.length != 0){
+        for (var i = 0; i< params.length; i++){
+            var param = params[i]
+            newProperty.property(param.name).setValue(param.value)
+        }
+    }
 };
 function placeResource(saveName)
 {
@@ -88,11 +95,29 @@ function addKeyframe(type,propPath,value,time,inIntType,outIntType,easeIn,easeOu
             easeOut = [new KeyframeEase(easeOut[0],easeOut[1])];
             break;
         case "2d":
-            easeIn = [new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1])];
-            easeOut = [new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1])];
+            easeIn = [new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1])];
+            easeOut = [new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1])];
             break;
     }
     propPath.setTemporalEaseAtKey(newKey,easeIn,easeOut);
     propPath.setInterpolationTypeAtKey(newKey,inIntType,outIntType);
     return newKey
+}
+function removeEffects(layerItem,exceptions){
+    if(!layerItem || !exceptions){return}
+    var effects = layerItem.property('ADBE Effect Parade')
+    for(var i = 1; i <= effects.numProperties; i++){
+        var effect = effects.property(i)
+        var isException = false
+        for(var j = 0; j < exceptions.length; j++){
+            var exception = exceptions[j]
+            if(effect.name == exception){
+                isException = true
+                break
+            }
+        }
+        if(!isException){
+            effect.remove()
+        }
+    }
 }

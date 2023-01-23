@@ -104,6 +104,7 @@ function myScript(thisObj){
                             editingTools.leftGroup = editingTools.add('group'); editingTools.leftGroup.alignment = ['left','fill']; editingTools.leftGroup.orientation = 'column'
                                 editingTools.leftGroup.add('image',[0,0,65,15],UIImagePaths.generalTab)
                                 var waterMarkButton = editingTools.leftGroup.add('iconbutton',[0,0,55,55],waterMarkIcon); waterMarkButton.helpTip = "Place Watermark";
+                                var textHighlightButton = editingTools.leftGroup.add('iconbutton',[0,0,55,55],textHighlightIcon); textHighlightButton.helpTip = "Highlight Text"
 
                             editingTools.separator = editingTools.add('panel',[0,0,-1,100]); editingTools.separator.alignment = ['left','fill'];
                             editingTools.rightGroup = editingTools.add('group'); editingTools.rightGroup. alignment = ['left','top']; editingTools.rightGroup.orientation = 'column';
@@ -569,6 +570,7 @@ function myScript(thisObj){
             rootFolderButton.value
             ); app.endUndoGroup()}
         waterMarkButton.onClick = function(){placeWaterMark()}
+        textHighlightButton.onClick = function(){keyModifier(function(){textHighlight(),UrlManager.tutorial.resourceManager},UrlManager.tutorial.textHighlight)}
         importResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,false)},UrlManager.tutorial.resourceManager)};
         placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.tutorial.resourceManager)};
         ctaPanel.generateButton.onClick = function(){keyModifier(function(){generateCTA1(ctaPanel.guideNameBar.text,ctaPanel.progressBar.value)},UrlManager.tutorial.callToAction1)};
