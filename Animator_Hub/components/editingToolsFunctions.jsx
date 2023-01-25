@@ -94,10 +94,14 @@ function addKeyframe(type,propPath,value,time,inIntType,outIntType,easeIn,easeOu
             easeIn = [new KeyframeEase(easeIn[0],easeIn[1])];
             easeOut = [new KeyframeEase(easeOut[0],easeOut[1])];
             break;
-        case "2d":
-            easeIn = [new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1])];
-            easeOut = [new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1])];
-            break;
+            case "2d":
+                easeIn = [new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1])];
+                easeOut = [new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1])];
+                break;
+            case "3d":
+                easeIn = [new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1]),new KeyframeEase(easeIn[0],easeIn[1])];
+                easeOut = [new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1]),new KeyframeEase(easeOut[0],easeOut[1])];
+                break;
     }
     propPath.setTemporalEaseAtKey(newKey,easeIn,easeOut);
     propPath.setInterpolationTypeAtKey(newKey,inIntType,outIntType);

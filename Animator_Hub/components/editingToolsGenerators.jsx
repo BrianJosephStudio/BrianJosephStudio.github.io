@@ -94,10 +94,10 @@ function vodMode()
     };
     bgBorder.parent = controlNull;
     var nullScale = controlNull.property('Transform').property('Scale');
-    addKeyframe("2d",nullScale,[100,100],0,6612,6613,[0,65],[0,65]);
-    addKeyframe("2d",nullScale,[88,88],0.75,6613,6614,[0,65],[0,65]);
-    addKeyframe("2d",nullScale,[88,88],4.25,6614,6613,[0,65],[0,65]);
-    addKeyframe("2d",nullScale,[100,100],5,6613,6612,[0,65],[0,65]);
+    addKeyframe("3d",nullScale,[100,100],0,6612,6613,[0,65],[0,65]);
+    addKeyframe("3d",nullScale,[88,88],0.75,6613,6614,[0,65],[0,65]);
+    addKeyframe("3d",nullScale,[88,88],4.25,6614,6613,[0,65],[0,65]);
+    addKeyframe("3d",nullScale,[100,100],5,6613,6612,[0,65],[0,65]);
     //app.endUndoGroup()
 };
 function blurHighlight()
