@@ -174,8 +174,8 @@ function generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
             var mapComp = new ItemObject("name",newMOFolder.item(2).name);
             var mapEdit = new ItemObject("name",newMOFolder.item(1).item(2).name);
             var compBG = new ItemObject("name",newMOFolder.item(1).item(1).name);
-            mapComp.object.layer(serialNamer(mapEdit[3],undefined,true)).replaceSource(mapEdit.object,true);
-            mapComp.object.layer(serialNamer(compBG[3],undefined,true)).replaceSource(compBG.object,true);
+            mapComp.object.layer(serialNamer(mapEdit.object.name,undefined,true)).replaceSource(mapEdit.object,true);
+            mapComp.object.layer(serialNamer(compBG.object.name,undefined,true)).replaceSource(compBG.object,true);
             mapEdit.object.layer('Reference Background.').replaceSource(compBG.object,true);
         }
         else if (usedCheck==undefined)
@@ -232,7 +232,7 @@ function generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
         mapEdit.object.layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map.selection.index+1);
         app.endUndoGroup();
     }
-    catch(e){alert("Animator Hub: There's an error in function 'generateMap'.\n\nSuggested Actions:\n    -Go talk to Brian!")}
+    catch(e){hubError(e)}
 };
 function generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)
 {

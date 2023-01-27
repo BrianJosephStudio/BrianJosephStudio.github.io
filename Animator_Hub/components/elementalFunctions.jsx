@@ -19,7 +19,7 @@ function agentArray()
         for(var i = 0;i<agentData().AgentBasicData.length;i++) {agentArray[i] = agentData().AgentBasicData[i].Name};
         return agentArray
     }
-    catch(e) {return false};
+    catch(e) {hubError(e);return false};
 };
 //Map Array______________________________________________________________________________________________________________________
 function agentStats()
@@ -30,7 +30,7 @@ function agentStats()
         var agentStats = JSON.parse(agentStatsURL);
         return agentStats
     }
-    catch(e) {return false};
+    catch(e) {hubError(e);return false};
 };
 //Agents Array___________________________________________________________________________________________________________________
 function mapArray()
@@ -43,7 +43,7 @@ function mapArray()
         for (var i = 0; i<mapArrayJson.length; i++) {mapArrayJson.mapData[i] = mapArray[i].Name};
         return mapArray
     }
-    catch(e) {return false};
+    catch(e) {hubError(e);return false};
 };
 //Finding compItem | returns compItem index______________________________________________________________________________________
 function findItem(targetName,skipMissing,folderIndex)
@@ -124,7 +124,7 @@ function findItem(targetName,skipMissing,folderIndex)
     }
     catch(e)
     {
-        errorCode(5);
+        hubError(e);
     }
 };
 //returns template item Id
@@ -430,6 +430,7 @@ function missingFilesToIdArray(folderIndex,onlyUseless)
     }
     catch(e)
     {
+        hubError(e);
         return false
     }
 };
@@ -485,7 +486,7 @@ function replaceLayers(compName,indexArray)
     }
     else
     {
-        alert("AnimatoR Hub: There's an error in function 'replaceLayers'.\n\n    -One of the variables is false");
+        alert("Animator Hub: There's an error in function 'replaceLayers'.\n\n    -One of the variables is false");
         return false
     };
 };
@@ -553,7 +554,7 @@ function eraseFileFromSystem(saveName)
         if (removeFile==true) {return true}
         else {return false}
     }
-    catch(e) {return false}
+    catch(e) {hubError(e);return false}
 };
 //Find Downloaded Comp in System |Returns ExtendScript File Object(URI)__________________________________________________________
 function findFileInSystem(fileName)
@@ -581,7 +582,7 @@ function importFileToProject(fileObject)
         }
         catch(e)
         {
-            errorCode(6);
+            hubError(e);
             return false
         };
     };
@@ -689,6 +690,7 @@ function importItemToActiveComp(template)
         }
         catch(e)
         {
+            hubError(e);
             return false
         }
     }
@@ -711,6 +713,7 @@ function customEGParameters(templateName,parameterArray,valueArray)
     }
     catch(e)
     {
+        hubError(e);
         return false
     }
 };
@@ -774,7 +777,7 @@ function downloadResource(saveName,dropboxPath,uri)
     var file = new File(uri);
     var folder = new Folder(file.path);
     if(folder.exists == false){folder.create()};
-    //try{system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);}catch(e){return undefined}
+    //try{system.callSystem('cmd.exe /c cd '+folder.fsName+' && curl -s -o "'+saveName+'" '+url);}catch(e){hubError(e);return undefined}
     var accTk = File(UriManager.jsonFile.accessToken);
     accTk.open('r');
     var accessToken = accTk.read();

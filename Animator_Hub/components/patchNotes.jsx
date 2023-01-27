@@ -1,5 +1,5 @@
 var patchNotesBodyText =
-"Version 3.10.1\n\
+"Version 3.10.2\n\
 -Lotus:\
     New map Lotus was added to the Map Overviews Workspace and template.\n\
 -ResourceUpdates:\
