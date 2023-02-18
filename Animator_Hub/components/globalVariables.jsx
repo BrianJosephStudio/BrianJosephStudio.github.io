@@ -8,9 +8,10 @@ var gtrTitleArray = ['Title 1','Title 2','Title 3','Title 4','Title 5','Title 6'
 var scData = 
 {
     management:["Casey King"],
-    contentCreator:["Casey King","Teets","DrZora","Lukas Bylsma","Jitterz","xtr","Dorshii","xJake"],
-    voiceOver:["Daniel Amerman","Tristan Stone","Sean Kilgore","Casey King","Teets","DrZora","Lukas Bylsma","Jitterz","xtr","Dorshii","xJake"],
+    contentCreation:["Teets","Casey King","DrZora","Lukas Bylsma","Coast"],
+    voice:["Daniel Amerman","Tristan Stone","Sean Kilgore","Casey King","Teets"],
     artDirection:["Brian Joseph Studio"],
-    piecer:["Cecil Sales","Kester De Vera","Jez"],
-    editor:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Louise David","Brian Joseph Studio"]
+    clipping:["Strike","Teets","Casey King","Aomine","Jez"],
+    videoDirection:["Jez","Kester De Vera","Chuuya"],
+    animation:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Louise David","Brian Joseph Studio"]
 }

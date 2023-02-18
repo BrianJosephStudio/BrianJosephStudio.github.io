@@ -209,13 +209,13 @@ function myScript(thisObj){
                                                 var outroScreenMenu2 = outroScreenMenuGroup.add('group');
                                                 outroScreenMenu2.orientation = 'row';
                                                     outroScreenMenu2.add('statictext',undefined,'Content Creator');
-                                                    var outroScreenContentCreator = outroScreenMenu2.add('dropdownlist',undefined,scData.contentCreator);
-                                                    outroScreenContentCreator.selection = 0;
+                                                    var outroScreenContentCreation = outroScreenMenu2.add('dropdownlist',undefined,scData.contentCreation);
+                                                    outroScreenContentCreation.selection = 0;
                                                 var outroScreenMenu3 = outroScreenMenuGroup.add('group');
                                                 outroScreenMenu3.orientation = 'row';
                                                     outroScreenMenu3.add('statictext',undefined,'Voice-Over');
-                                                    var outroScreenVoiceOver = outroScreenMenu3.add('dropdownlist',undefined,scData.voiceOver);
-                                                    outroScreenVoiceOver.selection = 0;
+                                                    var outroScreenVoice = outroScreenMenu3.add('dropdownlist',undefined,scData.voice);
+                                                    outroScreenVoice.selection = 0;
                                                 var outroScreenMenu4 = outroScreenMenuGroup.add('group');
                                                 outroScreenMenu4.orientation = 'row';
                                                     outroScreenMenu4.add('statictext',undefined,'Art Direction');
@@ -223,14 +223,19 @@ function myScript(thisObj){
                                                     outroScreenArtDirection.selection = 0;
                                                 var outroScreenMenu5 = outroScreenMenuGroup.add('group');
                                                 outroScreenMenu5.orientation = 'row';
-                                                    outroScreenMenu5.add('statictext',undefined,'Piecer');
-                                                    var outroScreenPiecer = outroScreenMenu5.add('dropdownlist',undefined,scData.piecer);
-                                                    outroScreenPiecer.selection = 0;
+                                                    outroScreenMenu5.add('staticText',undefined,'Clipping');
+                                                    var outroScreenClipping = outroScreenMenu5.add("dropdownlist",undefined,scData.clipping)
+                                                    outroScreenClipping.selection = 0;
                                                 var outroScreenMenu6 = outroScreenMenuGroup.add('group');
                                                 outroScreenMenu6.orientation = 'row';
-                                                    outroScreenMenu6.add('statictext',undefined,'Editor');
-                                                    var outroScreenEditor = outroScreenMenu6.add('dropdownlist',undefined,scData.editor);
-                                                    outroScreenEditor.selection = 0;
+                                                    outroScreenMenu6.add('statictext',undefined,'Video Direction');
+                                                    var outroScreenVideoDirection = outroScreenMenu6.add('dropdownlist',undefined,scData.videoDirection);
+                                                    outroScreenVideoDirection.selection = 0;
+                                                var outroScreenMenu7 = outroScreenMenuGroup.add('group');
+                                                outroScreenMenu7.orientation = 'row';
+                                                    outroScreenMenu7.add('statictext',undefined,'Animation');
+                                                    var outroScreenAnimation = outroScreenMenu7.add('dropdownlist',undefined,scData.animation);
+                                                    outroScreenAnimation.selection = 0;
                                             var outroScreenButton = outroPanel.add('button',undefined,'Place');
                                             outroScreenButton.alignment = ['fill','fill'];
                                 // Content Creator Tag tab //
@@ -547,7 +552,7 @@ function myScript(thisObj){
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
         introScreenButton.onClick = function(){placeIntroScreen()}
-        outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)};
+        outroScreenButton.onClick = function(){placeOutroScreen(outroScreenManagement,outroScreenContentCreation,outroScreenVoice,outroScreenArtDirection,outroScreenClipping,outroScreenVideoDirection,outroScreenAnimation)};
         topicTitleButton.onClick = function(){generateTopicTitle(titleTextBox,styleMenu,topicID)};
         generateTopicDisplayButton.onClick = function(){generateTopicDisplay(topicID)};
         declareTitleButton.onClick = function(){declareTitle(titleTextBox,topicID)};

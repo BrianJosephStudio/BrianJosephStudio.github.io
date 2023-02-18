@@ -306,7 +306,7 @@ function placeIntroScreen()
         app.endUndoGroup();
     }catch(e){errorCode(16)}
 }
-function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroScreenVoiceOver,outroScreenArtDirection,outroScreenPiecer,outroScreenEditor)
+function placeOutroScreen(outroScreenManagement,outroScreenContentCreation,outroScreenVoice,outroScreenArtDirection,outroScreenClipping,outroScreenEditing,outroScreenAnimation)
 {
     try
     {
@@ -318,17 +318,19 @@ function placeOutroScreen(outroScreenManagement,outroScreenContentCreator,outroS
         var compArray = ['Outro Screen','Credits'];
         generateTemplate(templateName,commentTag,templateTag,saveName,DropBoxPath.template.outroScreen,UriManager.template.outroScreen,true,true,false,compArray)
         var management = new EgParameter('Management',String(outroScreenManagement.selection),'textInput',templateName,undefined,undefined);
-        var contentCreator = new EgParameter('Content Creator',String(outroScreenContentCreator.selection),'textInput',templateName,undefined,undefined);
-        var voiceOver = new EgParameter('Voice-Over',String(outroScreenVoiceOver.selection),'textInput',templateName,undefined,undefined);
+        var contentCreation = new EgParameter('Content Creation',String(outroScreenContentCreation.selection),'textInput',templateName,undefined,undefined);
+        var voice = new EgParameter('Voice-Over',String(outroScreenVoice.selection),'textInput',templateName,undefined,undefined);
         var artDirection = new EgParameter('Art Direction',String(outroScreenArtDirection.selection),'textInput',templateName,undefined,undefined);
-        var piecer = new EgParameter('Piecer',String(outroScreenPiecer.selection),'textInput',templateName,undefined,undefined);
-        var editor = new EgParameter('Editor',String(outroScreenEditor.selection),'textInput',templateName,undefined,undefined);
+        var clipping = new EgParameter('Clipping',String(outroScreenClipping.selection),'textInput',templateName,undefined,undefined);
+        var videoDirection = new EgParameter('Video Direction',String(outroScreenEditing.selection),'textInput',templateName,undefined,undefined);
+        var animation = new EgParameter('Animation',String(outroScreenAnimation.selection),'textInput',templateName,undefined,undefined);
         management.setEgValue();
-        contentCreator.setEgValue();
-        voiceOver.setEgValue();
+        contentCreation.setEgValue();
+        voice.setEgValue();
         artDirection.setEgValue();
-        piecer.setEgValue();
-        editor.setEgValue();
+        clipping.setEgValue();
+        videoDirection.setEgValue();
+        animation.setEgValue();
         app.endUndoGroup();
     }catch(e){errorCode(16)}
 };
