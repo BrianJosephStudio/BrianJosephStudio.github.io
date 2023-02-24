@@ -245,7 +245,7 @@ function myScript(thisObj){
                                     cctPanel.orientation = 'row';
                                     cctPanel.alignment = 'fill';
                                     cctPanel.alignChildren = ['fill','fill'];
-                                        var ccMenu = cctPanel.add('dropdownlist',undefined,scData.contentCreator);
+                                        var ccMenu = cctPanel.add('dropdownlist',undefined,scData.contentCreation);
                                         ccMenu.selection = 0;
                                         var generateCCTButton = cctPanel.add('button',undefined,'Place');
                                 // Call To Action Tab //
