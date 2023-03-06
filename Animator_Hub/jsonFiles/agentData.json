@@ -5,6 +5,7 @@
     {"Name":"Chamber","Trademark":150,"headhunter":100,"Rendezvous": "Free","Tour_De_Force":7},
     {"Name":"Cypher","Trapwire":200,"Cyber_Cage":100,"Spycam": "Free","Neural_Theft":6},
     {"Name":"Fade","Prowler":250,"Seize":200,"Haunt": "Free","Nightfall":7},
+    {"Name":"Harbor","Cascade":150,"Cove":350,"HighTide": "Free","Reckoning":7},
     {"Name":"Jett","Cloud_Burst":200,"Updraft":150,"TailWind": "Free","BladeStorm":7},
     {"Name":"KAY/O","FRAG/MENT":200,"FLASH/DRIVE":250,"ZERO/POINT": "Free","NULL/CMD":7},
     {"Name":"Killjoy","Nanoswarm":200,"Alarmbot":200,"Turret": "Free","Lockdown":7},
