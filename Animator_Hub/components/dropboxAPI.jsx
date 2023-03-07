@@ -73,6 +73,7 @@ var DropBoxPath =
             Chamber : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Chamber.png",
             Cypher : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Cypher.png",
             Fade : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Fade.png",
+            Gekko: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Gekko.webp",
             Harbor: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Harbor.webp",
             Jett : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Jett.png",
             KAYO : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/KAYO.png",

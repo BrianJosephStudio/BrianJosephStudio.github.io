@@ -98,6 +98,7 @@ var UriManager =
             Chamber : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Chamber.png",
             Cypher : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Cypher.png",
             Fade : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Fade.png",
+            Gekko: "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Gekko.webp",
             Harbor: "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Harbor.webp",
             Jett : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Jett.png",
             KAYO : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/KAYO.png",

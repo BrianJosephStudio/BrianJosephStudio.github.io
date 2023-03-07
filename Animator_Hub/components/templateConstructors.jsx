@@ -271,6 +271,15 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         }, 
+        Gekko:
+        {
+            saveName: "Gekko.webp",
+            uri: UriManager.resources.agents.Gekko,
+            dropboxPath : DropBoxPath.resources.agents.Gekko,
+            resourceFolder: "Agents",
+            resourceFolderComment: "animHub_agents_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        }, 
         Harbor:
         {
             saveName: "Harbor.webp",
