@@ -9,9 +9,9 @@ var scData =
 {
     management:["Casey King"],
     contentCreation:["Teets","Casey King","DrZora","Lukas Bylsma","xtr","Rem","Coach Mills"],
-    voice:["Daniel Amerman","Tristan Stone","Sean Kilgore","Casey King","Teets"],
+    voice:["Daniel Amerman","Tristan Stone","Sean Kilgore","Casey King","Teets","Coach Mills"],
     artDirection:["Brian Joseph Studio"],
-    clipping:["Strike","Teets","Casey King","Aomine","Jez"],
-    videoDirection:["Jez","Kester De Vera","Chuuya"],
-    animation:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Louise David","Brian Joseph Studio"]
+    clipping:["Strike","Teets","Casey King","Aomine","Jez","Louise"],
+    videoDirection:["Jez","Kester De Vera","Chuuya","Louise David","Kirby"],
+    animation:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Exon","Brian Joseph Studio"]
 }
