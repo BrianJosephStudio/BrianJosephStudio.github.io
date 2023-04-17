@@ -1,3 +1,4 @@
 [
-    {"number": "0009", "type": "resource", "name": "Split.png", "uri": "UriManager.resources.maps.Split", "newName": "Split.png", "status" : "undefined"}
+    {"number": "0009", "type": "resource", "name": "Split.png", "uri": "UriManager.resources.maps.Split", "newName": "Split.png", "status" : "undefined"},
+    {"number": "0010", "type": "resource", "name": "Bind.png", "uri": "UriManager.resources.maps.Bind", "newName": "Bind.png", "status" : "undefined"}
 ]

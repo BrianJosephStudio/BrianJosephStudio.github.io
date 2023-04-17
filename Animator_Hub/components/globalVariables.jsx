@@ -8,7 +8,7 @@ var gtrTitleArray = ['Title 1','Title 2','Title 3','Title 4','Title 5','Title 6'
 var scData = 
 {
     management:["Casey King"],
-    contentCreation:["Teets","Casey King","DrZora","Lukas Bylsma","Coast"],
+    contentCreation:["Teets","Casey King","DrZora","Lukas Bylsma","xtr","Rem","Coach Mills"],
     voice:["Daniel Amerman","Tristan Stone","Sean Kilgore","Casey King","Teets"],
     artDirection:["Brian Joseph Studio"],
     clipping:["Strike","Teets","Casey King","Aomine","Jez"],
