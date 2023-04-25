@@ -15,3 +15,11 @@ var scData =
     videoDirection:["Jez","Kester De Vera","Chuuya","Louise David","Kirby"],
     animation:["Yuri Cauyan","Gion Baraquiel","Jameson Gabatin","Exon","Brian Joseph Studio"]
 }
+var mapHighlightColors = {
+    white : { color : [229.5,229.5,229.5], display : [0.9,0.9,0.9,1], opacity : 20},
+    // red : { color : [1,0,0.2353,1], display : [0.9255,0.3176,0.5333,1]},
+    red : { color : [1,0,0,1], display : [1,0.2,0.4,1], opacity : 50},
+    blue : { color : [0,0.8235,1,1], display : [0.1922,0.6902,0.8902,1], opacity : 50},
+    green : { color : [0,1,0.1569,1], display : [0.3294,0.902,0.4431,1], opacity : 50},
+    golden : { color : [1,0.7333,0,1], display : [1,0.8725,0.1,1], opacity : 50}
+}

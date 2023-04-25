@@ -270,7 +270,7 @@ ResourceFile = function(itemObject)
             resourceFolder: "Agents",
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
-        }, 
+        },
         Gekko:
         {
             saveName: "Gekko.webp",
@@ -733,6 +733,15 @@ ResourceFile = function(itemObject)
             saveName: "Icebox Splashart.png",
             uri: UriManager.resources.mapSplasharts.Icebox,
             dropboxPath : DropBoxPath.resources.mapSplasharts.Icebox,
+            resourceFolder: "Map Splasharts",
+            resourceFolderComment: "animHub_mapSplasharts_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
+        Lotus:
+        {
+            saveName: "Lotus Splashart.webp",
+            uri: UriManager.resources.mapSplasharts.Lotus,
+            dropboxPath : DropBoxPath.resources.mapSplasharts.Lotus,
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}

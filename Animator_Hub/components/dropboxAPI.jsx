@@ -138,6 +138,7 @@ var DropBoxPath =
             Fracture : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Fracture Splashart.png",
             Haven : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Haven Splashart.png",
             Icebox : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Icebox Splashart.png",
+            Lotus : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Lotus Splashart.webp",
             Pearl : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Pearl Splashart.png",
             Split : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Split Splashart.png"
         },

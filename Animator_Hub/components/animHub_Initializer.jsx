@@ -268,5 +268,20 @@ function resolveUIImages()
             image.write(binData);
             image.close()
     }
-    
+    for(var i in UIImagePaths.mapThumbnails){
+        var imageActive = File(UIImagePaths.mapThumbnails[i].active);
+            if(imageActive.exists == true){continue};
+            var binData = UIBinImages.mapThumbnails[i].active;
+            imageActive.open('w');
+            imageActive.encoding = 'BINARY';
+            imageActive.write(binData);
+            imageActive.close()
+        var imageInactive = File(UIImagePaths.mapThumbnails[i].inactive);
+            if(imageInactive.exists == true){continue};
+            var binData = UIBinImages.mapThumbnails[i].inactive;
+            imageInactive.open('w');
+            imageInactive.encoding = 'BINARY';
+            imageInactive.write(binData);
+            imageInactive.close()
+    }
 }

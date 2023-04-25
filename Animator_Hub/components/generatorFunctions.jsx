@@ -198,12 +198,12 @@ function generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
         var myPath = compImport.property('Essential Properties').property('Animation');
         IOanimKeySetter(myPath,undefined,myActive.duration);
         //Set key values
-        if(isNaN(screenSpan.text)==false){var screenSpanValue = eval(screenSpan.text)}
+        if(isNaN(screenSpan)==false){var screenSpanValue = eval(screenSpan)}
         else{var screenSpanValue = 100;}
         myPath.setValueAtKey(2,screenSpanValue); myPath.setValueAtKey(3,screenSpanValue);
         while(compBG.object.numLayers>2) {compBG.object.layer(3).remove()};
         while(mapEdit.object.layer(mapEdit.object.numLayers).hasVideo==false && mapEdit.object.layer(mapEdit.object.numLayers).hasAudio==true) {mapEdit.object.layer(mapEdit.object.numLayers).remove()};
-        if(manageFootage.value==true)
+        if(manageFootage==true)
         {
             for (var i = 1; i <= myActive.numLayers; i++)
             {
@@ -229,7 +229,15 @@ function generateMap(saveName,dropboxPath,uri,Map,screenSpan,manageFootage)
         //Open Map Edit
         mapEdit.object.openInViewer();
         //Set Map
-        mapEdit.object.layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map.selection.index+1);
+        mapEdit.object.layer('Map [ND]').property('Effects').property('Map')('Menu').setValue(Map+1);
+        var mapControl = mapEdit.object.layer('Map Control');
+        if(screenSpan == 50){
+            mapControl.property('transform').property("position").setValue([750,1080])
+            mapControl.property('transform').property("scale").setValue([80,80])
+        }else if (screenSpan == 35){
+            mapControl.property('transform').property("position").setValue([275,1080])
+            mapControl.property('transform').property("scale").setValue([80,80])
+        }
         app.endUndoGroup();
     }
     catch(e){hubError(e)}

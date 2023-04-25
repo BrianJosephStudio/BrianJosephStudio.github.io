@@ -274,44 +274,100 @@ function myScript(thisObj){
 
                             // Map Overviews //**************************************************************************************/
                             var mapOverviews = hub.tabs[3] = hub.tabGroup.add ("group");
-                                mapOverviews.add ('panel {preferredSize: [-1, -10]}');
+                                // mapOverviews.add ('panel {preferredSize: [-1, -10]}');
                                 mapOverviews.orientation = "column";
                                 mapOverviews.alignChildren = ['fill','top'];
+                                var g = mapOverviews.add('group')
+                                g.orientation = 'row';
                                     //Map Overviews
-                                    var mapOvPanel1 = mapOverviews.add('panel',undefined,'Map Overviews');
-                                    mapOvPanel1.orientation = 'row';
-                                        var mapOvGroup2 = mapOvPanel1.add('group');
-                                        mapOvGroup2.orientation = 'column';
-                                        //mapOvGroup2.alignChildren = ['fill','fill'];
-                                        var mapOvScreenSpan = mapOvGroup2.add('statictext',undefined,'Map Aperture:')
-                                        mapOvScreenSpan.bounds = [0,15,90,50];
-                                        //mapOvScreenSpan.alignment = ['right','fill']
-                                        var mapOvMenu1 = mapOvGroup2.add('dropdownlist',[0,40,100,70],mapsArray);
-                                        mapOvMenu1.selection = 0;
-                                        mapOvMenu1.alignment = 'fill';
-                                        var mapOvGroup1 = mapOvPanel1.add('group');
-                                        mapOvGroup1.orientation = 'column';
-                                        mapOvGroup1.alignChildren = 'fill';
-                                            var mapOvTextbox1 = mapOvGroup1.add('edittext',[0,0,110,30],'100');
-                                            var mapOvCb1 = mapOvGroup1.add('checkbox',undefined,'Manage Footage');
-                                            mapOvCb1.value = 1;
-                                            mapOvCb1.bounds = [0,50,110,65];
-                                        var generateMapB = mapOvPanel1.add('button',undefined,'Generate Map');
-                                        generateMapB.alignment = ['right','fill'];
-                                    //Agent Icon
-                                    var agentIconPanel1 = mapOverviews.add('panel',undefined,'Agent Icon');
-                                    agentIconPanel1.orientation = 'row';
-                                    agentIconPanel1.alignment = 'fill';
-                                        var agentIconPanel1Group1 = agentIconPanel1.add('group');
-                                        agentIconPanel1Group1.orientation = 'column';
-                                            var agentIconMenu1 = agentIconPanel1Group1.add('dropdownlist',[0,0,150,30],agentIconArray);
-                                            agentIconMenu1.selection = 0;
-                                            var agentIconMenu2 = agentIconPanel1Group1.add('dropdownlist',[0,0,150,30],['Defender','Attacker']);
-                                            agentIconMenu2.selection = 0;
-                                        var agentIconCheckbox1 = agentIconPanel1.add('checkbox',undefined,'Death');
-                                        var placeAgent = agentIconPanel1.add('button',[0,0,100,60],'Place Agent');
-                                        placeAgent.alignment = ["right",'fill'];
-                                
+                                    var p1 = mapOverviews.panel1 = g.add('panel',undefined,'Map Overviews');
+                                    p1.orientation = 'row';
+                                        var g1 = mapOverviews.panel1.group1 = p1.add('group',undefined,'group1')
+                                            g1.orientation = 'column'
+                                                var mapAperture = 100;
+                                                var b1 = g1.button1 = g1.add('iconbutton',[0,0,50,30],mapApertureIcons.mapAperture100,{style : 'toolbutton',toggle : true})
+                                                b1.aperture = 100
+                                                b1.value = true
+                                                b1.helpTip = "Map Aperture"
+                                                b1.onClick = function(){mapApertureUpdate(mapOverviews.panel1.group1.button1)}
+                                                var b2 = g1.button2 = g1.add('iconbutton',[0,0,50,30],mapApertureIcons.mapAperture50,{style : 'toolbutton',toggle : true})
+                                                b2.aperture = 50
+                                                b2.helpTip = "Map Aperture"
+                                                b2.onClick = function(){mapApertureUpdate(mapOverviews.panel1.group1.button2)}
+                                                var b3 = g1.button3 = g1.add('iconbutton',[0,0,50,30],mapApertureIcons.mapAperture35,{style : 'toolbutton',toggle : true})
+                                                b3.aperture = 35
+                                                b3.helpTip = "Map Aperture"
+                                                b3.onClick = function(){mapApertureUpdate(mapOverviews.panel1.group1.button3)}
+                                                var l1 = p1.list1 = p1.add('listbox');
+                                            l1.maximumSize.height = 120
+                                            l1.minimumSize.width = 145
+                                            var i = 0;
+                                            for(var thumbnail in mapThumbnails){
+                                                var item = l1.add('item')
+                                                item.image = mapThumbnails[thumbnail]
+                                                item.map = i
+                                                i++
+                                            }
+                                            i = null
+                                    var p2 = mapOverviews.panel2 = g.add("panel",undefined,"Map Highlights")
+                                    p2.alignment = ["fill","fill"]
+                                    p2.maximumSize.height = 185
+                                    p2.orientation = "row"
+                                        var g1 = p2.group1 = p2.add('group')
+                                        g1.orientation = 'column'
+                                            var selectedHighlightColor = mapHighlightColors.white;
+                                            var j = 1
+                                            for (var color in mapHighlightColors){
+
+                                                var button = g1["button"+j] = g1.add('iconbutton',[0,0,15,15])
+                                                button.alignment = ["fill","fill"]
+                                                var buttonColor = mapHighlightColors[color]
+                                                button.color = buttonColor
+                                                if(j == 1){
+                                                    assignBrush(button,true)
+                                                }else{
+                                                    assignBrush(button,false)
+                                                }
+
+                                                button.onClick = function(){
+                                                    selectedHighlightColor = this.color;
+                                                    mapHighlightColorUpdate(this)
+                                                }
+                                                j ++
+                                            }
+                                            j = null
+                                        var g2 = p2.group2 = p2.add('group')
+                                        g2.orientation = 'column'
+                                        g2.alignment = ["fill","fill"]
+                                        g2.alignChildren = ["center","top"]
+                                            var gg1 = g2.group1 = g2.add('group')
+                                            gg1.orientation = 'row'
+                                            gg1.alignChildren = ["fill","fill"]
+                                                var b1 = gg1.button1 = gg1.add('iconbutton',[0,0,30,30],keyframeIcon_icon,{style: 'toolButton', toggle: true, borderRadius : 0})
+                                                b1.helpTip = "Animation Key frames"
+                                                b1.value = true
+                                                var b2 = gg1.button2 = gg1.add('iconbutton',[0,0,30,30],highlightBorder_icon,{style: 'toolButton', toggle: true})
+                                                b2.helpTip = "Border Stroke"
+                                                b2.value = true
+                                            var gg2 = g2.group2 = g2.add('group');
+                                            gg2.orientation = 'column'
+                                            gg2.alignChildren = ["fill","fill"]
+                                                var b1 = gg2.button1 = gg2.add('button',undefined,'Highlight')
+                                                var b2 = gg2.button2 = gg2.add('button',undefined,'Change Color')
+                                //Agent Icon
+                                var agentIconPanel1 = mapOverviews.add('panel',undefined,'Agent Icon');
+                                agentIconPanel1.orientation = 'row';
+                                agentIconPanel1.alignment = 'fill';
+                                    var agentIconPanel1Group1 = agentIconPanel1.add('group');
+                                    agentIconPanel1Group1.orientation = 'column';
+                                        var agentIconMenu1 = agentIconPanel1Group1.add('dropdownlist',[0,0,150,30],agentIconArray);
+                                        agentIconMenu1.selection = 0;
+                                        var agentIconMenu2 = agentIconPanel1Group1.add('dropdownlist',[0,0,150,30],['Defender','Attacker']);
+                                        agentIconMenu2.selection = 0;
+                                    var agentIconCheckbox1 = agentIconPanel1.add('checkbox',undefined,'Death');
+                                    var placeAgent = agentIconPanel1.add('button',[0,0,100,60],'Place Agent');
+                                    placeAgent.alignment = ["right",'fill'];
+                            
                             // Agents Stats //********************************************************************************************/
                             var agentStats = hub.tabs[4] = hub.tabGroup.add ("group");
                                 agentStats.add ('panel {preferredSize: [-1, -10]}');
@@ -529,6 +585,14 @@ function myScript(thisObj){
                     }
                 }
             }
+            function mapApertureUpdate(button){
+                var apertureArray = [mapOverviews.panel1.group1.button1,mapOverviews.panel1.group1.button2,mapOverviews.panel1.group1.button3];
+                for(var i = 0; i < apertureArray.length; i++){
+                    apertureArray[i].value = false
+                }
+                button.value = true
+                mapAperture = button.aperture
+            }
             function keyModifier(callback,url)
             {
                 if(ScriptUI.environment.keyboardState.altKey == true)
@@ -537,7 +601,53 @@ function myScript(thisObj){
                 }
                 return callback()
             }
-            
+            function modKeyState(callback,ctrlCallback,shiftCallback,altCallback){
+                if(ScriptUI.environment.keyboardState.ctrlKey == true){
+                    return ctrlCallback()
+                }
+                else if (ScriptUI.environment.keyboardState.shiftKey == true){
+                    return shiftCallback()
+                }
+                else if (ScriptUI.environment.keyboardState.altKey == true){
+                    return altCallback()
+                }
+                else{
+                    return callback()
+                }
+            }
+            function assignBrush(button,active){
+                var g1 = mapOverviews.panel2.group1;
+                button.strokePen = null
+                button.notify("onDraw")
+                var displayColor = button.color.display;
+                button.onDraw = function(){
+                    with( this ){
+                        graphics.drawOSControl();
+                        graphics.ellipsePath(0,0,15,15);
+                        graphics.fillPath(fillBrush);
+                        graphics.strokePath(strokePen)
+                    }
+                }
+                if(active == false){displayColor[3] = 0.5}
+                else{displayColor[3] = 1}
+                var brush = button.graphics.newBrush(g1.graphics.BrushType.SOLID_COLOR,displayColor)
+                button.fillBrush = brush
+                if(active == false){
+                    var pen = button.graphics.newPen(g1.graphics.BrushType.SOLID_COLOR,[0.13,0.13,0.13,1],8)
+                    button.strokePen = pen
+                }
+            }
+            function mapHighlightColorUpdate(buttonObject){
+                var g1 = mapOverviews.panel2.group1.children
+                for (var i = 0; i < g1.length; i++){
+                    if(g1[i] == buttonObject){
+                        assignBrush(g1[i],true);
+                        continue
+                    }
+                    assignBrush(g1[i],false)
+                    // buttonObject.notify("onDraw")
+                }
+            }
             //*************************************************************************************************************************/
         hub.onShow = function () {
             hub.tabs[0].visible = true;
@@ -547,7 +657,16 @@ function myScript(thisObj){
         // Functionality //************************************************************************************************************/
         resetTitles.onClick = function() {resetTopicTitles()};
         openGTR.onClick = function () {goToGTR()};
-        generateMapB.onClick = function(){generateMap('Map Overviews.aep',DropBoxPath.template.mapOverviews,UriManager.template.mapOverviews,mapOvMenu1,mapOvTextbox1,mapOvCb1)};
+        /**/
+        mapOverviews.panel1.list1.onDoubleClick = function(){
+            var manageFootage = modKeyState(function(){return true},function(){return false},function(){return true},function(){return true});
+            keyModifier( 
+                function(){
+                  generateMap('Map Overviews.aep',DropBoxPath.template.mapOverviews,UriManager.template.mapOverviews,mapOverviews.panel1.list1.selection.map,mapAperture,manageFootage)
+                },UrlManager.tutorial.mapOverviews
+            )
+        };
+        /**/
         placeAgent.onClick = function(){generateAgentIcon(agentIconMenu1,agentIconMenu2,agentIconCheckbox1)};
         generateTopBannerButton.onClick = function(){generateTopBanner(topBannerMode,topBannerAgentMenu,topBannerGunMenu,topBannerAutoNaming,topBannerText,topBannerAttachedFloating,topBannerSide)};
         generateTable.onClick = function(){generateAgentStatsTable(rsCB,wrCB,prCB,msCB,agentStatDropdown)}
@@ -580,6 +699,20 @@ function myScript(thisObj){
         placeResourceButton.onClick = function(){keyModifier(function(){resolveResource(resourceTreeView.selection,true)},UrlManager.tutorial.resourceManager)};
         ctaPanel.generateButton.onClick = function(){keyModifier(function(){generateCTA1(ctaPanel.guideNameBar.text,ctaPanel.progressBar.value)},UrlManager.tutorial.callToAction1)};
         ctaPanel.guess.onClick = function(){keyModifier(function(){guessGuideName(ctaPanel.guideNameBar)},UrlManager.tutorial.callToAction1)}
+        //Map highlight
+        mapOverviews.panel2.group2.group2.button1.onClick = function(){
+            var keyframes = mapOverviews.panel2.group2.group1.button1.value;
+            var border = mapOverviews.panel2.group2.group1.button2.value
+            modKeyState(
+                function () {mapHighlight(keyframes,border,selectedHighlightColor)},
+                function () {mapHighlightAnim(0)},
+                function () {mapHighlightAnim(1)},
+                function () {system.callSystem("cmd.exe /c start "+ UrlManager.tutorial.mapHighlights)}
+            )
+        }
+        mapOverviews.panel2.group2.group2.button2.onClick = function(){
+            changeHighlightColor(selectedHighlightColor)
+        }
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
         return hub;

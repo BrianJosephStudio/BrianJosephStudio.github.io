@@ -271,3 +271,206 @@ function textHighlight(){
     }
     app.endUndoGroup()
 }
+function mapHighlight(animKeyframe,border,color){
+    app.activeViewer.setActive()
+    app.beginUndoGroup("Map highlight")
+    var comp = app.project.activeItem;
+    if(comp.name.slice(0,8) != "Map Edit"){return alert("Active composition doesn't seem to be a map overview")}
+    //Refine and filter selection
+    var sel = comp.selectedLayers;
+    var mapHighlights = []
+    for(var i = 0; i < sel.length; i++){
+        try{
+            var path = sel[i].property("Contents").property(1).property("Contents").property(1)
+            if (path.name.slice(-6) != "Path 1"){
+                throw new Error('Not a valid shape layer')
+            }
+        }catch(e){
+            sel.splice(i,1);
+            continue
+        }
+        // if(sel[i].name.slice(0,13) == "Map Highlight"){
+        //     mapHighlights.push(sel[i])
+        //     sel.splice(i,1)
+        // }
+    }
+    if(sel.length == 0 && mapHighlights.length == 0){return alert("You haven't selected any shape layers")}
+
+    for(var i = 0; i < sel.length; i++){
+        var layer = sel[i]
+        //Parent shape layer to map
+        layer.parent = comp.layer("Map [ND]")
+        //Naming and labeling
+        if(layer.name.slice(0,13) != "Map Highlight"){
+
+            var mapHighlightCount = 1
+            for(var j = 1; j <= comp.layers.length; j++){
+                if(comp.layer(j).name.slice(0,13) == "Map Highlight" && eval(comp.layer(j).name.slice(14)) >= mapHighlightCount){
+                    mapHighlightCount = eval(comp.layer(j).name.slice(14)) + 1
+                }
+            }
+            layer.name = "Map Highlight " + mapHighlightCount
+            layer.label = 14
+            //Reposition Layer
+            var targetIndex = 1;
+            if(comp.layer("Map Control")){var rootLayer = comp.layer("Map Control")}else{var rootLayer = comp.layer("Map [ND]")}
+            while(comp.layer(rootLayer.index - targetIndex).name.slice(0,13) == "Map Highlight" &&
+                eval(comp.layer(rootLayer.index - targetIndex).name.slice(14)) < mapHighlightCount){
+                targetIndex++
+            }
+            layer.moveAfter(comp.layer(rootLayer.index - targetIndex))
+        }
+        //Create Effect Sliders
+        var slider = layer.property("Effects").property("Color Control")
+        if(slider == null){
+            var slider = addProperty(layer,"ADBE Color Control",undefined)
+        }
+        if(slider.property("Color").numKeys > 0){
+            for(var j = slider.property("Color").numKeys; j > 0; j--){
+                slider.property("Color").removeKey(j)
+            }
+        }
+        slider.property("Color").setValue(color.color)
+        //Address fill
+        var fill = layer.property("Contents").property(1).property("Contents").property("Fill 1");
+        if(fill == null){
+            fill = layer.property("Contents").property(1).property("Contents").addProperty("ADBE Vector Graphic - Fill")
+        }
+        fill.enabled = true;
+        fill.Color.expression = 'effect("Color Control")("Color")'
+        fill.property("opacity").setValue(color.opacity)
+        // Deal with scaling
+        var map = comp.layer("Map [ND]")
+        var transform;
+        if(map.parent != null){
+            transform = map.parent
+        }else{transform = map}
+        // Address Stroke
+        var stroke = layer.property("Contents").property(1).property("Contents").property("Stroke 1")
+        if(stroke == null){
+            stroke = layer.property("Contents").property(1).property("Contents").addProperty("ADBE Vector Graphic - Stroke")
+        }
+        var size = transform.property("Transform").property("scale").value
+        if(border == false){
+            stroke.enabled = false
+        }else{
+            stroke.enabled = true;
+            var width = stroke.property("Stroke Width");
+            var newWidth = 2 * (size[0] / 100)
+            width.setValue(newWidth)
+            
+            var strokeColor = stroke.property("Color")
+            strokeColor.expression = 'effect("Color Control")("Color")'
+            stroke.property("Line Cap").setValue(2)
+            //Dashing
+            var dashes = stroke.property("Dashes")
+            var dash1 = dashes.addProperty("ADBE Vector Stroke Dash 1")
+            var gap1 = dashes.addProperty("ADBE Vector Stroke Gap 1")
+            var dash2 = dashes.addProperty("ADBE Vector Stroke Dash 2")
+            var gap2 = dashes.addProperty("ADBE Vector Stroke Gap 2")
+            var dash3 = dashes.addProperty("ADBE Vector Stroke Dash 3")
+            var gap3 = dashes.addProperty("ADBE Vector Stroke Gap 3")
+            var offset = dashes.addProperty("ADBE Vector Stroke Offset")
+            dash1.setValue(1)
+            gap1.setValue(8 * (size[0] / 100))
+            dash2.setValue(1)
+            gap2.setValue(6 * (size[0] / 100))
+            dash3.setValue(12 * (size[0] / 100))
+            gap3.setValue(6 * (size[0] / 100))
+            offset.expression = "time * ((10 * "+size[0]+") / 100)"
+        }
+        
+        layer.blendingMode = 5220
+        var currentTime = comp.time
+        var opacity = layer.property("Transform").property("Opacity")
+        if(animKeyframe == true){
+            layer.inPoint = currentTime
+            layer.outPoint = comp.duration
+            if(opacity.numKeys > 0){
+                for(var j = opacity.numKeys; j > 0 ; j--){
+                    opacity.removeKey(j)
+                }
+            }
+            addKeyframe("1d",opacity,0,currentTime,6614,6613,[0,100],[0,25])
+            addKeyframe("1d",opacity,100,currentTime+0.5,6613,6614,[0,50],[0,25])
+            // addKeyframe("1d",opacity,100,currentTime+4.5,6614,6613,[0,100],[0,25])
+            // addKeyframe("1d",opacity,0,currentTime+5,6613,6612,[0,50],[0,25])
+        }else if(opacity.numKeys > 0){
+                for(var j = opacity.numKeys; j > 0; j--){
+                    opacity.removeKey(j)
+                }
+                layer.inPoint = 0
+                layer.outPoint = comp.duration
+                opacity.setValue(100)
+        }
+    }
+    app.executeCommand(2387)
+    app.endUndoGroup()
+}
+function mapHighlightAnim(animType){
+    app.activeViewer.setActive()
+    //validate Layer
+    var comp = app.project.activeItem;
+    var currentTime = comp.time
+    var sel = comp.selectedLayers
+    for(var i = 0; i < sel.length; i++){
+        var layer = sel[i]
+        if(layer.name.slice(0,13) != "Map Highlight"){sel.splice(i,1);continue}
+    }
+    if(sel.length == 0){return alert("Your selection didn't include active map highlights with keyframes.","Animator Hub")}
+    app.beginUndoGroup("Map highlight")
+    for (var i in sel){
+        var layer = sel[i]
+        var anim = layer.property("Transform").property("Opacity")
+        if(animType == 0){
+            with(anim){
+                if(numKeys != 0 && ((keyTime(nearestKeyIndex(currentTime)) <= currentTime + 0.5 && keyTime(nearestKeyIndex(currentTime)) >= currentTime) ||
+                (keyTime(nearestKeyIndex(currentTime + 0.5)) <= currentTime + 0.5 && keyTime(nearestKeyIndex(currentTime + 0.5)) >= currentTime))){
+                    alert("You're trying to create keyframes that are too close and will interfere with an existing animation")
+                }else{
+                    addKeyframe("1d",anim,0,currentTime,6614,6613,[0,100],[0,25])
+                    addKeyframe("1d",anim,100,currentTime+0.5,6613,6612,[0,50],[0,25])
+                }
+            }
+        }else if(animType == 1){
+            with(anim){
+                if(numKeys != 0 && ((keyTime(nearestKeyIndex(currentTime)) <= currentTime && keyTime(nearestKeyIndex(currentTime)) >= currentTime - 0.5) ||
+                (keyTime(nearestKeyIndex(currentTime - 0.5)) <= currentTime && keyTime(nearestKeyIndex(currentTime - 0.5)) >= currentTime - 0.5))){
+                    alert("You're trying to create keyframes that are too close and will interfere with an existing animation")
+                }else{
+                    addKeyframe("1d",anim,100,currentTime-0.5,6614,6613,[0,100],[0,25])
+                    addKeyframe("1d",anim,0,currentTime,6613,6612,[0,50],[0,25])
+                }
+            }
+        }
+        if(anim.keyValue(1) == 0){
+            layer.inPoint = anim.keyTime(1)
+        }else{layer.inPoint = 0}
+        if(anim.keyValue(anim.numKeys) == 0){
+            layer.outPoint = anim.keyTime(anim.numKeys)
+        }else{layer.outPoint = comp.duration}
+    }
+    app.endUndoGroup()
+}
+function changeHighlightColor(newColor){
+    var comp = app.project.activeItem
+    var sel = comp.selectedLayers
+    for(var i in sel){
+        var layer = sel[i]
+        if(layer.name.slice(0,13) != "Map Highlight"){
+            sel.slice(i,1)
+        }
+    }
+    
+    app.activeViewer.setActive()
+    
+    app.beginUndoGroup("Color Change")
+    for(var i in sel){
+        var layer = sel[i]
+        var colorControl = layer.property("Effects").property("Color Control").property("Color")
+        var time = comp.time
+        colorControl.addKey(time)
+        colorControl.setValueAtTime(time+0.5,newColor.color)
+    }
+    app.endUndoGroup()
+}

@@ -43,7 +43,9 @@ var UrlManager =
     {
         resourceManager : "https://youtu.be/qMIJCPt97Tg",
         callToAction1 : "https://youtu.be/vRBHV0GbgH4",
-        textHighlight : "https://youtu.be/SmSJJO6zLTc"
+        textHighlight : "https://youtu.be/SmSJJO6zLTc",
+        mapOverviews : "https://youtu.be/A58b87Xt0Lg",
+        mapHighlights : "https://youtu.be/_7Mw4XU613c"
     }
 };
 var UriManager = 
