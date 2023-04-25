@@ -711,7 +711,12 @@ function myScript(thisObj){
             )
         }
         mapOverviews.panel2.group2.group2.button2.onClick = function(){
-            changeHighlightColor(selectedHighlightColor)
+            modKeyState(
+                function () {changeHighlightColor(selectedHighlightColor)},
+                function () {null},
+                function () {null},
+                function () {system.callSystem("cmd.exe /c start "+ UrlManager.tutorial.mapHighlights)}
+            )
         }
         /******************************************************************************************************************************/                    
         hub.layout.layout(true);
