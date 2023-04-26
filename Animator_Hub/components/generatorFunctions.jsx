@@ -503,8 +503,8 @@ function generateCCT(menuControl)
         LukasBylsma : [true,false,false],
         Jitterz : [true,false,false],
         xtr : [true,false,false],
-        Dorshii : [true,false,false],
-        xJake : [true,false,false]
+        Rem : [false,false,false],
+        CoachMills :[true,false,false]
     }
     var cctName = String(menuControl.selection).replace(' ','');
     var ccName = new EgParameter('Content Creator Name',String(menuControl.selection),'textInput',templateName,undefined,undefined);
