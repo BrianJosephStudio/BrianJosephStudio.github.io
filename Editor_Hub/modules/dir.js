@@ -21,7 +21,7 @@ const editorHub =
             root : `${homedir}/DOCUMENTS/Editor Hub/resources`,
             image : `${homedir}/DOCUMENTS/Editor Hub/resources/image`,
             video : `${homedir}/DOCUMENTS/Editor Hub/resources/video`,
-            music : `${homedir}/DOCUMENTS/Editor Hub/resources/music/music`,
+            music : `${homedir}/DOCUMENTS/Editor Hub/resources/music`,
             sfx : `${homedir}/DOCUMENTS/Editor Hub/resources/sfx`,
             ui : `${homedir}/DOCUMENTS/Editor Hub/resources/ui`
         },

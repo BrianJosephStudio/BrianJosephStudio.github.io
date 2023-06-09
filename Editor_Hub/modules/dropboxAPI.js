@@ -142,7 +142,7 @@ const dropboxPath =
                 root : `/BrianJosephStudio.github.io/Editor_Hub/resources`,
                 image : `/BrianJosephStudio.github.io/Editor_Hub/resources/image`,
                 video : `/BrianJosephStudio.github.io/Editor_Hub/resources/video`,
-                music : `/BrianJosephStudio.github.io/Editor_Hub/resources/music`,
+                music : `/BrianJosephStudio.github.io/Editor_Hub/resources/music/music`,
                 sfx : `/BrianJosephStudio.github.io/Editor_Hub/resources/sfx`,
                 ui : `/BrianJosephStudio.github.io/Editor_Hub/resources/ui`
             },
