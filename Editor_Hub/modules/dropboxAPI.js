@@ -1,6 +1,6 @@
 const { readFile, writeFile } = require("fs/promises");
 
-const refreshToken = "URftscBcTpAAAAAAAAAAAWlpxlguHizvvF7xZd2aqYb4W9D9Xfp01QrBdayJIGpv";
+const refreshToken = "RIcnPxXknBEAAAAAAAAAAe5j7wuz3MDldAX6TUFg7WRdgesIp2VNz708q7ToKstE";
 async function generateToken(refreshToken)
 {
     return await fetch(`https://api.dropbox.com/oauth2/token`,
