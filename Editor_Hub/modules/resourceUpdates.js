@@ -1,5 +1,5 @@
 const { readFile, writeFile, mkdir, rm } = require('fs/promises')
-const TrackList = require(global.dir.editorHub.module.audioTools.trackList)
+const audioTools = require(global.dir.editorHub.module.audioTools)
 const dropbox = require(global.dir.editorHub.module.dropboxAPI)
 const cs = new CSInterface();
 

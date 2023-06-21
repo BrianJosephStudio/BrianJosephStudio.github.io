@@ -7,9 +7,10 @@
     background-color: hsl(0, 0%, 8%);
     border-radius: 15px;
     width: calc(100% - 35px);
-    height: calc(100% - 35px);
+    height: calc(100% - 27px);
     overflow-y: scroll;
     overflow-x: hidden;
+
 }
 .changeTitle{
     background-color: hsl(0, 0%, 16%);
