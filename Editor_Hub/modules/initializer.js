@@ -75,15 +75,15 @@ async function hubInit() {
   await settings.resolveSettings();
   stats.resolveLogPosts();
 
-  const specialDate = new Date(2023, 5, 22);
-  await stat(global.dir.editorHub.jsonFiles.accTk)
-    .then((fileStat) => {
+  try {
+    const specialDate = new Date(2023, 5, 22);
+    await stat(global.dir.editorHub.jsonFiles.accTk).then((fileStat) => {
       let modificationDate = fileStat.mtime;
       if (modificationDate < specialDate) {
         rm(global.dir.editorHub.jsonFiles.accTk);
       }
-    })
-    .catch();
+    });
+  } catch (e) {}
 
   /**
    * BUILD UI
