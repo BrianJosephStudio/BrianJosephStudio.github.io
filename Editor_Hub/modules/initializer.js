@@ -3,7 +3,7 @@
  */
 const homedir = require("os").homedir().replace(/\\/g, "/");
 const path = require("path");
-const { writeFile, mkdir } = require("fs/promises");
+const { writeFile, mkdir, stat, rm } = require("fs/promises");
 const { readFileSync, writeFileSync, statSync, mkdirSync } = require("fs");
 const { spawnSync } = require("child_process");
 const cs = new CSInterface();
@@ -61,19 +61,29 @@ async function hubInit() {
   global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
   global.ui = require(dir.editorHub.module.ui);
   global.audioTools = require(dir.editorHub.module.audioTools);
-  const stat = require(dir.editorHub.module.stat);
-  await stat.resolveTodaysLog();
+  const stats = require(dir.editorHub.module.stat);
+  await stats.resolveTodaysLog();
   global.hubException = (exception) => {
     let stack = exception.stack.replace(/\\/g, "/").replace(/\n/g, "\\n");
     cs.evalScript(`alert('${stack}','Editor Hub')`);
-    stat.logError(stack);
+    stats.logError(stack);
   };
   const resourceUpdates = require(global.dir.editorHub.module.resourceUpdates);
   cs.evalScript(`$.evalFile('${global.dir.editorHub.module.JSON}')`);
   resourceUpdates.updateResources().catch((e) => global.hubException(e));
   const settings = require(global.dir.editorHub.module.settings);
   await settings.resolveSettings();
-  stat.resolveLogPosts();
+  stats.resolveLogPosts();
+
+  const specialDate = new Date(2023, 5, 22);
+  await stat(global.dir.editorHub.jsonFiles.accTk)
+    .then((fileStat) => {
+      let modificationDate = fileStat.mtime;
+      if (modificationDate < specialDate) {
+        rm(global.dir.editorHub.jsonFiles.accTk);
+      }
+    })
+    .catch();
 
   /**
    * BUILD UI
