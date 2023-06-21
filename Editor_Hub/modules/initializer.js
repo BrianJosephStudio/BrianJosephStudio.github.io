@@ -77,10 +77,10 @@ async function hubInit() {
 
   try {
     const specialDate = new Date(2023, 5, 22);
-    await stat(global.dir.editorHub.jsonFiles.accTk).then((fileStat) => {
+    await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
       let modificationDate = fileStat.mtime;
       if (modificationDate < specialDate) {
-        rm(global.dir.editorHub.jsonFiles.accTk);
+        await rm(global.dir.editorHub.jsonFiles.accTk);
       }
     });
   } catch (e) {}
