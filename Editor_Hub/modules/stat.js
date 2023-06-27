@@ -81,7 +81,7 @@ async function getLogFiles() {
     .then((content) => {
       let logs = [];
       for (let file of content) {
-        let fileName = file.split(".")[0];
+        let fileName = file.slice(0, file.lastIndexOf("."));
         let decodedName = decodeString(fileName);
         let isLog = decodedName.split("_")[0];
         if (isLog == "activityLog") {
@@ -112,7 +112,9 @@ async function resolveLogPosts() {
           if (!keep) {
             logObject.user = decodeString(logObject.user);
             let content = JSON.stringify(logObject);
-            let fileName = decodeString(path.basename(log).split(".")[0]);
+            let fileName = decodeString(
+              path.basename(log).slice(0, path.basename(log).lastIndexOf("."))
+            );
             await dropbox
               .upload(
                 content,
