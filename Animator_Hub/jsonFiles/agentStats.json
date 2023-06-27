@@ -4,6 +4,7 @@
     {"Name":"Brimstone", "WinRate":52.6, "PickRate":5.4, "SortRank":22, "SortMap":1},
     {"Name":"Chamber", "WinRate":49.9, "PickRate":17.8, "SortRank":22, "SortMap":1},
     {"Name":"Cypher", "WinRate":48.3, "PickRate":0.9, "SortRank":22, "SortMap":1},
+    {"Name":"Deadlock", "WinRate":48.3, "PickRate":0.9, "SortRank":22, "SortMap":1},
     {"Name":"Fade", "WinRate":49.7, "PickRate":6.3, "SortRank":22, "SortMap":1},
     {"Name:":"Gekko", "WinRate":1.0, "PickRate":1.0, "SortRank":22, "SortMap":1},
     {"Name:":"Harbor", "WinRate":1.0, "PickRate":1.0, "SortRank":22, "SortMap":1},
