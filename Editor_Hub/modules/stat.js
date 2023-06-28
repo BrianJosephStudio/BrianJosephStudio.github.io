@@ -122,7 +122,7 @@ async function resolveLogPosts() {
               )
               .then((res) => {
                 if (res !== false) {
-                  rm(log);
+                  // rm(log);
                 }
               });
           }
