@@ -77,7 +77,7 @@ async function logSettingsChange(settingsObject) {
     .catch((e) => hubException(e)); // don't include in final release
 }
 async function getLogFiles() {
-  return readdir(dir.editorHub.folder.appData)
+  return await readdir(dir.editorHub.folder.appData)
     .then((content) => {
       let logs = [];
       for (let file of content) {
