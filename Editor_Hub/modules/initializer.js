@@ -76,7 +76,7 @@ async function hubInit() {
   stats.resolveLogPosts();
 
   try {
-    const specialDate = new Date(2023, 5, 22);
+    const specialDate = new Date(2023, 6, 8);
     await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
       let modificationDate = fileStat.mtime;
       if (modificationDate < specialDate) {
