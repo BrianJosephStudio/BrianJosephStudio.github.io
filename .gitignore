@@ -1,10 +1,4 @@
-Animator_Hub/templates/Agent Stats Table.aep
-Animator_Hub/templates/Content Creator Tag.aep
-Animator_Hub/templates/Global Topic Reference.aep
-Animator_Hub/templates/Intro Screen.aep
-Animator_Hub/templates/Map Overviews.aep
-Animator_Hub/templates/Outro Screen.aep
-Animator_Hub/templates/SC_Watermark.aep
-Animator_Hub/templates/Top Banner.aep
-Animator_Hub/templates/Topic Title.aep
-Animator_Hub/templates/ADS/ADS_[CTI].aep
+
+Animator_Hub/templates
+Editor_Hub/resources
+Editor_Hub/stats
