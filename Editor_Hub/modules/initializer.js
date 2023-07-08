@@ -75,15 +75,15 @@ async function hubInit() {
   await settings.resolveSettings();
   stats.resolveLogPosts();
 
-  try {
-    const specialDate = new Date(2023, 6, 8);
-    await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
-      let modificationDate = fileStat.mtime;
-      if (modificationDate < specialDate) {
-        await rm(global.dir.editorHub.jsonFiles.accTk);
-      }
-    });
-  } catch (e) {}
+  // try {
+  //   const specialDate = new Date(2023, 6, 8);
+  //   await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
+  //     let modificationDate = fileStat.mtime;
+  //     if (modificationDate < specialDate) {
+  //       await rm(global.dir.editorHub.jsonFiles.accTk);
+  //     }
+  //   });
+  // } catch (e) {}
 
   /**
    * BUILD UI
