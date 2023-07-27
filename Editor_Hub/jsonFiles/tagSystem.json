@@ -131,7 +131,7 @@
     ],
     "gameEvents":[
         {"tag":"spikeplant","displayName":"spike-plant","description":"Player planted the spike"},
-        {"tag":"spikedefuse","displayName":"spike_defuse","description":"Player defused the spike"},
+        {"tag":"spikedefuse","displayName":"spike-defuse","description":"Player defused the spike"},
         {"tag":"clutch","displayName":"","description":"Player clutched the round"},
         {"tag":"spikeblow","displayName":"spike-blow","description":"Spike goes off during the clip"},
         {"tag":"tp","displayName":"teleportation","description":"Player teleported using an ability or going through a teleporter"},
