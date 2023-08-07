@@ -46,6 +46,7 @@ async function hubInit() {
     `${editorHub}/modules/wp_audioTools/audioTools_styles.css`,
     `${editorHub}/modules/wp_patchNotes/patchNotes_styles.css`,
     `${editorHub}/modules/wp_videoGallery/videoGallery_styles.css`,
+    `${editorHub}/modules/wp_videoGallery/videoGallery.js`,
   ];
   /**
    * RESOLVE MODULES / UPDATE
