@@ -7,6 +7,7 @@ const { writeFile, mkdir, stat, rm } = require("fs/promises");
 const { readFileSync, writeFileSync, statSync, mkdirSync } = require("fs");
 const { spawnSync } = require("child_process");
 const cs = new CSInterface();
+global.isAdmin = false;
 global.runJSXFunction = async (script) => {
   return new Promise((resolve, reject) => {
     cs.evalScript(script, resolve);
@@ -27,6 +28,7 @@ async function hubInit() {
     `${editorHub}/modules/editorHub_body.html`,
     `${editorHub}/modules/dir.js`,
     `${editorHub}/modules/UI.js`,
+    `${editorHub}/modules/itemList.js`,
     `${editorHub}/modules/JSON.js`,
     `${editorHub}/modules/stat.js`,
     `${editorHub}/modules/dropboxAPI.js`,
@@ -43,7 +45,7 @@ async function hubInit() {
     `${editorHub}/modules/styles/ui_styles.css`,
     `${editorHub}/modules/wp_audioTools/audioTools_styles.css`,
     `${editorHub}/modules/wp_patchNotes/patchNotes_styles.css`,
-    `${editorHub}/modules/wp_footageManager/footageManager_styles.css`,
+    `${editorHub}/modules/wp_videoGallery/videoGallery_styles.css`,
   ];
   /**
    * RESOLVE MODULES / UPDATE
@@ -59,15 +61,31 @@ async function hubInit() {
    */
   global.hubUser = homedir.split("/").pop();
   global.dir = require(`${homedir}/Documents/Editor Hub/Modules/dir.js`);
+  //Display Admin Tools
+  try {
+    let isAdmin = readFileSync(`${dir.editorHub.folder.jsonFiles}/admin.json`);
+    if (JSON.parse(isAdmin).isAdmin) {
+      global.isAdmin = true;
+    }
+  } catch (e) {}
+  initAdminTools();
+  await resolveDataFile(dir.editorHub.jsonFiles.tagSystem, true);
+  //
   global.ui = require(dir.editorHub.module.ui);
   global.audioTools = require(dir.editorHub.module.audioTools);
   const stats = require(dir.editorHub.module.stat);
   await stats.resolveTodaysLog();
   global.hubException = (exception) => {
+    let debugMode = false;
     let stack = exception.stack.replace(/\\/g, "/").replace(/\n/g, "\\n");
-    cs.evalScript(`alert('${stack}','Editor Hub')`);
-    stats.logError(stack);
+    if (!isAdmin || debugMode) {
+      cs.evalScript(`alert('${stack}','Editor Hub')`);
+      stats.logError(stack);
+    } else if (isAdmin && console) {
+      console.log(stack);
+    }
   };
+
   const resourceUpdates = require(global.dir.editorHub.module.resourceUpdates);
   cs.evalScript(`$.evalFile('${global.dir.editorHub.module.JSON}')`);
   resourceUpdates.updateResources().catch((e) => global.hubException(e));
@@ -75,15 +93,15 @@ async function hubInit() {
   await settings.resolveSettings();
   stats.resolveLogPosts();
 
-  // try {
-  //   const specialDate = new Date(2023, 6, 8);
-  //   await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
-  //     let modificationDate = fileStat.mtime;
-  //     if (modificationDate < specialDate) {
-  //       await rm(global.dir.editorHub.jsonFiles.accTk);
-  //     }
-  //   });
-  // } catch (e) {}
+  try {
+    const specialDate = new Date(2023, 5, 22);
+    await stat(global.dir.editorHub.jsonFiles.accTk).then(async (fileStat) => {
+      let modificationDate = fileStat.mtime;
+      if (modificationDate < specialDate) {
+        await rm(global.dir.editorHub.jsonFiles.accTk);
+      }
+    });
+  } catch (e) {}
 
   /**
    * BUILD UI
@@ -100,6 +118,31 @@ async function fileExist(filePath) {
   } catch (e) {
     return false;
   }
+}
+async function resolveDataFile(uri, forceDownload) {
+  return await fileExist(uri)
+    .then(async (exists) => {
+      if (!exists || forceDownload) {
+        return await fetch(
+          `https://brianjosephstudio.github.io/Editor_Hub/${
+            uri.split("Editor Hub/")[1]
+          }`
+        );
+      }
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("res is not ok");
+      }
+      return res.text();
+    })
+    .then(async (file) => {
+      if (!file) {
+        return;
+      }
+      await writeFile(uri, file);
+    })
+    .catch((e) => hubException(e));
 }
 async function resolveModule(module) {
   let exists = await fileExist(module);
@@ -159,4 +202,25 @@ async function downloadModule(module) {
     .catch((e) => {
       throw e;
     });
+}
+async function initAdminTools() {
+  if (isAdmin) {
+    global.console = require(dir.console);
+    //Create Console
+    let body = document.getElementsByTagName("body")[0];
+    let consoleBody = document.createElement("div");
+    consoleBody.id = "console";
+    consoleBody.className = "console";
+
+    body.appendChild(consoleBody);
+  } else {
+    global.console = {
+      log: () => {
+        return null;
+      },
+      addClear: () => {
+        return null;
+      },
+    };
+  }
 }

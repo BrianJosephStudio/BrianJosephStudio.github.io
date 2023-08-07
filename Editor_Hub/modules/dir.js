@@ -11,7 +11,7 @@ const editorHub = {
     modules: {
       root: `${homedir}/DOCUMENTS/Editor Hub/modules`,
       wp_audioTools: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools`,
-      wp_footageManager: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_footageManager`,
+      wp_videoGallery: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_videoGallery`,
       wp_patchNotes: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_patchNotes`,
       styles: `${homedir}/DOCUMENTS/Editor Hub/modules/styles`,
       settings: `${homedir}/DOCUMENTS/Editor Hub/modules/settings`,
@@ -31,6 +31,7 @@ const editorHub = {
   },
   module: {
     ui: `${homedir}/DOCUMENTS/Editor Hub/modules/UI.js`,
+    itemList: `${homedir}/DOCUMENTS/Editor Hub/modules/itemList.js`,
     htmlBody: `${homedir}/DOCUMENTS/Editor Hub/modules/editorHub_body.html`,
     resourceAPI: `${homedir}/DOCUMENTS/Editor Hub/modules/resourceAPI.js`,
     resourceAPIjsx: `${homedir}/DOCUMENTS/Editor Hub/modules/resourceAPI.jsx`,
@@ -42,11 +43,13 @@ const editorHub = {
     resourceUpdates: `${homedir}/DOCUMENTS/Editor Hub/modules/resourceUpdates.js`,
     settings: `${homedir}/DOCUMENTS/Editor Hub/modules/settings/settings.js`,
     audioTools: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools/audioTools.js`,
+    videoGallery: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_videoGallery/videoGallery.js`,
     stat: `${homedir}/DOCUMENTS/Editor Hub/modules/stat.js`,
     JSON: `${homedir}/DOCUMENTS/Editor Hub/modules/JSON.js`,
   },
   jsonFiles: {
     localVersion: `${homedir}/DOCUMENTS/Editor Hub/jsonFiles/localVersion.json`,
+    tagSystem: `${homedir}/DOCUMENTS/Editor Hub/jsonFiles/tagSystem.json`,
     accTk: `${homedir}/DOCUMENTS/Editor Hub/jsonFiles/accTk.json`,
   },
   style: {
@@ -56,7 +59,7 @@ const editorHub = {
     settings_style: `${homedir}/DOCUMENTS/Editor Hub/modules/settings/settings_styles.css`,
     audioTools_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_audioTools/audioTools_styles.css`,
     patchNotes_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_PatchNotes/patchNotes_styles.css`,
-    footageManager_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_footageManager/footageManager_styles.css`,
+    videoGallery_style: `${homedir}/DOCUMENTS/Editor Hub/modules/wp_videoGallery/videoGallery_styles.css`,
   },
   appData: {
     updateLogs: `${homedir}/AppData/Local/Editor Hub/updateLogs.json`,
@@ -79,12 +82,13 @@ const animHub = {
 };
 const tutorial = {
   editorHub: {
-    // songManager: "https://youtu.be/iOiG81SkjSk",
     songManager: `<iframe width="560" height="315" src="https://www.youtube.com/embed/dlwsX9OXO6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
     sfxManager: `<iframe width="560" height="315" src="https://www.youtube.com/embed/OlGmySJGmFw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
     audioToolSettings: `<iframe width="560" height="315" src="https://www.youtube.com/embed/Zn3DheWG3nI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
+    ingameFootage: `<iframe width="560" height="315" src="https://www.youtube.com/embed/5kBBvGdc89g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
   },
 };
+const console = `${homedir}/DOCUMENTS/Editor Hub/modules/console.js`;
 function findDir(projectFolder, dirName) {
   let files = readdirSync(projectFolder);
   for (let file of files) {
@@ -105,4 +109,4 @@ function findDir(projectFolder, dirName) {
   }
   return null;
 }
-module.exports = { editorHub, animHub, tutorial, findDir };
+module.exports = { editorHub, animHub, console, tutorial, findDir };

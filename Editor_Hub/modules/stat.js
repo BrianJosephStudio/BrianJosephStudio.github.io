@@ -13,16 +13,16 @@ function formatDate(dateObject, includeHours) {
   return date;
 }
 async function logEvent(target, event, action, file) {
+  console.log("logging event");
   const eventLog = {};
   eventLog.date = formatDate(new Date(), true);
-  eventLog.workspace =
-    target.closest("[data-workspace]").dataset.workspace || null;
+  eventLog.workspace = target.closest(".wp_container").dataset.workspace;
   eventLog.tab =
     target.closest("[data-tab]").dataset.tab || target.dataset.tab || null;
   eventLog.action = action;
   eventLog.eventType = {
     type: event.type,
-    key: event.key,
+    key: event.code,
     ctrl: event.ctrlKey,
     shift: event.shiftKey,
     alt: event.altKey,
@@ -42,7 +42,7 @@ async function logEvent(target, event, action, file) {
         return logError(e);
       }
       logObject.logs.push(eventLog);
-      return await writeFile(logFile, JSON.stringify(logObject));
+      return await writeFile(logFile, JSON.stringify(logObject, null, 2));
     })
     .catch((e) => hubException(e)); // don't include in final release
 }
@@ -111,7 +111,7 @@ async function resolveLogPosts() {
           let keep = isDateToday(date);
           if (!keep) {
             logObject.user = decodeString(logObject.user);
-            let content = JSON.stringify(logObject);
+            let content = JSON.stringify(logObject, null, 2);
             let fileName = decodeString(
               path.basename(log).slice(0, path.basename(log).lastIndexOf("."))
             );

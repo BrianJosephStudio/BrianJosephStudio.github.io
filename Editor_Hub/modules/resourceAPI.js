@@ -12,20 +12,18 @@ cs.evalScript(`$.evalFile('${global.dir.editorHub.module.resourceAPIjsx}')`);
 class Resource {
   constructor(dropboxPath) {
     let pathSplit = dropboxPath.split("/");
-    let pathUri = dropboxPath.split("Editor_Hub")[1];
+    let pathUri = dropboxPath.split("editor_hub")[1];
 
     this.saveName = pathSplit[pathSplit.length - 1];
-    this.description = `animHub_resource_${
-      pathSplit[pathSplit.length - 2]
-    }_${dropboxPath}`;
-    this.targetBin = pathSplit[pathSplit.indexOf("Resources") + 1].replace(
+    this.description = `animHub_resource_${dropboxPath}`;
+    this.targetBin = pathSplit[pathSplit.indexOf("resources") + 1].replace(
       /\b\w/g,
       function (l) {
         return l.toUpperCase();
       }
     );
     this.binDescription = `animHub_bin_${
-      pathSplit[pathSplit.indexOf("Resources") + 1]
+      pathSplit[pathSplit.indexOf("resources") + 1]
     }`;
     this.uri = `${global.dir.editorHub.root}${pathUri}`;
     this.dropboxPath = dropboxPath;
@@ -60,7 +58,10 @@ async function importResource(resource, API, settingsGroup, bufferArray) {
 async function resolveResource(resource, API, settingsGroup, bufferArray) {
   let targetUri;
   let targetFolder;
-  if (settingsGroup.importFromProjectFolder.currentValue == 0) {
+  if (
+    settingsGroup &&
+    settingsGroup.importFromProjectFolder.currentValue == 0
+  ) {
     let projectPath = path.dirname(await runJSXFunction(`getProjectPath()`));
     projectPath = projectPath.replace(/\\/g, "/");
     let hubDirName = "Editor Hub Resources";
@@ -87,7 +88,10 @@ async function resolveResource(resource, API, settingsGroup, bufferArray) {
     }
 
     targetUri = `${targetFolder}/${path.basename(resource.uri)}`;
-  } else if (settingsGroup.importFromProjectFolder.currentValue == 1) {
+  } else if (
+    !settingsGroup ||
+    settingsGroup.importFromProjectFolder.currentValue == 1
+  ) {
     targetFolder = path.dirname(resource.uri);
     targetUri = resource.uri;
   }
@@ -100,6 +104,9 @@ async function resolveResource(resource, API, settingsGroup, bufferArray) {
       if (e.code == "ENOENT" && bufferArray) {
         for (let item of bufferArray) {
           if (item.dropboxPath == resource.dropboxPath) {
+            console.log(
+              "about to write down from buffer array \nresourceAPI:107"
+            );
             await writeFile(targetUri, item.fileBuffer, null);
             cs.evalScript(
               `setDescription(File('${targetUri}'),'${resource.description}')`

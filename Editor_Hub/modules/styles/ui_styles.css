@@ -252,7 +252,7 @@
 .itemTitle{
     display: flex;
     overflow: hidden;
-    width: 50%;
+    /* width: 50%; */
 }
 .tutorialViewer{
     display: none;
@@ -268,4 +268,58 @@
     opacity: 0;
     z-index: 5;
     cursor: pointer;
+}
+.tagSwitch{
+    display: flex;
+    flex-shrink: 0;
+    background: url("https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/tagSwitch_icon_inactive.svg");
+    background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    /*
+    border-radius: 50%;
+    background-color: hsl(0, 0%, 35%);
+    */
+    /* background-color: hsl(0, 0%, 8%); */
+    cursor: pointer;
+    margin: 0px 6px;
+    transition: 1.5s ease;
+}
+.tagSwitch:hover{
+    background: url("https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/tagSwitch_icon_hover.svg");
+
+}
+.tagSwitch_on{
+    background: url("https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/tagSwitch_icon_active.svg");
+}
+.tagMatchesBox{
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: calc(100% - 35px);
+    top: 35px;
+    left: 0px;
+    z-index: 11;
+    max-height: 40vh;
+    overflow-y: scroll;
+    border-radius: 0px 0px 12px 12px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #2772CC;
+}
+.tagItem{
+    display: flex;
+    padding: 8px 6px;
+    color: white;
+    min-height: 18px;
+    width: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    align-items: center;
+    align-content: center;
+}
+.tagItem:hover{
+    background-color: hsl(0, 0%, 30%);
 }

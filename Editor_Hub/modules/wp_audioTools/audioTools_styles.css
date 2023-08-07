@@ -1,38 +1,4 @@
-.innerTabsBody{
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    /* height: 100%; */
-    width:100%;
-}
-.audioToolTabs{
-    display: flex;
-    flex-direction: column;
-    height: inherit;
-    width: 35px;
-    /* min-width: 35px; */
-    margin-right: 6px;
-    overflow: hidden;
-}
-.audioToolTab{
-    display: flex;
-    flex-grow: 3;
-    width: 100%;
-    border-radius: 6px;
-    transition: 0.6s;
-    cursor: pointer;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.audioToolTab:hover{
-    background-color: hsl(0, 0%, 18%);
-}
-.audioToolTab_active{
-    background-color: hsl(0, 0%, 30%);
-}
-.audioToolTab_active:hover{
-    background-color: hsl(0, 0%, 30%);
-}
+
 #songManagerTab_active{
     background-image: url('https://brianjosephstudio.github.io/Editor_Hub/Resources/ui/songManager_icon_active.svg');
     background-size: 150%;
@@ -87,20 +53,6 @@
     background-position: 40%;
     z-index: 1;
     transform: skew(15deg);
-}
-.audioToolContainers{
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    /* size: inherit; */
-    width: 100%;
-}
-.audioToolContainer{
-    display: none;
-    flex-grow: 1;
-    flex-direction: column;
-    overflow: hidden;
-    width: 100%;
 }
 .trackListDiv
 {

@@ -10,6 +10,27 @@ const path = require("path");
 const cs = new CSInterface();
 const stats = require(dir.editorHub.module.stat);
 const defaultSettings = {
+  videoGallery: {
+    playerVolume: {
+      type: "slider",
+      id: "playerVolume",
+      name: "Video player default volume",
+      currentValue: 0.3,
+      defaultValue: 0.3,
+      valueRange: [0, 1, 0.01],
+    },
+    importFromProjectFolder: {
+      type: "dropdown",
+      id: "importFromProjectFolder",
+      name: "Download Footage in:",
+      currentValue: 0,
+      defaultValue: 0,
+      valueArray: [
+        { value: "Project's Folder", input: null },
+        { value: "Editor Hub Resources", input: null },
+      ],
+    },
+  },
   audioTools: {
     playerVolume: {
       type: "slider",
@@ -135,17 +156,18 @@ async function resolveSettings() {
     .catch(async () => {
       await writeFile(
         dir.editorHub.appData.settings,
-        JSON.stringify(defaultSettings)
+        JSON.stringify(defaultSettings, null, 2)
       );
     })
     .catch((e) => global.hubException(e));
 }
 async function getSettingsGroup(settingsGroupName) {
-  return await readFile(dir.editorHub.appData.settings)
-    .then((content) => JSON.parse(content))
-    .then((json) => {
-      return json[settingsGroupName];
-    });
+  const content = await readFile(dir.editorHub.appData.settings);
+  const settings = JSON.parse(content);
+  if (!settings[settingsGroupName]) {
+    settings[settingsGroupName] = defaultSettings[settingsGroupName];
+  }
+  return settings[settingsGroupName];
 }
 async function cacheSettings(target, newValue) {
   if (!global.settingsCache) {
@@ -155,7 +177,7 @@ async function cacheSettings(target, newValue) {
   let settingsGroupName = target.closest("[data-settings-group").dataset
     .settingsGroup;
 
-  let settingsGroup = await getSettingsGroup(settingsGroupName);
+  const settingsGroup = await getSettingsGroup(settingsGroupName);
   if (!global.settingsCache[settingsGroupName]) {
     global.settingsCache[settingsGroupName] = settingsGroup;
   }
@@ -243,6 +265,7 @@ async function clearCache(settingsContainer) {
   toggleActionButtons(settingsContainer, false);
 }
 async function consolidateSettings(container) {
+  console.log();
   if (!global.settingsCache[container.dataset.settingsGroup]) {
     return;
   }
@@ -253,7 +276,7 @@ async function consolidateSettings(container) {
       stats.logSettingsChange(settings);
       return await writeFile(
         dir.editorHub.appData.settings,
-        JSON.stringify(settings)
+        JSON.stringify(settings, null, 2)
       );
     })
     .then(() => clearCache(container));
@@ -278,7 +301,7 @@ async function restoreDefaultSettings(container, settingsGroup) {
       stats.logSettingsChange(settings);
       return await writeFile(
         dir.editorHub.appData.settings,
-        JSON.stringify(settings)
+        JSON.stringify(settings, null, 2)
       );
     })
     .then(() => clearCache(container))

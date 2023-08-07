@@ -3,7 +3,7 @@ const resourceAPI = require(global.dir.editorHub.module.resourceAPI);
 // const settings = require(global.dir.editorHub.module.settings)
 const { readFile } = require("fs/promises");
 const path = require("path");
-// const stat = require(dir.editorHub.module.stat)
+const stats = require(dir.editorHub.module.stat);
 
 let audioContext;
 let currentSourceNode;
@@ -13,13 +13,18 @@ let gainNode;
 function getAudioContext() {
   return audioContext;
 }
-function getsourceNode() {
+function getSourceNode() {
   if (currentSourceNode && currentSourceNode.dropboxPath) {
     return currentSourceNode;
   }
   return null;
 }
 async function renderAudioPlayer(body) {
+  body.pause = () => {
+    if (audioContext.playing) {
+      playPause();
+    }
+  };
   if (!audioContext) {
     audioContext = new AudioContext();
     audioContext.playing = false;
@@ -42,6 +47,7 @@ async function renderAudioPlayer(body) {
   playButton.className = "playButton";
   playButton.addEventListener("mousedown", (event) => {
     event.preventDefault();
+
     if (!currentSourceNode || !currentSourceNode.dropboxPath) {
       previewAudio(event);
     } else {
@@ -65,14 +71,6 @@ async function renderAudioPlayer(body) {
 
   const progressBar = document.createElement("div");
   progressBar.className = "progressBar";
-  // let colorGradients = [
-  //     () => {progressBar.style.backgroundImage = `linear-gradient(to top, rgb(31, 96, 161), rgb(44, 190, 215)`},
-  //     () => {progressBar.style.backgroundImage = `linear-gradient(to top, rgb(161, 31, 87), rgb(235, 59, 36)`},
-  //     () => {timeBar.style.backgroundImage = `linear-gradient(to top, rgb(206, 147, 31), rgb(235, 219, 36)`},
-  //     () => {progressBar.style.backgroundImage = `linear-gradient(to top, rgb(34, 141, 13), rgb(31, 209, 120)`}
-  // ]
-  // let randomNumber = Math.floor(Math.random() * colorGradients.length)
-  // colorGradients[randomNumber]()
 
   const timeJumpBar = document.createElement("div");
   timeJumpBar.className = "timeJumpBar";
@@ -170,6 +168,12 @@ function playPause(dropboxPath, audioBuffer, hardPlay, hardStop, reset) {
     if (reset) {
       audioContext.pausedTime = 0;
     }
+    //Stop video player!
+    let videoPlayer = document.getElementById("videoPlayer");
+    try {
+      videoPlayer.pause();
+    } catch (e) {}
+    //
     currentSourceNode.connect(gainNode);
     currentSourceNode.start(0, audioContext.pausedTime);
     startProgressBar();
@@ -185,7 +189,7 @@ async function previewAudio(event) {
   let dropboxPath;
   let listItem;
   if (event.type == "click") {
-    listItem = target.parentElement.parentElement;
+    listItem = target.closest(".listItem");
     dropboxPath = listItem.id;
   } else if (event.type == "keydown") {
     listItem = target;
@@ -201,6 +205,7 @@ async function previewAudio(event) {
       dropboxPath = currentSourceNode.dropboxPath;
     }
   }
+  stats.logEvent(listItem, event, "preview", dropboxPath);
   if (listItem) {
     currentlyPlaying(listItem, dropboxPath);
   }
@@ -462,5 +467,5 @@ module.exports = {
   adjustVolume,
   getAudioContext,
   playPause,
-  getsourceNode,
+  getSourceNode,
 };

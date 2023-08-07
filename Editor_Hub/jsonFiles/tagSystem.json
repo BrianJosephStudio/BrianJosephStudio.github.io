@@ -35,24 +35,24 @@
         {"tag":"split","displayName":"","description":"Clip takes place on Split"}
     ],
     "guns":[
-        {"tag":"ares","displayName":"","description":"Player gets a kill with Ares"},
-        {"tag":"bucky","displayName":"","description":"Player gets a kill with Bucky"},
-        {"tag":"bulldog","displayName":"","description":"Player gets a kill with Bulldog"},
-        {"tag":"classic","displayName":"","description":"Player gets a kill with Classic"},
-        {"tag":"frenzy","displayName":"","description":"Player gets a kill with Frenzy"},
-        {"tag":"ghost","displayName":"","description":"Player gets a kill with Ghost"},
-        {"tag":"guardian","displayName":"","description":"Player gets a kill with Guardian"},
-        {"tag":"judge","displayName":"","description":"Player gets a kill with Judge"},
-        {"tag":"marshal","displayName":"","description":"Player gets a kill with Marshal"},
-        {"tag":"operator","displayName":"","description":"Player gets a kill with Operator"},
-        {"tag":"odin","displayName":"","description":"Player gets a kill with Odin"},
-        {"tag":"phantom","displayName":"","description":"Player gets a kill with Phantom"},
-        {"tag":"sheriff","displayName":"","description":"Player gets a kill with Sheriff"},
-        {"tag":"shorty","displayName":"","description":"Player gets a kill with Shorty"},
-        {"tag":"spectre","displayName":"","description":"Player gets a kill with Spectre"},
-        {"tag":"stinger","displayName":"","description":"Player gets a kill with Stinger"},
-        {"tag":"vandal","displayName":"","description":"Player gets a kill with Vandal"},
-        {"tag":"knife","displayName":"","description":"Player gets a kill with their Knife"}
+        {"tag":"ares","displayName":"","description":"Player gets a kill with the Ares"},
+        {"tag":"bucky","displayName":"","description":"Player gets a kill with the Bucky"},
+        {"tag":"bulldog","displayName":"","description":"Player gets a kill with the Bulldog"},
+        {"tag":"classic","displayName":"","description":"Player gets a kill with the Classic"},
+        {"tag":"frenzy","displayName":"","description":"Player gets a kill with the Frenzy"},
+        {"tag":"ghost","displayName":"","description":"Player gets a kill with the Ghost"},
+        {"tag":"guardian","displayName":"","description":"Player gets a kill with the Guardian"},
+        {"tag":"judge","displayName":"","description":"Player gets a kill with the Judge"},
+        {"tag":"marshal","displayName":"","description":"Player gets a kill with the Marshal"},
+        {"tag":"operator","displayName":"","description":"Player gets a kill with the Operator"},
+        {"tag":"odin","displayName":"","description":"Player gets a kill with the Odin"},
+        {"tag":"phantom","displayName":"","description":"Player gets a kill with the Phantom"},
+        {"tag":"sheriff","displayName":"","description":"Player gets a kill with the Sheriff"},
+        {"tag":"shorty","displayName":"","description":"Player gets a kill with the Shorty"},
+        {"tag":"spectre","displayName":"","description":"Player gets a kill with the Spectre"},
+        {"tag":"stinger","displayName":"","description":"Player gets a kill with the Stinger"},
+        {"tag":"vandal","displayName":"","description":"Player gets a kill with the Vandal"},
+        {"tag":"knife","displayName":"","description":"Player gets a kill with the their Knife"}
     ],
     "statusEffects":[
         {"tag":"nearsighted","displayName":"near-sighted","description":"Player gets near-sighted"},
@@ -95,7 +95,7 @@
         {"tag":"4k","displayName":"quadra-kill","description":"Player gets a quadra-kill"},
         {"tag":"ace","displayName":"","description":"Player gets an ace"},
         {"tag":"opd","displayName":"opped","description":"Player got killed by an Operator"},
-        {"tag":"dba","displayName":"death-by-ability","description":"Player gets a kill with one of their abilities"}
+        {"tag":"kba","displayName":"kill-by-ability","description":"Player gets a kill with the one of their abilities"}
     ],
     "playerSide":[
         {"tag":"attk","displayName":"attacker","description":"Player is an attacker"},

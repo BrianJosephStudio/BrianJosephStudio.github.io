@@ -2,7 +2,7 @@ const { readFile, writeFile, stat } = require("fs/promises");
 
 const refreshToken =
   "K7p3L2kB-ygAAAAAAAAAAY4BpuZaB5vXaKAKfFTGmpIl9r0KU7eo5He7XG9XueO0";
-
+const tagPaths = [];
 let abortController;
 
 async function generateToken(refreshToken) {
@@ -21,6 +21,7 @@ async function generateToken(refreshToken) {
     });
 }
 async function AccessToken() {
+  console.log("Checks Access Token");
   await checkAccTk(dir.editorHub.jsonFiles.accTk)
     .then(async (isvalid) => {
       if (isvalid == false) {
@@ -49,20 +50,22 @@ async function checkAccTk(filePath) {
     return false;
   }
 }
-async function download(uri, dropboxPath) {
-  return await readFile(global.dir.editorHub.jsonFiles.accTk, {
+async function getAccessToken() {
+  return await readFile(dir.editorHub.jsonFiles.accTk, {
     encoding: "utf-8",
+  }).then((fileData) => {
+    return JSON.parse(fileData).access_token;
+  });
+}
+async function download(uri, dropboxPath, returnBuffer) {
+  const accTk = await getAccessToken();
+  return await fetch("https://content.dropboxapi.com/2/files/download", {
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${accTk}`,
+      "Dropbox-API-Arg": `{"path":"${dropboxPath}"}`,
+    },
   })
-    .then(async (accTk) => {
-      accTk = JSON.parse(accTk).access_token;
-      return await fetch("https://content.dropboxapi.com/2/files/download", {
-        method: "post",
-        headers: {
-          Authorization: `Bearer ${accTk}`,
-          "Dropbox-API-Arg": `{"path":"${dropboxPath}"}`,
-        },
-      });
-    })
     .then((res) => {
       if (!res.ok) {
         return res.json().then((json) => {
@@ -74,12 +77,92 @@ async function download(uri, dropboxPath) {
         return res.arrayBuffer();
       }
     })
-    .then((ab) => Buffer.from(ab))
-    .then(async (file) => {
-      await writeFile(uri, file, null);
-      return true;
+    .then(async (ab) => {
+      const buffer = Buffer.from(ab);
+      if (returnBuffer) {
+        return buffer;
+      } else {
+        await writeFile(uri, buffer, null);
+        return true;
+      }
     })
     .catch((e) => global.hubException(e));
+}
+/*
+async function temporaryLink(dropboxPath) {
+  if (abortController) {
+    abortController.abort();
+  }
+  abortController = new AbortController();
+  const { signal } = abortController;
+  return await readFile(global.dir.editorHub.jsonFiles.accTk, {
+    encoding: "utf-8",
+  })
+    .then(async (accTk) => {
+      accTk = JSON.parse(accTk).access_token;
+      return await fetch("https://content.dropboxapi.com/2/files/download", {
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${accTk}`,
+          "Dropbox-API-Arg": JSON.stringify({ path: dropboxPath }),
+        },
+        signal: signal,
+      });
+    })
+    .then((res) => {
+      abortController == null;
+      if (!res.ok) {
+        throw new Error("something went wrong.");
+      }
+      return res.blob();
+    })
+    .catch((e) => {
+      if (e.name == "AbortError") {
+        abortController == null;
+        return null;
+      } else {
+        console.log(e.message, true);
+        global.hubException(e);
+      }
+    });
+}
+*/
+async function temporaryLink(dropboxPath) {
+  return await getAccessToken()
+    .then(async (accTk) => {
+      return await fetch(
+        `https://api.dropboxapi.com/2/files/get_temporary_link`,
+        {
+          method: "post",
+          headers: {
+            Authorization: `Bearer ${accTk}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            path: dropboxPath,
+          }),
+        }
+      );
+    })
+    .then((res) => {
+      if (res.status !== 200) {
+        res.json().then((e) => {
+          throw new Error(e.error_sumamry);
+        });
+      }
+      return res.json();
+    })
+    .then((content) => {
+      if (!content.link) {
+        throw new Error(content.error_sumamry);
+      }
+      console.log(`Temporary Link Downloaded | dropboxAPI.js:155`);
+      return content.link;
+    })
+    .catch((e) => {
+      hubException(e);
+      return null;
+    });
 }
 /* Returns a readable stream */
 async function streamAudio(audioContext, dropboxPath) {
@@ -180,8 +263,8 @@ const dropboxPath = {
       modules: {
         root: `/BrianJosephStudio.github.io/Editor_Hub/modules`,
         wp_audioTools: `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_audioTools`,
-        wp_footageManager: `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_footageManager`,
-        wp_patchNotes: `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_footageManager`,
+        wp_videoGallery: `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_videoGallery`,
+        wp_patchNotes: `/BrianJosephStudio.github.io/Editor_Hub/modules/wp_patchNotes`,
       },
       jsonFiles: `/BrianJosephStudio.github.io/Editor_Hub/jsonFiles`,
       stats: `/BrianJosephStudio.github.io/Editor_Hub/stats`,
@@ -221,11 +304,41 @@ async function upload(fileData, dropboxPath) {
     return false;
   });
 }
+async function getTags(dropboxPaths) {
+  return await getAccessToken().then(async (accTk) => {
+    return await fetch("https://api.dropboxapi.com/2/files/tags/get", {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${accTk}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paths: dropboxPaths,
+      }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          console.log("res aint ok");
+          await res.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return res.json();
+      })
+      .then((json) => {
+        //paths_to_tags is an array of objects, each object in the array contains 2 properties: path: dropboxPath, tags: array of tag objects for that file. Each tag object has 2 properties: .tag: the type of tag(not useful for the hub),tag_text:this is the actual tag.
+        return json.paths_to_tags;
+      })
+      .catch((e) => hubException(e));
+  });
+}
 module.exports = {
+  dropboxPath,
   AccessToken,
   download,
   getFiles,
+  temporaryLink,
   streamAudio,
-  dropboxPath,
   upload,
+  getTags,
 };
