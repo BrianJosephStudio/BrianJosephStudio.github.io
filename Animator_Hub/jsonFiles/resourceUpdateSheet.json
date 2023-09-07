@@ -1,4 +1,5 @@
 [
     {"number": "0009", "type": "resource", "name": "Split.png", "uri": "UriManager.resources.maps.Split", "newName": "Split.png", "status" : "undefined"},
-    {"number": "0010", "type": "resource", "name": "Bind.png", "uri": "UriManager.resources.maps.Bind", "newName": "Bind.png", "status" : "undefined"}
+    {"number": "0010", "type": "resource", "name": "Bind.png", "uri": "UriManager.resources.maps.Bind", "newName": "Bind.png", "status" : "undefined"},
+    {"number": "0011", "type": "resource", "name": "Breeze.png", "uri": "UriManager.resources.maps.Breeze", "newName": "Sunset.png", "status" : "undefined"}
 ]
