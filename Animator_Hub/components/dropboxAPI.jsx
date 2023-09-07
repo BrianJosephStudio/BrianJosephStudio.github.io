@@ -72,6 +72,7 @@ var DropBoxPath =
             Brimstone : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Brimstone.png",
             Chamber : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Chamber.png",
             Cypher : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Cypher.png",
+            Deadlock : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Deadlock.webp",
             Fade : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Fade.png",
             Gekko: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Gekko.webp",
             Harbor: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Harbor.webp",
@@ -128,7 +129,8 @@ var DropBoxPath =
             Icebox : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Icebox.png",
             Lotus : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Lotus.png",
             Pearl : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Pearl.png",
-            Split :"/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Split.png"
+            Split :"/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Split.png",
+            Sunset :"/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Sunset.png",
         },
         mapSplasharts :
         {
@@ -140,7 +142,8 @@ var DropBoxPath =
             Icebox : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Icebox Splashart.png",
             Lotus : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Lotus Splashart.webp",
             Pearl : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Pearl Splashart.png",
-            Split : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Split Splashart.png"
+            Split : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Split Splashart.png",
+            Sunset : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Sunset Splashart.webp"
         },
         rankBadges : 
         {

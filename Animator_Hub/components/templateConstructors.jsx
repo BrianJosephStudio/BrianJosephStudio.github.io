@@ -262,6 +262,15 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         }, 
+        Deadlock:
+        {
+            saveName: "Deadlock.webp",
+            uri: UriManager.resources.agents.Deadlock,
+            dropboxPath : DropBoxPath.resources.agents.Deadlock,
+            resourceFolder: "Agents",
+            resourceFolderComment: "animHub_agents_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        }, 
         Fade:
         {
             saveName: "Fade.png",
@@ -679,7 +688,16 @@ ResourceFile = function(itemObject)
             resourceFolder: "Maps",
             resourceFolderComment: "animHub_maps_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
-        }
+        },
+        Sunset:
+        {
+            saveName: "Sunset.png",
+            uri: UriManager.resources.maps.Sunset,
+            dropboxPath : DropBoxPath.resources.maps.Sunset,
+            resourceFolder: "Maps",
+            resourceFolderComment: "animHub_maps_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
     },
     this.mapSplasharts =
     {
@@ -763,7 +781,16 @@ ResourceFile = function(itemObject)
             resourceFolder: "Map Splasharts",
             resourceFolderComment: "animHub_mapSplasharts_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
-        }
+        },
+        Sunset:
+        {
+            saveName: "Sunset Splashart.webp",
+            uri: UriManager.resources.mapSplasharts.Sunset,
+            dropboxPath : DropBoxPath.resources.mapSplasharts.Sunset,
+            resourceFolder: "Map Splasharts",
+            resourceFolderComment: "animHub_mapSplasharts_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
     },
     this.rankbadges =
     {

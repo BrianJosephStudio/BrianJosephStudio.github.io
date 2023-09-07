@@ -99,6 +99,7 @@ var UriManager =
             Brimstone : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Brimstone.png",
             Chamber : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Chamber.png",
             Cypher : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Cypher.png",
+            Deadlock : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Deadlock.webp",
             Fade : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Fade.png",
             Gekko: "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Gekko.webp",
             Harbor: "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Harbor.webp",
@@ -155,7 +156,8 @@ var UriManager =
             Icebox : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Icebox.png",
             Lotus : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Lotus.png",
             Pearl : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Pearl.png",
-            Split :"~/DOCUMENTS/Animator%20Hub/Resources/Maps/Split.png"
+            Split :"~/DOCUMENTS/Animator%20Hub/Resources/Maps/Split.png",
+            Sunset :"~/DOCUMENTS/Animator%20Hub/Resources/Maps/Sunset.png",
         },
         mapSplasharts :
         {
@@ -166,7 +168,8 @@ var UriManager =
             Haven : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Haven%20Splashart.png",
             Icebox : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Icebox%20Splashart.png",
             Pearl : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Pearl%20Splashart.png",
-            Split : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Split%20Splashart.png"
+            Split : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Split%20Splashart.png",
+            Sunset : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Sunset%20Splashart.webp",
         },
         rankBadges : 
         {
