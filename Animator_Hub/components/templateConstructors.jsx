@@ -298,6 +298,15 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         },
+        Iso:
+        {
+            saveName: "Iso.png",
+            uri: UriManager.resources.agents.Iso,
+            dropboxPath : DropBoxPath.resources.agents.Iso,
+            resourceFolder: "Agents",
+            resourceFolderComment: "animHub_agents_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
         Jett:
         {
             saveName: "Jett.png",

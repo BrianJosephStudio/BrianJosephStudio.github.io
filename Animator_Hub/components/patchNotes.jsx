@@ -1,4 +1,3 @@
 var patchNotesBodyText =
-"Version 3.16.0\n\
--Breeze Map Updated\
--New Sunset Map Added";
+"Version 3.17.0\n\
+-New Agent Iso integrated"

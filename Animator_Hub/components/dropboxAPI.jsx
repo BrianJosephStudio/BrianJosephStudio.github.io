@@ -76,6 +76,7 @@ var DropBoxPath =
             Fade : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Fade.png",
             Gekko: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Gekko.webp",
             Harbor: "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Harbor.webp",
+            Iso : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Iso.png",
             Jett : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Jett.png",
             KAYO : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/KAYO.png",
             Killjoy : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Killjoy.png",
