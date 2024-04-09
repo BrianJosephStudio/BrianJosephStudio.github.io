@@ -98,6 +98,7 @@ var UriManager =
             Breach : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Breach.png",
             Brimstone : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Brimstone.png",
             Chamber : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Chamber.png",
+            Clove : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Clove.webp",
             Cypher : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Cypher.png",
             Deadlock : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Deadlock.webp",
             Fade : "~/DOCUMENTS/Animator%20Hub/Resources/Agents/Fade.png",

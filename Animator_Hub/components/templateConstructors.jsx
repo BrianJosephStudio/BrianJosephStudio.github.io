@@ -253,9 +253,18 @@ ResourceFile = function(itemObject)
             resourceFolderComment: "animHub_agents_[RF]",
             resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
         }, 
+        Clove:
+        {
+            saveName: "Clove.webp",
+            uri: UriManager.resources.agents.Clove,
+            dropboxPath : DropBoxPath.resources.agents.Clove,
+            resourceFolder: "Agents",
+            resourceFolderComment: "animHub_agents_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        }, 
         Cypher:
         {
-            saveName: "Cypher.png",
+            saveName: "Cypher.webp",
             uri: UriManager.resources.agents.Cypher,
             dropboxPath : DropBoxPath.resources.agents.Cypher,
             resourceFolder: "Agents",

@@ -71,6 +71,7 @@ var DropBoxPath =
             Breach : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Breach.png",
             Brimstone : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Brimstone.png",
             Chamber : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Chamber.png",
+            Clove : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Clove.webp",
             Cypher : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Cypher.png",
             Deadlock : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Deadlock.webp",
             Fade : "/BrianJosephStudio.github.io/Animator_Hub/resources/Agents/Fade.png",

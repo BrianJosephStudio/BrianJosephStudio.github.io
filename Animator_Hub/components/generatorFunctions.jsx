@@ -500,7 +500,7 @@ function generateCCT(menuControl)
         CaseyKing : [true,true,true],
         Teets : [false,true,true],
         DrZora : [true,true,false],
-        LukasBylsma : [true,false,false],
+        Dorshii : [true,false,false],
         Jitterz : [true,false,false],
         xtr : [true,false,false],
         Rem : [false,false,false],
