@@ -1,4 +1,14 @@
 
 Animator_Hub/templates
-Editor_Hub/resources
+Editor_Hub/resources/music
+Editor_Hub/resources/video
+Editor_Hub/resources/sfx
 Editor_Hub/stats
+editorHub_modules_backup
+Animator_Hub/resources/agents/Deadlock.webp
+Animator_Hub/resources/agents/Gekko.webp
+Animator_Hub/resources/maps/Lotus.png
+Animator_Hub/resources/mapSplasharts/Lotus Splashart.webp
+Editor_Hub/modules/youtubeAPI.js
+Animator_Hub/resources/maps/Sunset.png
+Animator_Hub/resources/mapSplasharts/Sunset Splashart.webp
