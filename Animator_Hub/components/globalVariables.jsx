@@ -9,7 +9,7 @@ var scData =
 {
     management: ["Casey King"],
     contentCreation: ["Casey King", "DrZora", "Dorshii", "xtr", "Rem", "Coach Mills"],
-    voice: ["Daniel Amerman", "Tristan Stone", "Sean Kilgore", "Casey King", "Teets", "Coach Mills,", " Mr. Frost"],
+    voice: ["Daniel Amerman", "Tristan Stone", "Sean Kilgore", "Casey King", "Teets", "Coach Mills", " Mr. Frost"],
     artDirection: ["Brian Ure"],
     clipping: ["Strike", "Teets", "Casey King", "Aomine", "Jez", "Louise"],
     videoDirection: ["Jez", "Kester De Vera", "Chuuya", "Louise David", "Kirby"],
