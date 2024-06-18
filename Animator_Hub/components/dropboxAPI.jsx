@@ -123,6 +123,7 @@ var DropBoxPath =
         },
         maps :
         {
+            Abyss : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Abyss.webp",
             Ascent : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Ascent.png",
             Bind : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Bind.png",
             Breeze : "/BrianJosephStudio.github.io/Animator_Hub/resources/Maps/Breeze.png",
@@ -136,6 +137,7 @@ var DropBoxPath =
         },
         mapSplasharts :
         {
+            Abyss : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Abyss Splashart.webp",
             Ascent : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Ascent Splashart.png",
             Bind : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Bind Splashart.png",
             Breeze : "/BrianJosephStudio.github.io/Animator_Hub/resources/mapSplasharts/Breeze Splashart.png",

@@ -626,6 +626,15 @@ ResourceFile = function(itemObject)
     },
     this.maps =
     {
+        Abyss:
+        {
+            saveName: "Abyss.webp",
+            uri: UriManager.resources.maps.Abyss,
+            dropboxPath : DropBoxPath.resources.maps.Abyss,
+            resourceFolder: "Maps",
+            resourceFolderComment: "animHub_maps_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
         Ascent:
         {
             saveName: "Ascent.png",
@@ -719,6 +728,15 @@ ResourceFile = function(itemObject)
     },
     this.mapSplasharts =
     {
+        Abyss:
+        {
+            saveName: "Abyss Splashart.webp",
+            uri: UriManager.resources.mapSplasharts.Abyss,
+            dropboxPath : DropBoxPath.resources.mapSplasharts.Abyss,
+            resourceFolder: "Map Splasharts",
+            resourceFolderComment: "animHub_mapSplasharts_[RF]",
+            resolve: function(){return resolveFunction(this.saveName,this.dropboxPath,this.uri)}
+        },
         Ascent:
         {
             saveName: "Ascent Splashart.png",

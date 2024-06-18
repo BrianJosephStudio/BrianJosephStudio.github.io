@@ -149,6 +149,7 @@ var UriManager =
         },
         maps :
         {
+            Abyss : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Abyss.webp",
             Ascent : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Ascent.png",
             Bind : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Bind.png",
             Breeze : "~/DOCUMENTS/Animator%20Hub/Resources/Maps/Breeze.png",
@@ -162,6 +163,7 @@ var UriManager =
         },
         mapSplasharts :
         {
+            Abyss : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Abyss%20Splashart.webp",
             Ascent : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Ascent%20Splashart.png",
             Bind : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Bind%20Splashart.png",
             Breeze : "~/DOCUMENTS/Animator%20Hub/Resources/Map%20Splasharts/Breeze%20Splashart.png",
